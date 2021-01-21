@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            第三章 WebKit架构和模块 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">第三章 WebKit架构和模块</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv1</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-01-21 22:15:00
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/WebKit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/">WebKit技术内幕</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/WebKit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E4%B8%89%E7%AB%A0-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/">第三章 WebKit架构和模块</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WebKit/">WebKit</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>4.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>15 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><meta name="referrer" content="no-referrer" />
+
+<h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   target="_blank" rel="noopener" href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/3NEAHZuv3WuglE3I.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
+<p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
+<p>在“操作系统”层之上的就是WebKit赖以工作的<strong>第三方库</strong>，这些库是WebKit运行的基础。通常来讲，它们包括<strong>图形库</strong>、<strong>网络库</strong>、<strong>视频库</strong>等。</p>
+<p>在它们二者之上的就是WebKit项目，图中把它细分为两层，每层包含很多模块，由于图的大小限制，略去了其中一些次要模块。这些模块支撑网页加载和渲染过程。</p>
+<p><strong>WebCore</strong>是加载和渲染网页的基础部分，包括<strong>HTML解释器</strong>、<strong>CSS解释器</strong>、<strong>SVG</strong>、<strong>DOM</strong>、<strong>渲染树</strong>（RenderObject树、RenderLayer树等），以及<strong>Inspector</strong>（Web Inspector、调试网页）。这些共享部分有些是基础框架，其背后的支持也需要各个平台的不同实现。WebCore这些部分主要被加载和渲染过程的第一、二阶段所使用。</p>
+<p><strong>JavaScriptCore引擎</strong>是WebKit中的默认JavaScript 引擎，WebKit 中对JavaScript 引擎的调用是独立于引擎的。</p>
+<p><strong>WebKit Ports</strong>指的是WebKit中的非共享部分，包括<strong>硬件加速架构</strong>、<strong>网络栈</strong>、<strong>视频解码</strong>、<strong>图片解码</strong>等。这些模块由于平台差异、依赖的第三方库和需求不同等方面原因，就产生了移植部分，导致众多WebKit版本的行为并非一致。</p>
+<p>在WebCore和WebKit Ports之上的层主要是提供嵌入式编程接口，是提供给浏览器调用的。图中左右两个部分分别是<strong>狭义WebKit的接口</strong>和<strong>WebKit2的接口</strong>。因为接口与具体的移植有关，所以有一个与浏览器相关的<strong>绑定层，</strong>绑定层上面就是WebKit项目对外暴露的接口层。接口层的定义也是与移植密切相关的。</p>
+<p>WebKit还有一个部分<strong>测试用例</strong>在图中没有展现出来，包括<strong>布局测试用例</strong>（Layout Tests）和<strong>性能测试用例</strong>（Performance Tests），这两类测试包含了大量的测试用例和期望结果。总体上来讲WebKit移植还是共享大量的用例。这些用例被用来验证渲染结果的正确性。每个浏览器所用的WebKit必须保证能够编译出来一个可执行程序，称为DumpRenderTree，它被用来运行测试用例并将渲染结果同期望结果对比。</p>
+<h2 id="3-2-基于Blink的Chromium浏览器结构"><a href="#3-2-基于Blink的Chromium浏览器结构" class="headerlink" title="3.2 基于Blink的Chromium浏览器结构"></a>3.2 基于Blink的Chromium浏览器结构</h2><h3 id="3-2-1-Chromium浏览器的架构及模块"><a href="#3-2-1-Chromium浏览器的架构及模块" class="headerlink" title="3.2.1 Chromium浏览器的架构及模块"></a>3.2.1 Chromium浏览器的架构及模块</h3><p>Chromium也是基于WebKit（Blink）的。</p>
+<h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><h3 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/IinKReweDux5nZou.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></h3><p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
+<p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
+<p>Content模块和Content API将下面的渲染机制、安全机制和插件机制等隐藏起来，提供一个接口层。该接口目前被上层模块或者其他项目使用，内部调用者包括Chromium浏览器、Content Shell 等，外部包括<strong>CEF</strong>（Chromium Embedded Framework）、Opera 浏览器等。</p>
+<p><strong>Chromium浏览器</strong>和<strong>Content Shell</strong>是构建在Content API之上的两个“浏览器”，Chromium具有浏览器完整的功能，而Content Shell是使用Content API来包装的一层简单的“壳”，但也是一个简单的“浏览器”，用户可以使用Content模块来渲染和显示网页内容。Content Shell的作用，其一可以用来测试Content模块很多功能的正确性，例如渲染、硬件加速等；其二是一个参考，可以被很多外部的项目参考来开发基于Content API的浏览器或者各种类型的项目。</p>
+<p>在Android系统上，ContentShell的作用更大，这是因为同它并排的左侧的Chromium浏览器的代码没有开源，导致开发者只能依赖Content Shell。</p>
+<p><strong>Android WebView</strong>是为了满足Android系统上的WebView而设计的，其思想是利用Chromium的实现来替换原来Android系统默认的WebView。</p>
+<h4 id="3-2-1-2-多进程模型"><a href="#3-2-1-2-多进程模型" class="headerlink" title="3.2.1.2 多进程模型"></a>3.2.1.2 多进程模型</h4><p>多进程模型的好处：</p>
+<ol>
+<li>避免因单个页面的不响应或者崩溃而影响整个浏览器的稳定性，特别是对用户界面的影响；</li>
+<li>当第三方插件崩溃时不会影响页面或者浏览器的稳定性，因为第三方插件也被使用单独的进程来运行；</li>
+<li>方便了安全模型的实施，也就是沙箱模型是基于多进程架构的。这很大程度上也是WebKit2 产生的原因。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/qT1uN6gND8xF5hwh.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
+<p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
+<p><strong>Renderer进程</strong>：网页的渲染进程，负责页面的渲染工作，Blink/WebKit 的渲染工作主要在这个进程中完成，可能有多个，但是Renderer 进程的数量与用户打开的网页数量不一定一致。因为Chromium允许用户配置，此外在沙箱模型启动的情况下，该进程可能会发生一些改变。</p>
+<p><strong>NPAPI插件进程</strong>：该进程是为NPAPI 类型的插件而创建的。其创建的基本原则是每种类型的插件只会被创建一次，而且仅当使用时才被创建。当多个网页使用同一种类型的插件的时候，进程会为每个使用者创建一个实例，所以插件进程是被共享的。</p>
+<p><strong>GPU进程</strong>：最多只有一个，当且仅当GPU硬件加速打开的时候才会被创建，主要用于对3D图形加速调用的实现。</p>
+<p><strong>Pepper插件进程</strong>：同NPAPI插件进程，不同的是为Pepper 插件而创建的进程。</p>
+<p><strong>其他类型的进程</strong>：图中还有一些其他类型的进程在之后介绍。</p>
+<p>对于桌面系统（Windows、Linux、Mac OS）中的Chromium浏览器，它们的进程模型总结后包括以下一些特征：</p>
+<ol>
+<li>Browser进程和页面的渲染是分开的，页面渲染导致的崩溃不会导致浏览器主界面的崩溃。</li>
+<li>每个网页是独立的进程，这保证了页面之间相互不影响。</li>
+<li>插件进程也是独立的，插件本身的问题不会影响浏览器主界面和网页。</li>
+<li>GPU 硬件加速进程也是独立的。</li>
+</ol>
+<p>对于Chromium的Android版，主体进程模型大致相同，不同主要指：</p>
+<ol>
+<li><strong>GPU进程，</strong>GPU进程演变成Browser进程的一个线程，目的之一是节省资源。</li>
+<li><strong>Renderer进程，</strong>Android版不支持插件，所以没有插件进程，Renderer也是独立的进程，但是会演变成Android上的服务（service）进程。而且由于Android系统的局限性，Renderer进程的数目会被严格限制，这就涉及到了影子（Phantom）标签的议题。影子标签就是浏览器会将后台的网页所使用的渲染设施都清除，只是原来的一个影子，当用户再次切换的时候，网页需要重新加载和渲染。</li>
+</ol>
+<p>Chromium允许用户配置Renderer 进程被创建的方式，模型的类型有：</p>
+<ol>
+<li><strong>Process-per-site-instance</strong>：该类型的含义是为每一个页面都创建一个独立的Render进程，不管这些页面是否来自于同一域。好处是每个页面互不影响，坏处是资源的浪费。</li>
+<li><strong>Process-per-site</strong>：该类型的含义是属于同一个域的页面共享同一个进程，而不同属一个域的页面则分属不同的进程。好处是对于相同的域，进程可以共享，内存消耗相对较小，坏处是可能会有特别大的Renderer 进程。</li>
+<li><strong>Process-per-tab</strong>：该类型的含义是为每个标签页都创建一个独立的进程，而不管它们是否是不同域不同实例，这也是Chromium的默认行为，但会浪费资源。</li>
+<li><strong>Single process</strong>：该类型的含义是不为页面创建任何独立的进程，所有渲染工作都在Browser进程中进行，它们是Browser进程中的多个线程。这个类型在桌面系统上一般不推荐使用，只有在比较单进程和多进程时相对有用，但在Chromium的Android版本上，在Android WebView中，该模式被采用。<h4 id="3-2-1-3-Browser进程和Renderer进程"><a href="#3-2-1-3-Browser进程和Renderer进程" class="headerlink" title="3.2.1.3 Browser进程和Renderer进程"></a>3.2.1.3 Browser进程和Renderer进程</h4></li>
+</ol>
+<p>Browser进程和Renderer进程都是在WebKit的接口之外由Chromium引入的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/CTnRBqgG4ElY7uhV.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
+<p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
+<p><strong>Renderer</strong>，主要处理进程间通信，接受来自Browser进程的请求，并调用相应的WebKit接口层。同时将WebKit的处理结果发送回去。上面这些层都是在Renderer进程中工作的。</p>
+<p><strong>RendererHost</strong>，目的也是处理同Renderer进程之间的通信，不过RendererHost是给Renderer进程发送请求并接收来自Renderer进程的结果。</p>
+<p><strong>Web Contents</strong>表示的是网页的内容，它同时包括显示网页内容的子窗口，子窗口最后被嵌入浏览器的用户界面，作为它的一个标签页。</p>
+<h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/vbkdMTBjTVYMog53.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
+<ol>
+<li>Browser进程收到用户的请求，首先由UI线程处理，而且将相应的任务转给IO线程，它随即将该任务传递给Renderer进程。</li>
+<li>Renderer进程的IO线程经过解释后交给渲染线程。渲染线程接受请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染。最后Renderer进程将结果由IO线程传递给Browser进程。</li>
+<li>最后，Browser进程接收到结果并将结果绘制出来。</li>
+</ol>
+<p>Chromium为了保持线程间通信和同步，同时避免造成死锁或者资源的竞争冲突等问题，在绝大多数的场景，使用事件和一种Chromium新创建的任务传递机制，仅在非用不可的情况下才使用锁或者线程安全对象。</p>
+<h4 id="3-2-1-5-Content接口"><a href="#3-2-1-5-Content接口" class="headerlink" title="3.2.1.5 Content接口"></a>3.2.1.5 Content接口</h4><p>Content接口不仅提供了一层对多进程进行渲染的抽象接口，而且它支持所有的HTML5功能、GPU硬件加速功能和沙箱机制。Content接口按照功能分成六个部分，每个部分的接口一般也可以分成两类，第一类是嵌入者（可以是Chromium浏览器、CEF3和Content Shell）调用的接口，另一类是嵌入者应该实现的回调接口，被Content接口的内部实现所调用，用来参与具体实现的逻辑或者事件的监听等。</p>
+<ol>
+<li><strong>App</strong>。这部分主要与应用程序或者进程的创建和初始化相关，它被所有的进程使用，用来处理一些进程的公共操作。包括两种类型，第一类主要包括进程创建的初始化函数，也就是Content模块的初始化和关闭动作；第二类主要是各种回调函数，用来告诉嵌入者启动完成，进程启动、退出，沙盒模型初始化开始和结束等。</li>
+<li><strong>Browser</strong>。第一类包括对一些HTML5功能和其他高级功能实现的参与。第二类主要是实现部分的逻辑，被Browser进程调用，还有就是一些事件的函数回调。</li>
+<li><strong>Common</strong>。主要定义一些公共的接口，这些被Renderer和Browser共享，例如一些进程相关、参数、GPU相关等。</li>
+<li><strong>Plugin</strong>。仅有一个接口类，通知嵌入者Plugin进程何时被创建。</li>
+<li><strong>Renderer</strong>。第一类包含获取RenderThread的消息循环、注册V8Extension、计算JavaScript表达式等。第二类包括ContentRendererClient，主要是实现部分逻辑，被Browser端（或者进程）调用，还有就是一些事件的函数回调。</li>
+<li><strong>Utility</strong>。工具类接口，主要包括让嵌入者参与Content接口中的线程创建和消息的过滤。<h2 id="3-3-WebKit2"><a href="#3-3-WebKit2" class="headerlink" title="3.3 WebKit2"></a>3.3 WebKit2</h2></li>
+</ol>
+<h3 id="3-3-1-WebKit2架构及模块"><a href="#3-3-1-WebKit2架构及模块" class="headerlink" title="3.3.1 WebKit2架构及模块"></a>3.3.1 WebKit2架构及模块</h3><p>相比于狭义的WebKit，WebKit2是一套全新的结构和接口。它主要目的和思想同Chromium类似，就是将渲染过程放在单独的进程中来完成，独立于用户界面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/DcFsDgQUQEzoXb3W.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
+<h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
+<p>在WebKit项目中，狭义WebKit的接口主要思想是将网页的渲染结果作为用户界面中的一个窗口部件，它用来显示网页的内容。按功能大致可以把所有接口分成六种类型：</p>
+<ol>
+<li>设置加载网页、获取加载进度、停止加载、重新加载等；</li>
+<li>遍历前后浏览记录类，可以前进、后退等；</li>
+<li>网页的很多设置，例如缩放、主题、背景、模式、编码等；</li>
+<li>查找网页的内容、高亮等；</li>
+<li>触控事件、鼠标事件处理；</li>
+<li>查看网页源代码、显示调试窗口等与开发者相关的接口，是通常的嵌入式接口提供的功能。</li>
+</ol>
+<p>WebKit2接口不同于WebKit的接口，它们是不兼容的，但目的都是提供嵌入式的应用接口。WebKit2接口大致可以分为两个大的部分，</p>
+<ol>
+<li><strong>WebView相关的接口</strong>，表示渲染的设置、渲染过程、界面等，其中大多数跟各个移植紧密相关。有三个主要的类，它们被各个移植所共享。<ol>
+<li>WKView[Ref]：表示的是一个与平台相关的视图，例如在Windows上它表示的就是一个窗口的句柄。</li>
+<li>WKContextRef：所有页面的上下文，这些被共享的信息包括local storage、设置等。</li>
+<li>WKPageRef：表示网页，也就是浏览的基本单位。</li>
+</ol>
+</li>
+<li>上面<strong>接口依赖的基础类</strong>，它们被各个移植所共享，既包括容器、字符串等基础类，也包括跟网页相关的基础类，例如URL、请求、网页设置等。</li>
+</ol>
+<p>WebKit2还有WebBundle接口，在Web进程里，其目的是让某些移植访问DOM，目前还没有明确的需求。</p>
+<h3 id="3-3-3-比较WebKit2和Chromium的多进程模型以及接口"><a href="#3-3-3-比较WebKit2和Chromium的多进程模型以及接口" class="headerlink" title="3.3.3 比较WebKit2和Chromium的多进程模型以及接口"></a>3.3.3 比较WebKit2和Chromium的多进程模型以及接口</h3><p>下图详细描述了WebKit 接口和Chromium的多进程的关系，以及和Content接口的关系。前面笔者也介绍了一些，例如Renderer进程直接调用WebKit接口，以及和Content接口允许应用程序注入并参与Content之下各个进程的内部逻辑。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://uploader.shimo.im/f/IZ9qB9RUHmSwUfSc.png!thumbnail?fileGuid=9030MK2NX4Te8Pqw"
+                      alt="图片"
+                ></p>
+<p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
+<p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
+<p>最后，Chromium中每个进程都是从相同的二进制可执行文件启动，而基于WebKit2的进程则未必如此。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：第三章 WebKit架构和模块</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-21 22:15:00</li>
+        <li>
+            本文链接：huonenumber.github.io2021/01/21/学习笔记/webkit技术内幕/第三章 WebKit架构和模块/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">第二章 HTML网页和结构</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-WebKit-%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A8%A1%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">3.1 WebKit 架构及模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E8%8E%B7%E5%8F%96WebKit"><span class="nav-number">1.1.</span> <span class="nav-text">3.1.1 获取WebKit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-WebKit-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">3.1.2 WebKit 架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E5%9F%BA%E4%BA%8EBlink%E7%9A%84Chromium%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">3.2 基于Blink的Chromium浏览器结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Chromium%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.</span> <span class="nav-text">3.2.1 Chromium浏览器的架构及模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.1.</span> <span class="nav-text">3.2.1.1 架构和模块</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.1.</span> <span class="nav-text">3.2.1.2 多进程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-3-Browser%E8%BF%9B%E7%A8%8B%E5%92%8CRenderer%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">3.2.1.3 Browser进程和Renderer进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-4-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.3.</span> <span class="nav-text">3.2.1.4 多线程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-5-Content%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.4.</span> <span class="nav-text">3.2.1.5 Content接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-WebKit2"><span class="nav-number">3.</span> <span class="nav-text">3.3 WebKit2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-WebKit2%E6%9E%B6%E6%9E%84%E5%8F%8A%E6%A8%A1%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">3.3.1 WebKit2架构及模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-WebKit-%E5%92%8CWebKit2%E5%B5%8C%E5%85%A5%E5%BC%8F%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">3.3.2 WebKit 和WebKit2嵌入式接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-%E6%AF%94%E8%BE%83WebKit2%E5%92%8CChromium%E7%9A%84%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B%E4%BB%A5%E5%8F%8A%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.</span> <span class="nav-text">3.3.3 比较WebKit2和Chromium的多进程模型以及接口</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
