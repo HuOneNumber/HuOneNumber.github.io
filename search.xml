@@ -23,7 +23,7 @@
 <h4 id="2-3-2-1-第一个阶段：从网页的URL到构建DOM树"><a href="#2-3-2-1-第一个阶段：从网页的URL到构建DOM树" class="headerlink" title="2.3.2.1 第一个阶段：从网页的URL到构建DOM树"></a>2.3.2.1 第一个阶段：从网页的URL到构建DOM树</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/uSXBGLwftTz59OfO.png!thumbnail?fileGuid=16q8MmOMb5Sr6Lk7"
+                     data-src="./images/uSXBGLwftTz59OfO.png"
                       alt="图片"
                 ></p>
 <p>具体的过程如下：</p>
@@ -41,7 +41,7 @@
 <h4 id="2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文"><a href="#2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文" class="headerlink" title="2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文"></a>2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/5zAmE3T5IrREBagI.png!thumbnail?fileGuid=16q8MmOMb5Sr6Lk7"
+                     data-src="./images/5zAmE3T5IrREBagI.png"
                       alt="图片"
                 ></p>
 <p>这一阶段的具体过程如下。</p>
@@ -54,7 +54,7 @@
 <h4 id="2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。"><a href="#2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。" class="headerlink" title="2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。"></a>2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/3oObbcPTpx9gzPCi.png!thumbnail?fileGuid=16q8MmOMb5Sr6Lk7"
+                     data-src="./images/3oObbcPTpx9gzPCi.png"
                       alt="图片"
                 ></p>
 <p>图中这一阶段对应的具体过程如下。</p>
