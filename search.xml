@@ -3,9 +3,7 @@
   <entry>
     <title>第二章 HTML网页和结构</title>
     <url>/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
+    <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
 <h2 id="2-1-网页构成"><a href="#2-1-网页构成" class="headerlink" title="2.1 网页构成"></a>2.1 网页构成</h2><h3 id="2-1-1-基本元素和树状结构"><a href="#2-1-1-基本元素和树状结构" class="headerlink" title="2.1.1 基本元素和树状结构"></a>2.1.1 基本元素和树状结构</h3><p>现在的网页基本上都是动态网页（Dynamic HTML），这就需要JavaScript代码用来控制网页内部的逻辑，CSS用来描述网页的显示信息。</p>
 <p>整个网页可以看成一种树状结构，其树根是html，这是网页的根元素（或称节点）。根下面包含两个子节点head和body。</p>
 <h3 id="2-1-2-HTML-5新特性"><a href="#2-1-2-HTML-5新特性" class="headerlink" title="2.1.2 HTML.5新特性"></a>2.1.2 HTML.5新特性</h3><p>HTML5引入的对2D和3D图形以及多媒体方面的支持，将彻底改变网页的渲染方式和复杂度，包括但是不限于：</p>
@@ -80,9 +78,7 @@
   <entry>
     <title>第四章 资源加载和网络栈</title>
     <url>/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
+    <content><![CDATA[<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
 <h2 id="4-1-WebKit资源加载机制"><a href="#4-1-WebKit资源加载机制" class="headerlink" title="4.1 WebKit资源加载机制"></a>4.1 WebKit资源加载机制</h2><h3 id="4-1-1资源"><a href="#4-1-1资源" class="headerlink" title="4.1.1资源"></a>4.1.1资源</h3><p>网页本身就是一种资源，而且网页还需要依赖很多其他类型的资源，例如图片、视频等。</p>
 <p>HTML支持的资源主要包括以下类型。</p>
 <ol>
@@ -241,9 +237,7 @@
   <entry>
     <title>第三章 WebKit架构和模块</title>
     <url>/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E4%B8%89%E7%AB%A0%20WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
+    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
 <p><img  
                      lazyload

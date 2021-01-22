@@ -19,7 +19,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
   </script>
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
@@ -239,11 +239,10 @@
 
                 <div class="home-article-content markdown-body">
                     
-                        
-
-使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。
+                        使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。
 4.1 WebKit资源加载机制4.1.1资源网页本身就是一种资源，而且网页还需要依赖很多其他类型的资源，例如图片、视频等。
-HTML支持的资源主要包括以下类型...
+HTML支持的资源主要包括以下类型。
+...
                     
                 </div>
 
@@ -307,10 +306,8 @@ HTML支持的资源主要包括以下类型...
 
                 <div class="home-article-content markdown-body">
                     
-                        
-
-3.1 WebKit 架构及模块3.1.1 获取WebKitWebKit是一个开源项目，可以从www.webkit.org官方网站下载源代码。
-3.1.2 WebKit 架构WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKi...
+                        3.1 WebKit 架构及模块3.1.1 获取WebKitWebKit是一个开源项目，可以从www.webkit.org官方网站下载源代码。
+3.1.2 WebKit 架构WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中...
                     
                 </div>
 
@@ -374,10 +371,8 @@ HTML支持的资源主要包括以下类型...
 
                 <div class="home-article-content markdown-body">
                     
-                        
-
-HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。
-2.1 网页构成2.1.1 基本元素和树状结构现在的网页基本上都是动态网页（Dynamic HTML），这就需要J...
+                        HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。
+2.1 网页构成2.1.1 基本元素和树状结构现在的网页基本上都是动态网页（Dynamic HTML），这就需要Jav...
                     
                 </div>
 
@@ -455,7 +450,7 @@ HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据
             
               <span>2021</span> -
             
-            2021 <i class="fas fa-heart icon-animate"></i> <a href="/">胡倚豪</a>
+            2021 &nbsp; <a href="/">胡倚豪</a>
         </div>
         
             <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -472,9 +467,9 @@ HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据
                 
             </div>
         
-        <div class="theme-info info-item">
+        <!-- <div class="theme-info info-item">
             由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
-        </div>
+        </div> -->
     </div>
 </footer>
 
