@@ -390,7 +390,7 @@
   </entry>
   <entry>
     <title></title>
-    <url>/2021/01/22/note/HTTP/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20URL%E4%B8%8E%E8%B5%84%E6%BA%90/</url>
+    <url>/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/</url>
     <content><![CDATA[<h2 id="URL语法"><a href="#URL语法" class="headerlink" title="URL语法"></a><strong>URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
 <p><strong>URL通用格式</strong>：<scheme>://<user>:<password>@<host>:<port>/ <path> ; <params>? <query>#<frag>，分别代表方案、用户、密码、主机、端口、路径、参数、查询、片段，其中最重要的是<strong>方案、主机、和路径</strong>。</p>
 <p>|<strong>组件</strong>|<strong>描述</strong>|<strong>默认值</strong>|<br>|:—-:|:—-|:—-|:—-|:—-:|:—-|<br>|方案|用什么协议获取资源，大小写无关，比如http|无|<br>|用户|某些方案下访问资源时需要的用户名，比如FTP|匿名|<br>|密码|用户名后面可能包含的密码，由冒号（：）分隔|E-mail地址|<br>|主机|服务器位置，也就是资源在哪里，可以是域名（会被解析）或IP地址|无|<br>|端口|资源宿主服务器正在监听的端口号。很多方案都有默认端口号（HTTP的默认端口号为80）|方案特有|<br>|路径|资源路径，服务器上的本地资源名，由斜杠（/）分隔|无|<br>|参数|某些方案会用这个组件来指定输入参数。参数为名/值对。可以包含多个参数字段，它们相互之间以及与路径其余部分用分号（；）分隔|无|<br>|查询|某些方案会用这个组件传递参数以激活应用程序（比如数据库、公告板、搜索引擎以及其他因特网网关）。查询组件的内容没有通用格式。用“？”将其与其余部分分隔开来。按照常规，查询字符串以一系列“名/值”对的形式出现，名值对之间用字符“&amp;”分隔：|无|<br>|片段|一小片或一部分资源的名字。引用对象时，不会将frag字段传送给服务器，字段是在客户端内部使用的。通过字符“#”将其与URL的其余部分分隔开来|无|</p>
@@ -438,7 +438,7 @@
   </entry>
   <entry>
     <title></title>
-    <url>/2021/01/22/note/HTTP/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
+    <url>/2021/01/22/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h2 id="TCP链接"><a href="#TCP链接" class="headerlink" title="TCP链接"></a>TCP链接</h2><h3 id="TCP的可靠数据管道"><a href="#TCP的可靠数据管道" class="headerlink" title="TCP的可靠数据管道"></a>TCP的可靠数据管道</h3><p>HTTP连接实际，上就是TCP连接和一些使用连接的规则，TCP为HTTP提供了一条可靠的比特传输管道。</p>
 <h3 id="TCP流、IP分组"><a href="#TCP流、IP分组" class="headerlink" title="TCP流、IP分组"></a>TCP流、IP分组</h3><p>TCP的数据是通过IP分组（IP 数据报）的小数据块来发送的。安全版本HTTPS就是在HTTP和TCP之间插入了一个（称为TLS或SSL的）密码加密层图。</p>
 <p><img  
