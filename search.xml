@@ -78,9 +78,11 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>第四章 资源加载和网络栈</title>
     <url>/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/</url>
-    <content><![CDATA[<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
 <h2 id="4-1-WebKit资源加载机制"><a href="#4-1-WebKit资源加载机制" class="headerlink" title="4.1 WebKit资源加载机制"></a>4.1 WebKit资源加载机制</h2><h3 id="4-1-1资源"><a href="#4-1-1资源" class="headerlink" title="4.1.1资源"></a>4.1.1资源</h3><p>网页本身就是一种资源，而且网页还需要依赖很多其他类型的资源，例如图片、视频等。</p>
 <p>HTML支持的资源主要包括以下类型。</p>
 <ol>
@@ -227,13 +229,21 @@
 <h4 id="4-3-2-4-域名解析（DNS）"><a href="#4-3-2-4-域名解析（DNS）" class="headerlink" title="4.3.2.4 域名解析（DNS）"></a>4.3.2.4 域名解析（DNS）</h4><p>通常情况下，用户都是使用域名来访问网络资源的，所以在建立TCP连接前需要解析域名。Chromium中使用HostResolverImpl类来解析域名，具体调用的函数是“getaddrinfo（）”，该函数是一个阻塞式的函数，所以Chromium理所当然使用单独的线程来处理它，这是Chromium的原则之一。因此当调试Chromium的进程时，会看到很多线程被创建然后退出。</p>
 <p>为了考虑效率，使用HostCache类来保存解析后的域名，最多时会有多达1000个的域名和地址映射关系会被存储起来。看起来DNS的解析很简单，好像也没有什么值得深究的，其实不然，域名解析也可以有优化的空间，因为优化可以有效的减少用户等待的时间。</p>
 ]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>WebKit技术内幕</category>
+        <category>第四章 资源加载和网络栈</category>
+      </categories>
+      <tags>
+        <tag>WebKit</tag>
+      </tags>
   </entry>
   <entry>
     <title>第三章 WebKit架构和模块</title>
     <url>/2021/01/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/webkit%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/%E7%AC%AC%E4%B8%89%E7%AB%A0%20WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><meta name="referrer" content="no-referrer" />
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
-<h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
+<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
 <p><img  
                      lazyload
