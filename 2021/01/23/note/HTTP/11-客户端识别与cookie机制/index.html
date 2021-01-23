@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            11-客户端识别与cookie机制 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">11-客户端识别与cookie机制</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv2</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-01-23 18:59:04
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/">11-客户端识别与cookie机制</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>3.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>11 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="11-1-个性化接触"><a href="#11-1-个性化接触" class="headerlink" title="11.1 个性化接触"></a>11.1 个性化接触</h2><p>现代的Web站点希望能够提供个性化的接触，希望对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。用户的识别机制：</p>
+<ol>
+<li><strong>HTTP首部</strong>，承载了用户身份信息。</li>
+<li><strong>客户端IP地址跟踪</strong>，通过用户的IP地址对其进行识别。</li>
+<li><strong>用户登录</strong>，用认证方式来识别用户。</li>
+<li><strong>胖URL</strong>，在URL中嵌人识别信息的技术。</li>
+<li><strong>cookie</strong>，持久身份识别技术。<h2 id="11-2-HTTP首部"><a href="#11-2-HTTP首部" class="headerlink" title="11.2 HTTP首部"></a>11.2 HTTP首部</h2></li>
+</ol>
+<p>七种常见的用来承载用户相关信息的HTTP请求首部，后四个首部用于更高级的识别技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/OGLHbPyUzYspa9X1__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p>由于有些服务器会搜集E-mail地址，用于垃圾邮件的散发，所以很少有浏览器会发送From首部。实际上，From首部是由自动化的机器人或蜘蛛发送的。</p>
+<p>User-Agent首部包括浏览器的名称和版本，操作系统的相关信息。用于实现定制内容与特定的浏览器及其属性间的良好互操作，但并没有为识别特定的用户提供太多帮助。</p>
+<p>Referer首部提供了用户来源页面的URL。Referer首部自身并不能完全标识用户，但它说明了用户之前访问过哪个页面。通过它可以更好地理解用户的浏览行为，以及用户的兴趣所在。</p>
+<p>From、User-Agent和Referer首部都不足以实现可靠的识别。</p>
+<h2 id="11-3-客户端IP地址"><a href="#11-3-客户端IP地址" class="headerlink" title="11.3 客户端IP地址"></a>11.3 客户端IP地址</h2><p>通常HTTP首部并不提供客户端的IP地址（有些代理会舔加Client-IP首部），但Web服务器可以找到承载HTTP请求的TCP连接另一端的IP地址。</p>
+<p>使用客户端IP地址来识别用户存在着很多缺点，限制了将其作为用户识别技术的效能：</p>
+<ol>
+<li>客户端IP地址描述的是所用的机器，而不是用户。如果多个用户共享同一台计算机，就无法对其进行区分。</li>
+<li>很多因特网服务提供商都会在用户登录时为其动态分配IP地址。用户每次登录时，都会得到一个不同的地址。</li>
+<li>为了提高安全性，并对稀缺的地址资源进行管理，很多用户通过<strong>网络地址转换</strong>（Network Address Translation，NAT）防火墙来浏览网络内容的。NAT设备将了防火墙后面的实际客户端的IP地址转换成了一个共享的防火墙IP地址（和不同的端口号）。</li>
+<li>HTTP代理和网关通常会打开一些新的到原始服务器的TCP连接。Web服务器看到的将是代理服务器的IP地址，而不是客户端的。但个别代理会添加特殊的Client-IP或x-Forwarded-For扩展首部来保存原始的IP地址。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/UtHMnCSRoPNvPQj9__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="11-4-用户登录"><a href="#11-4-用户登录" class="headerlink" title="11.4 用户登录"></a>11.4 用户登录</h2><p>Web服务器可以要求用户通过用户名和密码进行认证（登录）来显式地询问用户是谁。HTTP中包含了一种内建机制，可以用WWW-Authenticate首部和Authorization首部向Web站点传送用户的相关信息。</p>
+<p>如果服务器希望在为用户提供对站点的访问之前登录，可以向浏览器回送一条HTTP响应代码401 Login Required，然后浏览器显示一个登录对话框，一旦登录，浏览器就可以不断地在每条发往这个站点的请求甚至没有要求中，向服务器发送Authorization首部作为一种身份的标识。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/UtY4a0FC6TRmjhdo__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="11-5-胖URL"><a href="#11-5-胖URL" class="headerlink" title="11.5 胖URL"></a>11.5 胖URL</h2><p>有些Web站点会为每个用户生成特定版本的URL来追踪用户的身份。通常对真正的URL路径开始或结束的地方添加一些状态信息。用户浏览站点时，Web服务器会动态生成一些超链，继续维护URL中的状态信息。改动后包含了用户状态信息的URL被称为胖URL（fat URL）。</p>
+<p>但这种技术存在几个很严重的问题：</p>
+<ol>
+<li><strong>丑陋的URL</strong>。浏览器中显示的胖URL会给新用户带来困扰。</li>
+<li><strong>无法共享URL。</strong>胖URL中包含了与特定用户和会话有关的状态信息。如果将其发送给其他人，可能就在无意中将你积累的个人信息都共享出去了。</li>
+<li><strong>破坏缓存</strong>。为每个URL生成用户特有的版本意味着不再有可供公共访问的URL需要缓存。</li>
+<li><strong>额外的服务器负荷</strong>。服务器需要重写HTML页面使URL变胖。</li>
+<li><strong>逃逸口</strong>。用户跳转到其他站点或者请求一个特定的URL时，就很容易在无意中“逃离”胖URL会话。只有当用户严格地追随预先修改过的链接时，胖URL才能工作。如果用户逃离此链接，就会丢失其进展信息，重新开始。</li>
+<li><strong>在会话间是非持久的</strong>。除非用户收藏了特定的胖URL，否则用户退出登录时，所有的信息都会丢失。<h2 id="11-6-cookie"><a href="#11-6-cookie" class="headerlink" title="11.6 cookie"></a>11.6 cookie</h2></li>
+</ol>
+<p>cookie是当前识别用户，实现持久会话的最好方式。它们定义了一些新的HTTP首部。cookie的存在也影响了缓存，大多数缓存和浏览器都不允许对任何cookie的内容进行缓存。</p>
+<h3 id="11-6-1-cookie的类型"><a href="#11-6-1-cookie的类型" class="headerlink" title="11.6.1 cookie的类型"></a>11.6.1 cookie的类型</h3><p>cookie可以笼统地分为两类：<strong>会话cookie</strong>和<strong>持久cookie</strong>。</p>
+<p>会话cookie是一种临时cookie，它记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除。如果设置了Discard参数，或者没有设置Expires或Max-Age参数来说明扩展的过期时间，这个cookie就是一个 会话cookie.</p>
+<p>持久cookie的生存时间更长，它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p>
+<h3 id="11-6-2-cookie是如何工作的"><a href="#11-6-2-cookie是如何工作的" class="headerlink" title="11.6.2 cookie是如何工作的"></a>11.6.2 cookie是如何工作的</h3><p>用户首次访问Web站点时，Web服务器给这个用户“拍上”一个独有的cookie，这样以后就可以识别出这个用户。cookie中包含了一个由（name=value）这样的信息构成的任意列表。</p>
+<p>cookie并不仅限于ID号，很多Web服务器会将信息直接保存在cookie中，并通过set-cookie或set-cookie2 HTTP响应（扩展）首部将其贴到用户身上去。浏览器会记住从服务器返回的cookie内容，并将cookie集存储在浏览器的cookie数据库中。将来用户返回同一站点时，浏览器会挑中那个服务器贴到用户上的那些cookie，并在一个cookie请求首部中将其传回去。</p>
+<h3 id="11-6-3-cookie罐：客户端的状态"><a href="#11-6-3-cookie罐：客户端的状态" class="headerlink" title="11.6.3 cookie罐：客户端的状态"></a>11.6.3 cookie罐：客户端的状态</h3><p>因为浏览器负责存储cookie信息，所以系统被称为<strong>客户端侧状态</strong>（client-sidestate）。cookie规范的正式名称为<strong>HTTP状态管理机制</strong>（HTTP state management mechanism）。不同的浏览器会以不同的方式来存储cookie。</p>
+<h3 id="11-6-4-不同站点使用不同的cookie"><a href="#11-6-4-不同站点使用不同的cookie" class="headerlink" title="11.6.4 不同站点使用不同的cookie"></a>11.6.4 不同站点使用不同的cookie</h3><p>浏览器内部的cookie罐中可以有很多cookie，但浏览器通常只向每个站点发送2 ~ 3个cookie，浏览器只向服务器发送服务器产生的那些cookie。原因如下：</p>
+<ol>
+<li>对所有cookie字节进行传输会严重降低性能。浏览器实际传输的cookie字节数要比实际的内容字节数多；</li>
+<li>cookie中包含的是服务器特有的名值对，所以对大部分站点来说，大多数cookie都只是无法识别的无用数据；</li>
+<li>将所有的cookie发送给所有站点会引发潜在的隐私问题。<h3 id="11-6-5-cookie成分"><a href="#11-6-5-cookie成分" class="headerlink" title="11.6.5 cookie成分"></a>11.6.5 cookie成分</h3></li>
+</ol>
+<p>现在使用的cookie规范有两个不同的版本：<strong>cookies版本0</strong>（也叫Netscape cookies）和<strong>cookies版本1</strong>（RFC 2965）。cookies 版本1是对cookies版本0的扩展，应用不如后者广泛。</p>
+<p>cookie规范版本0和版本1都不是作为HTTP/1.1规范的一部分提供的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/Jq2YLdpVHtY6PfRA__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="11-6-6-cookies版本0（Netscape）"><a href="#11-6-6-cookies版本0（Netscape）" class="headerlink" title="11.6.6 cookies版本0（Netscape）"></a>11.6.6 cookies版本0（Netscape）</h3><p>最初的cookie规范是由网景公司定义的。这些“版本0”的cookie定义了Set-Coookie响应首部、cookie请求首部以及用于控制cookie的字段。</p>
+<h4 id="11-6-6-1-版本0的set-Cookie首部"><a href="#11-6-6-1-版本0的set-Cookie首部" class="headerlink" title="11.6.6.1 版本0的set-Cookie首部"></a>11.6.6.1 版本0的set-Cookie首部</h4><p>set-Cookie首部有一个强制性的cookie名和cookie 值。后面跟着可选的cookie属性，中间由分号分隔。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/qdonImiSjvneeOvw__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/GBdOJLwCMpYc0S2p__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h4 id="11-6-6-2-版本0的Cookie首部"><a href="#11-6-6-2-版本0的Cookie首部" class="headerlink" title="11.6.6.2 版本0的Cookie首部"></a>11.6.6.2 版本0的Cookie首部</h4><p>客户端发送请求时，会将所有与域、路径和安全过滤器相匹配的未过期cookie都发送给这个站点。所有cookie都被组合到一个Cookie首部中。</p>
+<h3 id="11-6-7-cookies版本1（RFC-2965）"><a href="#11-6-7-cookies版本1（RFC-2965）" class="headerlink" title="11.6.7 cookies版本1（RFC 2965）"></a>11.6.7 cookies版本1（RFC 2965）</h3><p>这个版本1标准引入了Set-Cookie2首部和Cookie2首部，但也能与版本0系统进行互操作。</p>
+<p>RFC 2965 cookie的主要改动包括下列内容：</p>
+<ol>
+<li>为每个cookie关联上解释性文本，对其目的进行解释。</li>
+<li>允许在浏览器退出时，不考虑过期时间，将cookie强制销毁。</li>
+<li>用相对秒数，而不是绝对日期来表示cookie的Max-Age.</li>
+<li>通过URL端口号，而不仅仅是域和路径来控制cookie的能力。</li>
+<li>通过Cookie首部回送域、端口和路径过滤器（如果有的话）。</li>
+<li>为实现互操作性使用的版本号。</li>
+<li>在Cookie首部从名字中区分出附加关键字的$前缀。<h4 id="11-6-7-1-版本1的set-Cookie2首部"><a href="#11-6-7-1-版本1的set-Cookie2首部" class="headerlink" title="11.6.7.1 版本1的set-Cookie2首部"></a>11.6.7.1 版本1的set-Cookie2首部</h4></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/5a2SbBmAsu83S7yy__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/mtVJtcN1kr8hhsQp__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h4 id="11-6-7-2-版本1的Cookie首部"><a href="#11-6-7-2-版本1的Cookie首部" class="headerlink" title="11.6.7.2 版本1的Cookie首部"></a>11.6.7.2 版本1的Cookie首部</h4><p>版本1的cookie会带回与传送的每个cookie相关的附加信息，用来描述每个cookie途径的过滤器。每个匹配的cookie都必须包含来自相应set-cookie2首部的所有Domain、Port 或Path属性。所有匹配cookie都是和它们的Set-Cookie2过滤器一同传输的，而且保留关键字都是以美元符号（$）开头的。</p>
+<h4 id="11-6-7-3-版本1的Cookie2首部和版本协商"><a href="#11-6-7-3-版本1的Cookie2首部和版本协商" class="headerlink" title="11.6.7.3 版本1的Cookie2首部和版本协商"></a>11.6.7.3 版本1的Cookie2首部和版本协商</h4><p>Cookie2请求首部负责在能够理解不同cookie规范版本的客户端和服务器之间进行互操作性的协商。</p>
+<p>如果服务器理解新形式的cookie，就能够识别出Cookie2首部，并在响应首部发送set-Cookie2（而不是Set-Cookie）。如果客户端从同一个响应中获得set-Cookie和Set-Cookie2首部，忽略Set-Cookie首部。</p>
+<p>如果客户端既支持版本0又支持版本1的cookie，但从服务器获得的是版本0的Set-Cookie首部，就应该带着版本0的Cookie首部发送cookie。但客户端还应该发送Cookie2：$Version=“1”来告知服务器它是可以升级的。</p>
+<h3 id="11-6-8-cookie与会话跟踪"><a href="#11-6-8-cookie与会话跟踪" class="headerlink" title="11.6.8 cookie与会话跟踪"></a>11.6.8 cookie与会话跟踪</h3><p>可以用cookie在用户与某个站点进行多项事务处理时对用户进行跟踪，启动一个事务链，在这些事务中Web服务器会通过一系列的重定向、URL重写以及cookie设置来附加标识信息。</p>
+<h3 id="11-6-9-cookie与缓存"><a href="#11-6-9-cookie与缓存" class="headerlink" title="11.6.9 cookie与缓存"></a>11.6.9 cookie与缓存</h3><p>缓存与cookie事务有关的文档时需要注意，cookie和缓存的规则并没有很好地建立起来。下 面是处理缓存时的一些指导性规则：</p>
+<ol>
+<li><strong>标示无法缓存的文档</strong></li>
+</ol>
+<p>如果除了Set-Cookie首部之外文档是可缓存的，就使用Cache-Control：no-cache=”Set-Cookie”，或者为可缓存文档使用Cache-Control：public，这样利于节省Web中的带宽。</p>
+<ol start="2">
+<li><strong>缓存Set-Cookie首部</strong></li>
+</ol>
+<p>如果向多个用户发送了相同的Set-Cookie首部，可能会破坏用户的定位。</p>
+<p>有些缓存在将响应缓存起来之前会删除set-Cookie首部，但这样由缓存提供服务的客户端就不会有cookie了。强制缓存与原始服务器重新验证每条请求，并将返回的所有Set-Cookie首部都合并到客户端的响应中去，就可以解决。原始服务器可以通过向缓存的副本中添加这个首部来要求进行这种再验证：Cache-Control：must-revalidate，max-age=0</p>
+<p>即便内容实际上是可以缓存的，一些缓存可能也会拒绝缓存所有包含Set-Cookie首部的响应。有些缓存允许使用缓存Set-Cookie图片，但不缓存文本的模式。</p>
+<ol start="3">
+<li><strong>处理带有Cookie首部的请求</strong></li>
+</ol>
+<p>带有Cookie首部的请求到达时，就在提示我们，得到的结果可能是私有的。一定要将私有内容标识为不可缓存的，但有些服务器可能会犯错，没有将此内容标记为不可缓存的。</p>
+<p>有些响应文档对应于携带Cookie首部的请求，一些缓存可能会不去缓存。有些缓存允许使用缓存cookie图片，而不缓存文本的模式。更广泛接受的方案是缓存带有Cookie首部的图片，将过期时间设置为零，强制每次都进行再验证。</p>
+<h3 id="11-6-10-cookie-安全性和隐私"><a href="#11-6-10-cookie-安全性和隐私" class="headerlink" title="11.6.10 cookie.安全性和隐私"></a>11.6.10 cookie.安全性和隐私</h3><p>第三方Web站点使用持久cookie来跟踪用户就是一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：11-客户端识别与cookie机制</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-23 18:59:04</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/01/23/note/HTTP/11-客户端识别与cookie机制/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">12-基本认证机制</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">07-缓存</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-1-%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A5%E8%A7%A6"><span class="nav-text">11.1 个性化接触</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-2-HTTP%E9%A6%96%E9%83%A8"><span class="nav-text">11.2 HTTP首部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-3-%E5%AE%A2%E6%88%B7%E7%AB%AFIP%E5%9C%B0%E5%9D%80"><span class="nav-text">11.3 客户端IP地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-4-%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95"><span class="nav-text">11.4 用户登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-5-%E8%83%96URL"><span class="nav-text">11.5 胖URL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-6-cookie"><span class="nav-text">11.6 cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-1-cookie%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">11.6.1 cookie的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-2-cookie%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84"><span class="nav-text">11.6.2 cookie是如何工作的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-3-cookie%E7%BD%90%EF%BC%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">11.6.3 cookie罐：客户端的状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-4-%E4%B8%8D%E5%90%8C%E7%AB%99%E7%82%B9%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84cookie"><span class="nav-text">11.6.4 不同站点使用不同的cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-5-cookie%E6%88%90%E5%88%86"><span class="nav-text">11.6.5 cookie成分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-6-cookies%E7%89%88%E6%9C%AC0%EF%BC%88Netscape%EF%BC%89"><span class="nav-text">11.6.6 cookies版本0（Netscape）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-6-6-1-%E7%89%88%E6%9C%AC0%E7%9A%84set-Cookie%E9%A6%96%E9%83%A8"><span class="nav-text">11.6.6.1 版本0的set-Cookie首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-6-6-2-%E7%89%88%E6%9C%AC0%E7%9A%84Cookie%E9%A6%96%E9%83%A8"><span class="nav-text">11.6.6.2 版本0的Cookie首部</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-7-cookies%E7%89%88%E6%9C%AC1%EF%BC%88RFC-2965%EF%BC%89"><span class="nav-text">11.6.7 cookies版本1（RFC 2965）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#11-6-7-1-%E7%89%88%E6%9C%AC1%E7%9A%84set-Cookie2%E9%A6%96%E9%83%A8"><span class="nav-text">11.6.7.1 版本1的set-Cookie2首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-6-7-2-%E7%89%88%E6%9C%AC1%E7%9A%84Cookie%E9%A6%96%E9%83%A8"><span class="nav-text">11.6.7.2 版本1的Cookie首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-6-7-3-%E7%89%88%E6%9C%AC1%E7%9A%84Cookie2%E9%A6%96%E9%83%A8%E5%92%8C%E7%89%88%E6%9C%AC%E5%8D%8F%E5%95%86"><span class="nav-text">11.6.7.3 版本1的Cookie2首部和版本协商</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-8-cookie%E4%B8%8E%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA"><span class="nav-text">11.6.8 cookie与会话跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-9-cookie%E4%B8%8E%E7%BC%93%E5%AD%98"><span class="nav-text">11.6.9 cookie与缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-6-10-cookie-%E5%AE%89%E5%85%A8%E6%80%A7%E5%92%8C%E9%9A%90%E7%A7%81"><span class="nav-text">11.6.10 cookie.安全性和隐私</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

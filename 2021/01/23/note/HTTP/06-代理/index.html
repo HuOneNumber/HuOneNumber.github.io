@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            06-代理 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">06-代理</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv2</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-01-23 18:38:29
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/06-%E4%BB%A3%E7%90%86/">06-代理</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>6.5k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>22 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="6-1-Web的-中间实体"><a href="#6-1-Web的-中间实体" class="headerlink" title="6.1 Web的 中间实体"></a>6.1 Web的 中间实体</h1><p>Web上的代理服务器是代表客户端完成事务处理的中间人。HTTP的代理服务器既是Web服务器又是Web客户端。</p>
+<h1 id="6-2-私有和共享代理"><a href="#6-2-私有和共享代理" class="headerlink" title="6.2 私有和共享代理"></a>6.2 私有和共享代理</h1><ol>
+<li><strong>公共代理</strong></li>
+</ol>
+<p>多数代理都是公共的共享代理。集中式代理的费效比更高，容易管理。某些代理应用，如高速缓存代理服务器，会利用用户间共同的请求，汇入同一个代理服务器的用户越多，就越有用。</p>
+<ol start="2">
+<li><strong>私有代理</strong></li>
+</ol>
+<p>单个客户端专用的代理被称为私有代理。并不常见，常用于直接运行在客户端计算机上的时候。有些浏览器辅助产品或一些ISP服务，会在用户的PC上直接运行一些小型的代理，以便扩展浏览器特性，提高性能，或为免费ISP服务提供主机广告。</p>
+<h1 id="6-3-代理与网关的对比"><a href="#6-3-代理与网关的对比" class="headerlink" title="6.3 代理与网关的对比"></a>6.3 代理与网关的对比</h1><p>代理连接的是两个或多个使用相同协议的应用程序，而网关连接的则是两个或多个使用不同协议的端点，客户端同样可以通过它完成与服务器之间的事务处理。</p>
+<p>实际上，代理和网关之间的区别很模糊。由于浏览器和服务器实现的是不同版本的HTTP，代理也经常要做一些协议转换工作。而商业化的代理服务器也会实现网关的功能来支持SSL安全协议、SOCKS防火墙、FTP访问，以及基于Web的应用程序。</p>
+<h1 id="6-4-代理的作用"><a href="#6-4-代理的作用" class="headerlink" title="6.4 代理的作用"></a>6.4 代理的作用</h1><p>代理服务器可以改善安全性，提高性能，节省费用，可以看到并接触到所有流过的HTTP流量，所以代理可以监视流量并对其进行修改，以实现很多有用的增值Web服务。比如：</p>
+<ol>
+<li><strong>儿童过滤器</strong></li>
+</ol>
+<p>可以利用过滤器代理来阻止学生访问成人内容。</p>
+<ol start="2">
+<li><strong>文档访问控制</strong></li>
+</ol>
+<p>可以用代理服务器在大量Web服务器和Web资源之间实现统一的访问控制策略，创建审核跟踪机制。这在大型企业环境或其他分布式机构中是很有用的。</p>
+<p>在集中式代理服务器上可以对所有访问控制功能进行配置，而无需在众多由不同组织管理、不同厂商制造、使用不同模式的Web服务器上进行经常性的访问控制升级。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/pqBy6kmLeBWZV7aG__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="3">
+<li><strong>安全防火墙</strong></li>
+</ol>
+<p>使用代理服务器来提高安全性。代理服务器会在网络中的单一安全节点上限制应用层协议的数据流入或流出一个组织，还可以提供用来消除病毒的Web和E-mail代理使用的那种挂钩程序，以便对流量进行详细的检查。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/tDT5ij0kvoywHIjQ__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="4">
+<li><strong>Web缓存</strong></li>
+</ol>
+<p>Web代理缓存维护了常用文档的本地副本，并按需提供，以减少慢且贵的因特网通信。</p>
+<ol start="5">
+<li><strong>反向代理</strong></li>
+</ol>
+<p>被称为替代物（surrogate）或反向代理（re-verseproxy）的代理接收发给Web服务器的真实请求，但不同的是，它们可以发起与其他服务器的通信，以便按需定位所请求的内容。</p>
+<p>反向代理能提高访问慢速Web服务器上公共内容时的性能。在这种配置中，反向代理称为服务器加速器（server accelerator）。还可以将替代物与内容路由功能配合使用，以创建按需复制内容的分布式网络。</p>
+<ol start="6">
+<li><strong>内容路由器</strong></li>
+</ol>
+<p>内容路由器可以根据因特网流量状况以及内容类型将请求导向特定的Web服务器。也可以用来实现各种服务级的请求。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/MavD3X6KgAr6iSp7__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="7">
+<li><strong>转码器</strong></li>
+</ol>
+<p>代理服务器在将内容发送给客户端之前，可以修改内容的主体格式。在这些数据表示法之间进行的透明转换被称为<strong>转码</strong>（transcoding）。</p>
+<ol start="8">
+<li><strong>匿名者</strong></li>
+</ol>
+<p>匿名者代理会主动从HTTP报文中删除身份特性（比如客户端IP地址、From首部、Referer首部、cookie、URI的会话ID），从而提供高度的私密性和匿名性。</p>
+<h1 id="6-5-代理会去往何处"><a href="#6-5-代理会去往何处" class="headerlink" title="6.5 代理会去往何处"></a>6.5 代理会去往何处</h1><h2 id="6-5-1-代理服务器的部署"><a href="#6-5-1-代理服务器的部署" class="headerlink" title="6.5.1 代理服务器的部署"></a>6.5.1 代理服务器的部署</h2><p>根据其目标用途，将代理放在任意位置。部署代理服务器的几种方式：</p>
+<ol>
+<li><strong>出口代理</strong></li>
+</ol>
+<p>将代理固定在本地网络的出口点，以便控制本地网络与大型因特网之间的流量。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/C514fsJkpTUSr3Mj__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="2">
+<li><strong>访问（入口）代理</strong></li>
+</ol>
+<p>常被放在ISP访问点上，用以处理来自客户的聚合请求。ISP 使用缓存代理来存储常用文档的副本，以提高用户的下载速度，降低因特网带宽耗费。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/FkNHex993CoqIdQy__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="3">
+<li><strong>反向代理</strong></li>
+</ol>
+<p>通常被部署在网络边缘，在Web服务器之前，在那里可以处理所有传送给Web服务器的请求，并只在必要时向Web服务器请求资源。可以提高Web服务器的安全特性，或者将快速的Web服务器缓存放在较慢的服务器之前，以提高性能。反向代理通常会直接冒用Web服务器的名字和IP地址，请求就会被发送给代理而不是服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/gaArfFB4Cn2B7FQL__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="4">
+<li><strong>网络交换代理</strong></li>
+</ol>
+<p>可以将具有足够处理能力的代理放在网络之间的因特网对等交换点上，通过缓存来减轻因特网节点的拥塞，并对流量进行监视。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/pXAesc94BLzDz3HV__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="6-5-2-代理的层次结构"><a href="#6-5-2-代理的层次结构" class="headerlink" title="6.5.2 代理的层次结构"></a>6.5.2 代理的层次结构</h2><p>通过<strong>代理层次结构</strong>（proxy hierarchy）将代理级联起来。在代理的层次结构中，会将报文从一个代理传给另一个代理，直到最终抵达原始服务器为止（然后通过代理传回给客户端）。</p>
+<p>下一个入口（inbound）代理（靠近服务器）被称为父代理，下一个出口（outbound）代理（靠近客户端）被称为子代理。</p>
+<h4 id="6-5-2-1-代理层次结构的内容路由"><a href="#6-5-2-1-代理层次结构的内容路由" class="headerlink" title="6.5.2.1 代理层次结构的内容路由"></a>6.5.2.1 代理层次结构的内容路由</h4><p>层次不一定是静态的。代理服务器可以根据众多因素，将报文转发给一个不断变化的代理服务器和原始服务器集。</p>
+<ol>
+<li><strong>负载均衡</strong></li>
+</ol>
+<p>子代理可能会根据当前父代理上的工作负载级别来决定如何选择一个父代理，以均衡负载。</p>
+<ol start="2">
+<li><strong>地理位置附近的路由</strong></li>
+</ol>
+<p>子代理可能会选择负责原始服务器所在物理区域的父代理。</p>
+<ol start="3">
+<li><strong>协议/类型路由</strong></li>
+</ol>
+<p>子代理可能会根据URI将报文转发到不同的父代理和原始服务器上去。某些特定类型的URI可能要通过一些特殊的代理服务器转发请求，以便进行特殊的协议处理。</p>
+<ol start="4">
+<li><strong>基于订购的路由</strong></li>
+</ol>
+<p>如果发布者为高性能服务额外付费了，它们的URI就会被转发到大型缓存或压缩引擎上去，以提高性能。</p>
+<h2 id="6-5-3-代理是如何获取流量的"><a href="#6-5-3-代理是如何获取流量的" class="headerlink" title="6.5.3 代理是如何获取流量的"></a>6.5.3 代理是如何获取流量的</h2><p>客户端通常会直接与Web服务器进行通信，有四种常见方式可以使客户端流量流向代理：</p>
+<ol>
+<li><strong>修改客户端（下一节）</strong></li>
+</ol>
+<p>很多Web客户端，都支持手工和自动的代理配置。如果将客户端配置为使用代理服务器，客户端就会将HTTP请求有意地直接发送给代理，而不是原始服务器。</p>
+<ol start="2">
+<li><strong>修改网络</strong></li>
+</ol>
+<p>在客户端不知道或没有参与的情况下，拦截网络流量并将其导人代理。这种拦截通常都依赖于监视HTTP流量的交换设备及路由设备。这种代理被称为拦截（intercepting）代理。</p>
+<ol start="3">
+<li><strong>修改DNS的命名空间</strong></li>
+</ol>
+<p>放在Web服务器之前的代理服务器替代物，会直接假扮Web服务器的名字和IP地址。通过手工编辑DNS名称列表，或用特殊的动态DNS服务器根据需要来确定适当的代理或服务器。有时在安装过程中，真实服务器的IP地址和名称被修改了，替代物得到的会是之前的地址和名称。</p>
+<ol start="4">
+<li><strong>修改Web服务器</strong></li>
+</ol>
+<p>将某些Web服务器配置为向客户端发送一条HTTP重定向命令（响应码305），将客户端请求重定向到一个代理上去。收到重定向命令后，客户端会与代理进行通信。</p>
+<h1 id="6-6-客户端的代理设置"><a href="#6-6-客户端的代理设置" class="headerlink" title="6.6 客户端的代理设置"></a>6.6 客户端的代理设置</h1><p>所有现代的Web浏览器都允许用户对代理的使用进行配置，其中包括以下几种：</p>
+<ol>
+<li><strong>手工配置</strong></li>
+</ol>
+<p>显式地设置要使用的代理。不同浏览器都有不同的方式来进行手工配置的修改，但其思想是一样的：为代理指定主机和端口。</p>
+<p>手工代理配置很简单但有些死板。只能为所有内容指定唯一一个代理服务器，且不支持故障转移，还会给大型组织带来管理问题。如果配置过的浏览器基数很大，那么需要进行修改的时候，重新配置每个浏览器是非常困难，甚至不可能。</p>
+<ol start="2">
+<li><strong>预先配置浏览器</strong></li>
+</ol>
+<p>浏览器厂商或发行商会在将浏览器发送给其客户之前预先对浏览器（或所有其他Web客户端）的代理设置进行手工配置。</p>
+<ol start="3">
+<li><strong>代理的自动配置</strong>（Proxy Auto-Configuration，PAC）</li>
+</ol>
+<p>提供一个 URI，指向一个代理自动配置文件（PAC），客户端取回这个JavaScript文件，文件都必须定义一个名为FindProxyForURL（url，host）的函数，用来计算访问URI时使用的适当的代理服务器。函数的返回值可以是表6-1列出的任意值。</p>
+<p>PAC文件的后缀通常是.pac，MIME类型通常是application/x-ns-proxy-autoconfig。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/AAivIeKbOTQBj2Rk__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="4">
+<li><strong>WPAD的代理发现</strong></li>
+</ol>
+<p>有些浏览器支持<strong>Web代理自动发现协议</strong>（Web Proxy Autodiscovery Protocol，WPAD），WPAD协议的算法会使用发现机制的逐级上升策略自动地为浏览器查找合适的PAC文件。</p>
+<p>WPAD会使用一系列的资源发现技术来判定适当的PAC文件。WPAD会一个接一个地对每种技术进行尝试，直到成功为止。当前的WPAD协议规范按顺序定义了下列技术：</p>
+<ol>
+<li>动态主机配置协议（Dynamic Host Configuration Protocol，DHCP）；</li>
+<li>服务定位协议（Service Location Protocol，SLP）；</li>
+<li>DNS知名主机名；</li>
+<li>DNS SRV记录；</li>
+<li>TXT记录中的DNS服务URI。<h1 id="6-7-代理请求的问题"><a href="#6-7-代理请求的问题" class="headerlink" title="6.7 代理请求的问题"></a>6.7 代理请求的问题</h1></li>
+</ol>
+<h2 id="6-7-1-代理URI与服务器URI的不同"><a href="#6-7-1-代理URI与服务器URI的不同" class="headerlink" title="6.7.1 代理URI与服务器URI的不同"></a>6.7.1 代理URI与服务器URI的不同</h2><p>客户端向Web服务器发送请求时，请求行中只包含部分URI（没有方案、主机或端口），向代理发送请求时，请求行中则包含完整的URI。</p>
+<p>因为在原始的HTTP设计中，客户端直接与单个服务器进行对话，不存在虚拟主机，也没有为代理制定什么规则，服务器知道自己的主机名和端口，从而为了避免发送冗余信息。</p>
+<p>代理出现之后，需要知道目标服务器的名称。基于代理的网关要知道URI的方案才能连接到FTP资源和其他方案上。因此HTTP/1.0要求代理请求发送完整的URI，但它为服务器请求保留部分URI的形式。</p>
+<p>在显式地配置客户端代理设置的情况下，客户端知道将部分URI发送给服务器，将完整URI发送给代理。</p>
+<h2 id="6-7-2-虚拟主机的问题"><a href="#6-7-2-虚拟主机的问题" class="headerlink" title="6.7.2 虚拟主机的问题"></a>6.7.2 虚拟主机的问题</h2><p>虚拟主机Web服务器会在很多Web站点间共享同一个物理Web服务器。和代理缺少方案/主机/端口出现的问题相似，但解决方法却有所不同：</p>
+<ol>
+<li>显式的代理要求在请求报文中使用完整URI来解决题；</li>
+<li>虚拟主机Web服务器要求使用Host首部来承载主机和端口信息。<h2 id="6-7-3-拦截代理会收到部分URI"><a href="#6-7-3-拦截代理会收到部分URI" class="headerlink" title="6.7.3 拦截代理会收到部分URI"></a>6.7.3 拦截代理会收到部分URI</h2></li>
+</ol>
+<p>只要客户端正确地实现了HTTP，它们就会在请求中包含完整的URI，发送给经过显式配置的代理。这样解决了部分问题，</p>
+<p>但客户端并不总是知道它是在和代理进行对话，因为有些代理对客户端可能是不可见的。在这两种情况下，客户端都会认为它在与Web服务器进行对话，不会发送完整的URI:</p>
+<ol>
+<li><strong>反向代理</strong>。通过假扮服务器的主机名或IP地址来做到这一点,客户端无法区分反向代理和Web服务器，因此它会发送部分URI。</li>
+<li><strong>拦截代理</strong>。它会拦截从客户端发往服务器的请求，并提供一个缓存响应，或对其进行转发。拦截代理拦截了从客户端到服务器的流量，所以它会收到发送给Web服务器的部分URI。拦截代理可能也会拦截客户端到代理的流量，在这种情况下，可能会收到完整URI，需要对其进行处理。由于显式代理的通信端口通常与HTTP使用的端口有所不同（通常是8080而不是80），而且拦截代理通常只对端口80进行拦截，所以这种情况并不会经常发生。<h2 id="6-7-4-代理既可以处理代理请求，也可以处理服务器请求"><a href="#6-7-4-代理既可以处理代理请求，也可以处理服务器请求" class="headerlink" title="6.7.4 代理既可以处理代理请求，也可以处理服务器请求"></a>6.7.4 代理既可以处理代理请求，也可以处理服务器请求</h2></li>
+</ol>
+<p>由于将流量重定向到代理服务器的方式有所不同，通用的代理服务器既应该支持请求报文中的完整URI，也应该支持部分URI。如果是显式的代理请求，代理就应该使用完整URI，如果是Web服务器请求，就应该使用部分URI和虚拟Host首部。使用完整和部分URI的规则如下所示:</p>
+<ol>
+<li>如果提供的是完整URI，代理就应该使用这个完整URI。</li>
+<li>如果提供的是部分URI，但有Host首部，就用Host首部来确定原始服务器的名字和端口号。</li>
+<li>如果提供的是部分URI，且没有Host首部，就要用其他方法来确定原始服务器：<ol>
+<li>如果代理是代表原始服务器的替代物，用真实服务器的地址和端口号来配置代理；</li>
+<li>如果流量被拦截了，且拦截者也可以提供原始的IP地址和端口，就用拦截技术提供的；</li>
+<li>如果所有方法都失败了，就必须返回一条错误报文（通常是建议用户升级到支持Host首部的现代浏览器）。<h2 id="6-7-5-转发过程中对URI的修改"><a href="#6-7-5-转发过程中对URI的修改" class="headerlink" title="6.7.5 转发过程中对URI的修改"></a>6.7.5 转发过程中对URI的修改</h2></li>
+</ol>
+</li>
+</ol>
+<p>代理服务器要在转发报文时修改请求URI，可能造成互操作性问题。代理服务器不能强制实现严格协议一致性，HTTP规范禁止一般的拦截代理在转发URI时重写其绝对路径部分。唯一的例外是可以用“/”来取代空路径。</p>
+<h2 id="6-7-6-没有显式代理时URI的解析"><a href="#6-7-6-没有显式代理时URI的解析" class="headerlink" title="6.7.6 没有显式代理时URI的解析"></a>6.7.6 没有显式代理时URI的解析</h2><p>没有代理时，浏览器会获取输入的URI，尝试着寻找相应的IP地址。</p>
+<p>如果找到主机名，浏览器会尝试相应的IP地址直到获得成功的连接为止。如果没有找到主机，很多浏览器会尝试着提供某种主机名自动“扩展”机制：</p>
+<ol>
+<li>很多浏览器尝试加入前缀www.和后缀.com，以防用户只输入了Web站点名的中间部分。</li>
+<li>有些浏览器甚至会将未解析出来的URI传递给第三方站点，让其尝试着校正拼写错误，并给出一些用户可能希望访问的URI建议。</li>
+<li>大多数系统中的DNS配置允许用户只输入主机名的前缀，然后DNS会自动搜索域名。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/ASP6klb0KO6R2sNA__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="6-7-7-有显式代理时URI的解析"><a href="#6-7-7-有显式代理时URI的解析" class="headerlink" title="6.7.7 有显式代理时URI的解析"></a>6.7.7 有显式代理时URI的解析</h2><p>使用显式代理时，用户的URI会被直接发送给代理，浏览器对不完整的主机名不会进行自动扩展。（浏览器会添加了默认方案和路径，但主机名和输入的一样）。有些代理会尽力尝试着去模仿浏览器的便捷服务，包括www..com自动扩展，以及添加本地域名后缀。</p>
+<h2 id="6-7-8-有拦截代理时URI的解析"><a href="#6-7-8-有拦截代理时URI的解析" class="headerlink" title="6.7.8 有拦截代理时URI的解析"></a>6.7.8 有拦截代理时URI的解析</h2><p>使用拦截代理时，对客户端来说，是没有代理的。这种情况下与使用服务器的情形类似，浏览器会自动扩展主机名，直到DNS成功为止。但建立到服务器的连接时，有一个重要的区别。</p>
+<p>客户端在尝试着连接每个IP地址时，对拦截代理来说，第一次连接请求就会被代理服务器拦截成功，不会连接到原始服务器上去。客户端认为它在与Web服务器进行成功的对话，但那个Web服务器可能不活跃或停用。</p>
+<p>所以提供了与浏览器相同级别的容错机制，代理可以通过解析Host首部的主机名，也可以通过对IP地址的反向DNS查找来尝试其他IP地址。</p>
+<h1 id="6-8-追踪报文"><a href="#6-8-追踪报文" class="headerlink" title="6.8 追踪报文"></a>6.8 追踪报文</h1><p>在将Web请求从客户端传送到服务器的路径上，经过多个代理很常见，所以需要追踪经过代理的报文流，以检测出各种问题。</p>
+<h2 id="6-8-1-Via首部"><a href="#6-8-1-Via首部" class="headerlink" title="6.8.1 Via首部"></a>6.8.1 Via首部</h2><p>Via首部字段列出了与报文途经的每个中间节点（代理或网关）有关的信息。报文每经过一个节点，都必须将这个中间节点添加到Via列表的末尾。</p>
+<p>Via首部字段记录报文的转发，诊断报文循环，标识请求/响应链上所有发送者的协议能力。</p>
+<p>代理也可以用Via首部检测网络中的路由循环。代理在发送请求之前，在Via首部插入与其自身有关的独特字符串，并在输入的请求中查找这个字符串，以检测网络中是否存在路由循环。</p>
+<h3 id="6-8-1-1-Via的语法"><a href="#6-8-1-1-Via的语法" class="headerlink" title="6.8.1.1 Via的语法"></a>6.8.1.1 Via的语法</h3><p>Via首部字段包含一个由逗号分隔的路标（waypoint）。每个路标都表示一个独立的代理服务器或网关，且包含与那个中间节点的协议和地址有关的信息。Via首部的正规语法如下所示：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/FVuc9ckHkakOalBe__thumbnail.png"
+                      alt="图片"
+                >注每个Via路标中最多包含4个组件：一个可选的协议名（默认为HTTP）、一个必选的协议版本、一个必选的节点名和一个可选的描述性注释。</p>
+<ol>
+<li><strong>协议名</strong></li>
+</ol>
+<p>如果协议为HTTP的话，协议名是可选的。否则要在版本之前加上协议名，中间用“/”分隔。</p>
+<ol start="2">
+<li><strong>协议版本</strong></li>
+</ol>
+<p>HTTP使用的是（1.0、1.1等），之后的应用程序就能知道前面所有中间节点的协议能力。</p>
+<ol start="3">
+<li><strong>节点名</strong></li>
+</ol>
+<p>中间节点的主机和可选端口号（如果没有，可以假定使用协议的默认端口号）。在某些情况下，出于隐私方面的考虑，可以用一个假名来代替。</p>
+<ol start="4">
+<li><strong>节点注释</strong></li>
+</ol>
+<p>进一步描述这个中间节点的可选注释。通常会在这里包含厂商和版本信息，有些代理服务器还会在注释字段中包含一些与此设备上所发生事件有关的诊断信息。</p>
+<h3 id="6-8-1-2-Via的请求和响应路径"><a href="#6-8-1-2-Via的请求和响应路径" class="headerlink" title="6.8.1.2 Via的请求和响应路径"></a>6.8.1.2 Via的请求和响应路径</h3><p>请求和响应通常都是通过同一条TCP连接传送的，所以响应报文会沿着与请求报文相同的路径回传。因此，响应的via首部基本上总是与请求的via首部相反。</p>
+<h3 id="6-8-1-3-Via与网关"><a href="#6-8-1-3-Via与网关" class="headerlink" title="6.8.1.3 Via与网关"></a>6.8.1.3 Via与网关</h3><p>有些代理会为不使用HTTP协议的服务器提供网关的功能。Via首部记录这些协议转换，HTTP应用程序就会了解代理链上各点的协议处理能力以及所做的协议转换。</p>
+<h3 id="6-8-1-4-Server和Via首部"><a href="#6-8-1-4-Server和Via首部" class="headerlink" title="6.8.1.4 Server和Via首部"></a>6.8.1.4 Server和Via首部</h3><p>Server响应首部字段对原始服务器使用的软件进行描述。如果响应报文是通过代理转发的，要确保代理没有修改server首部。server首部是用于原始服务器的，代理应该添加的是Via条目。</p>
+<h3 id="6-8-1-5-Via的隐私和安全问题"><a href="#6-8-1-5-Via的隐私和安全问题" class="headerlink" title="6.8.1.5 Via的隐私和安全问题"></a>6.8.1.5 Via的隐私和安全问题</h3><p>如果不允许进行Via节点名转发，比如作为安全防线的一部分使用的代理就应该用适当的假名来取代。（恶意用户可以通过计算机名字和版本号来了解安全防线之后的网络结构。）</p>
+<p>一般来说，即使隐藏真实名称，代理也应该尝试为每台代理服务器保留一个Via路标条目。</p>
+<p>对需要隐藏内部网络设计和拓扑结构的组织，代理应该将一个（接收协议值相同的）有序Via路标条目序列合并成一个联合条目。除非这些条目都在同一个组织的控制之下，而且已经用假名取代了主机名，否则就不能将其合并起来。接收协议值不同的条目也不能合并起来。</p>
+<h2 id="6-8-2-TRACE方法"><a href="#6-8-2-TRACE方法" class="headerlink" title="6.8.2 TRACE方法"></a>6.8.2 TRACE方法</h2><p>代理服务器可以在转发报文时对其进行修改。可以添加、修改或删除首部，也可以将主体部分转换成不同的格式。</p>
+<p>通过HTTP/1.1的TRACE方法，用户可以跟踪经代理链传输的请求报文，观察报文经过了哪些代理，以及每个代理是如何对请求报文进行修改的。TRACE对代理流的调试非常有用。</p>
+<p>当TRACE请求到达目的服务器时（也可以是第一个收到了Max-Forwards值为零的请求的代理或网关），整条请求报文都会被封装在一条HTTP响应的主体中回送给发送端。当TRACE响应到达时，客户端可以检查服务器收到的确切报文，以及它所经过的代理列表（在Via首部）。TRACE响应的Content-Type为message/http，状态为200 OK。</p>
+<h3 id="6-8-2-1-Max-Forwards"><a href="#6-8-2-1-Max-Forwards" class="headerlink" title="6.8.2.1 Max-Forwards"></a>6.8.2.1 Max-Forwards</h3><p>可以使用Max-Forwards（最大转发次数）首部来限制TRACE和OPTIONS请求所经过的代理跳数，在测试代理链是否是在无限循环中转发报文，或查看链中特定代理服务器的效果。</p>
+<p>如果Max-Forwards的值为零（Max-Forwards：0），那么即使接收者不是原始服务器，它也必须将TRACE报文回送给客户端，而不应该继续转发。</p>
+<h1 id="6-9-代理认证"><a href="#6-9-代理认证" class="headerlink" title="6.9 代理认证"></a>6.9 代理认证</h1><p>代理可以作为访问控制设备使用。HTTP定义了一种名为代理认证（proxy authentication</p>
+<p>）的机制，这种机制可以阻止对内容的请求，直到用户向代理提供了有效的访问权限证书为止。</p>
+<p>对受限内容的请求到达一台代理服务器时，代理服务器可以返回要求使用访问证书的<strong>407</strong>Proxy Authorization Required状态码，以及用于描述怎样提供这些证书的<strong>Proxy-Authenticate</strong>首部字段。客户端收到407响应时，会尝试从本地数据库中，或通过提示用户来搜集所需要的证书。获得了证书，客户端就会重新发送请求，在Proxy-Authorization首部字段中提供所要求的证书。如果证书有效，代理就会将原始请求沿着传输链路向下传送，否则就发送另一条407应答。</p>
+<p>若传输链路中有多个代理，且每个代理都要进行认证时，代理认证通常无法很好地工作。</p>
+<h1 id="6-10-代理的互操作性"><a href="#6-10-代理的互操作性" class="headerlink" title="6.10 代理的互操作性"></a>6.10 代理的互操作性</h1><p>客户端、服务器和代理是由不同厂商构建的，实现的是不同版本的HTTP规范。它们支持的特性各不相同，也存在着不同的问题。代理服务器位于客户端和服务器设备之间，这些设备实现的协议可能有所不同，可能存在着很棘手的问题。</p>
+<h2 id="6-10-1-处理代理不支持的首部和方法"><a href="#6-10-1-处理代理不支持的首部和方法" class="headerlink" title="6.10.1 处理代理不支持的首部和方法"></a>6.10.1 处理代理不支持的首部和方法</h2><p>代理服务器可能无法理解所有经其传输的首部字段，有些可能是特定应用程序独有的定制首部。代理必须对不认识的首部字段进行转发，将其等价地合并为由逗号分隔的列表，且必须维持同名首部字段的相对顺序。如果代理不熟悉某个方法，应该尝试将报文转发到下一跳节点上去。</p>
+<h2 id="6-10-2-OPTIONS与Allow首部"><a href="#6-10-2-OPTIONS与Allow首部" class="headerlink" title="6.10.2 OPTIONS与Allow首部"></a>6.10.2 OPTIONS与Allow首部</h2><p>通过HTTP OPTIONS方法，客户端（或代理）可以发现Web服务器或者其上某个特定资源所支持的功能。在进行交互之前，确定服务器的能力，这样它就可以更方便地与具备不同特性的代理和服务器进行互操作了。</p>
+<p>如果OPTIONS请求的URI是个星号（*），请求的就是整个服务器所支持的功能。</p>
+<p>如果URI是个实际资源地址，OPTIONS请求就是在查询那个特定资源的可用特性。</p>
+<p>Allow实体首部字段列出了请求URI标识的资源所支持的方法列表，可以将Allow首部作为请求首部，建议在新的资源上支持某些方法，并不要求服务器支持这些方法，但应该在相应的响应中包含一个Allow首部，列出它实际支持的方法。</p>
+<p>即使代理无法理解指定的所有方法，也不能对Allow首部字段进行修改。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/hgRKHELPa0FxVZOO__thumbnail.png"
+                      alt="图片"
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：06-代理</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-23 18:38:29</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/01/23/note/HTTP/06-代理/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">07-缓存</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/23/note/HTTP/05-Web%E6%9C%8D%E5%8A%A1%E5%99%A8/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">05-Web服务器</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#6-1-Web%E7%9A%84-%E4%B8%AD%E9%97%B4%E5%AE%9E%E4%BD%93"><span class="nav-text">6.1 Web的 中间实体</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-2-%E7%A7%81%E6%9C%89%E5%92%8C%E5%85%B1%E4%BA%AB%E4%BB%A3%E7%90%86"><span class="nav-text">6.2 私有和共享代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-3-%E4%BB%A3%E7%90%86%E4%B8%8E%E7%BD%91%E5%85%B3%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-text">6.3 代理与网关的对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-4-%E4%BB%A3%E7%90%86%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">6.4 代理的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-5-%E4%BB%A3%E7%90%86%E4%BC%9A%E5%8E%BB%E5%BE%80%E4%BD%95%E5%A4%84"><span class="nav-text">6.5 代理会去往何处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-1-%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="nav-text">6.5.1 代理服务器的部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-2-%E4%BB%A3%E7%90%86%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-text">6.5.2 代理的层次结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-5-2-1-%E4%BB%A3%E7%90%86%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E7%9A%84%E5%86%85%E5%AE%B9%E8%B7%AF%E7%94%B1"><span class="nav-text">6.5.2.1 代理层次结构的内容路由</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-5-3-%E4%BB%A3%E7%90%86%E6%98%AF%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%B5%81%E9%87%8F%E7%9A%84"><span class="nav-text">6.5.3 代理是如何获取流量的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-6-%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E4%BB%A3%E7%90%86%E8%AE%BE%E7%BD%AE"><span class="nav-text">6.6 客户端的代理设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-7-%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6.7 代理请求的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-1-%E4%BB%A3%E7%90%86URI%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8URI%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="nav-text">6.7.1 代理URI与服务器URI的不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-2-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">6.7.2 虚拟主机的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-3-%E6%8B%A6%E6%88%AA%E4%BB%A3%E7%90%86%E4%BC%9A%E6%94%B6%E5%88%B0%E9%83%A8%E5%88%86URI"><span class="nav-text">6.7.3 拦截代理会收到部分URI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-4-%E4%BB%A3%E7%90%86%E6%97%A2%E5%8F%AF%E4%BB%A5%E5%A4%84%E7%90%86%E4%BB%A3%E7%90%86%E8%AF%B7%E6%B1%82%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%A4%84%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%B7%E6%B1%82"><span class="nav-text">6.7.4 代理既可以处理代理请求，也可以处理服务器请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-5-%E8%BD%AC%E5%8F%91%E8%BF%87%E7%A8%8B%E4%B8%AD%E5%AF%B9URI%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-text">6.7.5 转发过程中对URI的修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-6-%E6%B2%A1%E6%9C%89%E6%98%BE%E5%BC%8F%E4%BB%A3%E7%90%86%E6%97%B6URI%E7%9A%84%E8%A7%A3%E6%9E%90"><span class="nav-text">6.7.6 没有显式代理时URI的解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-7-%E6%9C%89%E6%98%BE%E5%BC%8F%E4%BB%A3%E7%90%86%E6%97%B6URI%E7%9A%84%E8%A7%A3%E6%9E%90"><span class="nav-text">6.7.7 有显式代理时URI的解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-7-8-%E6%9C%89%E6%8B%A6%E6%88%AA%E4%BB%A3%E7%90%86%E6%97%B6URI%E7%9A%84%E8%A7%A3%E6%9E%90"><span class="nav-text">6.7.8 有拦截代理时URI的解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-8-%E8%BF%BD%E8%B8%AA%E6%8A%A5%E6%96%87"><span class="nav-text">6.8 追踪报文</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-1-Via%E9%A6%96%E9%83%A8"><span class="nav-text">6.8.1 Via首部</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-1-1-Via%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-text">6.8.1.1 Via的语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-1-2-Via%E7%9A%84%E8%AF%B7%E6%B1%82%E5%92%8C%E5%93%8D%E5%BA%94%E8%B7%AF%E5%BE%84"><span class="nav-text">6.8.1.2 Via的请求和响应路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-1-3-Via%E4%B8%8E%E7%BD%91%E5%85%B3"><span class="nav-text">6.8.1.3 Via与网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-1-4-Server%E5%92%8CVia%E9%A6%96%E9%83%A8"><span class="nav-text">6.8.1.4 Server和Via首部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-1-5-Via%E7%9A%84%E9%9A%90%E7%A7%81%E5%92%8C%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="nav-text">6.8.1.5 Via的隐私和安全问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-8-2-TRACE%E6%96%B9%E6%B3%95"><span class="nav-text">6.8.2 TRACE方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-2-1-Max-Forwards"><span class="nav-text">6.8.2.1 Max-Forwards</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-9-%E4%BB%A3%E7%90%86%E8%AE%A4%E8%AF%81"><span class="nav-text">6.9 代理认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-10-%E4%BB%A3%E7%90%86%E7%9A%84%E4%BA%92%E6%93%8D%E4%BD%9C%E6%80%A7"><span class="nav-text">6.10 代理的互操作性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#6-10-1-%E5%A4%84%E7%90%86%E4%BB%A3%E7%90%86%E4%B8%8D%E6%94%AF%E6%8C%81%E7%9A%84%E9%A6%96%E9%83%A8%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-text">6.10.1 处理代理不支持的首部和方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-10-2-OPTIONS%E4%B8%8EAllow%E9%A6%96%E9%83%A8"><span class="nav-text">6.10.2 OPTIONS与Allow首部</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

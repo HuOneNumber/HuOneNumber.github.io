@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            14-安全HTTP |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">14-安全HTTP</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv2</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-01-23 18:59:10
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/14-%E5%AE%89%E5%85%A8HTTP/">14-安全HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>3.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>13 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="14-1-保护HTTP的安全"><a href="#14-1-保护HTTP的安全" class="headerlink" title="14.1 保护HTTP的安全"></a>14.1 保护HTTP的安全</h2><p>HTTP安全技术能够提供下列功能:</p>
+<ol>
+<li><strong>服务器认证</strong>（客户端知道它们是在与真正的而不是伪造的服务器通话）。</li>
+<li><strong>客户端认证</strong>（服务器知道它们是在与真的而不是伪造的客户端通话）。</li>
+<li><strong>完整性</strong>（客户端和服务器的数据不会被修改）。</li>
+<li><strong>加密</strong>（客户端和服务器的对话是私密的，无需担心被窃听）。</li>
+<li><strong>效率</strong>（一个运行的足够快的算法，以便低端的客户端和服务器使用）。</li>
+<li><strong>普适性</strong>（基本上所有的客户端和服务器都支持这些协议）。</li>
+<li><strong>管理的可扩展性</strong>（在任何地方的任何人都可以立即进行安全通信）。</li>
+<li><strong>适应性</strong>（能够支持当前最知名的安全方法）。</li>
+<li><strong>可行性</strong>（满足社会的政治文化需要）。</li>
+</ol>
+<p><strong>HTTPS</strong>就是最流行的HTTP安全形式。HTTPS方案的URL以https://，而不是http://开头，据此就可以分辨某个Web页面是通过HTTPS还是HTTP访问的。</p>
+<p>使用HTTPS时，所有的HTTP请求和响应数据在发送到网络之前，都要进行加密。HTTPS在HTTP下面提供了一个传输级的密码安全层<strong>SSL</strong>，也可以使用传输层安全（Transport Layer Security，<strong>TLS</strong>）。SSL和TLS类似，可以用SSL来表示SSL和TLS。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/mIJdG4CNy1xhnqon__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p>大部分编码解码工作都在SSL库中完成的，Web客户端和服务器在使用安全HTTP时无需过多地修改其协议处理逻辑。在大多数情况下，只需要用SSL的输入/输出调用取代TCP的调用，再增加几个其他调用来配置和管理安全信息。</p>
+<h2 id="14-2-数字加密"><a href="#14-2-数字加密" class="headerlink" title="14.2 数字加密"></a>14.2 数字加密</h2><ol>
+<li><strong>密码</strong>，对文本进行编码，使偷窥者无法识别的算法。</li>
+<li><strong>密钥</strong>，改变密码行为的数字化参数。</li>
+<li><strong>对称密钥加密系统</strong>，编/解码使用相同密钥的算法。</li>
+<li><strong>不对称密钥加密系统</strong>，编/解码使用不同密钥的算法。</li>
+<li><strong>公开密钥加密系统</strong>，一种能够使数百万计算机便捷地发送机密报文的系统。</li>
+<li><strong>数字签名</strong>，用来验证报文未被伪造或篡改的校验和。</li>
+<li><strong>数字证书</strong>，由一个可信的组织验证和签发的识别信息。<h3 id="14-2-1-密码"><a href="#14-2-1-密码" class="headerlink" title="14.2.1 密码"></a>14.2.1 密码</h3></li>
+</ol>
+<p>密码学基于一种名为密码（cipher）的秘密代码。密码是一套编码方案，一种特殊的报文编码方式和一种稍后使用的相应解码方式的结合体。加密之前的原始报文通常被称为<strong>明文</strong>（plaintext 或cleartext）。使用了密码之后的编码报文通常被称作<strong>密文</strong>（ciphertext）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/TKPj2auk0Ick7iCq__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p>起初密码是相当简单的算法。比如字符旋转密码，报文中的每个字符都由字母表中三个位置之后的字符来取代。“A”由“D”来取代，“B”由“E”来取代，以此类推。而密码机可以用复杂得多的密码来快速、精确地对报文进行编解码，使代码的破解更加困难。</p>
+<h3 id="14-2-2-使用密钥的密码"><a href="#14-2-2-使用密钥的密码" class="headerlink" title="14.2.2 使用密钥的密码"></a>14.2.2 使用密钥的密码</h3><p>大部分机器上都有一些号盘，可以将其设置为大量不同的值以改变密码的工作方式。没有正确的号盘设置（密钥值），解码器无法工作。同一条输入报文通过同一台编码机进行传输，会随密钥值的不同产生不同的输出。这些密码参数被称为<strong>密钥</strong>（key）。</p>
+<h3 id="14-2-3-数字密码"><a href="#14-2-3-数字密码" class="headerlink" title="14.2.3 数字密码"></a>14.2.3 数字密码</h3><p>与金属钥匙或机械设备中的号盘设置相比，数字密钥只是一些数字。数字密钥值是编/解码算法的输入。编码算法就是会读取数据的函数，函数根据算法和密钥值对其进行编/解码。</p>
+<p>给定一段明文报文P、一个编码函数E和一个数字编码密钥e，就可以生成一段经过编码的密文C。通过解码函数D和解码密钥d，可以将密文C解码为原始的明文P。编/解码函数都是互为反函数的，对P的编码进行解码就会回到原始报文P上去。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/6y06i9T1LHudkYmQ__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="14-3-对称密钥加密技术"><a href="#14-3-对称密钥加密技术" class="headerlink" title="14.3 对称密钥加密技术"></a>14.3 对称密钥加密技术</h2><p>很多数字加密算法都是<strong>对称密钥</strong>（symmetric-key）加密技术，因为编码时使用的密钥值和解码时一样（e=d），统称为密钥k。</p>
+<p>发送端和接收端要共享相同的密钥k才能进行通信。发送端用共享的密钥来加密报文，并将得到的密文发送给接收端。接收端收到密文，并对其应用解密函数和相同的共享密钥，恢复出原始的明文。流行的对称密钥加密算法有：DES、Triple-DES、RC2 、RC4。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/b4QoZX7deFh2BTZr__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-3-1-密钥长度与枚举攻击；"><a href="#14-3-1-密钥长度与枚举攻击；" class="headerlink" title="14.3.1 密钥长度与枚举攻击；"></a>14.3.1 密钥长度与枚举攻击；</h3><p>在很多情况下，编/解码算法都是众所周知的，因此密钥是唯一保密的东西。</p>
+<p>用暴力去尝试所有的密钥值称为<strong>枚举攻击</strong>（enumeration attack）。好的加密算法会迫使攻击者试遍每一个可能的密钥，才能破解代码。</p>
+<p>可用密钥值的数量取决于密钥中的位数，以及可能的密钥中有多少是有效的。通常对称密钥加密技术所有的密钥值都是有效的，有些加密技术只有部分秘钥值有效。</p>
+<p>在传统的对称密钥加密技术中，对小型的、不太重要的事务来说，40位的密钥就足够安全了。但现在可能需要128 位的密钥。</p>
+<h3 id="14-3-2-建立共享密钥"><a href="#14-3-2-建立共享密钥" class="headerlink" title="14.3.2 建立共享密钥"></a>14.3.2 建立共享密钥</h3><p>对称密钥加密技术的缺点之一就是发送者和接收者在互相对话之前，要有一个共享的保密密钥。</p>
+<p>每对通信实体都需要自己的私有密钥。如果有N个节点，每个节点都要和其他所有N-1个节点进行安全对话，总共大概会有N^2个保密密钥。</p>
+<h2 id="14-4-公开密钥加密技术"><a href="#14-4-公开密钥加密技术" class="headerlink" title="14.4 公开密钥加密技术"></a>14.4 公开密钥加密技术</h2><p>公开密钥加密技术使用了两个非对称密钥：一个用来对主机报文编码，另一个用来对主机报文解码。编码密钥是公开，但解密密钥只有主机才知道。但解码密钥是保密的，因此只有接收端才能对发送给它的报文进行解码。</p>
+<p>这样解决了对称秘钥技术的缺点，无须为了进行安全的通信而先交换私有密钥，使得密钥的建立变得更加简单。节点X可以将其加密密钥ex公开。任何想向节点X发送报文的人都可以使用相同的公开密钥了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/R3C0ZWtLpOZaLWpA__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-4-1-RSA"><a href="#14-4-1-RSA" class="headerlink" title="14.4.1 RSA"></a>14.4.1 RSA</h3><p>所有公开密钥非对称加密系统所面临的共同挑战是，要确保即便有人拥有了下面所有的线索，也无法计算出保密的私有密钥：</p>
+<ol>
+<li>公开密钥（是公有的，所有人都可以获得）；</li>
+<li>一小片拦截下来的密文（可通过对网络的嗅探获取）；</li>
+<li>一条报文及与之相关的密文（对任意一段文本运行加密器就可以得到）。</li>
+</ol>
+<p>RSA算法就是一个满足了以上这些条件的流行的公开密钥加密系统，它使得破解代码找到相应的私有密钥的难度仍相当于对一个极大的数进行质因数分解的困难程度。</p>
+<h3 id="14-4-2-混合加密系统和会话密钥"><a href="#14-4-2-混合加密系统和会话密钥" class="headerlink" title="14.4.2 混合加密系统和会话密钥"></a>14.4.2 混合加密系统和会话密钥</h3><p>公开密钥加密算法的计算可能会很慢，因为它混合使用了对称和非对称策略。常见的做法是在两节点间通过便捷的公开密钥加密技术建立起安全通信，然后再用那条安全的通道产生并发送临时的随机对称密钥，通过更快的对称加密技术对其余的数据进行加密。</p>
+<h2 id="14-5-数字签名"><a href="#14-5-数字签名" class="headerlink" title="14.5 数字签名"></a>14.5 数字签名</h2><p>除了加/解密报文之外，还可以用加密系统对报文进行签名（sign），签名是加了密的校验和，数字签名是附加在报文上的特殊加密校验码。因为只有作者保密的私有密钥才能产生校验和，收到报文后用公钥能对数字签名解密，可以证明没有被冒充，同时再次进行摘要运算进行标胶，证明报文是否被篡改过。</p>
+<p>数字签名通常是用非对称公开密钥技术产生的。它解决了对私钥加密整个文件以及之后的解密的开销问题。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/Tke6UEV6jKnzqPSN__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="14-6-数字证书"><a href="#14-6-数字证书" class="headerlink" title="14.6 数字证书"></a>14.6 数字证书</h2><h3 id="14-6-1-证书的主要内容"><a href="#14-6-1-证书的主要内容" class="headerlink" title="14.6.1 证书的主要内容"></a>14.6.1 证书的主要内容</h3><p>数字证书（certs）包含了由某个受信任组织担保的用户或公司（比如CA证书授权中心）的相关信息。CA证书中心用自己的私钥，对发送端的公钥和其他信息一起加密，生成”数字证书”。因为接受端只有用CA机构的公钥解密这份数字证书，才能拿到发送者的公钥，CA机构是绝对权威可信的，然后继续验证数字签名。这解决了发送端和接收端的公钥同时被替换的问题。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/fFoOZEhjrhEeQgdN__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-6-2-X-509-v3证书"><a href="#14-6-2-X-509-v3证书" class="headerlink" title="14.6.2 X.509 v3证书"></a>14.6.2 X.509 v3证书</h3><p>大多数证书都以X.509 v3标准格式来存储它们的信息。X.509 v3证书提供了一种标准的方式，将证书信息规范至一些可解析字段中。基于X.509证书的签名有：Web服务器证书、客户端电子邮件证书、软件代码签名证书和证书颁发机构证书。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/hspZDgv7mPLSk21u__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/zPbm4kXgLajyitzJ__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-6-3-用证书对服务器进行认证"><a href="#14-6-3-用证书对服务器进行认证" class="headerlink" title="14.6.3 用证书对服务器进行认证"></a>14.6.3 用证书对服务器进行认证</h3><p>通过HTTPS建立一个安全Web事务之后，浏览器会自动获取所连接服务器的数字证书。如果服务器没有证书，安全连接就会失败。浏览器收到证书时会对签名颁发机构进行检查。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/SD8nb5zOtht8Okfl__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="14-7-HTTPS细节介绍"><a href="#14-7-HTTPS细节介绍" class="headerlink" title="14.7 HTTPS细节介绍"></a>14.7 HTTPS细节介绍</h2><p>HTTPS是最常见的HTTP安全版本。HTTPS将HTTP协议与一组强大的对称、非对称和基于证书的加密技术结合在一起。</p>
+<h3 id="14-7-1-HTTPS概述"><a href="#14-7-1-HTTPS概述" class="headerlink" title="14.7.1 HTTPS概述"></a>14.7.1 HTTPS概述</h3><p>HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTTP报文发送给TCP，而是先将其发送给了一个安全层，对其进行加密。HTTP安全层是通过SSL及其现代替代协议TLS来实现的。术语SSL同时来表示SSL或者TLS。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/Dcf7PaKFNvsZgcjI__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-7-2-HTTPS方案"><a href="#14-7-2-HTTPS方案" class="headerlink" title="14.7.2 HTTPS方案"></a>14.7.2 HTTPS方案</h3><p>安全HTTP是可选的。因此，对Web服务器发起请求时，会去检查URL的方案前缀。因为SSL是个二进制协议，与HTTP完全不同， 如果SSL从端口80到达，Web服务器会将二进制SSL流量理解为错误的HTTP并关闭连接。</p>
+<h3 id="14-7-3-建立安全传输"><a href="#14-7-3-建立安全传输" class="headerlink" title="14.7.3 建立安全传输"></a>14.7.3 建立安全传输</h3><p>在HTTPS中，客户端首先打开一条到Web服务器端口443的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，客户端就将请求报文发送给安全层。在将这些报文发送给TCP之前，都要先对其进行加密。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/wELgIlWVSdCcZivr__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h4 id="14-7-3-1-SSL握手"><a href="#14-7-3-1-SSL握手" class="headerlink" title="14.7.3.1 SSL握手"></a>14.7.3.1 SSL握手</h4><p>在发送已加密的HTTP报文前，客户端和服务器进行一次SSL握手，它们要完成以下工作：</p>
+<ol>
+<li>交换协议版本号；</li>
+<li>选择一个两端都了解的密码；</li>
+<li>对两端的身份进行认证；</li>
+<li>生成临时的会话密钥，以便加密信道。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/GzOgAMKnHN1Dx72w__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="14-7-4-服务器证书"><a href="#14-7-4-服务器证书" class="headerlink" title="14.7.4 服务器证书"></a>14.7.4 服务器证书</h3><p>SSL支持双向认证，将服务器证书承载回客户端，再将客户端的证书回送给服务器。但实际中很少出现服务器要求使用客户端证书，安全HTTPS事务总是要求使用服务器证书的。</p>
+<h4 id="14-7-4-1-站点证书的有效性"><a href="#14-7-4-1-站点证书的有效性" class="headerlink" title="14.7.4 .1 站点证书的有效性"></a>14.7.4 .1 站点证书的有效性</h4><p>SSL自身不要求用户检查Web服务器证书，但大部分现代浏览器都会对证书进行简单的完整性检查，并为用户提供进行进一步彻查的手段。验证步骤如下所述：</p>
+<ol>
+<li><strong>日期检测</strong></li>
+</ol>
+<p>首先，浏览器检查证书的起始日期和结束日期，以确保证书仍然有效。如果过期，或者还未被激活，则证书有效性验证失败，浏览器显示一条错误信息。</p>
+<ol start="2">
+<li><strong>签名颁发者可信度检测</strong></li>
+</ol>
+<p>每个证书都是由某些证书颁发机构（CA）签发的，它们负责为服务器担保。证书有不同的等级，每种证书都要求不同级别的背景验证。浏览器会附带一个签名颁发机构的受信列表。如果浏览器收到了某未知甚至恶意的颁发机构签发的证书，那它通常会显示一条警告信息。</p>
+<ol start="3">
+<li><strong>签名检测</strong></li>
+</ol>
+<p>一旦判定签名授权是可信的，浏览器就要对签名使用签名颁发机构的公开密钥，并将其与校验码进行比较，以查看证书的完整性。</p>
+<ol start="4">
+<li><strong>站点身份检测</strong></li>
+</ol>
+<p>为防止服务器复制其他人的证书，或拦截其他人的流量，浏览器会验证证书中的域名与所对话的服务器的域名是否匹配，有些CA会为一组服务器创建包含服务器名称列表或通配域名的证书。如果主机名与证书中的标识符不匹配，客户端要么通知用户，要么就以表示证书不正确的差错报文来终止连接。</p>
+<h4 id="14-7-4-2-虚拟主机与证书"><a href="#14-7-4-2-虚拟主机与证书" class="headerlink" title="14.7.4 .2 虚拟主机与证书"></a>14.7.4 .2 虚拟主机与证书</h4><p>有些流行的Web服务器程序只支持一个证书。如果用户请求的是虚拟主机名（一台服务器上有多个主机名），与证书名称并不严格匹配，浏览器就会显示警告框。可以在开始处理安全事务时，通过重定向解决。</p>
+<h2 id="14-8-通过代理以隧道形式传输安全流量"><a href="#14-8-通过代理以隧道形式传输安全流量" class="headerlink" title="14.8 通过代理以隧道形式传输安全流量"></a>14.8 通过代理以隧道形式传输安全流量</h2><p>客户端通常会用Web代理服务器代表它们来访问Web服务器。代理是防火墙路由器唯一允许 进行HTTP流量交换的设备，它可能会进行病毒检测或其他的内容控制工作。但只要客户端用服务器的公钥对发往服务器的数据进行加密，代理就不能读取HTTP首部，也就无法知道应该将请求转向何处。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/ioF0MOUNikHKQnIO__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p>解决方案：<strong>HTTPS SSL 隧道协议</strong>。客户端在开始加密之前，通过CONNECT的扩展方法发送以明文形式的要连接的安全主机和端口信息，告知给代理，客户端会等待来自代理的响应。e.g.  CONNECT home.netscape.com:443   HTTP/1. 0</p>
+<p>代理会对请求进行评估，确保它有效且用户有权请求这样一条连接。如果正常，代理会建立到目标服务器的连接。如果成功，就向客户端发送条200 Connection Established响应。之后直接在客户端和服务器之间以隧道形式传输数据。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：14-安全HTTP</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-23 18:59:10</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/01/23/note/HTTP/14-安全HTTP/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/23/note/HTTP/08-%E9%9B%86%E6%88%90%E7%82%B9%EF%BC%9A%E7%BD%91%E5%85%B3%E3%80%81%E9%9A%A7%E9%81%93%E5%8F%8A%E4%B8%AD%E7%BB%A7/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">08-集成点：网关、隧道及中继</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/23/note/HTTP/13-%E6%91%98%E8%A6%81%E8%AE%A4%E8%AF%81/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">13-摘要认证</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#14-1-%E4%BF%9D%E6%8A%A4HTTP%E7%9A%84%E5%AE%89%E5%85%A8"><span class="nav-text">14.1 保护HTTP的安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-2-%E6%95%B0%E5%AD%97%E5%8A%A0%E5%AF%86"><span class="nav-text">14.2 数字加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-2-1-%E5%AF%86%E7%A0%81"><span class="nav-text">14.2.1 密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-2-2-%E4%BD%BF%E7%94%A8%E5%AF%86%E9%92%A5%E7%9A%84%E5%AF%86%E7%A0%81"><span class="nav-text">14.2.2 使用密钥的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-2-3-%E6%95%B0%E5%AD%97%E5%AF%86%E7%A0%81"><span class="nav-text">14.2.3 数字密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-3-%E5%AF%B9%E7%A7%B0%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="nav-text">14.3 对称密钥加密技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-3-1-%E5%AF%86%E9%92%A5%E9%95%BF%E5%BA%A6%E4%B8%8E%E6%9E%9A%E4%B8%BE%E6%94%BB%E5%87%BB%EF%BC%9B"><span class="nav-text">14.3.1 密钥长度与枚举攻击；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-3-2-%E5%BB%BA%E7%AB%8B%E5%85%B1%E4%BA%AB%E5%AF%86%E9%92%A5"><span class="nav-text">14.3.2 建立共享密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-4-%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF"><span class="nav-text">14.4 公开密钥加密技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-4-1-RSA"><span class="nav-text">14.4.1 RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-4-2-%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86%E7%B3%BB%E7%BB%9F%E5%92%8C%E4%BC%9A%E8%AF%9D%E5%AF%86%E9%92%A5"><span class="nav-text">14.4.2 混合加密系统和会话密钥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-5-%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D"><span class="nav-text">14.5 数字签名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-6-%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="nav-text">14.6 数字证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-6-1-%E8%AF%81%E4%B9%A6%E7%9A%84%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9"><span class="nav-text">14.6.1 证书的主要内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-6-2-X-509-v3%E8%AF%81%E4%B9%A6"><span class="nav-text">14.6.2 X.509 v3证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-6-3-%E7%94%A8%E8%AF%81%E4%B9%A6%E5%AF%B9%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%AE%A4%E8%AF%81"><span class="nav-text">14.6.3 用证书对服务器进行认证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-7-HTTPS%E7%BB%86%E8%8A%82%E4%BB%8B%E7%BB%8D"><span class="nav-text">14.7 HTTPS细节介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#14-7-1-HTTPS%E6%A6%82%E8%BF%B0"><span class="nav-text">14.7.1 HTTPS概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-7-2-HTTPS%E6%96%B9%E6%A1%88"><span class="nav-text">14.7.2 HTTPS方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-7-3-%E5%BB%BA%E7%AB%8B%E5%AE%89%E5%85%A8%E4%BC%A0%E8%BE%93"><span class="nav-text">14.7.3 建立安全传输</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-3-1-SSL%E6%8F%A1%E6%89%8B"><span class="nav-text">14.7.3.1 SSL握手</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-7-4-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%81%E4%B9%A6"><span class="nav-text">14.7.4 服务器证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-4-1-%E7%AB%99%E7%82%B9%E8%AF%81%E4%B9%A6%E7%9A%84%E6%9C%89%E6%95%88%E6%80%A7"><span class="nav-text">14.7.4 .1 站点证书的有效性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-7-4-2-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA%E4%B8%8E%E8%AF%81%E4%B9%A6"><span class="nav-text">14.7.4 .2 虚拟主机与证书</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-8-%E9%80%9A%E8%BF%87%E4%BB%A3%E7%90%86%E4%BB%A5%E9%9A%A7%E9%81%93%E5%BD%A2%E5%BC%8F%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E6%B5%81%E9%87%8F"><span class="nav-text">14.8 通过代理以隧道形式传输安全流量</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

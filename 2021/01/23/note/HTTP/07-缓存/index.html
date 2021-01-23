@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            07-缓存 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"别着急，慢慢来","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">07-缓存</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv2</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-01-23 18:42:11
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/07-%E7%BC%93%E5%AD%98/">07-缓存</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>4.5k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>15 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
+<ol>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
+</ol>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/JqEmbyfnLqujDvh3__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/cY8dGPCXn8wtoLKV__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="2">
+<li><strong>再验证未命中</strong></li>
+</ol>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/yIucryfnFQtd0k4c__thumbnail.png"
+                      alt="图片"
+                ></p>
+<ol start="3">
+<li><strong>对象被删除</strong></li>
+</ol>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
+</ol>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/Co7dnjntrFDvuHrm__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/iKZZ0KjuHsCngdjY__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/sPL9fez6Q5GM0Kew__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/mvA0UnLjL6rYmQLQ__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
+<ol>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
+</ol>
+<p>缓存返回的内容有以下几种情况：</p>
+<ol>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
+</ol>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/erfxAVVZ74Xb8xhr__thumbnail.png"
+                      alt="图片"
+                ></p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
+<ol>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
+</ol>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/bT1QqO3hyhVyT1Rm__thumbnail.png"
+                      alt="图片"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/c66vSOYHG3viCCN0__thumbnail.png"
+                      alt="图片"
+                ></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：07-缓存</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-23 18:42:11</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/01/23/note/HTTP/07-缓存/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/23/note/HTTP/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">11-客户端识别与cookie机制</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/23/note/HTTP/06-%E4%BB%A3%E7%90%86/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">06-代理</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-%E5%91%BD%E4%B8%AD%E5%92%8C%E6%9C%AA%E5%91%BD%E4%B8%AD%E7%9A%84"><span class="nav-text">7.1 命中和未命中的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-1-%E5%86%8D%E9%AA%8C%E8%AF%81"><span class="nav-text">7.1.1 再验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-2-%E5%91%BD%E4%B8%AD%E7%8E%87"><span class="nav-text">7.1.2 命中率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-3-%E5%AD%97%E8%8A%82%E5%91%BD%E4%B8%AD%E7%8E%87"><span class="nav-text">7.1.3 字节命中率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-4-%E5%8C%BA%E5%88%86%E5%91%BD%E4%B8%AD%E5%92%8C%E6%9C%AA%E5%91%BD%E4%B8%AD%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-text">7.1.4 区分命中和未命中的情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2-%E7%BC%93%E5%AD%98%E7%9A%84%E6%8B%93%E6%89%91%E7%BB%93%E6%9E%84"><span class="nav-text">7.2 缓存的拓扑结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-1-%E7%A7%81%E6%9C%89%E7%BC%93%E5%AD%98"><span class="nav-text">7.2.1 私有缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-2-%E5%85%AC%E6%9C%89%E7%BC%93%E5%AD%98"><span class="nav-text">7.2.2 公有缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-3-%E4%BB%A3%E7%90%86%E7%BC%93%E5%AD%98%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-text">7.2.3 代理缓存的层次结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-3-1-%E5%B1%82%E6%AC%A1%E5%8C%96%E7%BC%93%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-text">7.2.3.1 层次化缓存结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-3-2-%E7%BD%91%E7%8A%B6%E7%BC%93%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-text">7.2.3.2 网状缓存结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3-%E7%BC%93%E5%AD%98%E7%9A%84%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4"><span class="nav-text">7.3 缓存的处理步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4-%E4%BF%9D%E6%8C%81%E5%89%AF%E6%9C%AC%E7%9A%84%E6%96%B0%E9%B2%9C"><span class="nav-text">7.4 保持副本的新鲜</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-1-%E6%96%87%E6%A1%A3%E8%BF%87%E6%9C%9F"><span class="nav-text">7.4.1 文档过期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-2-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%86%8D%E9%AA%8C%E8%AF%81"><span class="nav-text">7.4.2 服务器再验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-3-%E7%94%A8%E6%9D%A1%E4%BB%B6%E6%96%B9%E6%B3%95%E8%BF%9B%E8%A1%8C%E5%86%8D%E9%AA%8C%E8%AF%81"><span class="nav-text">7.4.3 用条件方法进行再验证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-3-1-If-Modified-Since-Date%E5%86%8D%E9%AA%8C%E8%AF%81"><span class="nav-text">7.4.3.1 If-Modified-Since:Date再验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-3-2-If-None-Match%EF%BC%9A%E5%AE%9E%E4%BD%93%E6%A0%87%E7%AD%BE%E5%86%8D%E9%AA%8C%E8%AF%81"><span class="nav-text">7.4.3.2 If-None-Match：实体标签再验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-4-%E5%BC%BA%E5%BC%B1%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-text">7.4.4 强弱验证器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5-%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98%E7%9A%84%E8%83%BD%E5%8A%9B"><span class="nav-text">7.5 控制缓存的能力</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-1-%E8%AF%95%E6%8E%A2%E6%80%A7%E8%BF%87%E6%9C%9F"><span class="nav-text">7.5.1 试探性过期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E6%96%B0%E9%B2%9C%E5%BA%A6%E9%99%90%E5%88%B6"><span class="nav-text">7.5.2 客户端的新鲜度限制</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
