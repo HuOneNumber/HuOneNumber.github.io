@@ -9,6 +9,8 @@
     
     <title>
         
+            02-URL与资源 |
+        
         HuOneNumber | 个人博客
     </title>
     <link rel="shortcut icon" href="/images/avatar.png">
@@ -166,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation"></span>
+            <span class="title-hover-animation">02-URL与资源</span>
         </div>
 
         
@@ -185,12 +187,42 @@
         <i class="fas fa-edit"></i> 2021-01-22 19:32:47
     </span>
     
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/">02-URL与资源</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
     
 
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i> <span>1.3k 字</span>
+            <i class="fas fa-file-word"></i> <span>1.2k 字</span>
         </span>
     
     
@@ -211,19 +243,70 @@
         
 
         <div class="article-content markdown-body">
-            <h2 id="URL语法"><a href="#URL语法" class="headerlink" title="URL语法"></a><strong>URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
-<p><strong>URL通用格式</strong>：<scheme>://<user>:<password>@<host>:<port>/ <path> ; <params>? <query>#<frag>，分别代表方案、用户、密码、主机、端口、路径、参数、查询、片段，其中最重要的是<strong>方案、主机、和路径</strong>。</p>
-<p>|<strong>组件</strong>|<strong>描述</strong>|<strong>默认值</strong>|<br>|:—-:|:—-|:—-|:—-|:—-:|:—-|<br>|方案|用什么协议获取资源，大小写无关，比如http|无|<br>|用户|某些方案下访问资源时需要的用户名，比如FTP|匿名|<br>|密码|用户名后面可能包含的密码，由冒号（：）分隔|E-mail地址|<br>|主机|服务器位置，也就是资源在哪里，可以是域名（会被解析）或IP地址|无|<br>|端口|资源宿主服务器正在监听的端口号。很多方案都有默认端口号（HTTP的默认端口号为80）|方案特有|<br>|路径|资源路径，服务器上的本地资源名，由斜杠（/）分隔|无|<br>|参数|某些方案会用这个组件来指定输入参数。参数为名/值对。可以包含多个参数字段，它们相互之间以及与路径其余部分用分号（；）分隔|无|<br>|查询|某些方案会用这个组件传递参数以激活应用程序（比如数据库、公告板、搜索引擎以及其他因特网网关）。查询组件的内容没有通用格式。用“？”将其与其余部分分隔开来。按照常规，查询字符串以一系列“名/值”对的形式出现，名值对之间用字符“&amp;”分隔：|无|<br>|片段|一小片或一部分资源的名字。引用对象时，不会将frag字段传送给服务器，字段是在客户端内部使用的。通过字符“#”将其与URL的其余部分分隔开来|无|</p>
-<h2 id="URL快捷方式"><a href="#URL快捷方式" class="headerlink" title="URL快捷方式"></a><strong>URL快捷方式</strong></h2><p><strong>URL</strong>有两种方式，<strong>绝对URL</strong>（包含访问资源所需的全部信息）以及<strong>相对URL</strong>（不完整，需要对基础URL进行解析）。</p>
+            <h2 id="2-1-URL语法"><a href="#2-1-URL语法" class="headerlink" title="2.1 URL语法"></a><strong>2.1 URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
+<table>
+    <tr>
+    <th>组件</th>
+    <th>描述</th>
+    <th>默认值</th>
+  </tr>
+  <tr>
+    <td>方案</td>
+    <td>用什么协议获取资源，大小写无关，比如http</td>
+    <td>无</td>
+  </tr>
+  <tr>
+    <td>用户</td>
+    <td>某些方案下访问资源时需要的用户名，比如FTP</td>
+    <td>匿名</td>
+  </tr>
+  <tr>
+    <td>密码</td>
+    <td>用户名后面可能包含的密码，由冒号（：）分隔</td>
+    <td>E-mail地址</td>
+  </tr>
+  <tr>
+    <td>主机</td>
+    <td>服务器位置，也就是资源在哪里，可以是域名（会被解析）或IP地址</td>
+    <td>无</td>
+  </tr>
+  <tr>
+    <td>端口</td>
+    <td>资源宿主服务器正在监听的端口号。很多方案都有默认端口号（HTTP的默认端口号为80）</td>
+    <td>方案特有</td>
+  </tr>
+  <tr>
+    <td>路径</td>
+    <td>资源路径，服务器上的本地资源名，由斜杠（/）分隔</td>
+    <td>无</td>
+  </tr>
+  <tr>
+    <td>参数</td>
+    <td>某些方案会用这个组件来指定输入参数。参数为名/值对。可以包含多个参数字段，它们相互之间以及与路径其余部分用分号（；）分隔</td>
+    <td>无</td>
+  </tr>
+  <tr>
+    <td>查询</td>
+    <td>某些方案会用这个组件传递参数以激活应用程序（比如数据库、公告板、搜索引擎以及其他因特网网关）。查询组件的内容没有通用格式。用“？”将其与其余部分分隔开来。按照常规，查询字符串以一系列“名/值”对的形式出现，名值对之间用字符“&”分隔：</td>
+    <td>无</td>
+  </tr>
+  <tr>
+    <td>片段</td>
+    <td>一小片或一部分资源的名字。引用对象时，不会将frag字段传送给服务器，字段是在客户端内部使用的。通过字符“#”将其与URL的其余部分分隔开来</td>
+    <td>无</td>
+  </tr>
+</table>
+
+<h2 id="2-2-URL快捷方式"><a href="#2-2-URL快捷方式" class="headerlink" title="2.2 URL快捷方式"></a><strong>2.2 URL快捷方式</strong></h2><p><strong>URL</strong>有两种方式，<strong>绝对URL</strong>（包含访问资源所需的全部信息）以及<strong>相对URL</strong>（不完整，需要对基础URL进行解析）。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/nVR0IK7EBcmYWYVR.png!thumbnail?fileGuid=m5kv9Ry5oRimlyqX"
+                     data-src="/images/note/HTTP/nVR0IK7EBcmYWYVR.png"
                       alt="图片"
                 ></p>
 <p>基础URL是作为相对URL的参考点使用的。来自以下几个地方：</p>
 <p><strong>1、在资源中显示提供</strong></p>
-<p>有些资源会显式地指定基础URL。比如，HTML文档中可能会包含一个定义了基础URL的HTML标记<BASE>，通过它来转换那个HTML文档中的所有相对URL。</p>
+<p>有些资源会显式地指定基础URL。比如，HTML文档中可能会包含一个定义了基础URL的HTML标记&#60;BASE&#62;，通过它来转换那个HTML文档中的所有相对URL。</p>
 <p><strong>2、封装资源的基础URL</strong></p>
 <p>如果在一个没有显式指定基础URL的资源中发现了一个相对URL，可以将它所属资源的URL作为基础。</p>
 <p><strong>3、没有基础URL</strong></p>
@@ -231,7 +314,7 @@
 <p>要把相对URL转换成绝对URL，首先将他们划分成组件段，这一步称为<strong>分解URL，</strong>接下来的过程如下，<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/V4KlexQcZcfQ12Rf.png!thumbnail?fileGuid=m5kv9Ry5oRimlyqX"
+                     data-src="/images/note/HTTP/V4KlexQcZcfQ12Rf.png"
                       alt="图片"
                 ></p>
 <p><strong>自动扩展URL：</strong>用户不需要输入完整的URL，浏览器自动扩展。有两种方式：</p>
@@ -239,11 +322,11 @@
 <p>在主机名扩展中，只要有些小提示，浏览器通常就可以在没有帮助的情况下，将你输入的主机名扩展为完整的主机名。但是，这些主机名扩展技巧可能会为其他一些HTTP应用程序带来问题，比如代理。</p>
 <p><strong>2、历史扩展</strong></p>
 <p>浏览器用来节省用户输入URL时间的另一种技巧是，将以前用户访问过的URL历史存储起来。当你输入URL时，它们就可以将你输入的URL与历史记录中URL的前缀进行匹配，并提供–些完整的选项供你选择。注意，与代理共同使用时，URL自动扩展的行为可能会有所不同。6.5.6节将对此进行进-一步讨论。</p>
-<h2 id="URL字符"><a href="#URL字符" class="headerlink" title="URL字符"></a><strong>URL字符</strong></h2><p>URL的特性是<strong>可移植的（portable）</strong>、<strong>可读的</strong>、<strong>完整的</strong>，通过转义序列，就可以用US-ASCII字符集的有限子集对任意字符值或数据进行编码，这样就实现了可移植性和完整性。这种转义表示法包含一个百分号（%），后面跟着两个表示字符ASCII码的十六进制数。示例如下,</p>
+<h2 id="2-3-URL字符"><a href="#2-3-URL字符" class="headerlink" title="2.3 URL字符"></a><strong>2.3 URL字符</strong></h2><p>URL的特性是<strong>可移植的（portable）</strong>、<strong>可读的</strong>、<strong>完整的</strong>，通过转义序列，就可以用US-ASCII字符集的有限子集对任意字符值或数据进行编码，这样就实现了可移植性和完整性。这种转义表示法包含一个百分号（%），后面跟着两个表示字符ASCII码的十六进制数。示例如下,</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/TbL6jXX4SEtdJlWZ.png!thumbnail?fileGuid=m5kv9Ry5oRimlyqX"
+                     data-src="/images/note/HTTP/TbL6jXX4SEtdJlWZ.png"
                       alt="图片"
                 ></p>
 <p><strong>字符限制</strong>，在URL中，有几个字符被保留起来，有着特殊的含义。有些字符不在定义的US-ASCI可打印字符集中。还有些字符会与某些因特网网关和协议产生混淆，因此不赞成使用。</p>
@@ -251,7 +334,7 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://uploader.shimo.im/f/bnXzZF9va3GSkGou.png!thumbnail?fileGuid=m5kv9Ry5oRimlyqX"
+                     data-src="/images/note/HTTP/bnXzZF9va3GSkGou.png"
                       alt="图片"
                 ></p>
 
@@ -261,7 +344,7 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：</li>
+        <li>本文标题：02-URL与资源</li>
         <li>本文作者：胡倚豪</li>
         <li>创建时间：2021-01-22 19:32:47</li>
         <li>
@@ -282,13 +365,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2021/01/22/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/"
+                           href="/2021/01/23/note/HTTP/03-HTTP%E6%8A%A5%E6%96%87/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item"></span>
+                                <span class="post-nav-title-item">03-HTTP报文</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -508,7 +591,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#URL%E8%AF%AD%E6%B3%95"><span class="nav-text">URL语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-text">URL快捷方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL%E5%AD%97%E7%AC%A6"><span class="nav-text">URL字符</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-URL%E8%AF%AD%E6%B3%95"><span class="nav-text">2.1 URL语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-URL%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-text">2.2 URL快捷方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-URL%E5%AD%97%E7%AC%A6"><span class="nav-text">2.3 URL字符</span></a></li></ol>
     </div>
 </div>
         </aside>
