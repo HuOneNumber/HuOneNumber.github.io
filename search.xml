@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>categories</title>
-    <url>/2021/01/23/categories/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-]]></content>
-  </entry>
-  <entry>
     <title>02-URL与资源</title>
     <url>/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/</url>
     <content><![CDATA[<h2 id="2-1-URL语法"><a href="#2-1-URL语法" class="headerlink" title="2.1 URL语法"></a><strong>2.1 URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
