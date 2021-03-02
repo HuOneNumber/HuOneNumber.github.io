@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            09-Web机器人 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">09-Web机器人</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv2</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-02 20:20:16
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/09-Web%E6%9C%BA%E5%99%A8%E4%BA%BA/">09-Web机器人</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>3.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>11 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>Web机器人是能够在无需人类干预的情况下自动进行一系列Web事务处理的软件程序。</p>
+<h2 id="9-1-爬虫及爬行方式"><a href="#9-1-爬虫及爬行方式" class="headerlink" title="9.1 爬虫及爬行方式"></a>9.1 爬虫及爬行方式</h2><p>Web爬虫会递归地对各种信息性Web站点进行遍历，获取第一个Web页面，然后获取那个页面指向的所有Web页面，然后是那些页面指向的所有Web页面，依此类推。</p>
+<h3 id="9-1-1-从哪儿开始：根集"><a href="#9-1-1-从哪儿开始：根集" class="headerlink" title="9.1.1 从哪儿开始：根集"></a>9.1.1 从哪儿开始：根集</h3><p>爬虫开始访问的URL初始集合被称作根集（root set），挑选根集时，应该从足够多不同的站点中选择URL，这样才能爬遍尽可能多的链接,从而获取大部分页面。</p>
+<p>通常，一个好的根集会包括一些大的流行Web站点、一个新创建页面的列表和一个不经常被链接的无名页面列表。很多因特网搜索引擎使用的那些爬虫，都提供了向根集中提交新页面或无名页面的方式。这个根集会随时间推移而增长，是所有新爬虫的种子列表。</p>
+<h3 id="9-1-2-链接的提取以及相对链接的标准化"><a href="#9-1-2-链接的提取以及相对链接的标准化" class="headerlink" title="9.1.2 链接的提取以及相对链接的标准化"></a>9.1.2 链接的提取以及相对链接的标准化</h3><p>爬虫在Web上移动时，会不停地对HTML页面进行解析。它要对所解析的每个页面上的URL链接进行分析，并将这些链接添加到需要爬行的页面列表中去。爬虫要将这些链接提取出来，并将相对URL转换为绝对形式。</p>
+<h3 id="9-1-3-避免环路的出现及原因"><a href="#9-1-3-避免环路的出现及原因" class="headerlink" title="9.1.3 避免环路的出现及原因"></a>9.1.3 避免环路的出现及原因</h3><p>机器人在Web上爬行时，要特别小心不要陷入循环，或环路（cycle）之中，所以机器人必须知道它们到过何处，以避免环路的出现。</p>
+<p>至少出于下列三个原因：</p>
+<ol>
+<li>不停地获取相同的页面上，消耗掉网络带宽。</li>
+<li>爬虫不断地获取相同的页面时，可能击垮另一端的Web服务器。</li>
+<li>爬虫应用程序会被重复的内容所充斥。<h3 id="9-1-4-URL管理的相关技术"><a href="#9-1-4-URL管理的相关技术" class="headerlink" title="9.1.4 URL管理的相关技术"></a>9.1.4 URL管理的相关技术</h3></li>
+</ol>
+<p>由于URL的数量巨大，所以使用复杂的数据结构以便快速判定哪些URL是曾经访问过的。以下列出了大规模Web爬虫对其访问过的地址进行管理时使用的一些有用的技术。</p>
+<ol>
+<li><strong>树和散列表</strong></li>
+</ol>
+<p>用搜索树或散列表来记录已访问的URL。这些是加速URL查找的软件数据结构。</p>
+<ol start="2">
+<li><strong>有损的存在位图</strong></li>
+</ol>
+<p>为了减小空间，比如使用存在位数组。用一个散列函数将每个URL都转换成一个定长的数字，这个数字在数组中有个相关的“存在位”。爬行过一个URL时，就将相应的“存在位”置位。</p>
+<ol start="3">
+<li><strong>检查点</strong></li>
+</ol>
+<p>一定要将已访问URL列表保存到硬盘上，以防机器人程序崩溃。</p>
+<ol start="4">
+<li><strong>分类</strong></li>
+</ol>
+<p>为每个机器人分配一个特定的URL“片”，机器人个体之间可能需要相互通信，来回传送URL，以覆盖出故障的对等实体的爬行范围，或协调其工作。</p>
+<h3 id="9-1-5-别名与机器人环路及解决方案"><a href="#9-1-5-别名与机器人环路及解决方案" class="headerlink" title="9.1.5 别名与机器人环路及解决方案"></a>9.1.5 别名与机器人环路及解决方案</h3><p>如果两个URL看起来不一样，但实际指向的是同一资源，就称这两个URL互为“别名”。由于URL“别名”的存在，即使使用正确的数据结构，有时也很难分辨出是否访问过。</p>
+<p>表9-1列出了不同URL指向同一资源的几种简单方式。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/jSukZODWbBBJ4CSF.png"
+                      alt="图片"
+                ></p>
+<p>通过将URL“规范化”为标准格式来消除上面那些显而易见的别名。机器人首先可先通过下列步骤将每个URL都转化为规范化的格式。</p>
+<p>（1）如果没有指定端口的话，就向主机名中舔加”：80”.</p>
+<p>（2）将所有转义符%xx都转换成等价字符。</p>
+<p>（3）删除#标签。</p>
+<p>机器人需要知道Web服务器是否是大小写无关的才能避免表9-1d中的别名问题。</p>
+<p>机器人需要知道Web服务器上这个目录下的索引页面配置才能知道表9-1e中的情况是否是别名。</p>
+<p>即使机器人知道表9-1f中的主机名和IP地址都指向同一台计算机，它也还要知道Web服务器是否配置为进行虚拟主机操作，才能知道这个URL是不是别名。</p>
+<h3 id="9-1-6-文件系统连接环路"><a href="#9-1-6-文件系统连接环路" class="headerlink" title="9.1.6 文件系统连接环路"></a>9.1.6 文件系统连接环路</h3><p>文件系统中的符号连接会造成特定的潜在环路。在图9-3a中，subdir是个普通的目录。在图9-3b中，subdir是个指回到”/”的符号连接。在这两个图中，都假设文件/index.html中包含了一个指向文件subdir/index.html的超链。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/hZbmc5nKppkASEnw.png"
+                      alt="图片"
+                ></p>
+<h3 id="9-1-7-动态虚拟Web空间"><a href="#9-1-7-动态虚拟Web空间" class="headerlink" title="9.1.7 动态虚拟Web空间"></a>9.1.7 动态虚拟Web空间</h3><p>应用程序在传输中构造出包含了到同一服务器上虚构URL链接的HTML，请求这些虚构的URL时，服务器就会捏造出一个带有新的虚构URL的新HTML页面来。</p>
+<h3 id="9-1-8-避免循环和重复"><a href="#9-1-8-避免循环和重复" class="headerlink" title="9.1.8 避免循环和重复"></a>9.1.8 避免循环和重复</h3><ol>
+<li><strong>规范化URL</strong></li>
+</ol>
+<p>将URL转换为标准形式以避免语法上的别名</p>
+<ol start="2">
+<li><strong>广度优先的爬行</strong></li>
+</ol>
+<p>以广度优先的方式来调度URL去访问Web站点，就可以将环路的影响最小化。</p>
+<ol start="3">
+<li><strong>节流</strong></li>
+</ol>
+<p>限制一段时间内机器人可以从一个web站点获取的页面数量，也可以限制重复的页面总数和对服务器的访问总数。</p>
+<ol start="4">
+<li><strong>限制URL的大小</strong></li>
+</ol>
+<p>机器人可能会拒绝爬行超出特定长度（通常是1KB）的URL，如果环路使URL的长度增加，长度限制就会最终终止这个环路。</p>
+<ol start="5">
+<li><strong>URL/站点黑名单</strong></li>
+</ol>
+<p>维护一个与机器人环路和陷阱相对应的已知站点及URL列表，这就要求有人工进行干预。</p>
+<ol start="6">
+<li><strong>模式检测</strong></li>
+</ol>
+<p>文件系统的符号连接和类似的错误配置所造成的环路会遵循某种模式，比如，URL会随着组件的复制逐渐增加。有些机器人会将具有重复组件的URL当作潜在的环路。</p>
+<ol start="7">
+<li><strong>内容指纹</strong></li>
+</ol>
+<p>获取页面内容中的字节，并计算出一个校验和，这是页面内容的压缩表示形式。必须要求两个不同页面拥有相同校验和的几率非常低。如MD5这样的报文摘要函数。</p>
+<p>有些Web服务器会在传输过程中对页面进行动态的修改（比如访问计数等），所以有时机器人会在校验和的计算中忽略Web页面内容中的某些部分，但仍可能会阻碍重复检测。</p>
+<ol start="8">
+<li><strong>人工监视</strong></li>
+</ol>
+<p>诊断和日志功能，能很方便地监视机器人的进展。</p>
+<h2 id="9-2-机器人的HTTP"><a href="#9-2-机器人的HTTP" class="headerlink" title="9.2 机器人的HTTP"></a>9.2 机器人的HTTP</h2><h3 id="9-2-1-识别请求首部"><a href="#9-2-1-识别请求首部" class="headerlink" title="9.2.1 识别请求首部"></a>9.2.1 识别请求首部</h3><p>机器人倾向于只支持最小的HTTP集，但鼓励机器人实现者们使用包括如下内容。</p>
+<ol>
+<li><strong>User-Agent</strong>，将发起请求的机器人名字告知服务器。</li>
+<li><strong>From，</strong>提供机器人的用户/管理者的E-mail地址。</li>
+<li><strong>Accept</strong>，告知服务器可以发送哪些媒体类型，有助于机器人能选择性接收（文本、图片等）</li>
+<li><strong>Referer，</strong>提供包含了当前请求URL的文档的URL，有些站点管理者会记录机器人是如何找到指向其站点内容的链接。<h3 id="9-2-2-虚拟主机"><a href="#9-2-2-虚拟主机" class="headerlink" title="9.2.2 虚拟主机"></a>9.2.2 虚拟主机</h3></li>
+</ol>
+<p>在默认情况下，大多数服务器都被配置为提供一个特定的站点。随着虚拟主机的流行，不包含Host首部的话，爬虫向提供两个站点的服务器发起请求时，可能会使机器人将错误的内容与一个特定的URL关联起来。</p>
+<h3 id="9-2-3-条件请求"><a href="#9-2-3-条件请求" class="headerlink" title="9.2.3 条件请求"></a>9.2.3 条件请求</h3><p>尽量减少机器人所要获取内容的数量，所以只在内容发生变化时才重新获取。通过对时间戳或实体标签进行比较。这与HTTP缓存查看已获取资源的本地副本是否有效的方法非常相似。</p>
+<h3 id="9-2-4-对响应的处理"><a href="#9-2-4-对响应的处理" class="headerlink" title="9.2.4 对响应的处理"></a>9.2.4 对响应的处理</h3><p>使用了某些HTTP特性（比如条件请求）的机器人，以及那些想要更好地探索服务器，并与服务器进行交互的机器人则要能够对各种不同类型的HTTP响应进行处理。</p>
+<ol>
+<li>状态码</li>
+</ol>
+<p>机器人至少应该能够处理一些常见的，以及预期的状态码。它们还应该能够根据响应的一般类别对它并不十分理解的状态码进行处理。</p>
+<p>2、实体</p>
+<p>除了HTTP首部所嵌的信息之外，机器人也会在实体中查信息。有些服务器会在发送HTML页面之前先对其内容进行解析，并将元标签http-equiv指令作为首部包含进去。标签http-equiv为内容编写者提供了一种覆盖这些首部的方式。</p>
+<h3 id="9-2-5-User-Agent导向"><a href="#9-2-5-User-Agent导向" class="headerlink" title="9.2.5 User-Agent导向"></a>9.2.5 User-Agent导向</h3><p>站点管理者应该设计一个处理机器人请求的策略。比如，为所有其他特性不太丰富的浏览器和机器人开发一些页面，而不是将其内容限定在特定浏览器所支持的范围。</p>
+<h2 id="9-3-行为不当的机器人"><a href="#9-3-行为不当的机器人" class="headerlink" title="9.3 行为不当的机器人"></a>9.3 行为不当的机器人</h2><ol>
+<li><strong>失控机器人</strong></li>
+</ol>
+<p>机器人发起HTTP请求的速度快，如果机器人存在编程逻辑错误，或陷入了环路，可能会使服务器过载，并拒绝为任何其他人提供服务。</p>
+<ol start="2">
+<li><strong>失效的URL</strong></li>
+</ol>
+<p>有些机器人会去访问URL列表，这些列表可能有大量不存在的URL发起请求。</p>
+<ol start="3">
+<li><strong>很长的错误URL</strong></li>
+</ol>
+<p>由于环路和编程错误的存在，机器人可能会向Web站点请求一些很大的、无意义的URL，降低Web服务器的性能，使Web服务器的访问日志杂乱不堪。</p>
+<ol start="3">
+<li><strong>爱打听的机器人</strong></li>
+</ol>
+<p>有些机器人可能会得到一些指向私有数据的URL，敏感的数据站点的实现者可能不希望通过因特网能够访问到这些数据。</p>
+<ol start="4">
+<li><strong>动态网关访问</strong></li>
+</ol>
+<p>机器人并不总是知道它们访问的是什么内容。机器人可能会获取一个内容来自网关应用程序的URL.在这种情况下，获取的数据可能会有特殊的目的，计算的开销可能很高。很多Web站点管理员并不喜欢那些去请求网关文档的幼稚机器人。</p>
+<h2 id="9-4-拒绝机器人访问"><a href="#9-4-拒绝机器人访问" class="headerlink" title="9.4 拒绝机器人访问"></a>9.4 拒绝机器人访问</h2><p>“拒绝机器人访问标准”，有Web服务器都可以在服务器的文档根目录中提供一个可选的、名为robots.txt的文件，这个文件包含说明了机器人可以访问服务器的哪些部分。如果机器人遵循这个自愿约束标准，它会在访问那个站点的所有其他资源之前，从Web站点请求robots.txt文件。</p>
+<h2 id="9-5-搜索引擎"><a href="#9-5-搜索引擎" class="headerlink" title="9.5 搜索引擎"></a>9.5 搜索引擎</h2><h3 id="9-5-1-现代搜索引擎结构"><a href="#9-5-1-现代搜索引擎结构" class="headerlink" title="9.5.1 现代搜索引擎结构"></a>9.5.1 现代搜索引擎结构</h3><p>现在的搜索引擎都构建了一些名为“全文索引”的复杂本地数据库，这些索引就像Web上所有文档的卡片目录一样。搜索引擎爬虫会搜集Web页面，并将其添加到全文索引中去。同时，搜索引擎用户会通过Google这样的Web搜索网关对全文索引进行查询。全文索引充其量也就是Web的一个快照。现代搜索引擎的高层结构如图所示。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/DiIXbQI0V0zKtQCO.png"
+                      alt="图片"
+                ></p>
+<h3 id="9-5-2-发布查询请求"><a href="#9-5-2-发布查询请求" class="headerlink" title="9.5.2 发布查询请求"></a>9.5.2 发布查询请求</h3><p>网关程序对搜索请求进行解析，并将查询转换成搜索全文索引所需的表达式。</p>
+<h3 id="9-6-3-对结果进行排序，并提供查询结果"><a href="#9-6-3-对结果进行排序，并提供查询结果" class="headerlink" title="9.6.3 对结果进行排序，并提供查询结果"></a>9.6.3 对结果进行排序，并提供查询结果</h3><p>一旦搜索引擎通过其索引得到了查询结果，网关应用程序会获取结果，并将其拼成结果页面提供给终端用户，并尝试着对结果进行排名。相关性排名（relevancy ranking）是对一系列搜索结果的评分和排序处理。</p>
+<p>为了更好地辅助这一进程，在爬行Web的过程中都会进行数据统计。比如，对指向指定页面的链接进行计数有助于判断其流行程度，还可以用此信息来衡量提供结果的顺序。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：09-Web机器人</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-02 20:20:16</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/02/note/HTTP/09-Web机器人/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/23/note/JavaScript/04-%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">04-变量、作用域与内存</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#9-1-%E7%88%AC%E8%99%AB%E5%8F%8A%E7%88%AC%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-text">9.1 爬虫及爬行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-1-%E4%BB%8E%E5%93%AA%E5%84%BF%E5%BC%80%E5%A7%8B%EF%BC%9A%E6%A0%B9%E9%9B%86"><span class="nav-text">9.1.1 从哪儿开始：根集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-2-%E9%93%BE%E6%8E%A5%E7%9A%84%E6%8F%90%E5%8F%96%E4%BB%A5%E5%8F%8A%E7%9B%B8%E5%AF%B9%E9%93%BE%E6%8E%A5%E7%9A%84%E6%A0%87%E5%87%86%E5%8C%96"><span class="nav-text">9.1.2 链接的提取以及相对链接的标准化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-3-%E9%81%BF%E5%85%8D%E7%8E%AF%E8%B7%AF%E7%9A%84%E5%87%BA%E7%8E%B0%E5%8F%8A%E5%8E%9F%E5%9B%A0"><span class="nav-text">9.1.3 避免环路的出现及原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-4-URL%E7%AE%A1%E7%90%86%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF"><span class="nav-text">9.1.4 URL管理的相关技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-5-%E5%88%AB%E5%90%8D%E4%B8%8E%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%8E%AF%E8%B7%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-text">9.1.5 别名与机器人环路及解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-6-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E8%BF%9E%E6%8E%A5%E7%8E%AF%E8%B7%AF"><span class="nav-text">9.1.6 文件系统连接环路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-7-%E5%8A%A8%E6%80%81%E8%99%9A%E6%8B%9FWeb%E7%A9%BA%E9%97%B4"><span class="nav-text">9.1.7 动态虚拟Web空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-1-8-%E9%81%BF%E5%85%8D%E5%BE%AA%E7%8E%AF%E5%92%8C%E9%87%8D%E5%A4%8D"><span class="nav-text">9.1.8 避免循环和重复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-2-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84HTTP"><span class="nav-text">9.2 机器人的HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-1-%E8%AF%86%E5%88%AB%E8%AF%B7%E6%B1%82%E9%A6%96%E9%83%A8"><span class="nav-text">9.2.1 识别请求首部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-2-%E8%99%9A%E6%8B%9F%E4%B8%BB%E6%9C%BA"><span class="nav-text">9.2.2 虚拟主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-3-%E6%9D%A1%E4%BB%B6%E8%AF%B7%E6%B1%82"><span class="nav-text">9.2.3 条件请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-4-%E5%AF%B9%E5%93%8D%E5%BA%94%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-text">9.2.4 对响应的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-2-5-User-Agent%E5%AF%BC%E5%90%91"><span class="nav-text">9.2.5 User-Agent导向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-3-%E8%A1%8C%E4%B8%BA%E4%B8%8D%E5%BD%93%E7%9A%84%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-text">9.3 行为不当的机器人</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-4-%E6%8B%92%E7%BB%9D%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BF%E9%97%AE"><span class="nav-text">9.4 拒绝机器人访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-5-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="nav-text">9.5 搜索引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-1-%E7%8E%B0%E4%BB%A3%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%BB%93%E6%9E%84"><span class="nav-text">9.5.1 现代搜索引擎结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-5-2-%E5%8F%91%E5%B8%83%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82"><span class="nav-text">9.5.2 发布查询请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-6-3-%E5%AF%B9%E7%BB%93%E6%9E%9C%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9F%A5%E8%AF%A2%E7%BB%93%E6%9E%9C"><span class="nav-text">9.6.3 对结果进行排序，并提供查询结果</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
