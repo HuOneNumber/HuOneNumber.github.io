@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            16-国际化 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">16-国际化</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv3</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-05 12:04:19
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/16-%E5%9B%BD%E9%99%85%E5%8C%96/">16-国际化</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/HTTP/">HTTP</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>1.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>5 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>HTTP应用程序使用字符集编码请求和显示不同字母表中的文本，它们使用语言标记根据用户所理解的语言来说明并限制内容。</p>
+<h2 id="16-1-HTTP对国际性内容的支持"><a href="#16-1-HTTP对国际性内容的支持" class="headerlink" title="16.1 HTTP对国际性内容的支持"></a>16.1 HTTP对国际性内容的支持</h2><p>服务器通过Content-Type首部中的charset参数和content-Language首部告知客户端文档的字母表和语言。</p>
+<p>客户端发送Accept-Charset首部和Accept-Language首部，告知服务器它理解哪些字符集编码算法和语言以及其中的优先顺序。</p>
+<h2 id="16-2-字符集与HTTP"><a href="#16-2-字符集与HTTP" class="headerlink" title="16.2 字符集与HTTP"></a>16.2 字符集与HTTP</h2><h3 id="16-2-1-字符集是把字符转换为二进制码的编码"><a href="#16-2-1-字符集是把字符转换为二进制码的编码" class="headerlink" title="16.2.1 字符集是把字符转换为二进制码的编码"></a>16.2.1 字符集是把字符转换为二进制码的编码</h3><p>HTTP字符集的值说明如何把实体内容的二进制码转换为特定字母表中的字符。每个字符集标记都命名了一种把二进制码转换为字符的算法（反之亦然）。</p>
+<h3 id="16-2-2-字符集和编码如何工作"><a href="#16-2-2-字符集和编码如何工作" class="headerlink" title="16.2.2 字符集和编码如何工作"></a>16.2.2 字符集和编码如何工作</h3><p>在图16-2a中，文档中的二进制码被转换成字符代码，它表示了特定编码字符集中某个特定编号的字符。在这个例子里，解码后的字符代码是数字编号225.</p>
+<p>在图16-2b中，字符代码用于从编码的字符集中选择特定的元素。在iso-8859-6中，值225对应阿拉伯字母”FEH”。在步骤a和b中使用的算法取决于MIME的charset标记。</p>
+<p>国际化字符系统的关键目标是把语义和表示隔离开来。HTTP只关心字符数据和相关语言及字符集标签的传输。字符形状的显示是由用户的图形显示软件完成的，如图16-2c所示。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/9z3SKbU9LiOg10nD.png"
+                      alt="图片"
+                ></p>
+<h2 id="16-3-多语言字符编码入门"><a href="#16-3-多语言字符编码入门" class="headerlink" title="16.3 多语言字符编码入门"></a>16.3 多语言字符编码入门</h2><h3 id="16-3-1-字符集术语"><a href="#16-3-1-字符集术语" class="headerlink" title="16.3.1 字符集术语"></a>16.3.1 字符集术语</h3><p>以下是应当了解的电子化字符系统的8个术语。</p>
+<ol>
+<li><strong>字符。</strong>字符是指字母、数字、标点、表意文字、符号，或其他文本形式的唯一书写“原子”。由统一字符集（Universal Character Set，UCS，非正式名字Unicode）首创。</li>
+<li><strong>字形。</strong>描述字符的笔画图案或唯一的图形化形状，每个字符可以有很多不同的字形。</li>
+<li><strong>编码后的字符。</strong>分配给字符的唯一数字编号。</li>
+<li><strong>代码空间。</strong>计划用于字符代码值的整数范围。</li>
+<li><strong>代码宽度。</strong>每个（固定大小的）字符代码所用的位数。</li>
+<li><strong>字符库。</strong>特定的工作字符集（全体字符的一个子集）。</li>
+<li><strong>编码后的字符集。</strong>组成字符库的已编码字符集，并为每个字符分配代码空间中的一个代码。</li>
+<li><strong>字符编码方案。</strong>把数字化的字符代码编码成一系列二进制码（并能相应地反向解码）的算法。字符编码方案可用来减少识别字符所需要的数据总量（压缩）、解决传输限制、统一重叠編码字符集。<h3 id="16-3-2-字符集的命名很糟糕"><a href="#16-3-2-字符集的命名很糟糕" class="headerlink" title="16.3.2 字符集的命名很糟糕"></a>16.3.2 字符集的命名很糟糕</h3></li>
+</ol>
+<p>从技术上说，MIME中的charset标记描述的是把数据位映射为唯一的字符的一整套算法。它是字符编码方案（character encoding scheme）和编码后的字符集（coded character set）这两种概念的组合。</p>
+<h3 id="16-3-3-编码后的字符集"><a href="#16-3-3-编码后的字符集" class="headerlink" title="16.3.3 编码后的字符集"></a>16.3.3 编码后的字符集</h3><p>码后的字符集把整数映射到字符。编码后的字符集经常用数组来实现，通过代码数值来索引，数组的元素就是字符。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/NvnVR2cvmvkeRIbM.png"
+                      alt="图片"
+                ></p>
+<h3 id="16-3-4-字符编码方案"><a href="#16-3-4-字符编码方案" class="headerlink" title="16.3.4 字符编码方案"></a>16.3.4 字符编码方案</h3><p>字符编码方案规定如何把字符的代码数字打包装入内容比特，以及在另一端如何将其解包回字符代码（参见图16-7）。字符编码方案有以下3种主要类型。</p>
+<ol>
+<li><strong>固定宽度。</strong>固定宽度方式的编码用固定数量的比特表示每个编码后的字符。它们能被快速处理，但可能会浪费空间。如8位。</li>
+<li><strong>可变宽度（无模态）。</strong>可变宽度方式的编码对不同的字符代码数字采用不同数量的比特。对于常用字符，这样可以减少需要的位数，而且还能在允许使用多字节来表示国际性字符的同时，保持对传统8位字符集的兼容性。如UTF-8。</li>
+<li><strong>可变宽度（有模态）。</strong>有模态的编码使用特殊的“转义”模式在不同的模态之间切换。例如，可以用有模态的编码在文本中使用多个互相有重叠的字符集。有模态的编码处理起来比较复杂，但它们可以有效地支持复杂的书写系统。如iso-2022-jp。<h2 id="16-4-语言标记与HTTP"><a href="#16-4-语言标记与HTTP" class="headerlink" title="16.4 语言标记与HTTP"></a>16.4 语言标记与HTTP</h2></li>
+</ol>
+<p>语言标记有一个或多个部分，用连字号分隔，称为子标记：第一个子标记称为主子标记，其值是标准化的en、zh，第二个子标记是可选的，遵循它的命名标准；其他尾随的子标记都是未注册的。主子标记中只能含有字母（A-z），其后的子标记可以含有字母和数字，长度最多8个字符。</p>
+<h2 id="16-5-国际的URI"><a href="#16-5-国际的URI" class="headerlink" title="16.5 国际的URI"></a>16.5 国际的URI</h2><h3 id="16-5-1-URI字符集合"><a href="#16-5-1-URI字符集合" class="headerlink" title="16.5.1 URI字符集合"></a>16.5.1 URI字符集合</h3><p>URI中允许出现的US-ASCI字符的子集，可以被分成<strong>保留</strong>、<strong>未保留</strong>以及<strong>转义字符</strong>这几类。未保留的字符可用于URI允许其出现的任何部分。保留的字符在很多URI中都有特殊的含义，因此一般来说不能使用它们。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/note/HTTP/Dx8XMxFY7W9laV0b.png"
+                      alt="图片"
+                ></p>
+<h3 id="16-5-3-转义和反转义"><a href="#16-5-3-转义和反转义" class="headerlink" title="16.5.3 转义和反转义"></a>16.5.3 转义和反转义</h3><p>可以在URI内部插入保留字符以及原本不支持的字符，每个转义是一组3字符序列，由百分号（%）后面跟上两个十六进制数字的字符。这两个十六进制数字就表示一个US-ASCI字符的代码。例如，要在URL中插入一个空白（ASCII 32），可以用转义%20，</p>
+<p>在内部处理时，HTTP应用程序应当在传输和转发URI的时候保持转义不变,HTTP应用程序应该仅在需要数据的时候才对URI进行转义。需要注意，要转义的值本身应该在US-ASCI代码值的范围内（0~127）。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：16-国际化</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-05 12:04:19</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/05/note/HTTP/16-国际化/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/05/note/HTTP/17-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E4%B8%8E%E8%BD%AC%E7%A0%81/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">17-内容协商与转码</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/02/note/HTTP/09-Web%E6%9C%BA%E5%99%A8%E4%BA%BA/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">09-Web机器人</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#16-1-HTTP%E5%AF%B9%E5%9B%BD%E9%99%85%E6%80%A7%E5%86%85%E5%AE%B9%E7%9A%84%E6%94%AF%E6%8C%81"><span class="nav-text">16.1 HTTP对国际性内容的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-2-%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%8EHTTP"><span class="nav-text">16.2 字符集与HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-2-1-%E5%AD%97%E7%AC%A6%E9%9B%86%E6%98%AF%E6%8A%8A%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%A0%81%E7%9A%84%E7%BC%96%E7%A0%81"><span class="nav-text">16.2.1 字符集是把字符转换为二进制码的编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-2-2-%E5%AD%97%E7%AC%A6%E9%9B%86%E5%92%8C%E7%BC%96%E7%A0%81%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C"><span class="nav-text">16.2.2 字符集和编码如何工作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-3-%E5%A4%9A%E8%AF%AD%E8%A8%80%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E5%85%A5%E9%97%A8"><span class="nav-text">16.3 多语言字符编码入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-1-%E5%AD%97%E7%AC%A6%E9%9B%86%E6%9C%AF%E8%AF%AD"><span class="nav-text">16.3.1 字符集术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-2-%E5%AD%97%E7%AC%A6%E9%9B%86%E7%9A%84%E5%91%BD%E5%90%8D%E5%BE%88%E7%B3%9F%E7%B3%95"><span class="nav-text">16.3.2 字符集的命名很糟糕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-3-%E7%BC%96%E7%A0%81%E5%90%8E%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86"><span class="nav-text">16.3.3 编码后的字符集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-3-4-%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E6%96%B9%E6%A1%88"><span class="nav-text">16.3.4 字符编码方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-4-%E8%AF%AD%E8%A8%80%E6%A0%87%E8%AE%B0%E4%B8%8EHTTP"><span class="nav-text">16.4 语言标记与HTTP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16-5-%E5%9B%BD%E9%99%85%E7%9A%84URI"><span class="nav-text">16.5 国际的URI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#16-5-1-URI%E5%AD%97%E7%AC%A6%E9%9B%86%E5%90%88"><span class="nav-text">16.5.1 URI字符集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-5-3-%E8%BD%AC%E4%B9%89%E5%92%8C%E5%8F%8D%E8%BD%AC%E4%B9%89"><span class="nav-text">16.5.3 转义和反转义</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
