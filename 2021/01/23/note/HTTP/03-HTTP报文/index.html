@@ -249,15 +249,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/cERK8fMXNtSgncHM.png"
+                     data-src="https://s3.ax1x.com/2021/03/07/6KjBQK.png"
                       alt="图片"
                 ></p>
 <h1 id="3-2-报文的组成部分"><a href="#3-2-报文的组成部分" class="headerlink" title="3.2 报文的组成部分"></a><strong>3.2 报文的组成部分</strong></h1><p>HTTP报文由三个部分组成：<strong>起始行</strong>（start line）、<strong>首部</strong>（header）、<strong>主体</strong>（body）。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/P7vBtkoxgAKyyS5X.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/ogVj38LN9yG6nIC.png"
+                      alt="P7vBtkoxgAKyyS5X__thumbnail.png"
                 ></p>
 <p><strong>起始行</strong>：所有的HTTP报文都以一个起始行作为开始。请求报文的起始行（请求行）说明了要做些什么。响应报文的起始行（响应行）说明发生了什么。</p>
 <p><strong>首部：</strong>首部字段向请求/响应报文中添加一些附加信息。本质上来说，它们只是一些名/值对的列表。</p>
@@ -280,8 +280,8 @@
 <th align="left">客户端希望服务器对资源执行的动作。比如GET、HEAD或POST。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/JVU6YJ5CStQ6fuwP.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/iURbS7VjBqCysQm.png"
+                      alt="JVU6YJ5CStQ6fuwP__original.png"
                 ></th>
 </tr>
 </thead>
@@ -298,8 +298,8 @@
 <td align="left">这三位数字描述了请求过程中所发生的情况。每个状态码的第一位数字都用于描述状态的一般类别（“成功”、“出错”等）。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/cBAdbLFKVflDpijz.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/ME7orix3fHetk9y.png"
+                      alt="cBAdbLFKVflDpijz__original.png"
                 ></td>
 </tr>
 <tr>
@@ -307,8 +307,8 @@
 <td align="left">是状态码的文本解释，包含行终止序列之前的所有文本。原因短语只对人类有意义，因此比如，尽管响应行HTTP/1.0 200 NOT OK和HTTP/1.0 200 OK中原因短语的含义不同，但都被当作成功指示处理。首部类别有<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ikG9ABzA6A0jtwzf.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/HqwTFOltuPZXsgj.png"
+                      alt="ikG9ABzA6A0jtwzf__original.png"
                 ></td>
 </tr>
 <tr>
@@ -325,41 +325,41 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/vMYdA5h28E8iGYte.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/wIh17JbefUpj2cx.png"
+                      alt="vMYdA5h28E8iGYte.png"
                 ></p>
 <h2 id="3-4-3-HEAD"><a href="#3-4-3-HEAD" class="headerlink" title="3.4.3 HEAD"></a>3.4.3 HEAD</h2><p>HEAD与GET很类似，但服务器<strong>只返回首部</strong>（服务器开发者必须确保HEAD和GET返回的首部相同），不返回主体部分。这就允许客户端在未获取实际资源下，对资源的首部进行检查。比如：</p>
 <pre><code>1. 在不获取资源的情况下了解资源的情况（比如，判断其类型）；
 2. 通过查看响应中的状态码，看看某个对象是否存在；
 3. 通过查看首部，测试资源是否被修改了。</code></pre>
-<p><img  
+<p><a target="_blank" rel="noopener" href="https://imgtu.com/i/6Kvs10"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Com8LDRU94LnZRGT.png"
-                      alt="图片"
-                ></p>
+                     data-src="https://s3.ax1x.com/2021/03/07/6Kvs10.png"
+                      alt="6Kvs10.png"
+                ></a></p>
 <h2 id="3-4-4-PUT"><a href="#3-4-4-PUT" class="headerlink" title="3.4.4 PUT"></a>3.4.4 PUT</h2><p>与GET从服务器读取文档相反，PUT方法会向服务器写入文档，让服务器用请求的主体部分来创建一个由所请求的URL命名的新文档，如果那个URL已经存在的话，就用这个主体来替代它。</p>
 <p>因为PUT允许用户对内容进行修改，所以很多Web服务器都要求在执行PUT之前，用密码登录。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/x85Mw4z8E5dy9VE8.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/wWQNdqk2Anpe8zT.png"
+                      alt="x85Mw4z8E5dy9VE8__original.png"
                 ></p>
 <h2 id="3-4-5-POST"><a href="#3-4-5-POST" class="headerlink" title="3.4.5 POST"></a>3.4.5 POST</h2><p>POST方法起初是用来向服务器输入数据的。通常用于HTML的表单,表单中填好的数据通常会被送给服务器，然后由服务器将其发送到它要去的地方。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mA1PogAoYtDt18l2.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/9VYrF4E3nqBUyou.png"
+                      alt="mA1PogAoYtDt18l2__original.png"
                 ></p>
 <h2 id="3-4-6-TRACE"><a href="#3-4-6-TRACE" class="headerlink" title="3.4.6 TRACE"></a>3.4.6 TRACE</h2><p>客户端发起一个请求时，这个请求可能要穿过防火墙、代理、网关或其他一些应用程序。每个中间节点都可能会修改原始的HTTP请求。TRACE方法允许客户端在最终将请求发送给服务器时，看看它变成了什么样子。</p>
 <p>TRACE请求会在目的服务器端发起一一个“环回”诊断。行程最后一站的服务器会弹回一条TRACE响应，并在响应主体中携带它收到的原始请求报文。这样客户端就可以查看在所有中间HTTP应用程序组成的请求/响应链上，原始报文是否以及如何被毁坏或修改过。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/gaypKsmoMOkPfmZx.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/YLdEcsn372eZOQx.png"
+                      alt="gaypKsmoMOkPfmZx__thumbnail.png"
                 ></p>
 <p>TRACE方法主要用于诊断：用于验证请求是否如愿穿过了请求/响应链，也可以用来查看代理和其他应用程序对用户请求所产生效果。</p>
 <p>缺点在于，它假定中间应用程序对各种不同类型请求的处理是相同的。很多HTTP应用程序会根据方法的不同做出不同的处理。比如，代理可能会将POST请求直接发送给服务器，而将GET请求发送给另一个HTTP应用程序（比如Web缓存）。TRACE并不提供区分这些方法的机制。通常，中间应用程序会自行决定对TRACE请求的处理方式。</p>
@@ -368,30 +368,30 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/pxQXtSaXDHxS2MDN.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/LZoh1mYOnzbvjyP.png"
+                      alt="pxQXtSaXDHxS2MDN__original.png"
                 ></p>
 <h2 id="3-4-8-DELETE"><a href="#3-4-8-DELETE" class="headerlink" title="3.4.8 DELETE"></a>3.4.8 DELETE</h2><p>DELETE方法使服务器删除请求URL所指定的资源。但客户端应用程序无法保证删除操作一定会被执行，因为HTTP规范允许服务器在不通知客户端的情况下撤销请求。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/rR3ReKiKi4Jtrp49.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/WArJ5qpBh8MfduN.png"
+                      alt="rR3ReKiKi4Jtrp49__original.png"
                 ></p>
 <h2 id="3-4-9-扩展方法"><a href="#3-4-9-扩展方法" class="headerlink" title="3.4.9 扩展方法"></a>3.4.9 扩展方法</h2><p>HTTP被设计成字段可扩展的，这样新的特性不会使老的软件失效。<strong>扩展方法</strong>指的就是没有在HTTP/1.1规范中定义的方法。服务器会为它所管理的资源实现一些HTTP服务，这些方法为开发者提供了一种扩展这些HTTP服务能力的手段。这些方法是WebDAV HTTP扩展包含的所有方法，这些方法有助于通过HTTP将Web内容发布到Web服务器上去。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mpgIfTZw1n97EtyM.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/YVcSisOCRAnqfNw.png"
+                      alt="mpgIfTZw1n97EtyM__original.png"
                 ></p>
 <p>不是所有的扩展方法都是在正式规范中定义的。如果你定义了一个扩展方法，很可能大部分HTTP应用程序都无法理解。同样，你的HTTP应用程序也可能会遇到一些其他应用程序在用，但并不理解的扩展方法。</p>
 <p>如果能够在不破坏端到端行为的情况下，将带有未知方法的报文传递给下游服务器的话，代理会尝试传递这些报文。否则，它们会以501 Not Implemented（无法实现）状态码进行响应。</p>
 <h1 id="3-5-状态码"><a href="#3-5-状态码" class="headerlink" title="3.5 状态码"></a>3.5 状态码</h1><h2 id="3-5-1-100-199——信息性状态码"><a href="#3-5-1-100-199——信息性状态码" class="headerlink" title="3.5.1 100~199——信息性状态码"></a>3.5.1 100~199——信息性状态码</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/OBMDQjDvnWkV8qEA.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/njNxWLmrZi7p6Ad.png"
+                      alt="OBMDQjDvnWkV8qEA__original.png"
                 ></p>
 <p>100 Continue状态码的目的是对这样的情况进行优化：HTTP客户端应用程序有一个实体的主体部分要发送给服务器，但希望在发送之前查看服务器是否会接受这个实体。</p>
 <h2 id="3-5-2-客户端与100-Continue"><a href="#3-5-2-客户端与100-Continue" class="headerlink" title="3.5.2 客户端与100 Continue"></a>3.5.2 客户端与100 Continue</h2><p>如果客户端在向服务器发送一个实体之前，需要发送值为100 Continue的Expect请求首部</p>
@@ -402,149 +402,149 @@
 <h2 id="3-5-5-200-299——成功状态码"><a href="#3-5-5-200-299——成功状态码" class="headerlink" title="3.5.5 200~299——成功状态码"></a>3.5.5 200~299——成功状态码</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/QBPeIRliYQsYNLuK.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/Vxfu5ZyME6leHCF.png"
+                      alt="QBPeIRliYQsYNLuK__original.png"
                 ></p>
 <h2 id="3-5-6-300-399——重定向状态码"><a href="#3-5-6-300-399——重定向状态码" class="headerlink" title="3.5.6 300~399——重定向状态码"></a>3.5.6 300~399——重定向状态码</h2><p>重定向状态码要么告知客户端使用替代位置来访问他们所感兴趣的资源，要么就提供一个替代的响应。</p>
 <p>当客户端发起一个POST请求，并收到302重定向状态码时，它会接受Location首部的重定向URL，并向那个URL发起一个GET请求（而不会像原始请求中那样发起POST请求）。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/oGhhDOehHAx00rMn.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/NRtELYoTXVarSln.png"
+                      alt="oGhhDOehHAx00rMn__original.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/XF0C2S71UASlrXHQ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/YmuybaU6ArJcptg.png"
+                      alt="XF0C2S71UASlrXHQ__original.png"
                 ></p>
 <h2 id="3-5-7-400-499客户端错误状态码"><a href="#3-5-7-400-499客户端错误状态码" class="headerlink" title="3.5.7 400 ~ 499客户端错误状态码"></a>3.5.7 400 ~ 499客户端错误状态码</h2><p>有时客户端会发送一些服务器无法处理的东西，比如格式错误的请求报文，或者最常见的是，请求一个不存在的URL。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SuFepcMWJ5V5SOwN.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/7pnr4jqIVCBSauo.png"
+                      alt="SuFepcMWJ5V5SOwN__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ExnzaZcMsofo4KWN.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/KiPoMw6E8TDVg4J.png"
+                      alt="ExnzaZcMsofo4KWN__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/sxIk4IJaPzMS7Ne4.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/nc4oUDgG3ajEmYP.png"
+                      alt="sxIk4IJaPzMS7Ne4__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/rm9ffFKOAEKrqtAt.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/EVZ4FvC9MzWcoDj.png"
+                      alt="rm9ffFKOAEKrqtAt__original.png"
                 ></p>
 <h2 id="3-5-8-500-599服务器错误状态码"><a href="#3-5-8-500-599服务器错误状态码" class="headerlink" title="3.5.8 500 ~ 599服务器错误状态码"></a>3.5.8 500 ~ 599服务器错误状态码</h2><p>客户端碰上了服务器的缺陷，或服务器上的子元素，比如某个网关资源出错。代理与服务器进行交流时，经常会出现问题。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DUHKLkEagQ3ZDgjR.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/7psD1IPEoObnWMR.png"
+                      alt="DUHKLkEagQ3ZDgjR__original.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/VJNKGRtGQtYaylvE.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/IlsfA8QPiTBHwu2.png"
+                      alt="VJNKGRtGQtYaylvE__thumbnail.png"
                 ></p>
 <h1 id="3-6-首部"><a href="#3-6-首部" class="headerlink" title="3.6 首部"></a>3.6 首部</h1><h2 id="3-6-1-通用首部"><a href="#3-6-1-通用首部" class="headerlink" title="3.6.1 通用首部"></a>3.6.1 通用首部</h2><p>这些是客户端和服务器都可以使用的通用首部。</p>
 <h3 id="3-6-1-1-通用的信息性首部"><a href="#3-6-1-1-通用的信息性首部" class="headerlink" title="3.6.1.1 通用的信息性首部"></a>3.6.1.1 通用的信息性首部</h3><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/V734hBj5Y6U1RI57.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/v4Q5j9HXtCdc1zN.png"
+                      alt="V734hBj5Y6U1RI57__thumbnail.png"
                 ></p>
 <h3 id="3-6-1-2-通用缓存首部"><a href="#3-6-1-2-通用缓存首部" class="headerlink" title="3.6.1.2 通用缓存首部"></a>3.6.1.2 通用缓存首部</h3><p>通用的缓存首部说明了如何或什么时候进行缓存。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/T71nzrW361shYFJ5.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/VLXOKi8ZhvFI1nw.png"
+                      alt="T71nzrW361shYFJ5__thumbnail.png"
                 ></p>
 <h2 id="3-6-2-请求首部"><a href="#3-6-2-请求首部" class="headerlink" title="3.6.2 请求首部"></a>3.6.2 请求首部</h2><h3 id="3-6-2-1-请求的信息性首部"><a href="#3-6-2-1-请求的信息性首部" class="headerlink" title="3.6.2.1 请求的信息性首部"></a>3.6.2.1 请求的信息性首部</h3><p>请求首部是请求报文特有的。它们为服务器提供了一些额外信息，服务器可以根据请求首部给出的客户端信息，试着为客户端提供更好的响应。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/KPMKowkYZnhblPBY.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/lsM5Kfg48YoP9qi.png"
+                      alt="KPMKowkYZnhblPBY__original.png"
                 ></p>
 <h3 id="3-6-2-2-Accept首部"><a href="#3-6-2-2-Accept首部" class="headerlink" title="3.6.2.2 Accept首部"></a>3.6.2.2 Accept首部</h3><p>Accept首部为客户端告知服务器，它们想要什么，可以使用什么以及最重要的，它们不想要什么。服务器则不会浪费其时间和带宽来发送客户端无法使用的东西。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/QudS2T1wJAKUiu3E.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/NL9IDkWtnG8XKms.png"
+                      alt="QudS2T1wJAKUiu3E__thumbnail.png"
                 ></p>
 <h3 id="3-6-2-3-条件请求首部"><a href="#3-6-2-3-条件请求首部" class="headerlink" title="3.6.2.3 条件请求首部"></a>3.6.2.3 条件请求首部</h3><p>客户端希望为请求加上某些限制。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/kARldOx2NxiRp3Yl.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/TiKQAZL12P3deFB.png"
+                      alt="kARldOx2NxiRp3Yl__thumbnail.png"
                 ></p>
 <h3 id="3-6-2-4-安全请求首部"><a href="#3-6-2-4-安全请求首部" class="headerlink" title="3.6.2.4 安全请求首部"></a>3.6.2.4 安全请求首部</h3><p>HTTP本身支持一种简单的机制，可以对请求进行质询/响应认证。这种机制要求客户端在获取特定的资源之前，先对自身进行认证，这样就可以使事务更安全。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qhEP6oHR0Zg4fdkz.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/zHDcERg2XVL57MQ.png"
+                      alt="qhEP6oHR0Zg4fdkz__thumbnail.png"
                 ></p>
 <h3 id="3-6-2-5-代理请求首部"><a href="#3-6-2-5-代理请求首部" class="headerlink" title="3.6.2.5 代理请求首部"></a>3.6.2.5 代理请求首部</h3><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/lo4882tb0k3K2GqB.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/BsS43JHeQt1WXTP.png"
+                      alt="lo4882tb0k3K2GqB__thumbnail.png"
                 ></p>
 <h2 id="3-6-3-响应首部"><a href="#3-6-3-响应首部" class="headerlink" title="3.6.3 响应首部"></a>3.6.3 响应首部</h2><p>响应报文有自己的首部集，以便为客户端提供信息。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/FJfB5VYZPrChGkOf.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/anlcrxXGjLEovim.png"
+                      alt="FJfB5VYZPrChGkOf__thumbnail.png"
                 ></p>
 <h3 id="3-6-3-1-协商首部"><a href="#3-6-3-1-协商首部" class="headerlink" title="3.6.3.1 协商首部"></a>3.6.3.1 协商首部</h3><p>如果资源有多种表示方法，可以为服务器和客户端提供对资源进行协商的能力。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/dPebT46CLDYXaQdJ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/kYGZnurlPKtR4Ne.png"
+                      alt="dPebT46CLDYXaQdJ__thumbnail.png"
                 ></p>
 <h3 id="3-6-3-2-安全响应首部"><a href="#3-6-3-2-安全响应首部" class="headerlink" title="3.6.3.2 安全响应首部"></a>3.6.3.2 安全响应首部</h3><p>安全请求首部就是HTTP的质询/响应认证机制的响应侧。这里指的是质询首部。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DBM3vYt6qfYjHjQs.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/sKVmAupEkH7PDdF.png"
+                      alt="DBM3vYt6qfYjHjQs__thumbnail.png"
                 ></p>
 <h2 id="3-6-4-实体首部"><a href="#3-6-4-实体首部" class="headerlink" title="3.6.4 实体首部"></a>3.6.4 实体首部</h2><h3 id="3-6-4-1-实体的信息性首部"><a href="#3-6-4-1-实体的信息性首部" class="headerlink" title="3.6.4.1 实体的信息性首部"></a>3.6.4.1 实体的信息性首部</h3><p>实体首部指的是实体主体部分的首部，可以告知报文的接收者它在对什么进行处理。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/aAXJrr32FXIPhq3H.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/YjxnPD95oaKuGwA.png"
+                      alt="aAXJrr32FXIPhq3H__thumbnail.png"
                 ></p>
 <h3 id="3-6-4-2-内容首部"><a href="#3-6-4-2-内容首部" class="headerlink" title="3.6.4.2 内容首部"></a>3.6.4.2 内容首部</h3><p>内容首部提供与实体内容有关的特定信息，说明了其类型、尺寸以及处理所需的有用信息。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/bXPOXXEC81SN4OHC.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/SZKRAdHu6BzwFil.png"
+                      alt="bXPOXXEC81SN4OHC__thumbnail.png"
                 ></p>
 <h3 id="3-6-4-3-实体缓存首部"><a href="#3-6-4-3-实体缓存首部" class="headerlink" title="3.6.4.3 实体缓存首部"></a>3.6.4.3 实体缓存首部</h3><p>实体的缓存首部提供了与被缓存实体有关的信息。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/8xWGuWX0sDXFv2m4.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/HaWqdwCSjFBxfGM.png"
+                      alt="8xWGuWX0sDXFv2m4__thumbnail.png"
                 ></p>
 <h2 id="3-6-5-扩展首部"><a href="#3-6-5-扩展首部" class="headerlink" title="3.6.5 扩展首部"></a>3.6.5 扩展首部</h2><p>扩展首部是非标准的首部，由应用程序开发者创建，但还未添加到已批准的HTTP规范中去。即使不知道这些扩展首部的含义，HTTP程序也要接受它们并对其进行转发。</p>
 
