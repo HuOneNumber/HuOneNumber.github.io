@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            Flexible Box Layout Module Level 1 |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Flexible Box Layout Module Level 1</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv3</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-07 16:21:17
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/W3C-CSS/">W3C CSS</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/W3C-CSS/Flexible-Box-Layout-Module-Level-1/">Flexible Box Layout Module Level 1</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/CSS/">CSS</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/W3C/">W3C</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>3.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>14 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="1-伸缩布局盒模型和术语"><a href="#1-伸缩布局盒模型和术语" class="headerlink" title="1 伸缩布局盒模型和术语"></a>1 伸缩布局盒模型和术语</h2><p>一个设有display:flex或display:inline-flex的元素是叫做flex容器 ，flex容器的子元素被称为 flex items，这些子元素使用伸缩布局模型来排版。</p>
+<p>块布局与行内布局的布局计算偏向使用书写模式方向，伸缩布局偏向使用flex directions。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KfP81wsm5OzxFrL.png"
+                      alt="4uiZCCmxjzPvhtDD__thumbnail.png"
+                ></p>
+<p><strong>main axis（主轴）main dimension（主轴方向）</strong></p>
+<p><strong>main-start（主轴起点）main-end（主轴终点）</strong></p>
+<p><strong>main size（主轴长度）main size property（主轴长度属性）</strong></p>
+<p><strong>cross axis（侧轴）cross dimension（侧轴方向）</strong></p>
+<p><strong>cross-start（侧轴起点）cross-end（侧轴长度）</strong></p>
+<p><strong>cross size（侧轴长度）cross size property（侧轴长度属性）</strong></p>
+<h2 id="2-flex容器-―display的flex、inline-flex值"><a href="#2-flex容器-―display的flex、inline-flex值" class="headerlink" title="2 flex容器 ―display的flex、inline-flex值"></a>2 flex容器 ―display的flex、inline-flex值</h2><p>flex   元素产生块级flex容器盒。inline-flex  元素产生行内级flex容器盒。</p>
+<p>flex容器会为其内容建立新的<strong>伸缩格式化上下文</strong>(flex formatting context)。 浮动不会闯入flex容器，且flex容器的边界不与其内容的边界叠加。flex容器不是block容器，因此有些用来控制block布局的属性，在伸缩布局中不适用。如：</p>
+<ol>
+<li>多栏(column)的所有column-*属性；</li>
+<li>float与clear；（“float”属性仍然会影响flex容器子容器上的“display”的计算值)</li>
+<li>vertical-align。</li>
+<li>::first-line 和::first-letter，且flex container元素也不会成为它祖先的::first-line和::first-letter。</li>
+</ol>
+<p>若元素display的值是inline-flex且元素是一个浮动或绝对定位元素，则display的计算值是flex。</p>
+<h2 id="3-flex-item"><a href="#3-flex-item" class="headerlink" title="3 flex item"></a>3 flex item</h2><p>一个flex容器的内容具有零个以上的flex item ，flex容器的每一个子元素都会成为一个flex item，且在flex容器里的连续文字块会被包起来成为匿名的block container flex item，若匿名flex item仅包含空白，则该flex item不会渲染，如同视为display: none。</p>
+<p>匿名的item box是不能设置style的，因为没有元素去设置，它只能从flex container继承styles。</p>
+<p>一个flex item为它的内容建立了一个独立的格式化上下文。然而flex items它本身是一个flex-level盒子，而不是block-level盒子：它们参与的是flex格式化上下文，而不是块级格式化上下文。</p>
+<p>一些display值通常会在原始盒子周围创建匿名的盒子，但对于flex item来说，它首先被块级化，所以不会创建匿名盒子，例如两个连续的flex items的display值被设置为table-cell将会创建两个分开的块级flex items,而不是被包装为一个单独的匿名table。</p>
+<p>对于display值被指定为table的flex item，表格包装盒子成为一个flex item，order和align-self适用于它，任何标题框的内容都有助于计算表格盒子的最小和最大宽度。</p>
+<p>对于width和height采用以下规则计算：flex items的最终尺寸是在执行布局的时候计算的，就好像表格盒子和表格内容的间隔是表格盒子的border+padding区域一样。</p>
+<h3 id="3-1-绝对定位的伸缩子元素"><a href="#3-1-绝对定位的伸缩子元素" class="headerlink" title="3.1 绝对定位的伸缩子元素"></a>3.1 绝对定位的伸缩子元素</h3><p>因为它脱离了文档流，所以绝对定位的child不参与flex布局。</p>
+<p>flex container中的绝对定位元素的位置被计算就好像它是flex container中仅有的唯一元素一样，并且假设flexcontainer和flex item都是固定大小的尺寸。所以为了此目的，automargin被视为0。换句话说，flex容器中的定位元素是相对于flex容器的contentbox定位的。</p>
+<p>如果对flex container中的绝对定位的元素设置align-self: center;,自动offset将会让它在flex容器的cross axis居中。然而因为一个绝对定位的flex item是固定尺寸的，stretch属性被视为和flex start相同。</p>
+<h3 id="3-2-Flex-itemMargins-and-Paddings"><a href="#3-2-Flex-itemMargins-and-Paddings" class="headerlink" title="3.2 Flex itemMargins and Paddings"></a>3.2 Flex itemMargins and Paddings</h3><p>相邻flex items的margins不会合并。</p>
+<p>百分比的margins和paddings和block boxes一样，相对于它们的containing block计算。</p>
+<p>auto margins会扩展去吸收相应区域额外的空间，它们被用于对齐或者使相邻的flex items分离。</p>
+<h3 id="3-3-Flex-Item-Z-Ordering"><a href="#3-3-Flex-Item-Z-Ordering" class="headerlink" title="3.3 Flex Item Z-Ordering"></a>3.3 Flex Item Z-Ordering</h3><p>flex items的渲染和inline block类似，除了order属性会改变源文档的顺序，不是auto值的z-index会创建一个堆叠上下文，甚至是position被设置static的时候也一样（表现的好像是position是relative一样）。</p>
+<p>位于flex item外部的后代仍然参与flex item建立的的任何堆叠上下文。</p>
+<h3 id="3-4-Collapsed-Items"><a href="#3-4-Collapsed-Items" class="headerlink" title="3.4 Collapsed Items"></a>3.4 Collapsed Items</h3><p>在flex item上指定visibility:collapse会引发它成为一个折叠flex item，产生一种类似在table-row或table-column上设置visibility:collapse的效果：折叠的flex item完全从渲染中移除，但是留下一个桩来保持flex line的cross size的稳定。因此，如果一个flex容器只有一个flex line，动态折叠或者不折叠items可能会改变flex容器的main size，但是不会对它的cross size产生影响，也不会导致页面其余部分“摇晃”，然而flex line的换行是折叠之后重做的，所以具有多line的flex容器的cross size可能会也可能不会改变。</p>
+<p>尽管折叠flex item没有被渲染，但它确实出现在formatting structure，因此不像设置了display: none的items。依赖于formatting structure的盒子的效果（例如递增计数器，运行动画或者过渡）仍然对折叠items产生作用。</p>
+<h3 id="3-5-flex-item的自动最小尺寸"><a href="#3-5-flex-item的自动最小尺寸" class="headerlink" title="3.5 flex item的自动最小尺寸"></a>3.5 flex item的自动最小尺寸</h3><p>为了为flex items提供一个更加合理的默认最小尺寸，对于一个不是滚动容器的主轴中的flex items的最小尺寸的值就是它的基于内容的最小尺寸，对于滚动容器，自动最小尺寸通常是0。</p>
+<p>通常来说，flex items的基于内容的最小尺寸是content size suggestion和specified size suggestion中的较小值。然而，如果一个盒子具有宽高比但是没有specified size，它的基于内容的最小尺寸就是content size suggestion和transferred size suggestion中的较小值。如果盒子既没有specified size suggestion也没有宽高比，它的基于内容的最小尺寸就是content size suggestion。</p>
+<p><strong>specified size suggestion</strong></p>
+<p>如果item的计算main size property是有定义的，specified size suggestion就是该大小（如果它是被定义的，则由其最大main size property限制），否则是undefined。</p>
+<p><strong>transferred size suggestion</strong></p>
+<p>如果item具有固有的宽高比并且它的计算的cross size property是有定义的，transferred size suggestion就是那个大小（如果它们是有定义的，则由其最小和最大cross size properties限制），通过宽高比转化，否则是undefined。</p>
+<p><strong>content size suggestion</strong></p>
+<p>content size suggestion就是主轴上的最小内容大小，如果它具有宽高比，通过任何定义的min and max cross peoperties转化宽高比，那么它是受限制的，然后进一步受限制如果它定义了max main size property.</p>
+<p>为了计算盒子的固有大小（例如盒子的最小内容大小），基于内容的最小大小使得该轴中盒子的大小变得不确定（即使例如其宽度属性指定了确定的大小），这意味着根据此大小计算的百分比将表现为auto。</p>
+<h2 id="4-顺序与方向"><a href="#4-顺序与方向" class="headerlink" title="4 顺序与方向"></a>4 顺序与方向</h2><p>flex container的内容可以沿着任意方向和任意顺序布局，这个功能通过使用flex-direction,flex-wrap和order属性实现。</p>
+<h3 id="4-1-flex流的方向：flex-direction属性"><a href="#4-1-flex流的方向：flex-direction属性" class="headerlink" title="4.1 flex流的方向：flex-direction属性"></a>4.1 flex流的方向：flex-direction属性</h3><p>|flex-direction属性值|flex-direction决定了flex items在主轴上沿着什么方向布局|<br>|:—-:|:—-|:—-:|:—-|<br>|row（默认）|主轴的方向和inline axis相同，main-start和main-end分别和inline-start和inline-end方向相同|<br>|row-reverse|和row相似，但main-start和main-end调转过来|<br>|column|主轴的方向和block axis一致，main-start和main-end分别和block-start和block-end方向相同|<br>|column-reverse|和column相似，但main-start和main-end调转过来|</p>
+<h3 id="4-2-flex行换行-：flex-wrap属性"><a href="#4-2-flex行换行-：flex-wrap属性" class="headerlink" title="4.2 flex行换行 ：flex-wrap属性"></a>4.2 flex行换行 ：flex-wrap属性</h3><p>|flex-wrap属性值|flex wrap属性控制flex containers是单行的还是多行的，以及侧轴的方向。侧轴的方向决定了新行被叠加的方向。|<br>|:—-:|:—-|:—-:|:—-|<br>|nowrap（默认）|flex containers是单行的|<br>|wrap|flex containers是多行的。|<br>|wrap-reverse|和wrap一样，不过方向相反。|</p>
+<h3 id="4-3-flex方向与换行-：flex-flow缩写"><a href="#4-3-flex方向与换行-：flex-flow缩写" class="headerlink" title="4.3 flex方向与换行 ：flex-flow缩写"></a>4.3 flex方向与换行 ：flex-flow缩写</h3><p>flex-flow是flex-directive和flex-wrap的简写形式，定义了flex container的主轴和侧轴。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/G87MglOH1UqaeSr.png"
+                      alt="7w6xAn53Yd7j7pwQ__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/IY4lrixyNtMsP89.png"
+                      alt="HdIWBm2MS37XVzeN__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/JPRzlABt3qQxY8g.png"
+                      alt="oOMZpxlmZTIx2Vn3__thumbnail.png"
+                ></p>
+<p>flex-flow是和writing mode相关的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/7zfqoyTVSUYLA9R.png"
+                      alt="d7uQWKnXZubXdt5O__thumbnail.png"
+                ></p>
+<h3 id="4-4-display顺序-order属性"><a href="#4-4-display顺序-order属性" class="headerlink" title="4.4 display顺序 :order属性"></a>4.4 display顺序 :order属性</h3><p>flex item默认的展示顺序和源文档一样，order属性可以改变这种顺序。</p>
+<p>order接受一个整数值，从最低的值开始排列，值相同的按源文档的顺序排序，绝对布局的flex items被视为order: 0。</p>
+<p>order仅仅影响视觉上的顺序，而不会影响逻辑源代码的顺序和非视觉媒体或者不支持css的设备的顺序。</p>
+<h2 id="5-FlexLines"><a href="#5-FlexLines" class="headerlink" title="5 FlexLines"></a>5 FlexLines</h2><p>flex items在flex容器中排列在flex lines中。一个flex container可以是单行的或者多行的，这取决于flex-wrap属性。</p>
+<p>single-line flex容器：（设置了flex-wrap: nowrap），所有的item布局在一个单行，即使会引起内容溢出。</p>
+<p>multi-line flex容器：（设置了flex-wrap: wrap或者flex-wrap: wrap-reverse），分割它的flex items成为多line。当额外的line被创建，它们在容器的侧轴上按照flex-wrap属性的值堆叠，每一个line至少包含一个item，除非容器是空的。</p>
+<p>一旦内容被分割为多行，每一行就是独立布局的，弹性长度和justify-content,align-self属性一次只考虑在一行中的items。</p>
+<p>在一个多行的flex container中（甚至只有一行），每行的侧轴尺寸就是能够包含下该行的items的最小尺寸（通过align-self属性排列后），行在flex container中的排列使用align-content属性设置。在单行的flex container中，行的侧轴尺寸就是flex container的侧轴尺寸，align-content没有效果。每一行的主轴的尺寸总是和flex container内容盒子的主轴尺寸相同的。</p>
+<h2 id="6-伸缩性"><a href="#6-伸缩性" class="headerlink" title="6 伸缩性"></a>6 伸缩性</h2><p>flex布局的定义方面是能够使flex items弹性，改变它们的宽度/高度去填充main dimension剩余的空间，这可以通过flex属性实现。flex container分配剩余空间给它的items（通过设置flex-grow ）来填充填充容器，或者收缩它们（通过设置flex-shrink）来阻止溢出。</p>
+<p>如果flex item的flex-grow和flex-shrink都是0，是完全没有弹性的，否则是伸缩的。</p>
+<h3 id="6-1-flex缩写"><a href="#6-1-flex缩写" class="headerlink" title="6.1 flex缩写"></a>6.1 flex缩写</h3><p>flex属性规定了flex元素如何伸长或缩短以适应flex容器中的可用空间。这是一个简写属性，用来设置 flex-grow, flex-shrink 与 flex-basis。</p>
+<ol>
+<li><strong>flex-grow</strong></li>
+</ol>
+<p>指定了flex的增长因子，当有正的剩余空间的时候，增长因子决定了flex item相对于容器中其他的flex items的增长程度，默认值为1。当line上的flex值之和小于1时，它们将占用小于100％的可用空间。</p>
+<ol start="2">
+<li><strong>flex-shrink</strong></li>
+</ol>
+<p>决定了flex item相对于容器中其他的flex items的收缩程度，默认值为1，不能为负数。仅在默认宽度之和大于容器的时候才会发生收缩。</p>
+<ol start="3">
+<li><strong>flex-basis</strong></li>
+</ol>
+<p>指定了 flex 元素在主轴方向上的初始大小。flex-basis接受和width,height一样的值（除了auto被视为不同的），以及content关键字。</p>
+<pre><code>1. auto</code></pre>
+<p>当在flex item使用该值时，auto关键字将item的main size property设为它的flex-basis。若那个值是也是auto，就使用值就是content。<br>    2. content<br>表示基于flex item内容的自动尺寸</p>
+<h3 id="6-2-flex的常见值"><a href="#6-2-flex的常见值" class="headerlink" title="6.2 flex的常见值"></a>6.2 flex的常见值</h3><ol>
+<li><strong>flex: initial</strong></li>
+</ol>
+<p>等效于flex: 0 1 auto，基于它的width/height来设置它的尺寸（若item的main size property被设置为auto,它的尺寸将会基于它的内容），在正的剩余空间的时候flex item没有弹性，但是没有充足空间的时候会收缩到它的最小尺寸，alignment abilities或者auto margin在主轴上排列flex items。</p>
+<ol start="2">
+<li><strong>flex: auto</strong></li>
+</ol>
+<p>等效于flex: 1 1 auto,基于它的width/height来设置它的尺寸，并且使它完全弹性的，它会吸收任何多余的空间。</p>
+<ol start="3">
+<li><strong>flex: none</strong></li>
+</ol>
+<p>等效于flex: 0 0 auto, 基于它的width/height来设置它的尺寸，并且使它完全不可弹性的。甚至在溢出的情况也不会收缩。</p>
+<ol start="4">
+<li><strong>flex: positive-number</strong></li>
+</ol>
+<p>等效于flex: <positive-number> 1 0，使flex item弹性的，并且设置flex basis为0。</p>
+<p>默认情况下flex items并不会缩减到它的最小尺寸以下（最大的text长度或者固定尺寸的元素），改变这个可以通过设置min-width或者min-height属性</p>
+<h2 id="7-对齐"><a href="#7-对齐" class="headerlink" title="7 对齐"></a>7 对齐</h2><h3 id="7-1-auto-margin对齐"><a href="#7-1-auto-margin对齐" class="headerlink" title="7.1 auto margin对齐"></a>7.1 auto margin对齐</h3><p>flex item 和 block流的auto margin非常类似：</p>
+<ol>
+<li>在计算flex bases和伸缩长度的时候，auto margin被视为0</li>
+<li>优先于通过justify-content和align-self设置的对齐属性，在那个区域的任何正的空间的都被分配给auto margin。</li>
+<li>溢出的盒子会忽略它们的auto margin，并且在end方向溢出<h3 id="7-2-主轴对齐-justify-content属性"><a href="#7-2-主轴对齐-justify-content属性" class="headerlink" title="7.2 主轴对齐 :justify-content属性"></a>7.2 主轴对齐 :justify-content属性</h3></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">justify-content属性值</th>
+<th align="left">定义了项目在主轴上的对齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flex-start（默认）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">space-between</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">space-around</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Q6k15IzBNuJGbvn.png"
+                      alt="HGyMlU07TRUL0xu2__thumbnail.png"
+                ></p>
+<h3 id="7-3-侧轴对齐-align-items与align-self属性"><a href="#7-3-侧轴对齐-align-items与align-self属性" class="headerlink" title="7.3 侧轴对齐 :align-items与align-self属性"></a>7.3 侧轴对齐 :align-items与align-self属性</h3><p>flex items可以在当前容器的当前行的侧轴上对齐，align-items设置flex容器中所有项的默认对齐方式，包括匿名flex items，align-self为单个flex items设置对齐方式，会覆盖它的默认对齐方式，对于匿名的flex items，align-self始终匹配它们相关联的flex容器的align-items值。</p>
+<p>如果任何flex-items的margin的值为auto。则align-self无效。</p>
+<p>如果flex容器的高度受到约束，stretch值可能导致flex item的内容溢出item</p>
+<table>
+<thead>
+<tr>
+<th align="left">align-items和align-self属性值</th>
+<th align="left">定义了项目在主轴上的对齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">auto（align-self的属性值，且默认）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-start</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">baseline</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">stretch</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/FRKW1quDNZtfUzM.png"
+                      alt="kmOo5IYgu9TesAUd__thumbnail.png"
+                ></p>
+<h3 id="7-4-堆栈伸缩行-：align-content属性"><a href="#7-4-堆栈伸缩行-：align-content属性" class="headerlink" title="7.4 堆栈伸缩行 ：align-content属性"></a>7.4 堆栈伸缩行 ：align-content属性</h3><p>当cross-axis有额外空间的时候，align-content排列flex容器中的lines，类似justity-content在主轴排列单独的item，这个属性对于单行的flex容器没有效果。单行flex容器的line会自动拉伸填充空间。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/oGZzPy8RMfkYTtC.png"
+                      alt="H98ydaeN2I2CiLn8__thumbnail.png"
+                ></p>
+<h2 id="8-Flex容器基线"><a href="#8-Flex容器基线" class="headerlink" title="8 Flex容器基线"></a>8 Flex容器基线</h2><p>为了使flex容器本身参与基线对齐（例如，当flex容器本身是外部flex容器的flex item时），它需要提交最能代表其内容的基线位置。为此，flex容器基线的位置被决定如下（使用order重排后并将flex-direction考虑在内）：</p>
+<p><strong>first/last 主轴基线集</strong></p>
+<p>当flex容器的inline axis匹配它的main axis，它的基线被决定如下：</p>
+<ol>
+<li>如果flex容器的最开始/最末尾的flex line中的任何flex items参与基线对齐，flex容器的first/last主轴基线集则从那些flex items的共享对齐基线生成。</li>
+<li>否则，如果flex容器至少有一个flex item，则flex容器的first/last基线集是从最开始/最末尾的flex item的对齐基线生成。（如果该item没有与flex容器主轴平行的对齐基线，则首先从其边界边缘合成一个）。</li>
+<li>否则，flex容器没有first/last主轴基线集，并且根据其对齐上下文规则在需要时合成一个。</li>
+</ol>
+<p><strong>first/last侧轴基线集</strong></p>
+<p>当flex容器的inline axis匹配它的cross axis，它的基线被决定如下：</p>
+<ol>
+<li>如果flex容器至少有一个flex item，则flex容器的first/last基线集是从最开始/最末尾的flex item的对齐基线生成。（如果该item没有与flex容器交叉轴平行的对齐基线，则首先从其边界边缘合成一个）。</li>
+<li>否则，flex容器没有first/last主轴基线集，并且根据其对齐上下文规则在需要时合成一个。</li>
+</ol>
+<p>根据上述规则计算基线时，如果贡献基线的框具有允许滚动的overflow值，</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Flexible Box Layout Module Level 1</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-07 16:21:17</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/07/note/W3C CSS/Flexible Box Layout Module Level 1/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/07/note/W3C%20CSS/Backgrounds%20and%20Borders%20Level%203/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Backgrounds and Borders Level 3</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Positioned Layout Module Level 3</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BC%B8%E7%BC%A9%E5%B8%83%E5%B1%80%E7%9B%92%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%9C%AF%E8%AF%AD"><span class="nav-text">1 伸缩布局盒模型和术语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-flex%E5%AE%B9%E5%99%A8-%E2%80%95display%E7%9A%84flex%E3%80%81inline-flex%E5%80%BC"><span class="nav-text">2 flex容器 ―display的flex、inline-flex值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-flex-item"><span class="nav-text">3 flex item</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E4%BC%B8%E7%BC%A9%E5%AD%90%E5%85%83%E7%B4%A0"><span class="nav-text">3.1 绝对定位的伸缩子元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Flex-itemMargins-and-Paddings"><span class="nav-text">3.2 Flex itemMargins and Paddings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Flex-Item-Z-Ordering"><span class="nav-text">3.3 Flex Item Z-Ordering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Collapsed-Items"><span class="nav-text">3.4 Collapsed Items</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-flex-item%E7%9A%84%E8%87%AA%E5%8A%A8%E6%9C%80%E5%B0%8F%E5%B0%BA%E5%AF%B8"><span class="nav-text">3.5 flex item的自动最小尺寸</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E9%A1%BA%E5%BA%8F%E4%B8%8E%E6%96%B9%E5%90%91"><span class="nav-text">4 顺序与方向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-flex%E6%B5%81%E7%9A%84%E6%96%B9%E5%90%91%EF%BC%9Aflex-direction%E5%B1%9E%E6%80%A7"><span class="nav-text">4.1 flex流的方向：flex-direction属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-flex%E8%A1%8C%E6%8D%A2%E8%A1%8C-%EF%BC%9Aflex-wrap%E5%B1%9E%E6%80%A7"><span class="nav-text">4.2 flex行换行 ：flex-wrap属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-flex%E6%96%B9%E5%90%91%E4%B8%8E%E6%8D%A2%E8%A1%8C-%EF%BC%9Aflex-flow%E7%BC%A9%E5%86%99"><span class="nav-text">4.3 flex方向与换行 ：flex-flow缩写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-display%E9%A1%BA%E5%BA%8F-order%E5%B1%9E%E6%80%A7"><span class="nav-text">4.4 display顺序 :order属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-FlexLines"><span class="nav-text">5 FlexLines</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E4%BC%B8%E7%BC%A9%E6%80%A7"><span class="nav-text">6 伸缩性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-flex%E7%BC%A9%E5%86%99"><span class="nav-text">6.1 flex缩写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-flex%E7%9A%84%E5%B8%B8%E8%A7%81%E5%80%BC"><span class="nav-text">6.2 flex的常见值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-%E5%AF%B9%E9%BD%90"><span class="nav-text">7 对齐</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-auto-margin%E5%AF%B9%E9%BD%90"><span class="nav-text">7.1 auto margin对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-%E4%B8%BB%E8%BD%B4%E5%AF%B9%E9%BD%90-justify-content%E5%B1%9E%E6%80%A7"><span class="nav-text">7.2 主轴对齐 :justify-content属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-%E4%BE%A7%E8%BD%B4%E5%AF%B9%E9%BD%90-align-items%E4%B8%8Ealign-self%E5%B1%9E%E6%80%A7"><span class="nav-text">7.3 侧轴对齐 :align-items与align-self属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-%E5%A0%86%E6%A0%88%E4%BC%B8%E7%BC%A9%E8%A1%8C-%EF%BC%9Aalign-content%E5%B1%9E%E6%80%A7"><span class="nav-text">7.4 堆栈伸缩行 ：align-content属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Flex%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%BA%BF"><span class="nav-text">8 Flex容器基线</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

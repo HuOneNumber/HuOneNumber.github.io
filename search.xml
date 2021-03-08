@@ -61,8 +61,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/nVR0IK7EBcmYWYVR.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/7wAHV2voSXks6Mg.png"
+                      alt="nVR0IK7EBcmYWYVR__thumbnail.png"
                 ></p>
 <p>基础URL是作为相对URL的参考点使用的。来自以下几个地方：</p>
 <p><strong>1、在资源中显示提供</strong></p>
@@ -74,8 +74,8 @@
 <p>要把相对URL转换成绝对URL，首先将他们划分成组件段，这一步称为<strong>分解URL，</strong>接下来的过程如下，<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/V4KlexQcZcfQ12Rf.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/1oSkgrTnAKeCQMO.png"
+                      alt="V4KlexQcZcfQ12Rf__thumbnail.png"
                 ></p>
 <p><strong>自动扩展URL：</strong>用户不需要输入完整的URL，浏览器自动扩展。有两种方式：</p>
 <p>1、<strong>主机名扩展</strong></p>
@@ -86,16 +86,16 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/TbL6jXX4SEtdJlWZ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/XB2YNyRzlgj6AUP.png"
+                      alt="TbL6jXX4SEtdJlWZ__thumbnail.png"
                 ></p>
 <p><strong>字符限制</strong>，在URL中，有几个字符被保留起来，有着特殊的含义。有些字符不在定义的US-ASCI可打印字符集中。还有些字符会与某些因特网网关和协议产生混淆，因此不赞成使用。</p>
 <p>URL的每个组件都会有自己的安全和不安全字符（与方案有关），因此只有从用户那里接收URL的应用程序才能够判断需要对哪些字符进行编码。这个URL就是可在各应用程序之间共享的规范形式；也就无需操心其他应用程序会被字符的任何特殊含义所迷惑了。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/bnXzZF9va3GSkGou.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/L6M7WIq8ADEe4Bh.png"
+                      alt="bnXzZF9va3GSkGou__thumbnail.png"
                 ></p>
 ]]></content>
       <categories>
@@ -683,6 +683,65 @@
       </tags>
   </entry>
   <entry>
+    <title>12-基本认证机制</title>
+    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
+<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
+<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
+<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
+                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
+                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
+                ></p>
+<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
+                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
+                ></p>
+<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
+                      alt="qlzDftADKFeS3vHH__thumbnail.png"
+                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
+<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
+                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
+                ></p>
+<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
+<ol>
+<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
+<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
+<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
+<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
+<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
+</ol>
+<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>12-基本认证机制</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>11-客户端识别与cookie机制</title>
     <url>/2021/01/23/note/HTTP/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<h2 id="11-1-个性化接触"><a href="#11-1-个性化接触" class="headerlink" title="11.1 个性化接触"></a>11.1 个性化接触</h2><p>现代的Web站点希望能够提供个性化的接触，希望对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。用户的识别机制：</p>
@@ -822,65 +881,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>11-客户端识别与cookie机制</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>12-基本认证机制</title>
-    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
-<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
-<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
-<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
-                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
-                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
-                ></p>
-<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
-                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
-                ></p>
-<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
-                      alt="qlzDftADKFeS3vHH__thumbnail.png"
-                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
-<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
-                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
-                ></p>
-<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
-<ol>
-<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
-<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
-<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
-<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
-<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
-</ol>
-<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>12-基本认证机制</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1381,6 +1381,76 @@
       </tags>
   </entry>
   <entry>
+    <title>21-日志记录与使用情况跟踪</title>
+    <url>/2021/03/08/note/HTTP/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/</url>
+    <content><![CDATA[<h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
+<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
+                      alt="image.png"
+                ></p>
+<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
+<ol>
+<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
+<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
+</ol>
+<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
+<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
+<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
+<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
+<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
+                      alt="image _1_.png"
+                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
+<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
+                      alt="image _2_.png"
+                ></h2>]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>21-日志记录与使用情况跟踪</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Positioned Layout Module Level 3</title>
+    <url>/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/</url>
+    <content><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>|name|postion|<br>|:—-:|:—-|:—-:|:—-|<br>|Value:|static<a class="link"   href="https://www.w3.org/TR/css-values-4/#comb-one" >|<i class="fas fa-external-link-alt"></i></a>relative | absolute | sticky | fixed|<br>|Initial:|static|<br>|Applies to:|除了table-column-group 和table-column以外的所有元素|<br>|Inherited:|不继承|</p>
+<h1 id="2-static-定位"><a href="#2-static-定位" class="headerlink" title="2 static 定位"></a>2 static 定位</h1><p>HTML 元素的默认值，即没有定位，遵循正常的文档流对象。</p>
+<p>静态定位的元素不会受到 top, bottom, left, right影响。</p>
+<h1 id="3-relative-定位"><a href="#3-relative-定位" class="headerlink" title="3 relative 定位"></a>3 relative 定位</h1><p>相对定位元素的定位是相对其正常位置。</p>
+<h1 id="4-absolute-定位"><a href="#4-absolute-定位" class="headerlink" title="4 absolute 定位"></a>4 absolute 定位</h1><p>绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:</p>
+<h1 id="5-sticky-定位"><a href="#5-sticky-定位" class="headerlink" title="5 sticky 定位"></a>5 sticky 定位</h1><p>sticky 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。</p>
+<p>position: sticky; 基于用户的滚动位置来定位。</p>
+<p>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。</p>
+<p>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</p>
+<p>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
+<p>这个特定阈值指的是 top, right, bottom 或 left 之一，换言之，指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
+<h1 id="6-fixed-定位"><a href="#6-fixed-定位" class="headerlink" title="6 fixed 定位"></a>6 fixed 定位</h1><p>元素的位置相对于浏览器窗口是固定位置。</p>
+<p>即使窗口是滚动的它也不会移动：</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Positioned Layout Module Level 3</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>W3C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>02-HTML网页和结构</title>
     <url>/2021/01/21/note/webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
@@ -1614,196 +1684,6 @@
       </tags>
   </entry>
   <entry>
-    <title>05-Web服务器</title>
-    <url>/2021/01/23/note/HTTP/05-Web%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
-    <content><![CDATA[<p>Web服务器会对HTTP请求进行处理并提供响应。“<strong>Web服务器</strong>”可以用来表示Web服务器的软件，也可以用来表示提供Web页面的特定设备或计算机。</p>
-<p>Web服务器有着不同的风格、形状和尺寸。有普通的10行Perl脚本的Web服务器、50MB的安全商用引擎以及极小的卡上服务器。</p>
-<h1 id="5-1-Web服务器的实现"><a href="#5-1-Web服务器的实现" class="headerlink" title="5.1 Web服务器的实现"></a>5.1 Web服务器的实现</h1><p>Web服务器逻辑实现了HTTP协议、管理着Web资源，并负责提供Web服务器的管理功能。Web服务器逻辑和操作系统共同负责管理TCP连接。底层操作系统负责管理底层计算机系统的硬件细节，并提供了TCP/IP网络支持、负责装载Web资源的文件系统以及控制当前计算活动的进程管理功能。</p>
-<p>Web服务器的不同的形式：通用软件Web服务器；Web服务器设备；嵌入式Web服务器。</p>
-<h1 id="5-2-通用软件Web服务器"><a href="#5-2-通用软件Web服务器" class="headerlink" title="5.2 通用软件Web服务器"></a>5.2 通用软件Web服务器</h1><p>通用软件Web服务器都运行在标准的、有网络功能的计算机系统上。可以选择开源软件（比如Apache或W3C的Jigsaw）或者商业软件（比如微软和iPlanet的Web服务器）。基本上所有的计算机和操作系统中都有可用的Web服务器软件。</p>
-<h1 id="5-3-Web服务器设备"><a href="#5-3-Web服务器设备" class="headerlink" title="5.3 Web服务器设备"></a>5.3 Web服务器设备</h1><p>Web服务器设备（Web server appliance）是预先打包好的软硬件解决方案。厂商会在他们选择的计算机平台上预先安装好软件服务器，并将软件配置好。</p>
-<p>这样不再需要安装及配置软件，可以极大地简化管理工作。但Web服务器通常不太灵活，特性不太丰富，而且服务器硬件也不太容易重用或升级。</p>
-<h1 id="5-4-嵌入式Web服务器"><a href="#5-4-嵌入式Web服务器" class="headerlink" title="5.4 嵌入式Web服务器"></a>5.4 嵌入式Web服务器</h1><p>嵌入式服务器（embededserver）是嵌入到消费类产品（比如打印机或家用设备中去的小型Web服务器。嵌入式Web服务器允许用户通过便捷的Web浏览器接口来管理其消费者设备。嵌入式Web服务器通常只能提供最小特性功能集。</p>
-<h1 id="5-5-Web服务器操作"><a href="#5-5-Web服务器操作" class="headerlink" title="5.5 Web服务器操作"></a>5.5 Web服务器操作</h1><p>（1）建立连接——接受一个客户端连接，如果不希望与这个客户端建立连接，就将其关闭。</p>
-<p>（2）接收请求——从网络中读取一条HTTP请求报文。</p>
-<p>（3）处理请求——对请求报文进行解释，并采取行动。</p>
-<p>（4）访问资源——访问报文中指定的资源。</p>
-<p>（5）构建响应——创建带有正确首部的HTTP响应报文。</p>
-<p>（6）发送响应——将响应回送给客户端。</p>
-<p>（7）记录事务处理过程——将与已完成事务有关的内容记录在一个日志文件中。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/zrlwpHmco57i2PW.png"
-                      alt="pzJLam8z7mPDhlLa__original.png"
-                ></p>
-<h2 id="5-5-1-第一步——接受客户端连接"><a href="#5-5-1-第一步——接受客户端连接" class="headerlink" title="5.5.1 第一步——接受客户端连接"></a>5.5.1 第一步——接受客户端连接</h2><p>如果客户端已经打开了一条到服务器的持久连接，可以使用那条连接来发送它的请求。否则，客户端需要打开一条新的到服务器的连接。</p>
-<h3 id="5-5-1-1-处理新连接"><a href="#5-5-1-1-处理新连接" class="headerlink" title="5.5.1.1 处理新连接"></a>5.5.1.1 处理新连接</h3><p>客户端请求一条到Web服务器的TCP连接时，Web服务器会建立连接，判断连接的另一端是哪个客户端，从TCP连接中将IP地址解析出来。一旦新连接建立起来并被接受，服务器就会将新连接添加到其现存Web服务器连接列表中，做好监视连接上数据传输的准备。</p>
-<p>Web服务器可以随意拒绝或立即关闭任意一条连接。有些Web服务器会因为客户端IP地址或主机名是未认证的，或者因为它是已知的恶意客户端而关闭连接。</p>
-<h3 id="5-5-1-2-客户端主机名识别"><a href="#5-5-1-2-客户端主机名识别" class="headerlink" title="5.5.1.2 客户端主机名识别"></a>5.5.1.2 客户端主机名识别</h3><p>可以用“反向DNS”对大部分Web服务器进行配置，以便将客户端IP地址转换成客户端主机名。Web服务器可以将客户端主机名用于详细的访问控制和日志记录。但主机名查找会花费很长时间，降低Web事务处理的速度。大容量Web服务器要么会禁止主机名解析，要么只允许对特定内容进行解析。</p>
-<h3 id="5-5-1-3-通过ident确定客户端用户"><a href="#5-5-1-3-通过ident确定客户端用户" class="headerlink" title="5.5.1.3 通过ident确定客户端用户"></a>5.5.1.3 通过ident确定客户端用户</h3><p>有些Web服务器支持IETF的ident协议，通过ident协议找到发起HTTP连接的用户名。<strong>通用日志格式</strong>（Common Log Format）的第二个字段中就包含了每条HTTP请求的ident用户名。如果客户端支持ident协议，就在TCP端口113上监听ident请求。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/BSiXQd2bOTuN53a.png"
-                      alt="HnlHkh82fRKut68j__original.png"
-                ></p>
-<p>ident在公共因特网上并不能很好地工作，原因包括：</p>
-<pre><code>1. 很多客户端PC没有运行ident识别协议守护进程软件；
-2. ident协议会使HTTP事务处理产生严重的时延；
-3. 很多防火墙不允许ident流量进入；
-4. ident协议不安全，容易被伪造；
-5. ident协议不支持虚拟IP地址；
-6. 暴露客户端的用户名涉及隐私问题。</code></pre>
-<p>告知ApacheWeb服务器通过<strong>IdentityCheck  on</strong>指令使用ident查找功能。如果没有ident信息，用连字符（-）来填充ident日志字段。由于通常没有ident信息，在使用通用日志格式的日志文件中，第二个字段通常都是连字符。</p>
-<h2 id="5-5-2-第二步——接收请求报文"><a href="#5-5-2-第二步——接收请求报文" class="headerlink" title="5.5.2 第二步——接收请求报文"></a>5.5.2 第二步——接收请求报文</h2><p>连接上有数据到达时，Web服务器会从网络连接中读取数据，并将请求报文中的内容解析出来。</p>
-<p>解析请求报文时，Web服务器操作：</p>
-<pre><code>1. 解析请求行，查找请求方法、指定的资源标识符（URI）以及版本号，各项之间由一个空格分隔，并以CRLF作为行的结束；
-2. 读取以CRLF结尾的报文首部；
-3. 检测到以CRLF结尾的、标识首部结束的空行（如果有的话）；
-4. 如果有的话（长度由Content-Length首部指定），读取请求主体。</code></pre>
-<p>解析请求报文时，Web服务器会不定期地从网络上接收输入数据。网络连接可能出现延迟，所以将部分报文数据临时存储在内存中，直到收到足以进行解析的数据并理解其意义为止。</p>
-<h3 id="5-5-2-1-报文的内部表示法"><a href="#5-5-2-1-报文的内部表示法" class="headerlink" title="5.5.2.1 报文的内部表示法"></a>5.5.2.1 报文的内部表示法</h3><p>有些Web服务器会用，便于进行报文操作的内部数据结构来存储请求报文。比如，数据结构中可能包含有指向请求报文中各个片段的指针及其长度，将这些首部存放在一个快速查询表中，以便快速访问特定首部的具体值了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/JL5lRyhHMOqg4xd.png"
-                      alt="6J2aJFF37Qfi51H7.png"
-                ></p>
-<h3 id="5-5-2-2-连接的输入-输出处理结构"><a href="#5-5-2-2-连接的输入-输出处理结构" class="headerlink" title="5.5.2.2 连接的输入/输出处理结构"></a>5.5.2.2 连接的输入/输出处理结构</h3><p>高性能的Web服务器能够同时支持数千条连接。连接可能在快速地或者慢速向Web服务器发送请求甚至空闲着。因为请求可能会在任意时刻到达，所以Web服务器会不停地观察有无新的Web请求。不同的Web服务器结构会以不同的方式为请求服务。</p>
-<ol>
-<li>单线程Web服务器（参见a）</li>
-</ol>
-<p>一次只处理一个请求，直到完成为止。这种结构易于实现，但所有其他连接都会被忽略。这样会造成严重的性能问题，只适用于低负荷的服务器，以及type-o-serve这样的诊断工具。</p>
-<ol start="2">
-<li>多进程及多线程Web服务器（参见b）</li>
-</ol>
-<p>用多个进程，或更高效的线程同时对请求进行处理。可以根据需要或预先创建线程/进程。有些服务器会为每条连接分配一个线程/进程，但当同时处理过多连接时，会消耗太多的内存或系统资源，因此通常都会对线程/进程的最大数量进行限制。</p>
-<ol start="3">
-<li>复用I/O的服务器（参见c）</li>
-</ol>
-<p>在复用结构中，同时监视所有连接上的活动。当连接的状态发生变化时（有数据可用，或出现错误时），就对那条连接进行少量的处理；处理结束之后，将连接返回到开放连接列表中，等待下一次状态变化。</p>
-<ol start="4">
-<li>复用的多线程Web服务器（参见d）</li>
-</ol>
-<p>多个线程中的每一个都在观察打开的连接，并对每条连接执行少量的任务。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/QzpRsmfEyFrSeuM.png"
-                      alt="2mA4SsoOK7nSD7FP.png"
-                ></p>
-<h2 id="5-5-3-第三步——处理请求"><a href="#5-5-3-第三步——处理请求" class="headerlink" title="5.5.3 第三步——处理请求"></a>5.5.3 第三步——处理请求</h2><p>一旦Web服务器收到了请求，就可以根据方法、资源、首部和可选的主体部分来对请求进行处理了。比如POST要求请求报文中必须带有实体主体部分的数据；比如OPTIONS允许有也可以没有请求的主体部分。比如GET禁止在请求报文中包含实体的主体数据。</p>
-<h2 id="5-5-4-第四步——对资源的映射及访问"><a href="#5-5-4-第四步——对资源的映射及访问" class="headerlink" title="5.5.4 第四步——对资源的映射及访问"></a>5.5.4 第四步——对资源的映射及访问</h2><p>Web服务器是资源服务器。它们负责发送预先创建好的内容，比如HTML页面或图片，以及运行在服务器上的资源生成程序所产生的动态内容。将内容传送给客户端之前，要将请求报文中的URI映射为Web服务器上适当的内容或内容生成器，以识别出内容的源头。</p>
-<h3 id="5-5-4-1-docroot"><a href="#5-5-4-1-docroot" class="headerlink" title="5.5.4.1 docroot"></a>5.5.4.1 docroot</h3><p>Web服务器支持各种不同类型的资源映射，最简单的形式就是用请求URI作为名字来访问Web服务器文件系统中的文件。通常，Web服务器的文件系统中会有特殊的文件夹专门用于存放Web内容。这个文件夹被称为文档的根目录（documentroot或docroot）。Web服务器从请求报文中获取URI，并将其附加在文档根目录的后面。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NfA8CvY7cpJeb9Z.png"
-                      alt="YjRu2XQ3AOUZMPxL.png"
-                ></p>
-<p>在配置文件httpd.conf中添加<strong>DocumentRoot行</strong>为Apache Web服务器设置文档的根目录：DocumentRoot/usr/local/httpd/files</p>
-<p>服务器不能让相对URL退到docroot之外，将文件系统的其余部分暴露出来。</p>
-<h4 id="5-5-4-1-1-虚拟托管的docroot"><a href="#5-5-4-1-1-虚拟托管的docroot" class="headerlink" title="5.5.4.1.1 虚拟托管的docroot"></a>5.5.4.1.1 虚拟托管的docroot</h4><p>虚拟托管的Web服务器会在同一台Web服务器上提供多个Web站点，每个站点都有自己独有的文档根目录。虚拟托管Web服务器会根据URI或Host首部的IP地址或主机名来识别要使用的正确文档根目录。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/ohlBFpvjKqM5RVD.png"
-                      alt="h2lrUmLfCt6WWhJe__thumbnail.png"
-                ></p>
-<p>对ApacheWeb服务器来说，为每个虛拟Web站点配置一个VirtualHost块，每个虚拟服务器都要包含DocumentRoot。</p>
-<h4 id="5-5-4-1-2-用户的主目录docroot"><a href="#5-5-4-1-2-用户的主目录docroot" class="headerlink" title="5.5.4.1.2 用户的主目录docroot"></a>5.5.4.1.2 用户的主目录docroot</h4><p>Docroot的另一种常见应用是在Web服务器上为人们提供私有的Web站点。通常把以斜杠和波浪号（/~）开始，后面跟着用户名的URI映射为此用户的私有文档根目录。私有docroot通常是用户主目录下那个名为public_html 的目录，也可将其配置为其他值。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/XRS34sTM8odOjJc.png"
-                      alt="mzxmQqltivIgO2q9__thumbnail.png"
-                ></p>
-<h3 id="5-5-4-2-目录列表"><a href="#5-5-4-2-目录列表" class="headerlink" title="5.5.4.2 目录列表"></a>5.5.4.2 目录列表</h3><p>Web服务器可以接收对目录URL的请求，其路径可以解析为一个目录，而不是文件。对大多数Web服务器对目录URL的请求采取不同的动作：</p>
-<ol>
-<li>返回一个错误。</li>
-<li>不返回目录，返回一个特殊的默认‘索引文件”。多数Web服务器会去查找目录中名为index.html或index.htm的文件来代表此目录，并返回这个文件的内容。在Apache Web服务器上，可以用配置指令<strong>DirectoryIndex</strong>配置要作为默认目录文件使用的文件名集合，指令按照优先顺序列出所有可以作为目录索引文件使用的文件名。</li>
-</ol>
-<p>例如：    DirectoryIndex  index.html  index.htm  home.html  home.htm  index.cgi</p>
-<ol>
-<li>扫描目录，返回一个包含目录内容的HTML页面。如果用户请求目录URI时，没有提供默认的索引文件，且没有禁止使用目录索引，很多Web服务器都会自动返回一个HTML文件，文件中会列出目录里的文件名和每个文件的大小和修改日期，还包括到每个文件的URI链接。</li>
-</ol>
-<p>可以通过以下Apache指令禁止自动生成目录索引文件：Options-Indexes</p>
-<h3 id="5-5-4-3-动态内容资源的映射"><a href="#5-5-4-3-动态内容资源的映射" class="headerlink" title="5.5.4.3 动态内容资源的映射"></a>5.5.4.3 动态内容资源的映射</h3><p>Web服务器可以将URI映射为动态资源，也就是映射到按需动态生成内容的程序上。多数Web服务器都提供了一些机制以识别和映射动态资源，能够分辨资源什么时候是动态的，动态内容生成程序位于何处，以及如何运行那个程序。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/AfQbyTgORts29kv.png"
-                      alt="QX5bpDmH8lbf0JpV__thumbnail.png"
-                ></p>
-<p>Apache允许用户将URI路径名组件映射为可执行文件目录，服务器会试着去执行目录中的程序。</p>
-<p>Apache允许用户用一个特殊的文件扩展名来标识可执行文件。这种方式就可以将可执行脚本放在任意目录中了。e.g.  AddHandler cgi-script.cgi （执行所有以.cgi结尾的Web资源）。</p>
-<h3 id="5-5-4-4-服务器端包含项"><a href="#5-5-4-4-服务器端包含项" class="headerlink" title="5.5.4.4 服务器端包含项"></a>5.5.4.4 服务器端包含项</h3><p>很多Web服务器提供了对<strong>服务器端包含项</strong>（SSI）的支持，这是创建动态内容的一种方式。如果资源被标识为存在服务器端包含项，服务器就会发送前对资源内容进行扫描，以查找特定的模板（可以是变量名或嵌入式脚本）。可以用变量的值或可执行脚本的输出来取代特定的模板。</p>
-<h3 id="5-5-4-5-访问控制"><a href="#5-5-4-5-访问控制" class="headerlink" title="5.5.4.5 访问控制"></a>5.5.4.5 访问控制</h3><p>Web服务器还可以为特定资源进行访问控制。Web服务器可以根据客户端的IP地址进行访问控制，也可以要求输入密码来访问资源。</p>
-<h2 id="5-5-5-第五步——构建响应"><a href="#5-5-5-第五步——构建响应" class="headerlink" title="5.5.5 第五步——构建响应"></a>5.5.5 第五步——构建响应</h2><p>Web服务器识别出了资源，就执行请求方法中描述的动作，并返回响应报文，包含有响应状态码、响应首部，如果生成了响应主体的话，还包括响应主体。</p>
-<h3 id="5-5-5-1-响应实体"><a href="#5-5-5-1-响应实体" class="headerlink" title="5.5.5.1 响应实体"></a>5.5.5.1 响应实体</h3><p>如果事务处理产生了响应主体，就将内容放在响应报文中回送过去。如果有响应主体的话，响应报文中通常包括：</p>
-<ol>
-<li>描述响应主体MIME类型的Content-Type首部；</li>
-<li>描述响应主体长度的Content-Length首部；</li>
-<li>实际报文的主体内容。<h3 id="5-5-5-2-MIME类型"><a href="#5-5-5-2-MIME类型" class="headerlink" title="5.5.5.2 MIME类型"></a>5.5.5.2 MIME类型</h3></li>
-</ol>
-<p>Web服务器要确定响应主体的MIME类型。</p>
-<ol>
-<li><strong>MIME 类型</strong>（mime.types）</li>
-</ol>
-<p>Web服务器可用文件的扩展名来说明MIME类型。Web服务器会为每个资源扫描一个包含了所有扩展名的MIME类型的文件，以确定其MIME类型。这种最常见。</p>
-<ol start="2">
-<li><strong>魔法分类</strong>（Magic typing）</li>
-</ol>
-<p>ApacheWeb服务器可以扫描每个资源的内容，并将其与一个已知模式表（魔法文件）进行匹配，以决定每个文件的MIME类型。适用于文件没有标准扩展名的时候。</p>
-<ol start="3">
-<li><strong>显式分类</strong>（Explicit typing）</li>
-</ol>
-<p>可对Web服务器进行配置，不考虑文件的扩展名或内容，强制特定文件或目录内容拥有某个MIME类型。</p>
-<ol start="4">
-<li><strong>类型协商</strong></li>
-</ol>
-<p>有些Web服务器经过配置，可以以多种文档格式来存储资源。在这种情况下，配置Web服务器，使其可以通过与用户的协商来决定使用哪种格式（及相关的MIME类型）“最好”。</p>
-<p>还可以通过配置Web服务器，将特定的文件与MIME类型相关联。</p>
-<h3 id="5-5-5-3-重定向"><a href="#5-5-5-3-重定向" class="headerlink" title="5.5.5.3 重定向"></a>5.5.5.3 重定向</h3><p>Web服务器有时会返回重定向响应而不是成功的报文，将浏览器重定向到其他地方来执行请求。Location响应首部包含了内容的新地址或优选地址的URI。重定向可用于下列情况：</p>
-<ol>
-<li><strong>永久删除的资源</strong></li>
-</ol>
-<p>资源被移动到了新的位置，或被重新命名，有了新的URL。Web服务器可以告诉客户端资源已经被重命名了，让其可以在从新地址获取资源之前，更新书签之类的信息。状态码301 Moved Permanently就用于此类重定向。</p>
-<ol start="2">
-<li><strong>临时删除的资源</strong></li>
-</ol>
-<p>如果资源被临时移走或重命名了，服务器将客户端重定向到新的位置上去。由于重命名是临时的，所以服务器希望客户端不必对书签进行更新。状态码303 See Other以及状态码307 Temporary Redirect用于此类重定向。</p>
-<ol start="3">
-<li><strong>URL增强</strong></li>
-</ol>
-<p>服务器通常用重定向来重写URL，常用于嵌入上下文。服务器会生成一个新的包含了嵌入式状态信息的URL，并将用户重定向到这个新的URL上。客户端会跟随这个重定向信息，重新发起请求。状态码303 See Other和307 Temporary Redirect用于此类重定向。</p>
-<ol start="4">
-<li><strong>负载均衡</strong></li>
-</ol>
-<p>如果一个超载的服务器收到一条请求，可以将客户端重定向到一个负载不重的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
-<ol start="5">
-<li><strong>服务器关联</strong></li>
-</ol>
-<p>Web服务器上可能有某些用户的本地信息，可以将客户端重定向到包含了那个客户端信息的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
-<ol start="6">
-<li><strong>规范目录名称</strong></li>
-</ol>
-<p>客户端请求的URI是一个不带尾部斜线的目录名时，多数Web服务器都会将客户端重定向到一个加了斜线的URI上，这样相对链接就可以正常工作。</p>
-<h2 id="5-5-6-第六步——发送响应"><a href="#5-5-6-第六步——发送响应" class="headerlink" title="5.5.6 第六步——发送响应"></a>5.5.6 第六步——发送响应</h2><p>服务器可能有很多条到各个客户端的连接，有空闲的，有向服务器发送数据，还有正在向客户端回送响应数据。</p>
-<p>服务器要记录连接的状态，<strong>对非持久连接而言</strong>，服务器应该在发送了整条报文之后，关闭自己这一端的连接；<strong>对持久连接来说</strong>，连接可能仍保持打开状态，服务器要正确地计算Content-Length首部，客户端才会知道响应什么时候结束。</p>
-<h2 id="5-5-7-第七步——记录日志"><a href="#5-5-7-第七步——记录日志" class="headerlink" title="5.5.7 第七步——记录日志"></a>5.5.7 第七步——记录日志</h2><p>最后，当事务结束时，Web服务器会在日志文件中添加一个条目，来描述已执行的事务。大多数Web服务器都提供了几种日志配置格式。更多细节请参见第21章。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>05-Web服务器</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>04-链接管理</title>
     <url>/2021/01/23/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h2 id="4-1-TCP链接"><a href="#4-1-TCP链接" class="headerlink" title="4.1 TCP链接"></a>4.1 TCP链接</h2><h3 id="4-1-1-TCP的可靠数据管道"><a href="#4-1-1-TCP的可靠数据管道" class="headerlink" title="4.1.1 TCP的可靠数据管道"></a>4.1.1 TCP的可靠数据管道</h3><p>HTTP连接实际，上就是TCP连接和一些使用连接的规则，TCP为HTTP提供了一条可靠的比特传输管道。</p>
@@ -1993,6 +1873,379 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>04-链接管理</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>07-缓存</title>
+    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
+<ol>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
+</ol>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
+                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
+                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
+                ></p>
+<ol start="2">
+<li><strong>再验证未命中</strong></li>
+</ol>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
+                      alt="yIucryfnFQtd0k4c__thumbnail.png"
+                ></p>
+<ol start="3">
+<li><strong>对象被删除</strong></li>
+</ol>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
+</ol>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
+                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
+                ></p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
+                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
+                ></p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
+                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
+                ></p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
+                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
+                ></p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
+<ol>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
+</ol>
+<p>缓存返回的内容有以下几种情况：</p>
+<ol>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
+</ol>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
+                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
+                ></p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
+<ol>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
+</ol>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
+                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
+                      alt="c66vSOYHG3viCCN0__thumbnail.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>07-缓存</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>05-Web服务器</title>
+    <url>/2021/01/23/note/HTTP/05-Web%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<p>Web服务器会对HTTP请求进行处理并提供响应。“<strong>Web服务器</strong>”可以用来表示Web服务器的软件，也可以用来表示提供Web页面的特定设备或计算机。</p>
+<p>Web服务器有着不同的风格、形状和尺寸。有普通的10行Perl脚本的Web服务器、50MB的安全商用引擎以及极小的卡上服务器。</p>
+<h1 id="5-1-Web服务器的实现"><a href="#5-1-Web服务器的实现" class="headerlink" title="5.1 Web服务器的实现"></a>5.1 Web服务器的实现</h1><p>Web服务器逻辑实现了HTTP协议、管理着Web资源，并负责提供Web服务器的管理功能。Web服务器逻辑和操作系统共同负责管理TCP连接。底层操作系统负责管理底层计算机系统的硬件细节，并提供了TCP/IP网络支持、负责装载Web资源的文件系统以及控制当前计算活动的进程管理功能。</p>
+<p>Web服务器的不同的形式：通用软件Web服务器；Web服务器设备；嵌入式Web服务器。</p>
+<h1 id="5-2-通用软件Web服务器"><a href="#5-2-通用软件Web服务器" class="headerlink" title="5.2 通用软件Web服务器"></a>5.2 通用软件Web服务器</h1><p>通用软件Web服务器都运行在标准的、有网络功能的计算机系统上。可以选择开源软件（比如Apache或W3C的Jigsaw）或者商业软件（比如微软和iPlanet的Web服务器）。基本上所有的计算机和操作系统中都有可用的Web服务器软件。</p>
+<h1 id="5-3-Web服务器设备"><a href="#5-3-Web服务器设备" class="headerlink" title="5.3 Web服务器设备"></a>5.3 Web服务器设备</h1><p>Web服务器设备（Web server appliance）是预先打包好的软硬件解决方案。厂商会在他们选择的计算机平台上预先安装好软件服务器，并将软件配置好。</p>
+<p>这样不再需要安装及配置软件，可以极大地简化管理工作。但Web服务器通常不太灵活，特性不太丰富，而且服务器硬件也不太容易重用或升级。</p>
+<h1 id="5-4-嵌入式Web服务器"><a href="#5-4-嵌入式Web服务器" class="headerlink" title="5.4 嵌入式Web服务器"></a>5.4 嵌入式Web服务器</h1><p>嵌入式服务器（embededserver）是嵌入到消费类产品（比如打印机或家用设备中去的小型Web服务器。嵌入式Web服务器允许用户通过便捷的Web浏览器接口来管理其消费者设备。嵌入式Web服务器通常只能提供最小特性功能集。</p>
+<h1 id="5-5-Web服务器操作"><a href="#5-5-Web服务器操作" class="headerlink" title="5.5 Web服务器操作"></a>5.5 Web服务器操作</h1><p>（1）建立连接——接受一个客户端连接，如果不希望与这个客户端建立连接，就将其关闭。</p>
+<p>（2）接收请求——从网络中读取一条HTTP请求报文。</p>
+<p>（3）处理请求——对请求报文进行解释，并采取行动。</p>
+<p>（4）访问资源——访问报文中指定的资源。</p>
+<p>（5）构建响应——创建带有正确首部的HTTP响应报文。</p>
+<p>（6）发送响应——将响应回送给客户端。</p>
+<p>（7）记录事务处理过程——将与已完成事务有关的内容记录在一个日志文件中。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/zrlwpHmco57i2PW.png"
+                      alt="pzJLam8z7mPDhlLa__original.png"
+                ></p>
+<h2 id="5-5-1-第一步——接受客户端连接"><a href="#5-5-1-第一步——接受客户端连接" class="headerlink" title="5.5.1 第一步——接受客户端连接"></a>5.5.1 第一步——接受客户端连接</h2><p>如果客户端已经打开了一条到服务器的持久连接，可以使用那条连接来发送它的请求。否则，客户端需要打开一条新的到服务器的连接。</p>
+<h3 id="5-5-1-1-处理新连接"><a href="#5-5-1-1-处理新连接" class="headerlink" title="5.5.1.1 处理新连接"></a>5.5.1.1 处理新连接</h3><p>客户端请求一条到Web服务器的TCP连接时，Web服务器会建立连接，判断连接的另一端是哪个客户端，从TCP连接中将IP地址解析出来。一旦新连接建立起来并被接受，服务器就会将新连接添加到其现存Web服务器连接列表中，做好监视连接上数据传输的准备。</p>
+<p>Web服务器可以随意拒绝或立即关闭任意一条连接。有些Web服务器会因为客户端IP地址或主机名是未认证的，或者因为它是已知的恶意客户端而关闭连接。</p>
+<h3 id="5-5-1-2-客户端主机名识别"><a href="#5-5-1-2-客户端主机名识别" class="headerlink" title="5.5.1.2 客户端主机名识别"></a>5.5.1.2 客户端主机名识别</h3><p>可以用“反向DNS”对大部分Web服务器进行配置，以便将客户端IP地址转换成客户端主机名。Web服务器可以将客户端主机名用于详细的访问控制和日志记录。但主机名查找会花费很长时间，降低Web事务处理的速度。大容量Web服务器要么会禁止主机名解析，要么只允许对特定内容进行解析。</p>
+<h3 id="5-5-1-3-通过ident确定客户端用户"><a href="#5-5-1-3-通过ident确定客户端用户" class="headerlink" title="5.5.1.3 通过ident确定客户端用户"></a>5.5.1.3 通过ident确定客户端用户</h3><p>有些Web服务器支持IETF的ident协议，通过ident协议找到发起HTTP连接的用户名。<strong>通用日志格式</strong>（Common Log Format）的第二个字段中就包含了每条HTTP请求的ident用户名。如果客户端支持ident协议，就在TCP端口113上监听ident请求。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/BSiXQd2bOTuN53a.png"
+                      alt="HnlHkh82fRKut68j__original.png"
+                ></p>
+<p>ident在公共因特网上并不能很好地工作，原因包括：</p>
+<pre><code>1. 很多客户端PC没有运行ident识别协议守护进程软件；
+2. ident协议会使HTTP事务处理产生严重的时延；
+3. 很多防火墙不允许ident流量进入；
+4. ident协议不安全，容易被伪造；
+5. ident协议不支持虚拟IP地址；
+6. 暴露客户端的用户名涉及隐私问题。</code></pre>
+<p>告知ApacheWeb服务器通过<strong>IdentityCheck  on</strong>指令使用ident查找功能。如果没有ident信息，用连字符（-）来填充ident日志字段。由于通常没有ident信息，在使用通用日志格式的日志文件中，第二个字段通常都是连字符。</p>
+<h2 id="5-5-2-第二步——接收请求报文"><a href="#5-5-2-第二步——接收请求报文" class="headerlink" title="5.5.2 第二步——接收请求报文"></a>5.5.2 第二步——接收请求报文</h2><p>连接上有数据到达时，Web服务器会从网络连接中读取数据，并将请求报文中的内容解析出来。</p>
+<p>解析请求报文时，Web服务器操作：</p>
+<pre><code>1. 解析请求行，查找请求方法、指定的资源标识符（URI）以及版本号，各项之间由一个空格分隔，并以CRLF作为行的结束；
+2. 读取以CRLF结尾的报文首部；
+3. 检测到以CRLF结尾的、标识首部结束的空行（如果有的话）；
+4. 如果有的话（长度由Content-Length首部指定），读取请求主体。</code></pre>
+<p>解析请求报文时，Web服务器会不定期地从网络上接收输入数据。网络连接可能出现延迟，所以将部分报文数据临时存储在内存中，直到收到足以进行解析的数据并理解其意义为止。</p>
+<h3 id="5-5-2-1-报文的内部表示法"><a href="#5-5-2-1-报文的内部表示法" class="headerlink" title="5.5.2.1 报文的内部表示法"></a>5.5.2.1 报文的内部表示法</h3><p>有些Web服务器会用，便于进行报文操作的内部数据结构来存储请求报文。比如，数据结构中可能包含有指向请求报文中各个片段的指针及其长度，将这些首部存放在一个快速查询表中，以便快速访问特定首部的具体值了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/JL5lRyhHMOqg4xd.png"
+                      alt="6J2aJFF37Qfi51H7.png"
+                ></p>
+<h3 id="5-5-2-2-连接的输入-输出处理结构"><a href="#5-5-2-2-连接的输入-输出处理结构" class="headerlink" title="5.5.2.2 连接的输入/输出处理结构"></a>5.5.2.2 连接的输入/输出处理结构</h3><p>高性能的Web服务器能够同时支持数千条连接。连接可能在快速地或者慢速向Web服务器发送请求甚至空闲着。因为请求可能会在任意时刻到达，所以Web服务器会不停地观察有无新的Web请求。不同的Web服务器结构会以不同的方式为请求服务。</p>
+<ol>
+<li>单线程Web服务器（参见a）</li>
+</ol>
+<p>一次只处理一个请求，直到完成为止。这种结构易于实现，但所有其他连接都会被忽略。这样会造成严重的性能问题，只适用于低负荷的服务器，以及type-o-serve这样的诊断工具。</p>
+<ol start="2">
+<li>多进程及多线程Web服务器（参见b）</li>
+</ol>
+<p>用多个进程，或更高效的线程同时对请求进行处理。可以根据需要或预先创建线程/进程。有些服务器会为每条连接分配一个线程/进程，但当同时处理过多连接时，会消耗太多的内存或系统资源，因此通常都会对线程/进程的最大数量进行限制。</p>
+<ol start="3">
+<li>复用I/O的服务器（参见c）</li>
+</ol>
+<p>在复用结构中，同时监视所有连接上的活动。当连接的状态发生变化时（有数据可用，或出现错误时），就对那条连接进行少量的处理；处理结束之后，将连接返回到开放连接列表中，等待下一次状态变化。</p>
+<ol start="4">
+<li>复用的多线程Web服务器（参见d）</li>
+</ol>
+<p>多个线程中的每一个都在观察打开的连接，并对每条连接执行少量的任务。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/QzpRsmfEyFrSeuM.png"
+                      alt="2mA4SsoOK7nSD7FP.png"
+                ></p>
+<h2 id="5-5-3-第三步——处理请求"><a href="#5-5-3-第三步——处理请求" class="headerlink" title="5.5.3 第三步——处理请求"></a>5.5.3 第三步——处理请求</h2><p>一旦Web服务器收到了请求，就可以根据方法、资源、首部和可选的主体部分来对请求进行处理了。比如POST要求请求报文中必须带有实体主体部分的数据；比如OPTIONS允许有也可以没有请求的主体部分。比如GET禁止在请求报文中包含实体的主体数据。</p>
+<h2 id="5-5-4-第四步——对资源的映射及访问"><a href="#5-5-4-第四步——对资源的映射及访问" class="headerlink" title="5.5.4 第四步——对资源的映射及访问"></a>5.5.4 第四步——对资源的映射及访问</h2><p>Web服务器是资源服务器。它们负责发送预先创建好的内容，比如HTML页面或图片，以及运行在服务器上的资源生成程序所产生的动态内容。将内容传送给客户端之前，要将请求报文中的URI映射为Web服务器上适当的内容或内容生成器，以识别出内容的源头。</p>
+<h3 id="5-5-4-1-docroot"><a href="#5-5-4-1-docroot" class="headerlink" title="5.5.4.1 docroot"></a>5.5.4.1 docroot</h3><p>Web服务器支持各种不同类型的资源映射，最简单的形式就是用请求URI作为名字来访问Web服务器文件系统中的文件。通常，Web服务器的文件系统中会有特殊的文件夹专门用于存放Web内容。这个文件夹被称为文档的根目录（documentroot或docroot）。Web服务器从请求报文中获取URI，并将其附加在文档根目录的后面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NfA8CvY7cpJeb9Z.png"
+                      alt="YjRu2XQ3AOUZMPxL.png"
+                ></p>
+<p>在配置文件httpd.conf中添加<strong>DocumentRoot行</strong>为Apache Web服务器设置文档的根目录：DocumentRoot/usr/local/httpd/files</p>
+<p>服务器不能让相对URL退到docroot之外，将文件系统的其余部分暴露出来。</p>
+<h4 id="5-5-4-1-1-虚拟托管的docroot"><a href="#5-5-4-1-1-虚拟托管的docroot" class="headerlink" title="5.5.4.1.1 虚拟托管的docroot"></a>5.5.4.1.1 虚拟托管的docroot</h4><p>虚拟托管的Web服务器会在同一台Web服务器上提供多个Web站点，每个站点都有自己独有的文档根目录。虚拟托管Web服务器会根据URI或Host首部的IP地址或主机名来识别要使用的正确文档根目录。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/ohlBFpvjKqM5RVD.png"
+                      alt="h2lrUmLfCt6WWhJe__thumbnail.png"
+                ></p>
+<p>对ApacheWeb服务器来说，为每个虛拟Web站点配置一个VirtualHost块，每个虚拟服务器都要包含DocumentRoot。</p>
+<h4 id="5-5-4-1-2-用户的主目录docroot"><a href="#5-5-4-1-2-用户的主目录docroot" class="headerlink" title="5.5.4.1.2 用户的主目录docroot"></a>5.5.4.1.2 用户的主目录docroot</h4><p>Docroot的另一种常见应用是在Web服务器上为人们提供私有的Web站点。通常把以斜杠和波浪号（/~）开始，后面跟着用户名的URI映射为此用户的私有文档根目录。私有docroot通常是用户主目录下那个名为public_html 的目录，也可将其配置为其他值。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/XRS34sTM8odOjJc.png"
+                      alt="mzxmQqltivIgO2q9__thumbnail.png"
+                ></p>
+<h3 id="5-5-4-2-目录列表"><a href="#5-5-4-2-目录列表" class="headerlink" title="5.5.4.2 目录列表"></a>5.5.4.2 目录列表</h3><p>Web服务器可以接收对目录URL的请求，其路径可以解析为一个目录，而不是文件。对大多数Web服务器对目录URL的请求采取不同的动作：</p>
+<ol>
+<li>返回一个错误。</li>
+<li>不返回目录，返回一个特殊的默认‘索引文件”。多数Web服务器会去查找目录中名为index.html或index.htm的文件来代表此目录，并返回这个文件的内容。在Apache Web服务器上，可以用配置指令<strong>DirectoryIndex</strong>配置要作为默认目录文件使用的文件名集合，指令按照优先顺序列出所有可以作为目录索引文件使用的文件名。</li>
+</ol>
+<p>例如：    DirectoryIndex  index.html  index.htm  home.html  home.htm  index.cgi</p>
+<ol>
+<li>扫描目录，返回一个包含目录内容的HTML页面。如果用户请求目录URI时，没有提供默认的索引文件，且没有禁止使用目录索引，很多Web服务器都会自动返回一个HTML文件，文件中会列出目录里的文件名和每个文件的大小和修改日期，还包括到每个文件的URI链接。</li>
+</ol>
+<p>可以通过以下Apache指令禁止自动生成目录索引文件：Options-Indexes</p>
+<h3 id="5-5-4-3-动态内容资源的映射"><a href="#5-5-4-3-动态内容资源的映射" class="headerlink" title="5.5.4.3 动态内容资源的映射"></a>5.5.4.3 动态内容资源的映射</h3><p>Web服务器可以将URI映射为动态资源，也就是映射到按需动态生成内容的程序上。多数Web服务器都提供了一些机制以识别和映射动态资源，能够分辨资源什么时候是动态的，动态内容生成程序位于何处，以及如何运行那个程序。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/AfQbyTgORts29kv.png"
+                      alt="QX5bpDmH8lbf0JpV__thumbnail.png"
+                ></p>
+<p>Apache允许用户将URI路径名组件映射为可执行文件目录，服务器会试着去执行目录中的程序。</p>
+<p>Apache允许用户用一个特殊的文件扩展名来标识可执行文件。这种方式就可以将可执行脚本放在任意目录中了。e.g.  AddHandler cgi-script.cgi （执行所有以.cgi结尾的Web资源）。</p>
+<h3 id="5-5-4-4-服务器端包含项"><a href="#5-5-4-4-服务器端包含项" class="headerlink" title="5.5.4.4 服务器端包含项"></a>5.5.4.4 服务器端包含项</h3><p>很多Web服务器提供了对<strong>服务器端包含项</strong>（SSI）的支持，这是创建动态内容的一种方式。如果资源被标识为存在服务器端包含项，服务器就会发送前对资源内容进行扫描，以查找特定的模板（可以是变量名或嵌入式脚本）。可以用变量的值或可执行脚本的输出来取代特定的模板。</p>
+<h3 id="5-5-4-5-访问控制"><a href="#5-5-4-5-访问控制" class="headerlink" title="5.5.4.5 访问控制"></a>5.5.4.5 访问控制</h3><p>Web服务器还可以为特定资源进行访问控制。Web服务器可以根据客户端的IP地址进行访问控制，也可以要求输入密码来访问资源。</p>
+<h2 id="5-5-5-第五步——构建响应"><a href="#5-5-5-第五步——构建响应" class="headerlink" title="5.5.5 第五步——构建响应"></a>5.5.5 第五步——构建响应</h2><p>Web服务器识别出了资源，就执行请求方法中描述的动作，并返回响应报文，包含有响应状态码、响应首部，如果生成了响应主体的话，还包括响应主体。</p>
+<h3 id="5-5-5-1-响应实体"><a href="#5-5-5-1-响应实体" class="headerlink" title="5.5.5.1 响应实体"></a>5.5.5.1 响应实体</h3><p>如果事务处理产生了响应主体，就将内容放在响应报文中回送过去。如果有响应主体的话，响应报文中通常包括：</p>
+<ol>
+<li>描述响应主体MIME类型的Content-Type首部；</li>
+<li>描述响应主体长度的Content-Length首部；</li>
+<li>实际报文的主体内容。<h3 id="5-5-5-2-MIME类型"><a href="#5-5-5-2-MIME类型" class="headerlink" title="5.5.5.2 MIME类型"></a>5.5.5.2 MIME类型</h3></li>
+</ol>
+<p>Web服务器要确定响应主体的MIME类型。</p>
+<ol>
+<li><strong>MIME 类型</strong>（mime.types）</li>
+</ol>
+<p>Web服务器可用文件的扩展名来说明MIME类型。Web服务器会为每个资源扫描一个包含了所有扩展名的MIME类型的文件，以确定其MIME类型。这种最常见。</p>
+<ol start="2">
+<li><strong>魔法分类</strong>（Magic typing）</li>
+</ol>
+<p>ApacheWeb服务器可以扫描每个资源的内容，并将其与一个已知模式表（魔法文件）进行匹配，以决定每个文件的MIME类型。适用于文件没有标准扩展名的时候。</p>
+<ol start="3">
+<li><strong>显式分类</strong>（Explicit typing）</li>
+</ol>
+<p>可对Web服务器进行配置，不考虑文件的扩展名或内容，强制特定文件或目录内容拥有某个MIME类型。</p>
+<ol start="4">
+<li><strong>类型协商</strong></li>
+</ol>
+<p>有些Web服务器经过配置，可以以多种文档格式来存储资源。在这种情况下，配置Web服务器，使其可以通过与用户的协商来决定使用哪种格式（及相关的MIME类型）“最好”。</p>
+<p>还可以通过配置Web服务器，将特定的文件与MIME类型相关联。</p>
+<h3 id="5-5-5-3-重定向"><a href="#5-5-5-3-重定向" class="headerlink" title="5.5.5.3 重定向"></a>5.5.5.3 重定向</h3><p>Web服务器有时会返回重定向响应而不是成功的报文，将浏览器重定向到其他地方来执行请求。Location响应首部包含了内容的新地址或优选地址的URI。重定向可用于下列情况：</p>
+<ol>
+<li><strong>永久删除的资源</strong></li>
+</ol>
+<p>资源被移动到了新的位置，或被重新命名，有了新的URL。Web服务器可以告诉客户端资源已经被重命名了，让其可以在从新地址获取资源之前，更新书签之类的信息。状态码301 Moved Permanently就用于此类重定向。</p>
+<ol start="2">
+<li><strong>临时删除的资源</strong></li>
+</ol>
+<p>如果资源被临时移走或重命名了，服务器将客户端重定向到新的位置上去。由于重命名是临时的，所以服务器希望客户端不必对书签进行更新。状态码303 See Other以及状态码307 Temporary Redirect用于此类重定向。</p>
+<ol start="3">
+<li><strong>URL增强</strong></li>
+</ol>
+<p>服务器通常用重定向来重写URL，常用于嵌入上下文。服务器会生成一个新的包含了嵌入式状态信息的URL，并将用户重定向到这个新的URL上。客户端会跟随这个重定向信息，重新发起请求。状态码303 See Other和307 Temporary Redirect用于此类重定向。</p>
+<ol start="4">
+<li><strong>负载均衡</strong></li>
+</ol>
+<p>如果一个超载的服务器收到一条请求，可以将客户端重定向到一个负载不重的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
+<ol start="5">
+<li><strong>服务器关联</strong></li>
+</ol>
+<p>Web服务器上可能有某些用户的本地信息，可以将客户端重定向到包含了那个客户端信息的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
+<ol start="6">
+<li><strong>规范目录名称</strong></li>
+</ol>
+<p>客户端请求的URI是一个不带尾部斜线的目录名时，多数Web服务器都会将客户端重定向到一个加了斜线的URI上，这样相对链接就可以正常工作。</p>
+<h2 id="5-5-6-第六步——发送响应"><a href="#5-5-6-第六步——发送响应" class="headerlink" title="5.5.6 第六步——发送响应"></a>5.5.6 第六步——发送响应</h2><p>服务器可能有很多条到各个客户端的连接，有空闲的，有向服务器发送数据，还有正在向客户端回送响应数据。</p>
+<p>服务器要记录连接的状态，<strong>对非持久连接而言</strong>，服务器应该在发送了整条报文之后，关闭自己这一端的连接；<strong>对持久连接来说</strong>，连接可能仍保持打开状态，服务器要正确地计算Content-Length首部，客户端才会知道响应什么时候结束。</p>
+<h2 id="5-5-7-第七步——记录日志"><a href="#5-5-7-第七步——记录日志" class="headerlink" title="5.5.7 第七步——记录日志"></a>5.5.7 第七步——记录日志</h2><p>最后，当事务结束时，Web服务器会在日志文件中添加一个条目，来描述已执行的事务。大多数Web服务器都提供了几种日志配置格式。更多细节请参见第21章。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>05-Web服务器</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -2279,189 +2532,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>06-代理</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>07-缓存</title>
-    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
-<ol>
-<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
-<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
-<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
-<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
-</ol>
-<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
-<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
-                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
-                ></p>
-<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
-<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
-<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
-<ol>
-<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
-                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
-                ></p>
-<ol start="2">
-<li><strong>再验证未命中</strong></li>
-</ol>
-<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
-                      alt="yIucryfnFQtd0k4c__thumbnail.png"
-                ></p>
-<ol start="3">
-<li><strong>对象被删除</strong></li>
-</ol>
-<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
-<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
-<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
-<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
-<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
-<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
-<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
-<ol>
-<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
-<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
-<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
-</ol>
-<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
-<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
-<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
-<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
-<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
-                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
-                ></p>
-<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
-<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
-<ol>
-<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
-<li>根据URL动态地选择一个特定的父缓存。</li>
-<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
-<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
-</ol>
-<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
-                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
-                ></p>
-<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
-<ol>
-<li>接收——缓存从网络中读取抵达的请求报文。</li>
-<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
-<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
-<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
-<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
-<li>发送——缓存通过网络将响应发回给客户端。</li>
-<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
-                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
-                ></p>
-<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
-<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
-<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
-<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
-<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
-                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
-                ></p>
-<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
-<ol>
-<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
-<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
-</ol>
-<p>缓存返回的内容有以下几种情况：</p>
-<ol>
-<li>“足够新鲜”的已缓存副本；</li>
-<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
-<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
-<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
-</ol>
-<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
-<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
-<ol>
-<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
-<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
-</ol>
-<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
-<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
-<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
-<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
-<ol>
-<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
-<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
-<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
-<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
-</ol>
-<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
-<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
-<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
-                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
-                ></p>
-<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
-<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
-<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
-<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
-<ol>
-<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
-<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
-<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
-<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
-<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
-<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
-</ol>
-<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
-<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
-                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
-                ></p>
-<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
-<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
-<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
-                      alt="c66vSOYHG3viCCN0__thumbnail.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -2829,6 +2899,838 @@
       </categories>
       <tags>
         <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Backgrounds and Borders Level 3</title>
+    <url>/2021/03/07/note/W3C%20CSS/Backgrounds%20and%20Borders%20Level%203/</url>
+    <content><![CDATA[<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>每一个盒有一个背景层，可以是透明的（默认）也可以以某个颜色或一个以上的图像填满。背景属性可以用来指定背景使用的颜色（background-color）与图像（background-image）及图像如何伸缩、定位、铺设等等。背景属性不继承。</p>
+<h3 id="1-1-多个背景图像的层叠"><a href="#1-1-多个背景图像的层叠" class="headerlink" title="1.1 多个背景图像的层叠"></a>1.1 多个背景图像的层叠</h3><p>盒的背景可以有多个背景图像层，数目由 background-image 属性逗号分隔的取值数目而定。取值 none 也产生一个层。</p>
+<p>每一个图像依照其他背景属性里相应的值伸缩、定位、层迭。各属性的列从第一个取值开始配对 ，不使用结尾多余的取值。若属性用逗号分隔的取值比背景图像层的数目还少，UA 必须以重复列里面的取值直到取值数足够的方式计算使用值。</p>
+<h3 id="1-2-背景颜色-―-background-color-属性"><a href="#1-2-背景颜色-―-background-color-属性" class="headerlink" title="1.2 背景颜色 ― background-color 属性"></a>1.2 背景颜色 ― background-color 属性</h3><p>本属性决定元素的背景色。背景色在任何背景图像之下。初始值为transparent。</p>
+<p>底色层依照最底层的背景图像层对应的 background-clip 值剪裁。</p>
+<p>Example:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123; <span class="attribute">background-color</span>: <span class="number">#F00</span> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-图像源-―-background-image-属性"><a href="#1-3-图像源-―-background-image-属性" class="headerlink" title="1.3 图像源 ― background-image 属性"></a>1.3 图像源 ― background-image 属性</h3><p>为一个元素设置一个或者多个背景图像</p>
+<p>Example:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">body &#123; background-image: url(&quot;marble.svg&quot;) &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-图像铺成-―-background-repeat-属性"><a href="#1-4-图像铺成-―-background-repeat-属性" class="headerlink" title="1.4 图像铺成 ― background-repeat 属性"></a>1.4 图像铺成 ― background-repeat 属性</h3><p>在双值语法中, 第一个值表示水平重复行为, 第二个值表示垂直重复行为.</p>
+<p>|单值|等价于双值|<br>|:—-:|:—-|:—-:|:—-|<br>|repeat-x（水平方向重复）|repeat no-repeat|<br>|repeat-y（垂直方向重复）|no-repeat repeat|<br>|repeat（图像会按需重复来覆盖整个背景图片所在的区域. 最后一个图像会被裁剪, 如果它的大小不合适的话）|repeat repeat|<br>|space（图像会尽可能得重复, 但是不会裁剪. 第一个和最后一个图像会被固定在元素(element)的相应的边上, 同时空白会均匀地分布在图像之间）|space space|<br>|round（随着允许的空间在尺寸上的增长, 被重复的图像将会伸展(没有空隙), 直到有足够的空间来添加一个图像.）|round round|<br>|no-repeat（图像不会被重复）|no-repeat no-repeat|</p>
+<h3 id="1-5-图像固定-―-background-attachment-属性"><a href="#1-5-图像固定-―-background-attachment-属性" class="headerlink" title="1.5 图像固定 ― background-attachment 属性"></a>1.5 图像固定 ― background-attachment 属性</h3><p>决定背景图像的位置是在视口内固定，或者随着包含它的区块滚动。</p>
+<table>
+<thead>
+<tr>
+<th align="left">fixed</th>
+<th align="left">背景相对于视口固定。即使一个元素拥有滚动机制，背景也不会随着元素的内容滚动</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">local</td>
+<td align="left">背景相对于元素的内容固定。如果一个元素拥有滚动机制，背景会随着元素的内容滚动， 并且背景的绘制区域和定位区域是相对于可滚动的区域而不是包含他们的边框。</td>
+</tr>
+<tr>
+<td align="left">scroll</td>
+<td align="left">表示背景相对于元素本身固定， 而不是随着它的内容滚动（对元素边框是有效的）</td>
+</tr>
+</tbody></table>
+<h3 id="1-6-图像定位-―-background-position-属性"><a href="#1-6-图像定位-―-background-position-属性" class="headerlink" title="1.6 图像定位 ― background-position 属性"></a>1.6 图像定位 ― background-position 属性</h3><p>若指定了背景图像，本属性可以用来指定图像（伸缩之后）在对应的背景定位区域的初始位置。</p>
+<p>|center|居中背景图片|<br>|:—-:|:—-|:—-:|:—-|<br>|top, left, bottom, right|如果是单个值，图片在指定边缘的中间位置，|<br>|百分比|(容器宽 - 图片宽) * (position x%) = x方向偏移值<br>(容器高 - 图片高) * (position y%) = y方向偏移值|<br>|长度值|长度值是元素向指定边缘偏移|</p>
+<p>Example:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">background-position</span>: <span class="selector-tag">top</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: <span class="selector-tag">left</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: <span class="selector-tag">center</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: 25% 75%;</span><br><span class="line"><span class="selector-tag">background-position</span>: <span class="selector-tag">bottom</span> 50<span class="selector-tag">px</span> <span class="selector-tag">right</span> 100<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-position</span>: <span class="selector-tag">right</span> 35% <span class="selector-tag">bottom</span> 45%;</span><br></pre></td></tr></table></figure>
+<h3 id="1-7-描绘区域-―-background-clip-属性"><a href="#1-7-描绘区域-―-background-clip-属性" class="headerlink" title="1.7 描绘区域 ― background-clip 属性"></a>1.7 描绘区域 ― background-clip 属性</h3><p>元素的背景（背景图片或颜色）是否延伸到边框、内边距盒子、内容盒子下面。</p>
+<p>|border-box<br>|背景延伸至边框外沿（但是在边框下层）|<br>|:—-:|:—-|:—-:|:—-|<br>|padding-box|背景延伸至内边距（padding）外沿。不会绘制到边框处|<br>|content-box|背景被裁剪至内容区（content box）外沿|</p>
+<h3 id="1-8-定位区域-―-background-origin-属性"><a href="#1-8-定位区域-―-background-origin-属性" class="headerlink" title="1.8 定位区域 ― background-origin 属性"></a>1.8 定位区域 ― background-origin 属性</h3><p>指定背景图片background-image 属性的原点位置的背景相对区域。</p>
+<p>|border-box|背景图片的摆放以border区域为参考|<br>|:—-:|:—-|:—-:|:—-|<br>|padding-box（默认值）|背景图片的摆放以padding区域为参考|<br>|content-box|背景图片的摆放以content区域为参考|</p>
+<h3 id="1-9-图像伸缩-―-background-sizing-属性"><a href="#1-9-图像伸缩-―-background-sizing-属性" class="headerlink" title="1.9 图像伸缩 ― background-sizing 属性"></a>1.9 图像伸缩 ― background-sizing 属性</h3><p>设置背景图片大小。图片可以保有其原有的尺寸，或者拉伸到新的尺寸，或者在保持其原有比例的同时缩放到元素的可用空间的尺寸。</p>
+<p>|length|设置背景图像的高度和宽度。第一个值设置宽度，第二个值设置高度。如果只设置一个值，则第二个值会被设置为 “auto”。|<br>|:—-:|:—-|:—-:|:—-|<br>|百分比|以父元素的百分比来设置背景图像的宽度和高度。第一个值设置宽度，第二个值设置高度。如果只设置一个值，则第二个值会被设置为 “auto”。|<br>|cover|把背景图像扩展至足够大，以使背景图像完全覆盖背景区域。背景图像的某些部分也许无法显示在背景定位区域中。|<br>|contain|把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。|</p>
+<h3 id="1-10-背景缩写-―-background-属性"><a href="#1-10-背景缩写-―-background-属性" class="headerlink" title="1.10 背景缩写 ― background 属性"></a>1.10 背景缩写 ― background 属性</h3><p>一次性集中定义各种背景属性，包括 color, image, origin 与 size, repeat 方式等等。对于所有简写属性，任何没有被指定的值都会被设定为它们的 初始值。</p>
+<p>background-color 只能在background的最后一个属性上定义。background-size 必须紧跟在 background-position后面，并用“/”分隔。</p>
+<h3 id="1-11-特殊元素的背景"><a href="#1-11-特殊元素的背景" class="headerlink" title="1.11 特殊元素的背景"></a>1.11 特殊元素的背景</h3><p>当html标签没有设置背景色时，我们看见的是作用在浏览器画布上的背景色，不是body上的；</p>
+<p>当html标签被设置了背景色时，我们看见的是真正作用在body上的背景色。</p>
+<p>CSS根据根元素（html/body）给文档画布渲染背景颜色，同时背景色的定位区域就是根元素的区域；</p>
+<p>根元素不再绘制该背景色，即根元素背景的使用值是透明的</p>
+<h2 id="2-边框"><a href="#2-边框" class="headerlink" title="2 边框"></a>2 边框</h2><h3 id="2-1-边框颜色-―-border-color-属性"><a href="#2-1-边框颜色-―-border-color-属性" class="headerlink" title="2.1 边框颜色 ― border-color 属性"></a>2.1 边框颜色 ― border-color 属性</h3><p>border-color 是一个用于设置元素四个边框颜色的快捷属性： border-top-color, border-right-color, border-bottom-color, border-left-color</p>
+<h3 id="2-2-边框样式-―-border-style-属性"><a href="#2-2-边框样式-―-border-style-属性" class="headerlink" title="2.2 边框样式 ―  border-style 属性"></a>2.2 边框样式 ―  border-style 属性</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/q9he18OyK3IpLMf.png"
+                      alt="ChxDSvz4EdQEY2sF__thumbnail.png"
+                ></p>
+<h3 id="2-3-边框宽度-―-border-width-属性"><a href="#2-3-边框宽度-―-border-width-属性" class="headerlink" title="2.3 边框宽度 ― border-width 属性"></a>2.3 边框宽度 ― border-width 属性</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 当给定一个宽度时，该宽度作用于选定元素的所有边框 */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: 5<span class="selector-tag">px</span>;</span><br><span class="line"><span class="comment">/* 当给定两个宽度时，该宽度分别依次作用于选定元素的横边与纵边 */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: 2<span class="selector-tag">px</span> 1.5<span class="selector-tag">em</span>;</span><br><span class="line"><span class="comment">/* 当给定三个宽度时，该宽度分别依次作用于选定元素的上横边、纵边、下横边 */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: 1<span class="selector-tag">px</span> 2<span class="selector-tag">em</span> 1.5<span class="selector-tag">cm</span>;</span><br><span class="line"><span class="comment">/* 当给定四个宽度时，该宽度分别依次作用于选定元素的上横边、右纵边、下横边、左纵边 （即按顺时针依次作用） */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: 1<span class="selector-tag">px</span> 2<span class="selector-tag">em</span> 0 4<span class="selector-tag">rem</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 可以使用的全局关键字有：inherit(继承),initial（初始值）,unset（不设置） */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: <span class="selector-tag">inherit</span>;</span><br><span class="line"><span class="comment">/* 使用作用于 border-width 的关键字 */</span></span><br><span class="line"><span class="selector-tag">border-width</span>: <span class="selector-tag">thin</span>;</span><br><span class="line"><span class="selector-tag">border-width</span>: <span class="selector-tag">medium</span>;</span><br><span class="line"><span class="selector-tag">border-width</span>: <span class="selector-tag">thick</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-4-边框缩写属性"><a href="#2-4-边框缩写属性" class="headerlink" title="2.4 边框缩写属性"></a>2.4 边框缩写属性</h3><p>用于设置各种单独的边界属性的简写属性。border可以用于设置一个或多个以下属性的值： border-width, border-style, border-color ,无顺序，只接受三个参数，分别是宽度、风格和颜色，所以这样会使得四条边的边框相同。</p>
+<h2 id="3-圆角"><a href="#3-圆角" class="headerlink" title="3 圆角"></a>3 圆角</h2><h3 id="3-1-曲线半径-―-border-radius-属性"><a href="#3-1-曲线半径-―-border-radius-属性" class="headerlink" title="3.1 曲线半径 ― border-radius 属性"></a>3.1 曲线半径 ― border-radius 属性</h3><p>border-*-radius 属性的两个长度或百分比值决定了作为边框外边形状的四分之一椭圆的半径。第一个取值是水平半径，第二个是垂直半径。若没有第二个取值，和第一个值相同。若其中一个长度为零，则角落垂直，不是圆角。</p>
+<p>作为水平半径的百分比值，取值相对于边框盒的宽度，作为垂直半径的百分比值，取值相对于边框盒的高度。</p>
+<p>border-radius’缩写可以用来设定四个 ‘border-*-radius’。若指定的值包含斜线，则斜线前面的取值会设定水平半径，斜线后面的取值会设定垂直半径，若没有斜线，则取值同时用来设定两个半径。</p>
+<p>每个半径的四个值按照左上、右上、右下、左下的顺序，若没有左下取值则使用右上取值，若没有右下取值则使用左上取值，若没有右上取值则使用左上取值。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rMPEAo5hlJaORH3.png"
+                      alt="frIxaJtah6iUhkL6__thumbnail.png"
+                ></p>
+<h3 id="3-2-Corner-Shaping"><a href="#3-2-Corner-Shaping" class="headerlink" title="3.2 Corner Shaping"></a>3.2 Corner Shaping</h3><p>边距边（内边框）的半径是外边框半径减掉对应的边框粗细的结果。若这个结果是负值，内半径为零。（在这种情况下边距边的圆心可能不与外边框曲线的圆心重叠。）同样地，内容边半径是边距边半径减掉对应边距，或是零（前面结果为负值的情形）。使用者代理透过插值计算在曲线区域中边框与边距的粗细，也因此当相邻边框的粗细不同的时候，角落会是粗细边框之间的平滑转场。</p>
+<p>如果外曲线超过了相邻角落的边距边，内曲线可能不是完整的四分之一椭圆。</p>
+<p>所有边框样式（‘solid’ 、‘dotted’ 、‘inset’ 等等）跟者边框的曲线走。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/YF2eBGnv1amVl9A.png"
+                      alt="wne9FIO17lzvrUbe__thumbnail.png"
+                ></p>
+<p>当圆角连接的两个边框的粗细不同时圆角的效果（左）与边框宽度比角落半径还粗的时候的圆角效果（右）</p>
+<h3 id="3-3-Corner-Clipping"><a href="#3-3-Corner-Clipping" class="headerlink" title="3.3 Corner Clipping"></a>3.3 Corner Clipping</h3><p>使用者代理使用适当的曲线（以 ‘background-clip’ 决定）剪裁一个盒的背景（但不剪裁边框图像）。其他使用边框边或边距边（像是 ‘overflow’ 属性 ‘visible’ 以外的值）剪裁达到的效果也必须改用曲线剪裁。使用者代理总是用内容边曲线修剪置换元素。</p>
+<p>边框边的曲线外的区域不接受以该元素为目标的pointer事件。</p>
+<h3 id="3-4-Color-and-Style-Transitions"><a href="#3-4-Color-and-Style-Transitions" class="headerlink" title="3.4 Color and Style Transitions"></a>3.4 Color and Style Transitions</h3><p>颜色与样式变化必须发生在同时包含边框半径与内曲线中心（如果边框半径小于边框宽度，这是指边距边角落的点）的最小长方形与边框相交的片段。</p>
+<p>若其中一个边框的宽度为零，则另一个边框的颜色与样式会佔满整个变化区域。不然，相邻边框间的颜色与样式转场的中心点必须正比于边框宽度的比例，使得中心点的位置函数是这个比例的连续函数。然而，本规范没有定义转场的长相或是「正比」如何对应到曲线上的点。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/fwurvComZgIl5jL.png"
+                      alt="mVbdbNd2w1ZiqJNy__thumbnail.png"
+                ></p>
+<p>在这些角落的图形中，颜色与样式转场必须发生在绿色的区域。D 例中边框半径决定的长方形不包括内曲线（是个直角）的中心，因此转场范围扩张到角落之处。转场可发生在整个转场区域之中，但是本规范没有这样的要求：举例来说，两个实心边框之间的渐层颜色转场可能只发生在由外半径的尖端内半径的尖端包源的区域（在 D 例中以深绿色表示）。</p>
+<h3 id="3-5-Overlapping-Curves"><a href="#3-5-Overlapping-Curves" class="headerlink" title="3.5 Overlapping Curves"></a>3.5 Overlapping Curves</h3><p>圆角曲线不能重叠：当任两个相邻边的半径和超过边框合的大小时，UA 必须以同样比例收缩所有边框半径直到曲线彼此不重叠。半径的收缩演算法如下：</p>
+<p>设 f = min(Li/Si)，其中 i ∈ {顶, 右, 底, 左}，Si 是在 i 边的两个角的对应的两个半径的和，L顶 = L底 = 盒的宽度，L左 = L右 = 盒的高度。若 f &lt; 1，则所有角落半径同乘 f。</p>
+<p>这个公式确保在收缩之后，四分之一圆形还是四分之一圆形、大的半径还是比小的大。但是这个作法可能收缩本来就很小的角落，让附近应该看起来一样的元素看起来不一样。</p>
+<p>若曲线干扰到捲轴等等的 UI 元素，UA 在有必要的限度内（不得超过）可再缩小受影响的边框半径（只限受影响的边框半径）。</p>
+<p>盒的渲染结果必须和以缩小的圆角值当作指定值一样。</p>
+<h3 id="3-6-表格上的效果"><a href="#3-6-表格上的效果" class="headerlink" title="3.6 表格上的效果"></a>3.6 表格上的效果</h3><p>‘border-radius’ 属性适用于 ‘table’ 与 ‘inline-table’ 元素。当 ‘border-collapse’ 为 ‘collapse’，border-radius 属性不会被应用到表格。</p>
+<h2 id="4-图像边框"><a href="#4-图像边框" class="headerlink" title="4 图像边框"></a>4 图像边框</h2><h3 id="4-1-图像源-―-border-image-source-属性"><a href="#4-1-图像源-―-border-image-source-属性" class="headerlink" title="4.1 图像源 ― border-image-source 属性"></a>4.1 图像源 ― border-image-source 属性</h3><p>元素的边框图片（border-image）的资源</p>
+<p>Example:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">border-image-source: url(&#x27;/media/examples/border-diamonds.png&#x27;);</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-图像分割-―-border-image-slice-属性"><a href="#4-2-图像分割-―-border-image-slice-属性" class="headerlink" title="4.2 图像分割 ― border-image-slice 属性"></a>4.2 图像分割 ― border-image-slice 属性</h3><p>border-image-slice属性会将图片分割为9个区域：图像被分割为九个区域：四个角、四条边以及一个中间区域。除非使用了关键词 fill，否则中间的图像部分会被丢弃。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/T9UILsbuPq276f5.png"
+                      alt="XV72AIIGYEUs0q2Y__thumbnail.png"
+                ></p>
+<p>|number|数字值，代表图像中像素）或矢量坐标|<br>|:—-:|:—-|:—-:|:—-|<br>|%|相对于图像尺寸的百分比值：图像的宽度影响水平偏移，高度影响垂直偏移|<br>|fill|保留边框图像的中间部分|</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 所有的边 */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: 30%; </span><br><span class="line"><span class="comment">/* 垂直方向 | 水平方向 */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: 10% 30%;</span><br><span class="line"><span class="comment">/* 顶部 | 水平方向 | 底部 */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: 30 30% 45;</span><br><span class="line"><span class="comment">/* 上 右 下 左 */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: 7 12 14 5; </span><br><span class="line"><span class="comment">/* 使用fill（fill可以放在任意位置） */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: 10% <span class="selector-tag">fill</span> 7 12;</span><br><span class="line"><span class="comment">/* Global values */</span></span><br><span class="line"><span class="selector-tag">border-image-slice</span>: <span class="selector-tag">inherit</span>;</span><br><span class="line"><span class="selector-tag">border-image-slice</span>: <span class="selector-tag">initial</span>;</span><br><span class="line"><span class="selector-tag">border-image-slice</span>: <span class="selector-tag">unset</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-绘制区域-―-border-image-width-属性"><a href="#4-3-绘制区域-―-border-image-width-属性" class="headerlink" title="4.3 绘制区域 ― border-image-width 属性"></a>4.3 绘制区域 ― border-image-width 属性</h3><p>规定图像边框的宽度</p>
+<p>|<em>length</em>|    |<br>|:—-:|:—-|:—-:|:—-|<br>|number|代表对应的 border-width 倍数|<br>|%|区域的高度影响水平偏移，宽度影响垂直偏移|<br>|auto|如果规定该属性，则宽度为对应的图像切片的固有宽度|</p>
+<h3 id="4-4-边扩展-―-border-image-outset-属性"><a href="#4-4-边扩展-―-border-image-outset-属性" class="headerlink" title="4.4 边扩展 ― border-image-outset 属性"></a>4.4 边扩展 ― border-image-outset 属性</h3><p>规定边框图像超出边框盒的量。在上、右、下、左侧。如果忽略第四个值，则与第二个值相同。如果省略第三个值，则与第一个值相同。如果省略第二个值，则与第一个值相同。不允许任何负值作为 border-image-outset 值。</p>
+<p>|length|    |<br>|:—-:|:—-|:—-:|:—-|<br>|number|代表对应的 border-width 的倍数|</p>
+<h3 id="4-5-图像铺成-―-background-image-repeat-属性"><a href="#4-5-图像铺成-―-background-image-repeat-属性" class="headerlink" title="4.5 图像铺成 ― background-image-repeat 属性"></a>4.5 图像铺成 ― background-image-repeat 属性</h3><p>定图像边框是否应该被重复（repeated）、拉伸（stretched）或铺满（rounded）。</p>
+<p>|stretch|拉伸图像来填充区域|<br>|:—-:|:—-|:—-:|:—-|<br>|repeat|平铺（重复）图像来填充区域|<br>|round|类似 repeat 值。如果无法完整平铺所有图像，则对图像进行缩放以适应区域|</p>
+<h3 id="4-6-图像边框缩写-―-border-image-属性"><a href="#4-6-图像边框缩写-―-border-image-属性" class="headerlink" title="4.6 图像边框缩写 ― border-image 属性"></a>4.6 图像边框缩写 ― border-image 属性</h3><p>border-image 属性是一个简写属性，用于设置以下属性：</p>
+<p>|border-image-source|用在边框的图片的路径。|<br>|:—-:|:—-|:—-:|:—-|<br>|border-image-slice|图片边框向内偏移。|<br>|border-image-width|图片边框的宽度。|<br>|border-image-outset|边框图像区域超出边框的量。|<br>|border-image-repeat|图像边框是否应平铺(repeated)、铺满(rounded)或拉伸(stretched)。|</p>
+<h2 id="5-Drop-Shadows-the-box-shadow-property"><a href="#5-Drop-Shadows-the-box-shadow-property" class="headerlink" title="5 Drop Shadows: the box-shadow property"></a>5 Drop Shadows: the box-shadow property</h2><p>在元素的框架上添加阴影效果，可以在同一个元素上设置多个阴影效果，并用逗号将他们分隔开。该属性可设置的值包括阴影的X轴偏移量、Y轴偏移量、模糊半径、扩散半径和颜色。</p>
+<p>如果只给出两个值, 那么这两个值将会被当作 <offset-x><offset-y> 来解释。</p>
+<p>如果给出了第三个值, 那么第三个值将会被当作<blur-radius>解释。</p>
+<p>如果给出了第四个值, 那么第四个值将会被当作<spread-radius>来解释。</p>
+<p>|<em>h-shadow</em>|必需。水平阴影的位置。允许负值。|<br>|:—-:|:—-|:—-:|:—-|<br>|<em>v-shadow</em>|必需。垂直阴影的位置。允许负值。|<br>|<em>blur</em>|可选。模糊距离。|<br>|<em>spread</em>|可选。阴影的尺寸。|<br>|<em>color</em>|可选。阴影的颜色。|<br>|inset|可选。将外部阴影 (outset) 改为内部阴影。|</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/vWIH2DkhayP94Lq.png"
+                      alt="iGP0Sj73DZ5MyOkG__thumbnail.png"
+                ></p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* x偏移量 | y偏移量 | 阴影颜色 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: 60<span class="selector-tag">px</span> <span class="selector-tag">-16px</span> <span class="selector-tag">teal</span>;</span><br><span class="line"><span class="comment">/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影颜色 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: 10<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> 5<span class="selector-tag">px</span> <span class="selector-tag">black</span>;</span><br><span class="line"><span class="comment">/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: 2<span class="selector-tag">px</span> 2<span class="selector-tag">px</span> 2<span class="selector-tag">px</span> 1<span class="selector-tag">px</span> <span class="selector-tag">rgba</span>(0, 0, 0, 0.2);</span><br><span class="line"><span class="comment">/* 插页(阴影向内) | x偏移量 | y偏移量 | 阴影颜色 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: <span class="selector-tag">inset</span> 5<span class="selector-tag">em</span> 1<span class="selector-tag">em</span> <span class="selector-tag">gold</span>;</span><br><span class="line"><span class="comment">/* 任意数量的阴影，以逗号分隔 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: 3<span class="selector-tag">px</span> 3<span class="selector-tag">px</span> <span class="selector-tag">red</span>, <span class="selector-tag">-1em</span> 0 0.4<span class="selector-tag">em</span> <span class="selector-tag">olive</span>;</span><br><span class="line"><span class="comment">/* 全局关键字 */</span></span><br><span class="line"><span class="selector-tag">box-shadow</span>: <span class="selector-tag">inherit</span>;</span><br><span class="line"><span class="selector-tag">box-shadow</span>: <span class="selector-tag">initial</span>;</span><br><span class="line"><span class="selector-tag">box-shadow</span>: <span class="selector-tag">unset</span>;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Backgrounds and Borders Level 3</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>W3C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flexible Box Layout Module Level 1</title>
+    <url>/2021/03/07/note/W3C%20CSS/Flexible%20Box%20Layout%20Module%20Level%201/</url>
+    <content><![CDATA[<h2 id="1-伸缩布局盒模型和术语"><a href="#1-伸缩布局盒模型和术语" class="headerlink" title="1 伸缩布局盒模型和术语"></a>1 伸缩布局盒模型和术语</h2><p>一个设有display:flex或display:inline-flex的元素是叫做flex容器 ，flex容器的子元素被称为 flex items，这些子元素使用伸缩布局模型来排版。</p>
+<p>块布局与行内布局的布局计算偏向使用书写模式方向，伸缩布局偏向使用flex directions。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KfP81wsm5OzxFrL.png"
+                      alt="4uiZCCmxjzPvhtDD__thumbnail.png"
+                ></p>
+<p><strong>main axis（主轴）main dimension（主轴方向）</strong></p>
+<p><strong>main-start（主轴起点）main-end（主轴终点）</strong></p>
+<p><strong>main size（主轴长度）main size property（主轴长度属性）</strong></p>
+<p><strong>cross axis（侧轴）cross dimension（侧轴方向）</strong></p>
+<p><strong>cross-start（侧轴起点）cross-end（侧轴长度）</strong></p>
+<p><strong>cross size（侧轴长度）cross size property（侧轴长度属性）</strong></p>
+<h2 id="2-flex容器-―display的flex、inline-flex值"><a href="#2-flex容器-―display的flex、inline-flex值" class="headerlink" title="2 flex容器 ―display的flex、inline-flex值"></a>2 flex容器 ―display的flex、inline-flex值</h2><p>flex   元素产生块级flex容器盒。inline-flex  元素产生行内级flex容器盒。</p>
+<p>flex容器会为其内容建立新的<strong>伸缩格式化上下文</strong>(flex formatting context)。 浮动不会闯入flex容器，且flex容器的边界不与其内容的边界叠加。flex容器不是block容器，因此有些用来控制block布局的属性，在伸缩布局中不适用。如：</p>
+<ol>
+<li>多栏(column)的所有column-*属性；</li>
+<li>float与clear；（“float”属性仍然会影响flex容器子容器上的“display”的计算值)</li>
+<li>vertical-align。</li>
+<li>::first-line 和::first-letter，且flex container元素也不会成为它祖先的::first-line和::first-letter。</li>
+</ol>
+<p>若元素display的值是inline-flex且元素是一个浮动或绝对定位元素，则display的计算值是flex。</p>
+<h2 id="3-flex-item"><a href="#3-flex-item" class="headerlink" title="3 flex item"></a>3 flex item</h2><p>一个flex容器的内容具有零个以上的flex item ，flex容器的每一个子元素都会成为一个flex item，且在flex容器里的连续文字块会被包起来成为匿名的block container flex item，若匿名flex item仅包含空白，则该flex item不会渲染，如同视为display: none。</p>
+<p>匿名的item box是不能设置style的，因为没有元素去设置，它只能从flex container继承styles。</p>
+<p>一个flex item为它的内容建立了一个独立的格式化上下文。然而flex items它本身是一个flex-level盒子，而不是block-level盒子：它们参与的是flex格式化上下文，而不是块级格式化上下文。</p>
+<p>一些display值通常会在原始盒子周围创建匿名的盒子，但对于flex item来说，它首先被块级化，所以不会创建匿名盒子，例如两个连续的flex items的display值被设置为table-cell将会创建两个分开的块级flex items,而不是被包装为一个单独的匿名table。</p>
+<p>对于display值被指定为table的flex item，表格包装盒子成为一个flex item，order和align-self适用于它，任何标题框的内容都有助于计算表格盒子的最小和最大宽度。</p>
+<p>对于width和height采用以下规则计算：flex items的最终尺寸是在执行布局的时候计算的，就好像表格盒子和表格内容的间隔是表格盒子的border+padding区域一样。</p>
+<h3 id="3-1-绝对定位的伸缩子元素"><a href="#3-1-绝对定位的伸缩子元素" class="headerlink" title="3.1 绝对定位的伸缩子元素"></a>3.1 绝对定位的伸缩子元素</h3><p>因为它脱离了文档流，所以绝对定位的child不参与flex布局。</p>
+<p>flex container中的绝对定位元素的位置被计算就好像它是flex container中仅有的唯一元素一样，并且假设flexcontainer和flex item都是固定大小的尺寸。所以为了此目的，automargin被视为0。换句话说，flex容器中的定位元素是相对于flex容器的contentbox定位的。</p>
+<p>如果对flex container中的绝对定位的元素设置align-self: center;,自动offset将会让它在flex容器的cross axis居中。然而因为一个绝对定位的flex item是固定尺寸的，stretch属性被视为和flex start相同。</p>
+<h3 id="3-2-Flex-itemMargins-and-Paddings"><a href="#3-2-Flex-itemMargins-and-Paddings" class="headerlink" title="3.2 Flex itemMargins and Paddings"></a>3.2 Flex itemMargins and Paddings</h3><p>相邻flex items的margins不会合并。</p>
+<p>百分比的margins和paddings和block boxes一样，相对于它们的containing block计算。</p>
+<p>auto margins会扩展去吸收相应区域额外的空间，它们被用于对齐或者使相邻的flex items分离。</p>
+<h3 id="3-3-Flex-Item-Z-Ordering"><a href="#3-3-Flex-Item-Z-Ordering" class="headerlink" title="3.3 Flex Item Z-Ordering"></a>3.3 Flex Item Z-Ordering</h3><p>flex items的渲染和inline block类似，除了order属性会改变源文档的顺序，不是auto值的z-index会创建一个堆叠上下文，甚至是position被设置static的时候也一样（表现的好像是position是relative一样）。</p>
+<p>位于flex item外部的后代仍然参与flex item建立的的任何堆叠上下文。</p>
+<h3 id="3-4-Collapsed-Items"><a href="#3-4-Collapsed-Items" class="headerlink" title="3.4 Collapsed Items"></a>3.4 Collapsed Items</h3><p>在flex item上指定visibility:collapse会引发它成为一个折叠flex item，产生一种类似在table-row或table-column上设置visibility:collapse的效果：折叠的flex item完全从渲染中移除，但是留下一个桩来保持flex line的cross size的稳定。因此，如果一个flex容器只有一个flex line，动态折叠或者不折叠items可能会改变flex容器的main size，但是不会对它的cross size产生影响，也不会导致页面其余部分“摇晃”，然而flex line的换行是折叠之后重做的，所以具有多line的flex容器的cross size可能会也可能不会改变。</p>
+<p>尽管折叠flex item没有被渲染，但它确实出现在formatting structure，因此不像设置了display: none的items。依赖于formatting structure的盒子的效果（例如递增计数器，运行动画或者过渡）仍然对折叠items产生作用。</p>
+<h3 id="3-5-flex-item的自动最小尺寸"><a href="#3-5-flex-item的自动最小尺寸" class="headerlink" title="3.5 flex item的自动最小尺寸"></a>3.5 flex item的自动最小尺寸</h3><p>为了为flex items提供一个更加合理的默认最小尺寸，对于一个不是滚动容器的主轴中的flex items的最小尺寸的值就是它的基于内容的最小尺寸，对于滚动容器，自动最小尺寸通常是0。</p>
+<p>通常来说，flex items的基于内容的最小尺寸是content size suggestion和specified size suggestion中的较小值。然而，如果一个盒子具有宽高比但是没有specified size，它的基于内容的最小尺寸就是content size suggestion和transferred size suggestion中的较小值。如果盒子既没有specified size suggestion也没有宽高比，它的基于内容的最小尺寸就是content size suggestion。</p>
+<p><strong>specified size suggestion</strong></p>
+<p>如果item的计算main size property是有定义的，specified size suggestion就是该大小（如果它是被定义的，则由其最大main size property限制），否则是undefined。</p>
+<p><strong>transferred size suggestion</strong></p>
+<p>如果item具有固有的宽高比并且它的计算的cross size property是有定义的，transferred size suggestion就是那个大小（如果它们是有定义的，则由其最小和最大cross size properties限制），通过宽高比转化，否则是undefined。</p>
+<p><strong>content size suggestion</strong></p>
+<p>content size suggestion就是主轴上的最小内容大小，如果它具有宽高比，通过任何定义的min and max cross peoperties转化宽高比，那么它是受限制的，然后进一步受限制如果它定义了max main size property.</p>
+<p>为了计算盒子的固有大小（例如盒子的最小内容大小），基于内容的最小大小使得该轴中盒子的大小变得不确定（即使例如其宽度属性指定了确定的大小），这意味着根据此大小计算的百分比将表现为auto。</p>
+<h2 id="4-顺序与方向"><a href="#4-顺序与方向" class="headerlink" title="4 顺序与方向"></a>4 顺序与方向</h2><p>flex container的内容可以沿着任意方向和任意顺序布局，这个功能通过使用flex-direction,flex-wrap和order属性实现。</p>
+<h3 id="4-1-flex流的方向：flex-direction属性"><a href="#4-1-flex流的方向：flex-direction属性" class="headerlink" title="4.1 flex流的方向：flex-direction属性"></a>4.1 flex流的方向：flex-direction属性</h3><p>|flex-direction属性值|flex-direction决定了flex items在主轴上沿着什么方向布局|<br>|:—-:|:—-|:—-:|:—-|<br>|row（默认）|主轴的方向和inline axis相同，main-start和main-end分别和inline-start和inline-end方向相同|<br>|row-reverse|和row相似，但main-start和main-end调转过来|<br>|column|主轴的方向和block axis一致，main-start和main-end分别和block-start和block-end方向相同|<br>|column-reverse|和column相似，但main-start和main-end调转过来|</p>
+<h3 id="4-2-flex行换行-：flex-wrap属性"><a href="#4-2-flex行换行-：flex-wrap属性" class="headerlink" title="4.2 flex行换行 ：flex-wrap属性"></a>4.2 flex行换行 ：flex-wrap属性</h3><p>|flex-wrap属性值|flex wrap属性控制flex containers是单行的还是多行的，以及侧轴的方向。侧轴的方向决定了新行被叠加的方向。|<br>|:—-:|:—-|:—-:|:—-|<br>|nowrap（默认）|flex containers是单行的|<br>|wrap|flex containers是多行的。|<br>|wrap-reverse|和wrap一样，不过方向相反。|</p>
+<h3 id="4-3-flex方向与换行-：flex-flow缩写"><a href="#4-3-flex方向与换行-：flex-flow缩写" class="headerlink" title="4.3 flex方向与换行 ：flex-flow缩写"></a>4.3 flex方向与换行 ：flex-flow缩写</h3><p>flex-flow是flex-directive和flex-wrap的简写形式，定义了flex container的主轴和侧轴。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/G87MglOH1UqaeSr.png"
+                      alt="7w6xAn53Yd7j7pwQ__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/IY4lrixyNtMsP89.png"
+                      alt="HdIWBm2MS37XVzeN__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/JPRzlABt3qQxY8g.png"
+                      alt="oOMZpxlmZTIx2Vn3__thumbnail.png"
+                ></p>
+<p>flex-flow是和writing mode相关的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/7zfqoyTVSUYLA9R.png"
+                      alt="d7uQWKnXZubXdt5O__thumbnail.png"
+                ></p>
+<h3 id="4-4-display顺序-order属性"><a href="#4-4-display顺序-order属性" class="headerlink" title="4.4 display顺序 :order属性"></a>4.4 display顺序 :order属性</h3><p>flex item默认的展示顺序和源文档一样，order属性可以改变这种顺序。</p>
+<p>order接受一个整数值，从最低的值开始排列，值相同的按源文档的顺序排序，绝对布局的flex items被视为order: 0。</p>
+<p>order仅仅影响视觉上的顺序，而不会影响逻辑源代码的顺序和非视觉媒体或者不支持css的设备的顺序。</p>
+<h2 id="5-FlexLines"><a href="#5-FlexLines" class="headerlink" title="5 FlexLines"></a>5 FlexLines</h2><p>flex items在flex容器中排列在flex lines中。一个flex container可以是单行的或者多行的，这取决于flex-wrap属性。</p>
+<p>single-line flex容器：（设置了flex-wrap: nowrap），所有的item布局在一个单行，即使会引起内容溢出。</p>
+<p>multi-line flex容器：（设置了flex-wrap: wrap或者flex-wrap: wrap-reverse），分割它的flex items成为多line。当额外的line被创建，它们在容器的侧轴上按照flex-wrap属性的值堆叠，每一个line至少包含一个item，除非容器是空的。</p>
+<p>一旦内容被分割为多行，每一行就是独立布局的，弹性长度和justify-content,align-self属性一次只考虑在一行中的items。</p>
+<p>在一个多行的flex container中（甚至只有一行），每行的侧轴尺寸就是能够包含下该行的items的最小尺寸（通过align-self属性排列后），行在flex container中的排列使用align-content属性设置。在单行的flex container中，行的侧轴尺寸就是flex container的侧轴尺寸，align-content没有效果。每一行的主轴的尺寸总是和flex container内容盒子的主轴尺寸相同的。</p>
+<h2 id="6-伸缩性"><a href="#6-伸缩性" class="headerlink" title="6 伸缩性"></a>6 伸缩性</h2><p>flex布局的定义方面是能够使flex items弹性，改变它们的宽度/高度去填充main dimension剩余的空间，这可以通过flex属性实现。flex container分配剩余空间给它的items（通过设置flex-grow ）来填充填充容器，或者收缩它们（通过设置flex-shrink）来阻止溢出。</p>
+<p>如果flex item的flex-grow和flex-shrink都是0，是完全没有弹性的，否则是伸缩的。</p>
+<h3 id="6-1-flex缩写"><a href="#6-1-flex缩写" class="headerlink" title="6.1 flex缩写"></a>6.1 flex缩写</h3><p>flex属性规定了flex元素如何伸长或缩短以适应flex容器中的可用空间。这是一个简写属性，用来设置 flex-grow, flex-shrink 与 flex-basis。</p>
+<ol>
+<li><strong>flex-grow</strong></li>
+</ol>
+<p>指定了flex的增长因子，当有正的剩余空间的时候，增长因子决定了flex item相对于容器中其他的flex items的增长程度，默认值为1。当line上的flex值之和小于1时，它们将占用小于100％的可用空间。</p>
+<ol start="2">
+<li><strong>flex-shrink</strong></li>
+</ol>
+<p>决定了flex item相对于容器中其他的flex items的收缩程度，默认值为1，不能为负数。仅在默认宽度之和大于容器的时候才会发生收缩。</p>
+<ol start="3">
+<li><strong>flex-basis</strong></li>
+</ol>
+<p>指定了 flex 元素在主轴方向上的初始大小。flex-basis接受和width,height一样的值（除了auto被视为不同的），以及content关键字。</p>
+<pre><code>1. auto</code></pre>
+<p>当在flex item使用该值时，auto关键字将item的main size property设为它的flex-basis。若那个值是也是auto，就使用值就是content。<br>    2. content<br>表示基于flex item内容的自动尺寸</p>
+<h3 id="6-2-flex的常见值"><a href="#6-2-flex的常见值" class="headerlink" title="6.2 flex的常见值"></a>6.2 flex的常见值</h3><ol>
+<li><strong>flex: initial</strong></li>
+</ol>
+<p>等效于flex: 0 1 auto，基于它的width/height来设置它的尺寸（若item的main size property被设置为auto,它的尺寸将会基于它的内容），在正的剩余空间的时候flex item没有弹性，但是没有充足空间的时候会收缩到它的最小尺寸，alignment abilities或者auto margin在主轴上排列flex items。</p>
+<ol start="2">
+<li><strong>flex: auto</strong></li>
+</ol>
+<p>等效于flex: 1 1 auto,基于它的width/height来设置它的尺寸，并且使它完全弹性的，它会吸收任何多余的空间。</p>
+<ol start="3">
+<li><strong>flex: none</strong></li>
+</ol>
+<p>等效于flex: 0 0 auto, 基于它的width/height来设置它的尺寸，并且使它完全不可弹性的。甚至在溢出的情况也不会收缩。</p>
+<ol start="4">
+<li><strong>flex: positive-number</strong></li>
+</ol>
+<p>等效于flex: <positive-number> 1 0，使flex item弹性的，并且设置flex basis为0。</p>
+<p>默认情况下flex items并不会缩减到它的最小尺寸以下（最大的text长度或者固定尺寸的元素），改变这个可以通过设置min-width或者min-height属性</p>
+<h2 id="7-对齐"><a href="#7-对齐" class="headerlink" title="7 对齐"></a>7 对齐</h2><h3 id="7-1-auto-margin对齐"><a href="#7-1-auto-margin对齐" class="headerlink" title="7.1 auto margin对齐"></a>7.1 auto margin对齐</h3><p>flex item 和 block流的auto margin非常类似：</p>
+<ol>
+<li>在计算flex bases和伸缩长度的时候，auto margin被视为0</li>
+<li>优先于通过justify-content和align-self设置的对齐属性，在那个区域的任何正的空间的都被分配给auto margin。</li>
+<li>溢出的盒子会忽略它们的auto margin，并且在end方向溢出<h3 id="7-2-主轴对齐-justify-content属性"><a href="#7-2-主轴对齐-justify-content属性" class="headerlink" title="7.2 主轴对齐 :justify-content属性"></a>7.2 主轴对齐 :justify-content属性</h3></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">justify-content属性值</th>
+<th align="left">定义了项目在主轴上的对齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">flex-start（默认）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">space-between</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">space-around</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Q6k15IzBNuJGbvn.png"
+                      alt="HGyMlU07TRUL0xu2__thumbnail.png"
+                ></p>
+<h3 id="7-3-侧轴对齐-align-items与align-self属性"><a href="#7-3-侧轴对齐-align-items与align-self属性" class="headerlink" title="7.3 侧轴对齐 :align-items与align-self属性"></a>7.3 侧轴对齐 :align-items与align-self属性</h3><p>flex items可以在当前容器的当前行的侧轴上对齐，align-items设置flex容器中所有项的默认对齐方式，包括匿名flex items，align-self为单个flex items设置对齐方式，会覆盖它的默认对齐方式，对于匿名的flex items，align-self始终匹配它们相关联的flex容器的align-items值。</p>
+<p>如果任何flex-items的margin的值为auto。则align-self无效。</p>
+<p>如果flex容器的高度受到约束，stretch值可能导致flex item的内容溢出item</p>
+<table>
+<thead>
+<tr>
+<th align="left">align-items和align-self属性值</th>
+<th align="left">定义了项目在主轴上的对齐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">auto（align-self的属性值，且默认）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-start</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">flex-end</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">center</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">baseline</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">stretch</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/FRKW1quDNZtfUzM.png"
+                      alt="kmOo5IYgu9TesAUd__thumbnail.png"
+                ></p>
+<h3 id="7-4-堆栈伸缩行-：align-content属性"><a href="#7-4-堆栈伸缩行-：align-content属性" class="headerlink" title="7.4 堆栈伸缩行 ：align-content属性"></a>7.4 堆栈伸缩行 ：align-content属性</h3><p>当cross-axis有额外空间的时候，align-content排列flex容器中的lines，类似justity-content在主轴排列单独的item，这个属性对于单行的flex容器没有效果。单行flex容器的line会自动拉伸填充空间。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/oGZzPy8RMfkYTtC.png"
+                      alt="H98ydaeN2I2CiLn8__thumbnail.png"
+                ></p>
+<h2 id="8-Flex容器基线"><a href="#8-Flex容器基线" class="headerlink" title="8 Flex容器基线"></a>8 Flex容器基线</h2><p>为了使flex容器本身参与基线对齐（例如，当flex容器本身是外部flex容器的flex item时），它需要提交最能代表其内容的基线位置。为此，flex容器基线的位置被决定如下（使用order重排后并将flex-direction考虑在内）：</p>
+<p><strong>first/last 主轴基线集</strong></p>
+<p>当flex容器的inline axis匹配它的main axis，它的基线被决定如下：</p>
+<ol>
+<li>如果flex容器的最开始/最末尾的flex line中的任何flex items参与基线对齐，flex容器的first/last主轴基线集则从那些flex items的共享对齐基线生成。</li>
+<li>否则，如果flex容器至少有一个flex item，则flex容器的first/last基线集是从最开始/最末尾的flex item的对齐基线生成。（如果该item没有与flex容器主轴平行的对齐基线，则首先从其边界边缘合成一个）。</li>
+<li>否则，flex容器没有first/last主轴基线集，并且根据其对齐上下文规则在需要时合成一个。</li>
+</ol>
+<p><strong>first/last侧轴基线集</strong></p>
+<p>当flex容器的inline axis匹配它的cross axis，它的基线被决定如下：</p>
+<ol>
+<li>如果flex容器至少有一个flex item，则flex容器的first/last基线集是从最开始/最末尾的flex item的对齐基线生成。（如果该item没有与flex容器交叉轴平行的对齐基线，则首先从其边界边缘合成一个）。</li>
+<li>否则，flex容器没有first/last主轴基线集，并且根据其对齐上下文规则在需要时合成一个。</li>
+</ol>
+<p>根据上述规则计算基线时，如果贡献基线的框具有允许滚动的overflow值，</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Flexible Box Layout Module Level 1</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>W3C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Selectors Level 3</title>
+    <url>/2021/03/07/note/W3C%20CSS/Selectors%20Level%203/</url>
+    <content><![CDATA[<p>**CSS(层叠样式表)**是一个描述HTML和XML文档在屏幕等上呈现的语言。CSS使用选择器将样式属性绑定到文档中的元素，选择器是与树中的元素相匹配的模式，在语法上不区分大小写，</p>
+<h2 id="1-选择器介绍"><a href="#1-选择器介绍" class="headerlink" title="1 选择器介绍"></a>1 选择器介绍</h2><table>
+<thead>
+<tr>
+<th align="center">Pattern</th>
+<th align="left">Represents</th>
+<th align="center">Description</th>
+<th align="left">Level</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">*</td>
+<td align="left">所有元素</td>
+<td align="center">通用选择器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E</td>
+<td align="left">所有E元素</td>
+<td align="center">类型选择器</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E[foo]</td>
+<td align="left">定义了 “foo”属性的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E[foo=”bar”]</td>
+<td align="left">定义了”foo”属性且值为”bar”的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E[foo~=”bar”]</td>
+<td align="left">定义了”foo”属性且属性值是一个以空格分隔的列表，其中一个列表的值为”bar”。</td>
+<td align="center">属性选择器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E[foo^=”bar”]</td>
+<td align="left">定义了“foo”属性且值以“bar”开头的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E[foo$=”bar”]</td>
+<td align="left">定义了“foo”属性且值以“bar”结尾的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E[foo*=”bar”]</td>
+<td align="left">定义了“foo”属性且值包含“bar”的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E[foo|=”en”]</td>
+<td align="left">定义了“foo”属性且属性值是用连字符（-）分隔的列表，值开头的字符为”en”的E元素</td>
+<td align="center">属性选择器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E:root</td>
+<td align="left">文档的根元素，对于HTML文档就是HTML元素</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:nth-child(n)</td>
+<td align="left">E元素的父元素中的第n个子元素</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:nth-last-child(n)</td>
+<td align="left">E元素的父元素中的倒数第n个子元素（只匹配同种的E元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:nth-of-type(n)</td>
+<td align="left">E元素的父元素中的第n个子代E元素</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:nth-last-of-type(n)</td>
+<td align="left">E元素的父元素中的倒数第n个子元素（只匹配同种的E元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:first-child</td>
+<td align="left">E元素的父元素中的第一个子代E元素</td>
+<td align="center">结构伪类</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E:last-child</td>
+<td align="left">E元素的父元素中的最后一个子代E元素</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:first-of-type</td>
+<td align="left">E元素的父元素中的第一个子代E元素（只匹配相同的E元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:last-of-type</td>
+<td align="left">E元素的父元素中的最后一个子代E元素（只匹配相同的E元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:only-child</td>
+<td align="left">匹配父元素仅有的这个E元素</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:only-of-type</td>
+<td align="left">匹配父元素仅有一个的E元素（只匹配相同的E元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:empty</td>
+<td align="left">匹配一个不包含任何元素的元素（文本结点也被看做子元素）</td>
+<td align="center">结构伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:link<br>E:visited</td>
+<td align="left">作为超链接的E元素，其目标尚未访问（：link）或已访问（：visited）</td>
+<td align="center">链接伪类</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">E:active<br>E:hover<br>E:focus</td>
+<td align="left">在某些用户操作期间的E元素</td>
+<td align="center">用户操作伪类</td>
+<td align="left">1 and 2</td>
+</tr>
+<tr>
+<td align="center">E:target</td>
+<td align="left">相关URL指向的E元素</td>
+<td align="center">目标伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E:lang(fr)</td>
+<td align="left">语言为”fr”的E元素</td>
+<td align="center">:lang() 伪类</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E:enabled<br>E:disabled</td>
+<td align="left">用户界面上处于可用或禁用状态的E元素</td>
+<td align="center">UI元素声明伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="left"></td>
+<td align="center"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">E:checked</td>
+<td align="left">用户界面上处于选中状态的E元素(用于input type为radio与checkbox时)</td>
+<td align="center">UI元素声明伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E::first-line</td>
+<td align="left">设置E元素内的第一行样式</td>
+<td align="center">::first-line伪元素</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E::first-letter</td>
+<td align="left">设置E元素内的第一个字符</td>
+<td align="center">::first-letter伪元素</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E::before</td>
+<td align="left">设置在对象前发生的内容</td>
+<td align="center">::before伪元素</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E::after</td>
+<td align="left">设置在对象后发生的内容</td>
+<td align="center">after伪元素</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E.warning</td>
+<td align="left">class属性值为warning的E元素</td>
+<td align="center">类选择器</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E#myid</td>
+<td align="left">ID为”myid”的E元素</td>
+<td align="center">ID选择器</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E:not(s)</td>
+<td align="left">不含有S选择器的元素</td>
+<td align="center">相反伪类</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="center">E F</td>
+<td align="left">所有属于E元素后代F元素</td>
+<td align="center">后代组合器</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">E &gt; F</td>
+<td align="left">所有属于E元素的子代F元素</td>
+<td align="center">子代组合器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E + F</td>
+<td align="left">紧贴在E元素之后的F元素</td>
+<td align="center">相邻兄弟组合器</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="center">E ~ F</td>
+<td align="left">在E元素之后的F元素</td>
+<td align="center">兄弟组合器</td>
+<td align="left">3</td>
+</tr>
+</tbody></table>
+<h2 id="2-选择器语法"><a href="#2-选择器语法" class="headerlink" title="2 选择器语法"></a><strong>2 选择器语法</strong></h2><p><strong>选择器</strong>是由一个或多个简单选择器序列组成并由组合器分隔的链。一个伪元素可以附加到选择器中的最后一个简单选择器序。</p>
+<p><strong>简单选择器序列</strong>是不被组合器分割的简单选择器链，它总是以类型选择器或通用选择器开始，序列中不允许使用其他类型选择器或通用选择器。</p>
+<p><strong>简单选择器</strong>：类型选择器，通用选择器、属性选择器、类选择器、ID选择器、伪类选择器。</p>
+<p><strong>组合器</strong>有：空格、“&gt;”（greater-than sign）、“+”（plus sign）和“~”（tilde）。组合器和它周围的简单选择器之间可以出现空白。空白中只能出现“空格”、“制表符”、“换行符”、“回车符”和“换页符”。其他类似空格的字符，例如“em space”（全角空格）和“ideographic space”（表意空格），都不是空白的一部分。</p>
+<p>由选择器表示的文档树的元素是选择器的主题。由单个简单选择器序列组成的选择器表示满足其要求的任何元素。将另一个简单选择器序列和一个组合器添加到一个简单选择器序列前，会产生额外的匹配约束，因此选择器的主题始终是最后一个简单选择器序列所表示的元素的子集。</p>
+<p><strong>空选择器</strong>（不包含简单选择器序列和伪元素）是无效的选择器。</p>
+<p>选择器中的字符可以用反斜杠转义。</p>
+<p>某些选择器支持命名空间前缀。声明命名空间前缀的机制应该由使用选择器的语言指定。如果没有指定，则不声明前缀。在CSS中，命名空间前缀使用@namespace规则声明。</p>
+<h2 id="3-选择器组"><a href="#3-选择器组" class="headerlink" title="3 选择器组"></a>3 选择器组</h2><p>一个由逗号分隔的选择器列表表示列表中每个单独的选择器所选择的所有元素的联合，它们共享相同的声明。注意：如果其中一个选择器无效，则整个选择器组都将无效。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">h1, h2, h3 &#123; font-family: sans-serif &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-类型选择器"><a href="#4-类型选择器" class="headerlink" title="4 类型选择器"></a>4 类型选择器</h2><p>类型选择器匹配文档语言元素类型的名称。类型选择器匹配文档树中该元素类型的每一个实例。如果命名空间前缀没有提前声明，此类型选择器是无效的。</p>
+<p>|<strong>ns|E</strong>|表示命名空间 ns 中的 E 元素|<br>|:—-:|:—-|:—-:|:—-|<br>|*<strong>|E</strong>|表示任何命名空间中的 E 元素(包括没有命名空间的元素)|<br>|<strong>|E</strong>|若有默认命名空间，表示默认命名空间中的 E 元素，否则表示没有命名空间的 E 元素|<br>|<strong>E</strong>|如果没有默认命名空间的情况下，等同于<strong>|E</strong>，否则等同于 ns|E|</p>
+<p>CSS examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@namespace</span> foo url(<span class="attribute">http:</span>//www.example.com);</span><br><span class="line"> </span><br><span class="line">foo|h1 &#123;color: blue&#125;/* 只匹配在命名空间&quot;http://www.example.com&quot;中的 h1 元素 */</span><br><span class="line">foo|* &#123;color: yellow&#125;/* 匹配在命名空间&quot;http://www.example.com&quot;中的所有元素 */</span><br><span class="line">|h1 &#123; color: red &#125; /* 匹配没有命名空间的 h1 元素 */</span><br><span class="line">*|h1 &#123; color: green &#125;/* 匹配所有命名空间（包括没有命名空间）的 h1 元素 */ </span><br><span class="line"><span class="selector-tag">h1</span> &#123; <span class="attribute">color</span>: green &#125;<span class="comment">/* 因为没有默认命名空间，所以同上 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-通用选择器"><a href="#5-通用选择器" class="headerlink" title="5 通用选择器"></a>5 通用选择器</h2><p>如果没有为选择器指定默认名称空间，则它表示文档树中任何名称空间(包括没有名称空间的元素)中的任何元素。如果命名空间前缀没有提前声明，此通用选择器是无效的</p>
+<p>如果通用选择器后面还有其他简单选择器，或者紧跟着一个伪元素，那么*可能被省略，并且暗示了通用选择器的存在。</p>
+<p>不要省略 *，因为可以减少两者之间的混淆，比如 div  :first-child 和 div:first-child，在这里，div *:first-child 更具可读性。</p>
+<p>Examples:</p>
+<ul>
+<li><code>*[hreflang|=en]</code>and<code>[hreflang|=en]</code>are equivalent,</li>
+<li><code>*.warning</code>and<code>.warning</code>are equivalent,</li>
+<li><code>*#myid</code>and<code>#myid</code>are equivalent.</li>
+</ul>
+<p>通用选择器允许有命名空间。使用如下:</p>
+<p>|<strong>ns|**<em>|表示命名空间 ns 中的所有元素|<br>|:—-:|:—-|:—-:|:—-|<br>|</em></strong>|<strong><em>|任何元素|<br>|**|</em></strong>|如果有默认命名空间，表示默认命名空间中的任何元素，如果有，则表示没有命名空间的任何元素|<br>|<strong>**<em>|如果没有默认命名空间的情况下，等同于</em></strong>|**<em>，否则等同于 ns|</em>|</p>
+<h2 id="6-属性选择器"><a href="#6-属性选择器" class="headerlink" title="6 属性选择器"></a>6 属性选择器</h2><p>根据元素的属性和属性值来匹配元素。通用语法由方括号[ ] 组成，其中包含属性名称，后跟可选条件以匹配属性的值。</p>
+<p>|<strong>[att]</strong>|表示定义了att属性的元素，无论属性值是什么|<br>|:—-:|:—-|:—-:|:—-|<br>|<strong>[att=val]</strong>|表示定义了att属性且属性值是val的元素|<br>|<strong>[att~=val]</strong>|表示定义了att属性且属性值在一个以空格分隔的列表中的值为val的元素,如果val中有空格或为空字符串，则不代表任何元素|<br>|<strong>[att|=val]</strong>|表示定义了att属性且值在以连字符（-）分隔的列表中以val开头或就是val|<br>|<strong>[att^=val]</strong>|表示定义了att属性且值以val开头的元素,如果val为空字符串，则不代表任何元素|<br>|<strong>[att$=val]</strong>|表示定义了att属性且值以val结尾的元素,如果val为空字符串，则不代表任何元素|<br>|*<em>[att</em>=val]**|表示定义了att属性且值含有val的元素,如果val为空字符串，则不代表任何元素|</p>
+<p>属性选择器中的属性名是一个CSS限定名:之前声明的命名空间前缀可以被前置到属性名前，默认名称空间不适用于属性，因此没有名称空间组件的属性选择器只适用于没有名称空间的属性(相当于“|attr”)。如果命名空间前缀没有提前声明，此属性选择器是无效的</p>
+<p>CSS examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="keyword">@namespace</span> foo <span class="string">&quot;http://www.example.com&quot;</span>;</span><br><span class="line"><span class="selector-attr">[foo|att=val]</span>&#123;<span class="attribute">color</span>:blue&#125;<span class="comment">/* 匹配定义的att属性在&quot;http://www.example.</span></span><br><span class="line"><span class="comment">com&quot;命名空间值中，且其值为val的元素 */</span></span><br><span class="line"><span class="selector-attr">[*|att]</span> &#123;<span class="attribute">color</span>: yellow&#125;<span class="comment">/* 只匹配定义了att属性的元素 */</span></span><br><span class="line"><span class="selector-attr">[|att]</span> &#123;<span class="attribute">color</span>: green&#125;<span class="comment">/* 匹配属性没有命名空间的元素 */</span></span><br><span class="line"><span class="selector-attr">[att]</span> &#123;<span class="attribute">color</span>: green&#125;<span class="comment">/* 同上 */</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-1-DTD文档中属性默认值"><a href="#6-1-DTD文档中属性默认值" class="headerlink" title="6.1 DTD文档中属性默认值"></a>6.1 DTD文档中属性默认值</h3><p>在某些文档格式中，默认属性值可以在DTD或其他地方定义，如果他们存在于文档树中，只能被属性选择器选中。</p>
+<p>例如，XML UA需要在文档的“内部子集”中查找默认属性值。根据UA的不同，在DTD的外部子集中定义的默认属性值可能会也可能不会出现在文档树中。</p>
+<p>Example:</p>
+<p>一个定义了radix属性，且默认属性值为”decimal”的EXAMPLE元素，DTD片段如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!ATTLIST <span class="meta-keyword">EXAMPLE</span> <span class="meta-keyword">radix</span> (<span class="meta-keyword">decimal</span>,<span class="meta-keyword">octal</span>) <span class="meta-string">&quot;decimal&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果样式表包含规则：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">EXAMPLE</span><span class="selector-attr">[radix=decimal]</span> &#123; <span class="comment">/*... default property settings ...*/</span> &#125;</span><br><span class="line"><span class="selector-tag">EXAMPLE</span><span class="selector-attr">[radix=octal]</span>   &#123; <span class="comment">/*... other settings...*/</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>第一条规则可能不会匹配radix属性为默认值的元素，也就是没有被明确设置。为了应对所有情形，对默认属性的属性选择器必须被取消掉：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">EXAMPLE</span>                &#123; <span class="comment">/*... default property settings ...*/</span> &#125;</span><br><span class="line"><span class="selector-tag">EXAMPLE</span><span class="selector-attr">[radix=octal]</span>   &#123; <span class="comment">/*... other settings...*/</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这里，因为选择器EXAMPLE[radix=octal]更加具体，第二条规则的样式声明会覆盖第一条规则。注意所有针对默认情况的属性声明都会被非默认情况下的样式规则覆盖。</p>
+<h2 id="7-类选择器"><a href="#7-类选择器" class="headerlink" title="7 类选择器"></a>7 类选择器</h2><p>类选择器允许以一种独立于文档元素的方式来指定样式。通过，可以代替“~=”  符号来表示，    该属性值必须紧跟在“.”符号后面。</p>
+<p>CSS examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">*<span class="selector-class">.pastoral</span> &#123; <span class="attribute">color</span>: green  &#125;<span class="comment">/* all elements with class~=pastoral */</span></span><br><span class="line"><span class="selector-class">.pastoral</span> &#123; <span class="attribute">color</span>: green &#125;  <span class="comment">/* all elements with class~=pastoral */</span></span><br><span class="line"><span class="selector-tag">H1</span><span class="selector-class">.pastoral</span> &#123; <span class="attribute">color</span>: green &#125;  <span class="comment">/* H1 elements with class~=pastoral */</span></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-class">.pastoral</span><span class="selector-class">.marine</span> &#123; <span class="attribute">color</span>: green &#125; <span class="selector-tag">l</span><span class="comment">/* class属性值同时有pastoral和marine且以空格隔开 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="8-ID选择器"><a href="#8-ID选择器" class="headerlink" title="8 ID选择器"></a>8 ID选择器</h2><p>ID选择器表示具有与ID选择器中的标识符匹配的标识符的元素实例。选择器不会指定UA如何知道元素的ID类型属性。ID属性在同一文档中是唯一的</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">h1</span><span class="selector-id">#chapter1</span> <span class="comment">/* 表示一个h1元素，其ID类型属性值为“chapter1” */</span></span><br><span class="line"><span class="selector-id">#chapter1</span> <span class="comment">/* 表示ID类型属性值为“chapter1”的任何元素 */</span></span><br><span class="line">*<span class="selector-id">#z98y</span> <span class="comment">/* 表示其ID类型属性值为“z98y”的任何元 */</span></span><br></pre></td></tr></table></figure>
+<h2 id="9-伪类"><a href="#9-伪类" class="headerlink" title="9 伪类"></a>9 伪类</h2><p>伪类的概念被引入以允许选择位于该文档树以外或者使用其他简单选择器不能表达的信息。</p>
+<p>伪类允许出现在选择器中的所有简单选择器序列中。伪类可以出现在简单选择器序列的任何地方。伪类的名字是不区分大小写的。一些伪类是互相排斥的，伪类可能是动态的，当用户操作文档时一个元素可能获得或失去一个伪类。</p>
+<h3 id="9-1-动态伪类"><a href="#9-1-动态伪类" class="headerlink" title="9.1 动态伪类"></a>9.1 动态伪类</h3><p>动态伪类根据元素特征分类，不同于他们的名称、属性和内容，原则上特征不能从文档树得出，动态伪类不会出现在文档源或文档树中。</p>
+<h4 id="9-1-1-链接伪类-link-和-visited"><a href="#9-1-1-链接伪类-link-和-visited" class="headerlink" title="9.1.1 链接伪类*:link 和:visited*"></a>9.1.1 链接伪类*:link 和:visited*</h4><p>用户代理一般将已访问过的链接和未访问的链接分开表示。选择器提供伪类:link 和 :visited来区分他们。</p>
+<p><strong>:link</strong>伪类表示还没有访问过的链接</p>
+<p><strong>:visited</strong>伪类表示已经访问过的链接</p>
+<p>经过一定的时间，用户代理可能选择返回一个访问过的链接为:link状态。这两种状态是互斥的 。</p>
+<p>这可能让样式表开发者在未经用户同意的情况下探测用户已经访问过哪些网站。UA可能因此将所有链接设置为未访问，或实现其他策略去避免用户隐私泄露。</p>
+<h4 id="9-1-2-用户动作伪类-hover-active-focus"><a href="#9-1-2-用户动作伪类-hover-active-focus" class="headerlink" title="9.1.2 用户动作伪类 :hover, :active,:focus"></a>9.1.2 用户动作伪类 :hover, :active,:focus</h4><p>交互性用户代理时有会改变渲染以响应用户操作。选择器提供三个伪类来响应用户操作。</p>
+<p><strong>:hover伪类</strong>：当用户通过指针设备指定一个元素，但不一定激活它。例如，当光标（鼠标指针）停在元素上方时可视化用户代理可以激活这个伪类。不支持交互式媒体的用户代理不必支持这个伪类。</p>
+<p><strong>:active伪类</strong>：用户激活元素时激活这个伪类。例如用户在元素上单击鼠标。</p>
+<p><strong>:focus伪类</strong>：当元素获取焦点时这个伪类被激活（从键盘或鼠标或其他设备获取输入）。</p>
+<p>文档语言或特殊实现会限制某些元素能够捕获:active或:focus。这些伪类不是互相排斥的。一个元素可能同时匹配到多个伪类。</p>
+<p>当一个元素处于:active或:hover时，选择器没有定义其父元素是否也处于同样的状态。如果一个元素处于:hover作用是因为它的子元素被指针设备所指向，这时这个父元素可能并没有被指针元素所指向。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>    <span class="comment">/* 未访问的链接 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> <span class="comment">/* 已访问的链接 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>   <span class="comment">/* 用户悬停 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span>  <span class="comment">/* 活动中的链接 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:focus</span>   <span class="comment">/* 获取焦点 */</span> </span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:focus</span><span class="selector-pseudo">:hover</span> <span class="comment">/* 动态伪类的组合 */</span></span><br><span class="line"><span class="comment">/* 一个元素可以同时处在:visited和:active（或 :link 和 :active) */</span></span><br></pre></td></tr></table></figure>
+<h3 id="9-2-目标伪类-target"><a href="#9-2-目标伪类-target" class="headerlink" title="9.2 目标伪类:target"></a>9.2 目标伪类:target</h3><p>有些URI引用一个资源中的一个地址。这类URI以井号（#）结束并跟着一个锚标识符（被称作片段标识符 fragment identifier）。</p>
+<p>具有片段标识符的URI链接到文档内的某一个元素，就是目标元素。例如这个URI指向HTML文档内叫做section_2的锚点：<a href="http://example.com/html/top.html#section_2">http://example.com/html/top.html#section_2</a></p>
+<p>一个目标元素可以被:target伪类表示。如果文档的URI没有片段标识符，那么文档不存在目标元素。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-class">.note</span><span class="selector-pseudo">:target</span> <span class="comment">/* 一个做为文档目标元素且class为note的p元素 */</span></span><br><span class="line"><span class="comment">/* 下面，:target伪类用来将目标元素变成红色并且在它之前放置一个图像： */</span></span><br><span class="line">*<span class="selector-pseudo">:target</span> &#123; <span class="attribute">color </span>: red &#125;</span><br><span class="line">*<span class="selector-pseudo">:target</span><span class="selector-pseudo">::before</span> &#123; <span class="attribute">content </span>: <span class="built_in">url</span>(target.png) &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="9-3-语言伪类-lang"><a href="#9-3-语言伪类-lang" class="headerlink" title="9.3 语言伪类:lang"></a>9.3 语言伪类:lang</h3><p>如果文档语言描述了如何确定一个元素的自然语言，那么将有可能实现一个表示特定语言的元素的选择器。例如，在HTML中语言可以被lang属性和meta元素中的可能存在的一些信息组合表示或在协议中（例如HTTP头部）表示。XML使用叫做xml:lang的属性，并且其他文档语言可能使用其他方法来确定语言。</p>
+<p>伪类**:lang(C)**表示一个使用语言C的元素。无论元素的语言值等于C，或是以C开头跟随“ - ”都将被匹配。    对C和元素语言值的匹配是不区分大小写的。C不必是一个有效的语言名。</p>
+<p>C必须是一个有效的CSS标识符并且不可以为空，否则，选择器是无效的。</p>
+<p>Examples:</p>
+<p>前两个选择器表示一个应用Belgian French 或 German语言的HTML文档。后两个选择器表示任意Belgian French 或 German语言元素中的q元素：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">html:lang(fr-be)</span><br><span class="line">html:lang(de)</span><br><span class="line">:lang(fr-be) &gt; q</span><br><span class="line">:lang(de) &gt; </span><br></pre></td></tr></table></figure>
+<p>:lang(C)与 |= 操作符的区别在于： |= 操作符仅仅表示对元素指定属性的比较，而:lang(C)伪类使用UA的知识在文档语义上进行比较。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">/*仅仅body匹配[lang|=fr]（因为它具有LANG属性）但是body和P都匹配:lang(fr)（因为他们都使用法语）。P不匹配[lang|=fr]因为它没有LANG属性：*/</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">lang</span>=<span class="string">fr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Je suis français.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="9-4-UI元素状态伪类"><a href="#9-4-UI元素状态伪类" class="headerlink" title="9.4 UI元素状态伪类"></a>9.4 UI元素状态伪类</h3><h4 id="9-4-1-enabled和-disabled伪类"><a href="#9-4-1-enabled和-disabled伪类" class="headerlink" title="9.4.1 :enabled和:disabled伪类"></a>9.4.1 :enabled和:disabled伪类</h4><p><strong>:enabled</strong>伪类表示处在可用状态下的用户接口元素。这些元素具有与不可用相对的状态。</p>
+<p>:<strong>disabled</strong>伪类表示用户接口元素在不可用状态。这些元素具有与可用相对的状态。</p>
+<p>用户接口元素、可用与不可用的状态是依赖于语言的。在一个典型的文档中大多数元素既不是:enabled也不是:disabled的。（常用于input、textarea）</p>
+<p>CSS中可能影响用户与UI元素交互的属性不会影响:enabled或:disabled的匹配。例如display和visibility属性不会影响元素的enabled/disabled状态。</p>
+<h4 id="9-4-2-checked伪类"><a href="#9-4-2-checked伪类" class="headerlink" title="9.4.2 :checked伪类"></a>9.4.2 :checked伪类</h4><p>单选和多选元素可以被用户开关。一些菜单项目在用户选择他们时会处在选中状态。例如:checked伪类最初匹配HTML4中具有selected和checked的元素。:checked伪类本质上是动态的，他们随着用户操作而改，。因为它可以以文档中存在的语义属性作为依据，所以它可以匹配所有的媒体。用户可以关闭(toggle “off”)这些元素，这将使:checked伪类不再匹配。（常用于    checkbox    、radio、option ）</p>
+<h4 id="9-4-3-indeterminate伪类"><a href="#9-4-3-indeterminate伪类" class="headerlink" title="9.4.3 :indeterminate伪类"></a>9.4.3 :indeterminate伪类</h4><p>单选和多选元素可以被用户开关，但一些时候它们处在不确定状态，既不是选中也不是非选中。元素属性和DOM操作可能导致这种情况。</p>
+<h3 id="9-5-结构伪类"><a href="#9-5-结构伪类" class="headerlink" title="9.5 结构伪类"></a>9.5 结构伪类</h3><p>选择器通过结构化伪类的概念来进行基于文档中额外信息的不能被其他简单选择器或组合器表示的匹配。</p>
+<p>在计算元素位于其父元素的子元素列表中的位置时，独立的文字或其他非元素节点是不被计算的且索引是从1开始的。</p>
+<h4 id="9-5-1-root伪类"><a href="#9-5-1-root伪类" class="headerlink" title="9.5.1 :root伪类"></a>9.5.1 :root伪类</h4><p>:root伪类表示作为文档根的元素。在HTML 4中总是HTML元素。</p>
+<h4 id="9-5-2-nth-child-伪类"><a href="#9-5-2-nth-child-伪类" class="headerlink" title="9.5.2 :nth-child()伪类"></a>9.5.2 :nth-child()伪类</h4><p>:nth-child(an+b)伪类表示一个元素它在文档树中有an+b-1个前兄弟节点，n可以为任何正数或0，并且有一个父元素。a和b要大于0。这有效的将子元素按a个元素进行分组（最后一组包含余数个元素），并且选择每一组的第b个元素。a和b必须为整数（正数，负数或0）。第一个子元素的索引是1。</p>
+<p>:nth-child()可以用odd和even作为参数。odd相当于2n+1，even相当于2n。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(2n+1)</span> <span class="comment">/* 表示HTML中table的奇数行 */</span></span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(odd)</span>  <span class="comment">/* 同上 */</span></span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(2n+0)</span> <span class="comment">/* 表示HTML中table的偶数行 */</span></span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(even)</span> <span class="comment">/* 同上 */</span></span><br><span class="line"><span class="comment">/* 通过CSS修改段落颜色 */</span></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(4n+1)</span> &#123; <span class="attribute">color</span>: navy; &#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(4n+2)</span> &#123; <span class="attribute">color</span>: green; &#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(4n+3)</span> &#123; <span class="attribute">color</span>: maroon; &#125;</span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:nth-child(4n+4)</span> &#123; <span class="attribute">color</span>: purple; &#125;</span><br></pre></td></tr></table></figure>
+<p>当b前面存在负号，那么正号必须被移除，也就是说被负号替代以表示b是个负数。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:nth-child(10n-1)</span>  <span class="comment">/* 表示第9，第19，第29以此类推的元素 */</span></span><br><span class="line"><span class="selector-pseudo">:nth-child(10n+9)</span>  <span class="comment">/* 同上 */</span></span><br><span class="line"><span class="selector-pseudo">:nth-child(10n+-1)</span> <span class="comment">/* 无效的语法，会被忽略 */</span></span><br></pre></td></tr></table></figure>
+<p>当a=0时ab部分应被忽略（除非b部分已经被忽略了）。当an不存在并且b是非负数，b前的正号（当存在时）可以被忽略。这类似于:nth-child(b)。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">foo</span><span class="selector-pseudo">:nth-child(0n+5)</span>   <span class="comment">/* 表示一个处在第五个的foo元素 */</span></span><br><span class="line"><span class="selector-tag">foo</span><span class="selector-pseudo">:nth-child(5)</span>      <span class="comment">/* 同上 */</span></span><br></pre></td></tr></table></figure>
+<p>当a=1或a=-1，这个数字可以被省略。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 下面的选择器等价: */</span></span><br><span class="line"><span class="selector-tag">bar</span><span class="selector-pseudo">:nth-child(1n+0)</span>   <span class="comment">/* 选择所有bar元素, 优先级 (0,1,1) */</span></span><br><span class="line"><span class="selector-tag">bar</span><span class="selector-pseudo">:nth-child(n+0)</span>    <span class="comment">/* 同上 */</span></span><br><span class="line"><span class="selector-tag">bar</span><span class="selector-pseudo">:nth-child(n)</span>      <span class="comment">/* 同上 */</span></span><br><span class="line"><span class="selector-tag">bar</span>                   <span class="comment">/* 同上，但是优先级更低 (0,0,1) */</span></span><br></pre></td></tr></table></figure>
+<p>如果b=0，那么每一个第a个元素被选取。这种情况下，+b(或-b)部分可能被省略除非a部分已经被省略了。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(2n+0)</span> <span class="comment">/* 示HTML中table的每一个偶数行 */</span></span><br><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-child(2n)</span> <span class="comment">/* 同上 */</span></span><br></pre></td></tr></table></figure>
+<p>空白符被允许出现在 左括号“(” 后和右括号 “)” 前，并且当an和b同时出现时空白符可以出现在“+”或“-”的两边。</p>
+<p>Valid Examples with white space:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:nth-child(</span> 3<span class="selector-tag">n</span> + 1 )</span><br><span class="line"><span class="selector-pseudo">:nth-child(</span> +3<span class="selector-tag">n</span> <span class="selector-tag">-</span> 2 )</span><br><span class="line"><span class="selector-pseudo">:nth-child(</span> <span class="selector-tag">-n</span>+ 6)</span><br><span class="line"><span class="selector-pseudo">:nth-child(</span> +6 )</span><br></pre></td></tr></table></figure>
+<p>Invalid Examples with white space:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-pseudo">:nth-child(3</span> <span class="selector-tag">n</span>)</span><br><span class="line"><span class="selector-pseudo">:nth-child(+</span> 2<span class="selector-tag">n</span>)</span><br><span class="line"><span class="selector-pseudo">:nth-child(+</span> 2)</span><br></pre></td></tr></table></figure>
+<p>a和b都为0时，这个伪类不表示文档树中的任何元素。</p>
+<p>a可以是负数，但是an+b只能是正数，对于n&gt;=0，可能表示文档树中的一个元素。</p>
+<p>Example:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">html|tr:nth-child(-n+6)  /* 表示XHTML中table的前6行 */</span><br></pre></td></tr></table></figure>
+<h4 id="9-5-3-nth-last-child-伪类"><a href="#9-5-3-nth-last-child-伪类" class="headerlink" title="9.5.3 :nth-last-child() 伪类"></a>9.5.3 :nth-last-child() 伪类</h4><p>:nth-of-type(an+b)伪类表示一个元素在文档树中在这个元素之前具有an+b-1个和此元素相同元素名的兄弟元素，n可以为任何正数或0，并且具有父元素。 参数的定义参照:nth-child()。同样可以接受odd和even作为参数。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">tr</span><span class="selector-pseudo">:nth-last-child(-n+2)</span>  <span class="comment">/* 表示HTML中table的最后2行 */</span></span><br><span class="line"><span class="selector-tag">foo</span><span class="selector-pseudo">:nth-last-child(odd)</span>  <span class="comment">/* 表示父元素中的所有奇数元素，从后往前计算 */</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-5-4-nth-of-type-伪类"><a href="#9-5-4-nth-of-type-伪类" class="headerlink" title="9.5.4 :nth-of-type() 伪类"></a>9.5.4 :nth-of-type() 伪类</h4><p>:nth-of-type(an+b)伪类表示一个元素在文档树中在这个元素之前具有an+b-1个和此元素相同元素名的兄弟元素，n可以为任何正数或0，并且具有父元素。 参数的定义参照:nth-child()。同样可以接受odd和even作为参数。</p>
+<p>CSS example:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:nth-of-type(2n+1)</span> &#123; <span class="attribute">float</span>: right; &#125;</span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:nth-of-type(2n)</span> &#123; <span class="attribute">float</span>: left; &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="9-5-5-nth-last-of-type-伪类"><a href="#9-5-5-nth-last-of-type-伪类" class="headerlink" title="9.5.5 :nth-last-of-type()伪类"></a>9.5.5 :nth-last-of-type()伪类</h4><p>:nth-last-of-type(an+b)伪类表示一个元素在文档树中在这个元素之后具有an+b-1个和此元素相同元素名的兄弟元素，n可以为任何正数或0，并且具有父元素。 参数的定义参照:nth-child()。同样可以接受odd和even作为参数。</p>
+<p>Example:</p>
+<p>表示body中所有h2元素，除了第一个和最后一个</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &gt; <span class="selector-tag">h2</span><span class="selector-pseudo">:nth-of-type(n+2)</span><span class="selector-pseudo">:nth-last-of-type(n+2)</span></span><br></pre></td></tr></table></figure>
+<p>在这个示例中，用样可以使用:not(),虽然选择器是一样长的：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &gt; <span class="selector-tag">h2</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:first-of-type)</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-of-type)</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-5-6-first-child伪类"><a href="#9-5-6-first-child伪类" class="headerlink" title="9.5.6 :first-child伪类"></a>9.5.6 :first-child伪类</h4><p>与:nth-child(1)相同。:first-child表示第一个子元素。</p>
+<p>Examples:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &gt; <span class="selector-tag">p</span><span class="selector-pseudo">:first-child</span><span class="comment">/*表示div元素中的p元素，且这个p元素是第一个子元素 */</span></span><br></pre></td></tr></table></figure>
+<p>这个选择器表示下面片段中div中的p元素：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;<span class="selector-tag">p</span>&gt; <span class="selector-tag">The</span> <span class="selector-tag">last</span> <span class="selector-tag">P</span> <span class="selector-tag">before</span> <span class="selector-tag">the</span> <span class="selector-tag">note</span>.&lt;/<span class="selector-tag">p</span>&gt;</span><br><span class="line">&lt;div class=&quot;note&quot;&gt;</span><br><span class="line">   &lt;<span class="selector-tag">p</span>&gt; <span class="selector-tag">The</span> <span class="selector-tag">first</span> <span class="selector-tag">P</span> <span class="selector-tag">inside</span> <span class="selector-tag">the</span> <span class="selector-tag">note</span>.&lt;/<span class="selector-tag">p</span>&gt;</span><br><span class="line">&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>但是不表示下面片段中的第二个p元素：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">&lt;<span class="selector-tag">p</span>&gt; <span class="selector-tag">The</span> <span class="selector-tag">last</span> <span class="selector-tag">P</span> <span class="selector-tag">before</span> <span class="selector-tag">the</span> <span class="selector-tag">note</span>.&lt;/<span class="selector-tag">p</span>&gt;</span><br><span class="line">&lt;div class=&quot;note&quot;&gt;</span><br><span class="line">   &lt;<span class="selector-tag">h2</span>&gt; <span class="selector-tag">Note</span> &lt;/<span class="selector-tag">h2</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">p</span>&gt; <span class="selector-tag">The</span> <span class="selector-tag">first</span> <span class="selector-tag">P</span> <span class="selector-tag">inside</span> <span class="selector-tag">the</span> <span class="selector-tag">note</span>.&lt;/<span class="selector-tag">p</span>&gt;</span><br><span class="line">&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>下面的两个选择器一般是等价的:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">* &gt; <span class="selector-tag">a</span><span class="selector-pseudo">:first-child</span> <span class="comment">/* a是任何元素的第一个子元素 */</span></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:first-child</span> <span class="comment">/* 当a不是根元素时同上 */</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-5-7-last-child伪类"><a href="#9-5-7-last-child伪类" class="headerlink" title="9.5.7 :last-child伪类"></a>9.5.7 :last-child伪类</h4><p>同:nth-last-child(1)。:last-child表示一个元素中的最后一个子元素。</p>
+<p>Example:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">ol</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:last-child</span> <span class="comment">/* 表示一个有序列表ol中的最后一个条目li */</span> </span><br></pre></td></tr></table></figure>
+<h4 id="9-5-8-first-of-type-伪类"><a href="#9-5-8-first-of-type-伪类" class="headerlink" title="9.5.8 :first-of-type 伪类"></a>9.5.8 :first-of-type 伪类</h4><p>同:nth-of-type(1)。:first-of-type伪类表示具有相同元素类型的兄弟节点中的第一个节点。</p>
+<p>Example:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 表示一个在列表dl中的标题dt，这个dt是与它相同类型的兄弟节点中的第一个节点： */</span></span><br><span class="line"><span class="selector-tag">dl</span> <span class="selector-tag">dt</span><span class="selector-pseudo">:first-of-type</span></span><br></pre></td></tr></table></figure>
+<p>这表示了下面的头两个dt元素，但不能表示第三个dt元素：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dt</span>&gt;</span>gigogne<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dt</span>&gt;</span>fusée<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dd</span>&gt;</span>multistage rocket<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">dt</span>&gt;</span>table<span class="tag">&lt;/<span class="name">dt</span>&gt;</span>   /* 不能被表示到 */</span><br><span class="line">   <span class="tag">&lt;<span class="name">dd</span>&gt;</span>nest of tables<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-5-9-last-of-type"><a href="#9-5-9-last-of-type" class="headerlink" title="9.5.9 :last-of-type"></a>9.5.9 :last-of-type</h4><p>同:nth-last-of-type(1)。:last-of-type伪类表示具有相同元素类型的兄弟节点中的最后一个节点。</p>
+<p>Example:</p>
+<p>下面的选择器表示table行tr中的最后一个数据单元td：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">tr</span> &gt; <span class="selector-tag">td</span><span class="selector-pseudo">:last-of-type</span></span><br></pre></td></tr></table></figure>
+<h4 id="9-5-10-only-child伪类"><a href="#9-5-10-only-child伪类" class="headerlink" title="9.5.10 :only-child伪类"></a>9.5.10 :only-child伪类</h4><p>表示某个是其父元素中的唯一元素的元素。同:first-child:last-child 或 :nth-child(1):nth-last-child(1), 但是具有更低的优先级。</p>
+<h4 id="9-5-11-only-of-type伪类"><a href="#9-5-11-only-of-type伪类" class="headerlink" title="9.5.11 :only-of-type伪类"></a>9.5.11 :only-of-type伪类</h4><p>表示某个父元素中子元素，父元素不存在与此子元素同类的子元素。同:first-of-type:last-of-type 或 :nth-of-type(1):nth-last-of-type(1)，但是具有更低的优先级。</p>
+<h4 id="9-5-12-empty伪类"><a href="#9-5-12-empty伪类" class="headerlink" title="9.5.12 :empty伪类"></a>9.5.12 :empty伪类</h4><p>:empty伪类表示一个元素根本没有子元素。在文档树中，仅仅元素节点和内容节点具有非0长度的数据时，会影响是否为空。注释，处理指令和其他节点不会产生影响。</p>
+<p>Examples:</p>
+<p>p:empty 对下面的片段是有效的：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>foo:empty 对下面的片段是无效的：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span>bar<span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span><span class="tag">&lt;<span class="name">bar</span>&gt;</span>bla<span class="tag">&lt;/<span class="name">bar</span>&gt;</span><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">foo</span>&gt;</span>this is not <span class="tag">&lt;<span class="name">bar</span>&gt;</span>:empty<span class="tag">&lt;/<span class="name">bar</span>&gt;</span><span class="tag">&lt;/<span class="name">foo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="9-6-空白"><a href="#9-6-空白" class="headerlink" title="9.6 空白"></a>9.6 空白</h3><p>这一节是故意留白的，之前是:contains()伪类。</p>
+<h3 id="9-7-否定伪类"><a href="#9-7-否定伪类" class="headerlink" title="9.7 否定伪类"></a>9.7 否定伪类</h3><p>否定伪类:not(X)是一个将简单选择器作为参数的功能符。它表示不是它的参数所表示的元素。</p>
+<p>否定伪类不可嵌套，:not(:not(…))是无效的。注意因为伪元素不是简单选择器，所以他们不可以作为:not()的参数。</p>
+<p>Examples:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">button</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[DISABLED]</span>) <span class="comment">/* 表示不是disabled状态以外的所有button */</span></span><br><span class="line">*<span class="selector-pseudo">:not(FOO)</span><span class="comment">/* 表示不是FOO元素以外的所有元素 */</span></span><br><span class="line">html|*:not(:link):not(:visited) /* 表示除了链接以外所有HTML元素 */</span><br></pre></td></tr></table></figure>
+<p>默认命名空间声明不会影响否定伪类的参数，除非参数是个全局选择器或一个类型选择器。<br>Examples:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 如果默认命名空间是&quot;http://example.com/&quot;，下面的选择器表示所有不在这个命名空间中的元素 */</span></span><br><span class="line">*|*:not(*)</span><br><span class="line"><span class="comment">/* 下面的选择器匹配任何没有被指向的元素，不管它的命名空间是什么 */</span></span><br><span class="line">*|*:not(:hover)</span><br></pre></td></tr></table></figure>
+<p>:not()伪类允许表示没有价值的选择器，例如:not(<em>|</em>)，这不表示任何元素，或者foo:not(bar)，这等价于foo但是具有更高优先级。</p>
+<h2 id="10-伪元素"><a href="#10-伪元素" class="headerlink" title="10 伪元素"></a>10 伪元素</h2><p>伪元素创建超越文档语言定义的文档树的抽象概念。伪元素允许开发者访问这些原本难以访问的信息，以及访问源文档中不存在内容。</p>
+<p>伪元素由两个冒号::及紧跟伪元素的名字组成。 为了兼容性，单冒号也被允许。伪元素必须在简单选择器序列的最后。</p>
+<h3 id="10-1-first-line伪元素"><a href="#10-1-first-line伪元素" class="headerlink" title="10.1 ::first-line伪元素"></a>10.1 ::first-line伪元素</h3><p><strong>::first-line</strong>伪元素表示元素中的第一个格式化行 .</p>
+<p>选择器P::first-line不匹配任何真正的文档元素。用户代理会添加虚拟标签序列（fictional tag sequence）到文档中。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;P&gt;&lt;P::first-line&gt; This is a somewhat long HTML paragraph that &lt;&#x2F;P::first-line&gt; will be broken into several lines. The first line will be identified by a fictional tag sequence.&lt;&#x2F;P&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="10-1-1-CSS中定义的第一个格式化行"><a href="#10-1-1-CSS中定义的第一个格式化行" class="headerlink" title="10.1.1 CSS中定义的第一个格式化行"></a>10.1.1 CSS中定义的第一个格式化行</h4><p>在CSS中，::first-line伪元素在块容器时才有效。元素的第一个格式化行可能出现在块级后代中。例如，<DIV><P>This line…</P></DIV>中DIV的第一行就是P的第一行（假定P和DIV都是块级）。</p>
+<p>table-cell或 inline-block不能作为祖先元素的第一个格式化行。因此，<DIV><P STYLE="display: inline-block">Hello<BR>Goodbye</P> etcetera</DIV>中DIV的第一个格式化行不是“Hello”，而是 etcetera。</p>
+<p>在片段<p><br>First…中p的第一个格式化行不包含任何字母（假定使用HTML4中br的默认样式），因为由br的存在。</p>
+<p>UA应该将::first-line的虚拟开始标签嵌套于最内部的闭合块级元素中。 （只是应该而已，因为css1和css2没有要求）</p>
+<p>例如，下面段落</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;DIV&gt;</span><br><span class="line">  &lt;P&gt;First paragraph&lt;&#x2F;P&gt;</span><br><span class="line">  &lt;P&gt;Second paragraph&lt;&#x2F;P&gt;</span><br><span class="line">&lt;&#x2F;DIV&gt;</span><br></pre></td></tr></table></figure>
+<p>虚拟标签序列是</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;DIV&gt;</span><br><span class="line">  &lt;P&gt;&lt;DIV::first-line&gt;&lt;P::first-line&gt;First paragraph&lt;&#x2F;P::first-line&gt;&lt;&#x2F;DIV::first-line&gt;&lt;&#x2F;P&gt;</span><br><span class="line">  &lt;P&gt;&lt;P::first-line&gt;Second paragraph&lt;&#x2F;P::first-line&gt;&lt;&#x2F;P&gt;</span><br><span class="line">&lt;&#x2F;DIV&gt;</span><br></pre></td></tr></table></figure>
+<p>::first-line伪元素类似于一个 inline-level元素，但是具有一些约束。下面的CSS属性可以作用于一个::first-line伪元素：字体属性，颜色属性，背景属性，word-spacing, letter-spacing, text-decoration, vertical-align, text-transform, line-height。UA可能实现其他属性。<br>在CSS继承中，出现在第一行的子元素的某些部分仅从::first-line伪元素继承适用于::first-line伪元素的属性。其他属性继承于第一行伪元素的非伪元素父元素。（子元素的不出现在第一行的部分总是继承于父元素）。这里太绕了。。。</p>
+<h3 id="10-2-first-letter伪元素"><a href="#10-2-first-letter伪元素" class="headerlink" title="10.2 :first-letter伪元素"></a>10.2 :first-letter伪元素</h3><p>::first-letter伪元素，如果在这行上它前面没有任何其他内容（例如图片和 inline tables），表示元素的第一个字母，::first-letter伪元素通常被用于开头字母大写和首字下沉这些通用的印刷效果。</p>
+<p>如果标点符号出现在在首字母之前或之后也应该被包括进去，数字也同样生效。</p>
+<p>如果组成::first-letter的字母不在一个元素中，例如<p>‘<em>T…中的“’T”，UA可能为其中一个或两个字母创建::first-letter伪元素，或都不创建。</p>
+<p>首字母必须出现在第一个格式化行上。例如，在<p><br>First…第一行不包含任何字母并且::first-letter不匹配任何东西。</p>
+<h4 id="10-2-1-CSS中的应用"><a href="#10-2-1-CSS中的应用" class="headerlink" title="10.2.1 CSS中的应用"></a>10.2.1 CSS中的应用</h4><p>在CSS中，::first-letter伪元素在 block-like 容器中生效，例如block，list-item，table-cell，table-caption和inline-block元素。</p>
+<p>在CSS中t，able-cell或inline-block的第一个字母不能作为祖先元素的第一个字母。</p>
+<p>如果元素是list item (‘display: list-item’), ::first-letter 应用在主体盒子标记后的第一个字母。    用户代理将忽略该列表项的    ::first-letter。如果元素有::b=efore和::after内容，::first-letter应用的时候应该包含它们的内容。比如，在p::before {content: “Note: “}生效时， p::first-letter 匹配“Note”中的“N”。</p>
+<p>在CSS中,当float属性是none时::first-line伪元素相当于一个inline-level元素 ,否则它是浮动元素。</p>
+<h3 id="10-3-before-和-after伪类"><a href="#10-3-before-和-after伪类" class="headerlink" title="10.3 ::before 和 ::after伪类"></a>10.3 ::before 和 ::after伪类</h3><p><strong>::before</strong>和**::after**伪类用来描述在元素内容之前或之后生成内容。</p>
+<p>当::first-letter和::first-line被用在包含::before或::after生成元素的对象时，第一个字母或第一行包含这些生成内容。</p>
+<h2 id="11-组合器"><a href="#11-组合器" class="headerlink" title="11 组合器"></a>11 组合器</h2><h3 id="11-1-后代组合器"><a href="#11-1-后代组合器" class="headerlink" title="11.1 后代组合器"></a>11.1 后代组合器</h3><p>选择器“A B”表示一个元素B是祖先A的任意后代。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">div * p</span><br></pre></td></tr></table></figure>
+<p>表示了p元素是div元素之后的第二代或更多代元素。*两侧的空白符不属于全局选择器。空白符是一个组合器表示div是某个元素的祖先，并且这个元素是p的祖先。<br>表示一个元素具有href属性并且是p的后代，p在div之中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">div p *[href]</span><br></pre></td></tr></table></figure>
+<h3 id="11-2-子代组合器"><a href="#11-2-子代组合器" class="headerlink" title="11.2 子代组合器"></a>11.2 子代组合器</h3><p>子代组合器描述了两个元素间的父子关系。</p>
+<h3 id="11-3-兄弟选择器"><a href="#11-3-兄弟选择器" class="headerlink" title="11.3 兄弟选择器"></a>11.3 兄弟选择器</h3><p>有两个兄弟组合器：next-sibling combinator和subsequent-sibling combinator。他们都会忽略非元素节点（例如元素间的文字）。</p>
+<h4 id="11-4-相邻兄弟组合器"><a href="#11-4-相邻兄弟组合器" class="headerlink" title="11.4 相邻兄弟组合器"></a>11.4 相邻兄弟组合器</h4><p>相邻兄弟组合器用“+”表示，它分割两个简单选择器序列。在文档树中这两个序列具有相同的父节点并且第一个序列表示的元素紧紧在第二个序列表示的元素前。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">math</span> + <span class="selector-tag">p</span>  <span class="comment">/* 表示跟在一个math元素后的p元素 */</span></span><br></pre></td></tr></table></figure>
+<h4 id="11-5-一般兄弟选择器"><a href="#11-5-一般兄弟选择器" class="headerlink" title="11.5 一般兄弟选择器"></a>11.5 一般兄弟选择器</h4><p>一般兄弟选择器通过“~”表示，它分割两个简单选择器序列。两个序列表示的元素要在同一个父元素下并且第一个序列表示的元素要在第二个序列表示的元素前（但不必是紧紧挨着）。</p>
+<h2 id="12-选择器优先级计算"><a href="#12-选择器优先级计算" class="headerlink" title="12 选择器优先级计算"></a>12 选择器优先级计算</h2><p>规则如下：</p>
+<pre><code>    1. ID选择器的数量 (= a)
+    2. 类选择器、属性选择器和伪类的数量 (= b)
+    3. 类型选择器和伪元素的数量(= c)</code></pre>
+<p>忽略通用选择器，否定伪类参与计算，但不当做伪类计算。把三个数字连起来a-b-c（在具有大基数的数字系统中）作为优先级。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Selectors Level 3</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>W3C</tag>
       </tags>
   </entry>
   <entry>

@@ -9,7 +9,7 @@
     
     <title>
         
-            02-URL与资源 |
+            21-日志记录与使用情况跟踪 |
         
         HuOneNumber | 个人博客
     </title>
@@ -168,7 +168,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">02-URL与资源</span>
+            <span class="title-hover-animation">21-日志记录与使用情况跟踪</span>
         </div>
 
         
@@ -184,7 +184,7 @@
                     <div class="meta-info">
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
-        <i class="fas fa-edit"></i> 2021-01-22 19:32:47
+        <i class="fas fa-edit"></i> 2021-03-08 15:17:09
     </span>
     
         <span class="article-categories article-meta-item">
@@ -200,7 +200,7 @@
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/">02-URL与资源</a>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/">21-日志记录与使用情况跟踪</a>
                     </li>
                 
             </ul>
@@ -222,12 +222,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i> <span>1.2k 字</span>
+            <i class="fas fa-file-word"></i> <span>714 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i> <span>4 分钟</span>
+            <i class="fas fa-clock"></i> <span>2 分钟</span>
         </span>
     
     
@@ -243,112 +243,48 @@
         
 
         <div class="article-content markdown-body">
-            <h2 id="2-1-URL语法"><a href="#2-1-URL语法" class="headerlink" title="2.1 URL语法"></a><strong>2.1 URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
-<table>
-    <tr>
-    <th>组件</th>
-    <th>描述</th>
-    <th>默认值</th>
-  </tr>
-  <tr>
-    <td>方案</td>
-    <td>用什么协议获取资源，大小写无关，比如http</td>
-    <td>无</td>
-  </tr>
-  <tr>
-    <td>用户</td>
-    <td>某些方案下访问资源时需要的用户名，比如FTP</td>
-    <td>匿名</td>
-  </tr>
-  <tr>
-    <td>密码</td>
-    <td>用户名后面可能包含的密码，由冒号（：）分隔</td>
-    <td>E-mail地址</td>
-  </tr>
-  <tr>
-    <td>主机</td>
-    <td>服务器位置，也就是资源在哪里，可以是域名（会被解析）或IP地址</td>
-    <td>无</td>
-  </tr>
-  <tr>
-    <td>端口</td>
-    <td>资源宿主服务器正在监听的端口号。很多方案都有默认端口号（HTTP的默认端口号为80）</td>
-    <td>方案特有</td>
-  </tr>
-  <tr>
-    <td>路径</td>
-    <td>资源路径，服务器上的本地资源名，由斜杠（/）分隔</td>
-    <td>无</td>
-  </tr>
-  <tr>
-    <td>参数</td>
-    <td>某些方案会用这个组件来指定输入参数。参数为名/值对。可以包含多个参数字段，它们相互之间以及与路径其余部分用分号（；）分隔</td>
-    <td>无</td>
-  </tr>
-  <tr>
-    <td>查询</td>
-    <td>某些方案会用这个组件传递参数以激活应用程序（比如数据库、公告板、搜索引擎以及其他因特网网关）。查询组件的内容没有通用格式。用“？”将其与其余部分分隔开来。按照常规，查询字符串以一系列“名/值”对的形式出现，名值对之间用字符“&”分隔：</td>
-    <td>无</td>
-  </tr>
-  <tr>
-    <td>片段</td>
-    <td>一小片或一部分资源的名字。引用对象时，不会将frag字段传送给服务器，字段是在客户端内部使用的。通过字符“#”将其与URL的其余部分分隔开来</td>
-    <td>无</td>
-  </tr>
-</table>
-
-<h2 id="2-2-URL快捷方式"><a href="#2-2-URL快捷方式" class="headerlink" title="2.2 URL快捷方式"></a><strong>2.2 URL快捷方式</strong></h2><p><strong>URL</strong>有两种方式，<strong>绝对URL</strong>（包含访问资源所需的全部信息）以及<strong>相对URL</strong>（不完整，需要对基础URL进行解析）。</p>
+            <h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
+<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/7wAHV2voSXks6Mg.png"
-                      alt="nVR0IK7EBcmYWYVR__thumbnail.png"
+                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
+                      alt="image.png"
                 ></p>
-<p>基础URL是作为相对URL的参考点使用的。来自以下几个地方：</p>
-<p><strong>1、在资源中显示提供</strong></p>
-<p>有些资源会显式地指定基础URL。比如，HTML文档中可能会包含一个定义了基础URL的HTML标记&#60;BASE&#62;，通过它来转换那个HTML文档中的所有相对URL。</p>
-<p><strong>2、封装资源的基础URL</strong></p>
-<p>如果在一个没有显式指定基础URL的资源中发现了一个相对URL，可以将它所属资源的URL作为基础。</p>
-<p><strong>3、没有基础URL</strong></p>
-<p>在某些情况下，没有基础URL，通常意味着你有一个相对URL；但有可能只是一个不完整或损坏了的URL。</p>
-<p>要把相对URL转换成绝对URL，首先将他们划分成组件段，这一步称为<strong>分解URL，</strong>接下来的过程如下，<img  
+<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
+<ol>
+<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
+<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
+</ol>
+<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
+<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
+<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
+<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
+<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/1oSkgrTnAKeCQMO.png"
-                      alt="V4KlexQcZcfQ12Rf__thumbnail.png"
-                ></p>
-<p><strong>自动扩展URL：</strong>用户不需要输入完整的URL，浏览器自动扩展。有两种方式：</p>
-<p>1、<strong>主机名扩展</strong></p>
-<p>在主机名扩展中，只要有些小提示，浏览器通常就可以在没有帮助的情况下，将你输入的主机名扩展为完整的主机名。但是，这些主机名扩展技巧可能会为其他一些HTTP应用程序带来问题，比如代理。</p>
-<p><strong>2、历史扩展</strong></p>
-<p>浏览器用来节省用户输入URL时间的另一种技巧是，将以前用户访问过的URL历史存储起来。当你输入URL时，它们就可以将你输入的URL与历史记录中URL的前缀进行匹配，并提供–些完整的选项供你选择。注意，与代理共同使用时，URL自动扩展的行为可能会有所不同。6.5.6节将对此进行进-一步讨论。</p>
-<h2 id="2-3-URL字符"><a href="#2-3-URL字符" class="headerlink" title="2.3 URL字符"></a><strong>2.3 URL字符</strong></h2><p>URL的特性是<strong>可移植的（portable）</strong>、<strong>可读的</strong>、<strong>完整的</strong>，通过转义序列，就可以用US-ASCII字符集的有限子集对任意字符值或数据进行编码，这样就实现了可移植性和完整性。这种转义表示法包含一个百分号（%），后面跟着两个表示字符ASCII码的十六进制数。示例如下,</p>
-<p><img  
+                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
+                      alt="image _1_.png"
+                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
+<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/XB2YNyRzlgj6AUP.png"
-                      alt="TbL6jXX4SEtdJlWZ__thumbnail.png"
-                ></p>
-<p><strong>字符限制</strong>，在URL中，有几个字符被保留起来，有着特殊的含义。有些字符不在定义的US-ASCI可打印字符集中。还有些字符会与某些因特网网关和协议产生混淆，因此不赞成使用。</p>
-<p>URL的每个组件都会有自己的安全和不安全字符（与方案有关），因此只有从用户那里接收URL的应用程序才能够判断需要对哪些字符进行编码。这个URL就是可在各应用程序之间共享的规范形式；也就无需操心其他应用程序会被字符的任何特殊含义所迷惑了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/L6M7WIq8ADEe4Bh.png"
-                      alt="bnXzZF9va3GSkGou__thumbnail.png"
-                ></p>
-
+                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
+                      alt="image _2_.png"
+                ></h2>
         </div>
 
         
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：02-URL与资源</li>
+        <li>本文标题：21-日志记录与使用情况跟踪</li>
         <li>本文作者：胡倚豪</li>
-        <li>创建时间：2021-01-22 19:32:47</li>
+        <li>创建时间：2021-03-08 15:17:09</li>
         <li>
-            本文链接：huonenumber.github.io/2021/01/22/note/HTTP/02-URL与资源/
+            本文链接：huonenumber.github.io/2021/03/08/note/HTTP/21-日志记录与使用情况跟踪/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -362,29 +298,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2021/01/23/note/HTTP/03-HTTP%E6%8A%A5%E6%96%87/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">03-HTTP报文</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2021/01/21/note/webkit/04-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/"
+                           href="/2021/03/07/note/W3C%20CSS/Backgrounds%20and%20Borders%20Level%203/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">04-资源加载和网络栈</span>
+                                <span class="post-nav-title-item">Backgrounds and Borders Level 3</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -591,7 +512,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-URL%E8%AF%AD%E6%B3%95"><span class="nav-text">2.1 URL语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-URL%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-text">2.2 URL快捷方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-URL%E5%AD%97%E7%AC%A6"><span class="nav-text">2.3 URL字符</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-1-%E8%AE%B0%E5%BD%95%E5%86%85%E5%AE%B9"><span class="nav-text">21.1 记录内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-2-%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F"><span class="nav-text">21.2 日志格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-2-1-%E5%B8%B8%E8%A7%81%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F"><span class="nav-text">21.2.1 常见日志格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-2-2-%E7%BB%84%E5%90%88%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F"><span class="nav-text">21.2.2 组合日志格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#21-3-%E5%91%BD%E4%B8%AD%E7%8E%87%E6%B5%8B%E9%87%8F"><span class="nav-text">21.3 命中率测量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-3-2-Meter%E9%A6%96%E9%83%A8"><span class="nav-text">21.3.2 Meter首部</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-1"><span class="nav-text"></span></a></li></ol>
     </div>
 </div>
         </aside>
