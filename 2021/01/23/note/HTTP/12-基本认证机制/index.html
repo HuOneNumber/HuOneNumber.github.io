@@ -250,35 +250,35 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/3I1T0Sqn0vGxXzWp__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
+                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/rkRrBdeZ0ZR0sz8V__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
+                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
                 ></p>
 <p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hOOl1LLNsJNi4Al7__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
+                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
                 ></p>
 <h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
 <h3 id=""><a href="#" class="headerlink" title=""></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qlzDftADKFeS3vHH__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
+                      alt="qlzDftADKFeS3vHH__thumbnail.png"
                 ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
 <h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/9TuJb1meuUYlSwAR__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
+                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
                 ></p>
 <h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
 <ol>

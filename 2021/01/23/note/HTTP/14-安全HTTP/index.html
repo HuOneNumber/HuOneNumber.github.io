@@ -260,8 +260,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mIJdG4CNy1xhnqon__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zm3NZXxUEaTAFw2.png"
+                      alt="mIJdG4CNy1xhnqon__thumbnail.png"
                 ></p>
 <p>大部分编码解码工作都在SSL库中完成的，Web客户端和服务器在使用安全HTTP时无需过多地修改其协议处理逻辑。在大多数情况下，只需要用SSL的输入/输出调用取代TCP的调用，再增加几个其他调用来配置和管理安全信息。</p>
 <h2 id="14-2-数字加密"><a href="#14-2-数字加密" class="headerlink" title="14.2 数字加密"></a>14.2 数字加密</h2><ol>
@@ -277,8 +277,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/TKPj2auk0Ick7iCq__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/xscoKFJZtgAfElr.png"
+                      alt="TKPj2auk0Ick7iCq__thumbnail.png"
                 ></p>
 <p>起初密码是相当简单的算法。比如字符旋转密码，报文中的每个字符都由字母表中三个位置之后的字符来取代。“A”由“D”来取代，“B”由“E”来取代，以此类推。而密码机可以用复杂得多的密码来快速、精确地对报文进行编解码，使代码的破解更加困难。</p>
 <h3 id="14-2-2-使用密钥的密码"><a href="#14-2-2-使用密钥的密码" class="headerlink" title="14.2.2 使用密钥的密码"></a>14.2.2 使用密钥的密码</h3><p>大部分机器上都有一些号盘，可以将其设置为大量不同的值以改变密码的工作方式。没有正确的号盘设置（密钥值），解码器无法工作。同一条输入报文通过同一台编码机进行传输，会随密钥值的不同产生不同的输出。这些密码参数被称为<strong>密钥</strong>（key）。</p>
@@ -287,15 +287,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/6y06i9T1LHudkYmQ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ltw1QL6YpIAU4qR.png"
+                      alt="6y06i9T1LHudkYmQ__thumbnail.png"
                 ></p>
 <h2 id="14-3-对称密钥加密技术"><a href="#14-3-对称密钥加密技术" class="headerlink" title="14.3 对称密钥加密技术"></a>14.3 对称密钥加密技术</h2><p>很多数字加密算法都是<strong>对称密钥</strong>（symmetric-key）加密技术，因为编码时使用的密钥值和解码时一样（e=d），统称为密钥k。</p>
 <p>发送端和接收端要共享相同的密钥k才能进行通信。发送端用共享的密钥来加密报文，并将得到的密文发送给接收端。接收端收到密文，并对其应用解密函数和相同的共享密钥，恢复出原始的明文。流行的对称密钥加密算法有：DES、Triple-DES、RC2 、RC4。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/b4QoZX7deFh2BTZr__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kJMwZKbtDqvji7a.png"
+                      alt="b4QoZX7deFh2BTZr__thumbnail.png"
                 ></p>
 <h3 id="14-3-1-密钥长度与枚举攻击；"><a href="#14-3-1-密钥长度与枚举攻击；" class="headerlink" title="14.3.1 密钥长度与枚举攻击；"></a>14.3.1 密钥长度与枚举攻击；</h3><p>在很多情况下，编/解码算法都是众所周知的，因此密钥是唯一保密的东西。</p>
 <p>用暴力去尝试所有的密钥值称为<strong>枚举攻击</strong>（enumeration attack）。好的加密算法会迫使攻击者试遍每一个可能的密钥，才能破解代码。</p>
@@ -308,8 +308,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/R3C0ZWtLpOZaLWpA__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/cyUZdHxANTu97tg.png"
+                      alt="R3C0ZWtLpOZaLWpA__thumbnail.png"
                 ></p>
 <h3 id="14-4-1-RSA"><a href="#14-4-1-RSA" class="headerlink" title="14.4.1 RSA"></a>14.4.1 RSA</h3><p>所有公开密钥非对称加密系统所面临的共同挑战是，要确保即便有人拥有了下面所有的线索，也无法计算出保密的私有密钥：</p>
 <ol>
@@ -324,51 +324,51 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Tke6UEV6jKnzqPSN__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/JcRPX8nAW2KgDpo.png"
+                      alt="Tke6UEV6jKnzqPSN__thumbnail.png"
                 ></p>
 <h2 id="14-6-数字证书"><a href="#14-6-数字证书" class="headerlink" title="14.6 数字证书"></a>14.6 数字证书</h2><h3 id="14-6-1-证书的主要内容"><a href="#14-6-1-证书的主要内容" class="headerlink" title="14.6.1 证书的主要内容"></a>14.6.1 证书的主要内容</h3><p>数字证书（certs）包含了由某个受信任组织担保的用户或公司（比如CA证书授权中心）的相关信息。CA证书中心用自己的私钥，对发送端的公钥和其他信息一起加密，生成”数字证书”。因为接受端只有用CA机构的公钥解密这份数字证书，才能拿到发送者的公钥，CA机构是绝对权威可信的，然后继续验证数字签名。这解决了发送端和接收端的公钥同时被替换的问题。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/fFoOZEhjrhEeQgdN__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/G3CDi1Krl2Z59qL.png"
+                      alt="fFoOZEhjrhEeQgdN__thumbnail.png"
                 ></p>
 <h3 id="14-6-2-X-509-v3证书"><a href="#14-6-2-X-509-v3证书" class="headerlink" title="14.6.2 X.509 v3证书"></a>14.6.2 X.509 v3证书</h3><p>大多数证书都以X.509 v3标准格式来存储它们的信息。X.509 v3证书提供了一种标准的方式，将证书信息规范至一些可解析字段中。基于X.509证书的签名有：Web服务器证书、客户端电子邮件证书、软件代码签名证书和证书颁发机构证书。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hspZDgv7mPLSk21u__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/bByFuUQC7NInJ23.png"
+                      alt="hspZDgv7mPLSk21u__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/zPbm4kXgLajyitzJ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/eECKZzIkQaGsYHn.png"
+                      alt="zPbm4kXgLajyitzJ__thumbnail.png"
                 ></p>
 <h3 id="14-6-3-用证书对服务器进行认证"><a href="#14-6-3-用证书对服务器进行认证" class="headerlink" title="14.6.3 用证书对服务器进行认证"></a>14.6.3 用证书对服务器进行认证</h3><p>通过HTTPS建立一个安全Web事务之后，浏览器会自动获取所连接服务器的数字证书。如果服务器没有证书，安全连接就会失败。浏览器收到证书时会对签名颁发机构进行检查。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SD8nb5zOtht8Okfl__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zxqIrC6iV1wbLZs.png"
+                      alt="SD8nb5zOtht8Okfl__thumbnail.png"
                 ></p>
 <h2 id="14-7-HTTPS细节介绍"><a href="#14-7-HTTPS细节介绍" class="headerlink" title="14.7 HTTPS细节介绍"></a>14.7 HTTPS细节介绍</h2><p>HTTPS是最常见的HTTP安全版本。HTTPS将HTTP协议与一组强大的对称、非对称和基于证书的加密技术结合在一起。</p>
 <h3 id="14-7-1-HTTPS概述"><a href="#14-7-1-HTTPS概述" class="headerlink" title="14.7.1 HTTPS概述"></a>14.7.1 HTTPS概述</h3><p>HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTTP报文发送给TCP，而是先将其发送给了一个安全层，对其进行加密。HTTP安全层是通过SSL及其现代替代协议TLS来实现的。术语SSL同时来表示SSL或者TLS。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Dcf7PaKFNvsZgcjI__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/XlTijkFArSQERvw.png"
+                      alt="Dcf7PaKFNvsZgcjI__thumbnail.png"
                 ></p>
 <h3 id="14-7-2-HTTPS方案"><a href="#14-7-2-HTTPS方案" class="headerlink" title="14.7.2 HTTPS方案"></a>14.7.2 HTTPS方案</h3><p>安全HTTP是可选的。因此，对Web服务器发起请求时，会去检查URL的方案前缀。因为SSL是个二进制协议，与HTTP完全不同， 如果SSL从端口80到达，Web服务器会将二进制SSL流量理解为错误的HTTP并关闭连接。</p>
 <h3 id="14-7-3-建立安全传输"><a href="#14-7-3-建立安全传输" class="headerlink" title="14.7.3 建立安全传输"></a>14.7.3 建立安全传输</h3><p>在HTTPS中，客户端首先打开一条到Web服务器端口443的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，客户端就将请求报文发送给安全层。在将这些报文发送给TCP之前，都要先对其进行加密。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wELgIlWVSdCcZivr__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/NMiYZGj785gxROW.png"
+                      alt="wELgIlWVSdCcZivr__thumbnail.png"
                 ></p>
 <h4 id="14-7-3-1-SSL握手"><a href="#14-7-3-1-SSL握手" class="headerlink" title="14.7.3.1 SSL握手"></a>14.7.3.1 SSL握手</h4><p>在发送已加密的HTTP报文前，客户端和服务器进行一次SSL握手，它们要完成以下工作：</p>
 <ol>
@@ -380,8 +380,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/GzOgAMKnHN1Dx72w__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kaDtWuZFMd1ciGw.png"
+                      alt="GzOgAMKnHN1Dx72w__thumbnail.png"
                 ></p>
 <h3 id="14-7-4-服务器证书"><a href="#14-7-4-服务器证书" class="headerlink" title="14.7.4 服务器证书"></a>14.7.4 服务器证书</h3><p>SSL支持双向认证，将服务器证书承载回客户端，再将客户端的证书回送给服务器。但实际中很少出现服务器要求使用客户端证书，安全HTTPS事务总是要求使用服务器证书的。</p>
 <h4 id="14-7-4-1-站点证书的有效性"><a href="#14-7-4-1-站点证书的有效性" class="headerlink" title="14.7.4 .1 站点证书的有效性"></a>14.7.4 .1 站点证书的有效性</h4><p>SSL自身不要求用户检查Web服务器证书，但大部分现代浏览器都会对证书进行简单的完整性检查，并为用户提供进行进一步彻查的手段。验证步骤如下所述：</p>
@@ -406,8 +406,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ioF0MOUNikHKQnIO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/e4EUHGJDPcs6MXZ.png"
+                      alt="ioF0MOUNikHKQnIO__thumbnail.png"
                 ></p>
 <p>解决方案：<strong>HTTPS SSL 隧道协议</strong>。客户端在开始加密之前，通过CONNECT的扩展方法发送以明文形式的要连接的安全主机和端口信息，告知给代理，客户端会等待来自代理的响应。e.g.  CONNECT home.netscape.com:443   HTTP/1. 0</p>
 <p>代理会对请求进行评估，确保它有效且用户有权请求这样一条连接。如果正常，代理会建立到目标服务器的连接。如果成功，就向客户端发送条200 Connection Established响应。之后直接在客户端和服务器之间以隧道形式传输数据。</p>

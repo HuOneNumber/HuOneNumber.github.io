@@ -425,189 +425,6 @@
       </tags>
   </entry>
   <entry>
-    <title>07-缓存</title>
-    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
-<ol>
-<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
-<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
-<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
-<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
-</ol>
-<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
-<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/JqEmbyfnLqujDvh3__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
-<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
-<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
-<ol>
-<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/cY8dGPCXn8wtoLKV__thumbnail.png"
-                      alt="图片"
-                ></p>
-<ol start="2">
-<li><strong>再验证未命中</strong></li>
-</ol>
-<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/yIucryfnFQtd0k4c__thumbnail.png"
-                      alt="图片"
-                ></p>
-<ol start="3">
-<li><strong>对象被删除</strong></li>
-</ol>
-<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
-<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
-<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
-<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
-<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
-<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
-<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
-<ol>
-<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
-<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
-<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
-</ol>
-<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
-<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
-<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
-<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
-<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Co7dnjntrFDvuHrm__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
-<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
-<ol>
-<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
-<li>根据URL动态地选择一个特定的父缓存。</li>
-<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
-<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
-</ol>
-<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/iKZZ0KjuHsCngdjY__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
-<ol>
-<li>接收——缓存从网络中读取抵达的请求报文。</li>
-<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
-<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
-<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
-<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
-<li>发送——缓存通过网络将响应发回给客户端。</li>
-<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/sPL9fez6Q5GM0Kew__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
-<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
-<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
-<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
-<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mvA0UnLjL6rYmQLQ__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
-<ol>
-<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
-<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
-</ol>
-<p>缓存返回的内容有以下几种情况：</p>
-<ol>
-<li>“足够新鲜”的已缓存副本；</li>
-<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
-<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
-<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
-</ol>
-<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
-<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
-<ol>
-<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
-<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
-</ol>
-<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
-<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
-<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
-<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
-<ol>
-<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
-<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
-<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
-<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
-</ol>
-<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
-<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
-<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/erfxAVVZ74Xb8xhr__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
-<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
-<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
-<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
-<ol>
-<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
-<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
-<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
-<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
-<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
-<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
-</ol>
-<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
-<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/bT1QqO3hyhVyT1Rm__thumbnail.png"
-                      alt="图片"
-                ></p>
-<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
-<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
-<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/c66vSOYHG3viCCN0__thumbnail.png"
-                      alt="图片"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>07-缓存</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>08-集成点：网关、隧道及中继</title>
     <url>/2021/01/23/note/HTTP/08-%E9%9B%86%E6%88%90%E7%82%B9%EF%BC%9A%E7%BD%91%E5%85%B3%E3%80%81%E9%9A%A7%E9%81%93%E5%8F%8A%E4%B8%AD%E7%BB%A7/</url>
     <content><![CDATA[<h2 id="8-1-网关"><a href="#8-1-网关" class="headerlink" title="8.1 网关"></a>8.1 网关</h2><p>HTTP扩展和接口的发展是由用户需求驱动的。单个应用程序无法处理复杂资源的需求。网关（gateway）抽象出一种能够到达资源的方法，网关是资源和应用程序之间的粘合剂。应用程序可以（通过HTTP或其他已定义的接口）请求网关来处理某条请求，网关可以提供响应。</p>
@@ -618,30 +435,30 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/h5rMSRFnKAI0fo2a__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/dR1Lzwym7V2TJQj.png"
+                      alt="h5rMSRFnKAI0fo2a.png"
                 ></p>
 <h3 id="8-2-2-HTTP-HTTPS：服务器端安全网关"><a href="#8-2-2-HTTP-HTTPS：服务器端安全网关" class="headerlink" title="8.2.2 HTTP/HTTPS：服务器端安全网关"></a>8.2.2 HTTP/HTTPS：服务器端安全网关</h3><p>可以通过网关对所有的输入Web请求加密，以提供额外的隐私和安全性保护。客户端可以用普通的HTTP浏览Web内容，但网关会自动加密用户的对话。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/XsHGngySl0b7vnU1__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/7xU9GV2eOCZDTS8.png"
+                      alt="XsHGngySl0b7vnU1__thumbnail.png"
                 ></p>
 <h3 id="8-2-3-HTTPS-HTTP客户端安全加速器网关"><a href="#8-2-3-HTTPS-HTTP客户端安全加速器网关" class="headerlink" title="8.2.3 HTTPS/HTTP客户端安全加速器网关"></a>8.2.3 HTTPS/HTTP客户端安全加速器网关</h3><p>HTTPS/HTTP网关位于Web服务器之前，通常作为不可见的拦截网关或反向代理使用。它们接收安全的HTTPS流量，对安全流量进行解密，并向Web服务器发送普通的HTTP请求。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wt2ibTUjzYWa44Kf__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/eJQEum4ya71WjHX.png"
+                      alt="wt2ibTUjzYWa44Kf__thumbnail.png"
                 ></p>
 <h2 id="8-3-资源网关"><a href="#8-3-资源网关" class="headerlink" title="8.3 资源网关"></a>8.3 资源网关</h2><p>最常见的网关是<strong>应用程序服务器</strong>，它会将目标服务器与网关结合在一个服务器中实现，它是服务器端网关，与服务器端的应用程序相连，并与客户端通过HTTP进行通信。</p>
 <p>客户端通过HTTP连接到应用程序服务器，应用程序服务器将请求通过网关<strong>应用程序编程接口</strong>（Application Programming Interface，API）发送给运行在服务器上的应用程序，然后它向服务器返回响应或响应数据，服务器将其转发给客户端。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SW60nADbd4fHQVhN__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/c7Zw3JOpstbk8Hx.png"
+                      alt="SW60nADbd4fHQVhN__thumbnail.png"
                 ></p>
 <h3 id="8-3-1-CGI"><a href="#8-3-1-CGI" class="headerlink" title="8.3.1 CGI"></a>8.3.1 CGI</h3><p>第一个流行的应用程序网关API就是<strong>通用网关接口</strong>（Common Gateway Interface，CGI）。CGI是一个标准接口集，Web服务器可以用它来装载程序以响应对特定URL的HTTP请求，并收集程序的输出数据，将其放在HTTP响应中回送。</p>
 <p>CGI的处理对用户来说是不可见的，但可见的是URL中出现字符cgi和可能出现的“？”。</p>
@@ -651,8 +468,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/lMjXhzVkWBBSUTH4__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/XAQ51W2SCxuTVJl.png"
+                      alt="lMjXhzVkWBBSUTH4__original.png"
                 ></p>
 <h3 id="8-3-2-服务器扩展API"><a href="#8-3-2-服务器扩展API" class="headerlink" title="8.3.2 服务器扩展API"></a>8.3.2 服务器扩展API</h3><p>多数服务器都会为开发者提供一个或多个扩展API，这些扩展通常都会绑定在服务器自身的结构上，为Web开发者提供了强大的接口，以便将自己的模块与HTTP服务器直接相连，它允许程序员将自己的代码嫁接到服务器上，或者用自己的代码将服务器的一个组件完整地替换出来。</p>
 <h2 id="8-4-应用程序接口和Web服务"><a href="#8-4-应用程序接口和Web服务" class="headerlink" title="8.4 应用程序接口和Web服务"></a>8.4 应用程序接口和Web服务</h2><p>HTTP可以作为连接应用程序的基础软件来使用，在将应用程序连接起来的过程中，通过web服务标准解决两个应用程序之间进行协议接口的协商，以便应用程序可以进行数据的交换。</p>
@@ -662,8 +479,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/eW9jkF1kxuU5siZD__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/a9AcYRv3lokKyni.png"
+                      alt="eW9jkF1kxuU5siZD__thumbnail.png"
                 ></p>
 <ol>
 <li><strong>CONNECT请求</strong></li>
@@ -681,8 +498,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SdlL3tBsyFZEL7Vt__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/LG2Qj3xtDazou1H.png"
+                      alt="SdlL3tBsyFZEL7Vt__thumbnail.png"
                 ></p>
 <h3 id="8-5-4SSL隧道与HTTP-HTTPS网关的对比"><a href="#8-5-4SSL隧道与HTTP-HTTPS网关的对比" class="headerlink" title="8.5.4SSL隧道与HTTP/HTTPS网关的对比"></a>8.5.4SSL隧道与HTTP/HTTPS网关的对比</h3><p>HTTPS协议（SSL上的HTTP）进行网关的操作：由网关（而不是客户端）初始化与远端HTTPS服务器的SSL会话，然后代表客户端执行HTTPS事务。响应会由代理接收并解密，然后通过（不安全的）HTTP传送给客户端。这种方式有几个缺点：</p>
 <ol>
@@ -694,8 +511,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/cITItirpNAmBAC8F__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/mXFkvVxJdzy9qY5.png"
+                      alt="cITItirpNAmBAC8F__thumbnail.png"
                 ></p>
 <h3 id="8-5-5-隧道认证"><a href="#8-5-5-隧道认证" class="headerlink" title="8.5.5 隧道认证"></a>8.5.5 隧道认证</h3><p>在适当的情况下，可以将HTTP的其他特性与隧道配合使用。比如将代理的认证支持与隧道配合使用，对客户端使用隧道的权利进行认证。</p>
 <h3 id="8-5-6-隧道的安全性考虑"><a href="#8-5-6-隧道的安全性考虑" class="headerlink" title="8.5.6 隧道的安全性考虑"></a>8.5.6 隧道的安全性考虑</h3><p>隧道网关无法验证目前使用的协议是否是它原本打算经过隧道传输的协议。因此一些用户可能会通过本打算用于SSL的隧道，越过公司防火墙传递因特网游戏流量，甚至恶意用户可能会用隧道打开Telnet会话，或用隧道绕过公司的E-mail扫描器来发送E-mail。</p>
@@ -706,8 +523,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/IULgh1VsZyxKgPpy__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ENAhCpFIZGrD645.png"
+                      alt="IULgh1VsZyxKgPpy__thumbnail.png"
                 ></p>
 ]]></content>
       <categories>
@@ -756,8 +573,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/jSukZODWbBBJ4CSF.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/SqrtPoMVR6lBGa9.png"
+                      alt="image.png"
                 ></p>
 <p>通过将URL“规范化”为标准格式来消除上面那些显而易见的别名。机器人首先可先通过下列步骤将每个URL都转化为规范化的格式。</p>
 <p>（1）如果没有指定端口的话，就向主机名中舔加”：80”.</p>
@@ -770,8 +587,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hZbmc5nKppkASEnw.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/l8ZcPbUIfi3pEnA.png"
+                      alt="image _1_.png"
                 ></p>
 <h3 id="9-1-7-动态虚拟Web空间"><a href="#9-1-7-动态虚拟Web空间" class="headerlink" title="9.1.7 动态虚拟Web空间"></a>9.1.7 动态虚拟Web空间</h3><p>应用程序在传输中构造出包含了到同一服务器上虚构URL链接的HTML，请求这些虚构的URL时，服务器就会捏造出一个带有新的虚构URL的新HTML页面来。</p>
 <h3 id="9-1-8-避免循环和重复"><a href="#9-1-8-避免循环和重复" class="headerlink" title="9.1.8 避免循环和重复"></a>9.1.8 避免循环和重复</h3><ol>
@@ -849,8 +666,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DiIXbQI0V0zKtQCO.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/hOn2rbS9uoQZtAi.png"
+                      alt="image _2_.png"
                 ></p>
 <h3 id="9-5-2-发布查询请求"><a href="#9-5-2-发布查询请求" class="headerlink" title="9.5.2 发布查询请求"></a>9.5.2 发布查询请求</h3><p>网关程序对搜索请求进行解析，并将查询转换成搜索全文索引所需的表达式。</p>
 <h3 id="9-6-3-对结果进行排序，并提供查询结果"><a href="#9-6-3-对结果进行排序，并提供查询结果" class="headerlink" title="9.6.3 对结果进行排序，并提供查询结果"></a>9.6.3 对结果进行排序，并提供查询结果</h3><p>一旦搜索引擎通过其索引得到了查询结果，网关应用程序会获取结果，并将其拼成结果页面提供给终端用户，并尝试着对结果进行排名。相关性排名（relevancy ranking）是对一系列搜索结果的评分和排序处理。</p>
@@ -860,65 +677,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>09-Web机器人</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>12-基本认证机制</title>
-    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
-<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
-<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
-<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/3I1T0Sqn0vGxXzWp__thumbnail.png"
-                      alt="图片"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/rkRrBdeZ0ZR0sz8V__thumbnail.png"
-                      alt="图片"
-                ></p>
-<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hOOl1LLNsJNi4Al7__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qlzDftADKFeS3vHH__thumbnail.png"
-                      alt="图片"
-                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
-<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/9TuJb1meuUYlSwAR__thumbnail.png"
-                      alt="图片"
-                ></p>
-<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
-<ol>
-<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
-<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
-<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
-<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
-<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
-</ol>
-<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>12-基本认证机制</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -939,8 +697,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/OGLHbPyUzYspa9X1__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/5L8iAcKqhvVbH4N.png"
+                      alt="OGLHbPyUzYspa9X1__thumbnail.png"
                 ></p>
 <p>由于有些服务器会搜集E-mail地址，用于垃圾邮件的散发，所以很少有浏览器会发送From首部。实际上，From首部是由自动化的机器人或蜘蛛发送的。</p>
 <p>User-Agent首部包括浏览器的名称和版本，操作系统的相关信息。用于实现定制内容与特定的浏览器及其属性间的良好互操作，但并没有为识别特定的用户提供太多帮助。</p>
@@ -957,16 +715,16 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/UtHMnCSRoPNvPQj9__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/87AXogI6KjVtWf1.png"
+                      alt="UtHMnCSRoPNvPQj9__thumbnail.png"
                 ></p>
 <h2 id="11-4-用户登录"><a href="#11-4-用户登录" class="headerlink" title="11.4 用户登录"></a>11.4 用户登录</h2><p>Web服务器可以要求用户通过用户名和密码进行认证（登录）来显式地询问用户是谁。HTTP中包含了一种内建机制，可以用WWW-Authenticate首部和Authorization首部向Web站点传送用户的相关信息。</p>
 <p>如果服务器希望在为用户提供对站点的访问之前登录，可以向浏览器回送一条HTTP响应代码401 Login Required，然后浏览器显示一个登录对话框，一旦登录，浏览器就可以不断地在每条发往这个站点的请求甚至没有要求中，向服务器发送Authorization首部作为一种身份的标识。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/UtY4a0FC6TRmjhdo__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/8Kc5o9SdyMIVRfE.png"
+                      alt="UtY4a0FC6TRmjhdo__thumbnail.png"
                 ></p>
 <h2 id="11-5-胖URL"><a href="#11-5-胖URL" class="headerlink" title="11.5 胖URL"></a>11.5 胖URL</h2><p>有些Web站点会为每个用户生成特定版本的URL来追踪用户的身份。通常对真正的URL路径开始或结束的地方添加一些状态信息。用户浏览站点时，Web服务器会动态生成一些超链，继续维护URL中的状态信息。改动后包含了用户状态信息的URL被称为胖URL（fat URL）。</p>
 <p>但这种技术存在几个很严重的问题：</p>
@@ -996,22 +754,22 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Jq2YLdpVHtY6PfRA__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/CXx8REyPFs7LhUY.png"
+                      alt="Jq2YLdpVHtY6PfRA__thumbnail.png"
                 ></p>
 <h3 id="11-6-6-cookies版本0（Netscape）"><a href="#11-6-6-cookies版本0（Netscape）" class="headerlink" title="11.6.6 cookies版本0（Netscape）"></a>11.6.6 cookies版本0（Netscape）</h3><p>最初的cookie规范是由网景公司定义的。这些“版本0”的cookie定义了Set-Coookie响应首部、cookie请求首部以及用于控制cookie的字段。</p>
 <h4 id="11-6-6-1-版本0的set-Cookie首部"><a href="#11-6-6-1-版本0的set-Cookie首部" class="headerlink" title="11.6.6.1 版本0的set-Cookie首部"></a>11.6.6.1 版本0的set-Cookie首部</h4><p>set-Cookie首部有一个强制性的cookie名和cookie 值。后面跟着可选的cookie属性，中间由分号分隔。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qdonImiSjvneeOvw__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/hZbMTLJrzs3KPuk.png"
+                      alt="qdonImiSjvneeOvw__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/GBdOJLwCMpYc0S2p__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/sIC5VgzkP8fB9Hj.png"
+                      alt="GBdOJLwCMpYc0S2p__thumbnail.png"
                 ></p>
 <h4 id="11-6-6-2-版本0的Cookie首部"><a href="#11-6-6-2-版本0的Cookie首部" class="headerlink" title="11.6.6.2 版本0的Cookie首部"></a>11.6.6.2 版本0的Cookie首部</h4><p>客户端发送请求时，会将所有与域、路径和安全过滤器相匹配的未过期cookie都发送给这个站点。所有cookie都被组合到一个Cookie首部中。</p>
 <h3 id="11-6-7-cookies版本1（RFC-2965）"><a href="#11-6-7-cookies版本1（RFC-2965）" class="headerlink" title="11.6.7 cookies版本1（RFC 2965）"></a>11.6.7 cookies版本1（RFC 2965）</h3><p>这个版本1标准引入了Set-Cookie2首部和Cookie2首部，但也能与版本0系统进行互操作。</p>
@@ -1028,14 +786,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/5a2SbBmAsu83S7yy__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/pVqy9eLYgvZUxda.png"
+                      alt="5a2SbBmAsu83S7yy__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mtVJtcN1kr8hhsQp__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/rDePvSIkW4th2Mj.png"
+                      alt="mtVJtcN1kr8hhsQp__thumbnail.png"
                 ></p>
 <h4 id="11-6-7-2-版本1的Cookie首部"><a href="#11-6-7-2-版本1的Cookie首部" class="headerlink" title="11.6.7.2 版本1的Cookie首部"></a>11.6.7.2 版本1的Cookie首部</h4><p>版本1的cookie会带回与传送的每个cookie相关的附加信息，用来描述每个cookie途径的过滤器。每个匹配的cookie都必须包含来自相应set-cookie2首部的所有Domain、Port 或Path属性。所有匹配cookie都是和它们的Set-Cookie2过滤器一同传输的，而且保留关键字都是以美元符号（$）开头的。</p>
 <h4 id="11-6-7-3-版本1的Cookie2首部和版本协商"><a href="#11-6-7-3-版本1的Cookie2首部和版本协商" class="headerlink" title="11.6.7.3 版本1的Cookie2首部和版本协商"></a>11.6.7.3 版本1的Cookie2首部和版本协商</h4><p>Cookie2请求首部负责在能够理解不同cookie规范版本的客户端和服务器之间进行互操作性的协商。</p>
@@ -1070,6 +828,65 @@
       </tags>
   </entry>
   <entry>
+    <title>12-基本认证机制</title>
+    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
+<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
+<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
+<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
+                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
+                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
+                ></p>
+<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
+                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
+                ></p>
+<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
+                      alt="qlzDftADKFeS3vHH__thumbnail.png"
+                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
+<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
+                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
+                ></p>
+<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
+<ol>
+<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
+<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
+<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
+<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
+<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
+</ol>
+<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>12-基本认证机制</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>14-安全HTTP</title>
     <url>/2021/01/23/note/HTTP/14-%E5%AE%89%E5%85%A8HTTP/</url>
     <content><![CDATA[<h2 id="14-1-保护HTTP的安全"><a href="#14-1-保护HTTP的安全" class="headerlink" title="14.1 保护HTTP的安全"></a>14.1 保护HTTP的安全</h2><p>HTTP安全技术能够提供下列功能:</p>
@@ -1089,8 +906,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mIJdG4CNy1xhnqon__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zm3NZXxUEaTAFw2.png"
+                      alt="mIJdG4CNy1xhnqon__thumbnail.png"
                 ></p>
 <p>大部分编码解码工作都在SSL库中完成的，Web客户端和服务器在使用安全HTTP时无需过多地修改其协议处理逻辑。在大多数情况下，只需要用SSL的输入/输出调用取代TCP的调用，再增加几个其他调用来配置和管理安全信息。</p>
 <h2 id="14-2-数字加密"><a href="#14-2-数字加密" class="headerlink" title="14.2 数字加密"></a>14.2 数字加密</h2><ol>
@@ -1106,8 +923,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/TKPj2auk0Ick7iCq__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/xscoKFJZtgAfElr.png"
+                      alt="TKPj2auk0Ick7iCq__thumbnail.png"
                 ></p>
 <p>起初密码是相当简单的算法。比如字符旋转密码，报文中的每个字符都由字母表中三个位置之后的字符来取代。“A”由“D”来取代，“B”由“E”来取代，以此类推。而密码机可以用复杂得多的密码来快速、精确地对报文进行编解码，使代码的破解更加困难。</p>
 <h3 id="14-2-2-使用密钥的密码"><a href="#14-2-2-使用密钥的密码" class="headerlink" title="14.2.2 使用密钥的密码"></a>14.2.2 使用密钥的密码</h3><p>大部分机器上都有一些号盘，可以将其设置为大量不同的值以改变密码的工作方式。没有正确的号盘设置（密钥值），解码器无法工作。同一条输入报文通过同一台编码机进行传输，会随密钥值的不同产生不同的输出。这些密码参数被称为<strong>密钥</strong>（key）。</p>
@@ -1116,15 +933,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/6y06i9T1LHudkYmQ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ltw1QL6YpIAU4qR.png"
+                      alt="6y06i9T1LHudkYmQ__thumbnail.png"
                 ></p>
 <h2 id="14-3-对称密钥加密技术"><a href="#14-3-对称密钥加密技术" class="headerlink" title="14.3 对称密钥加密技术"></a>14.3 对称密钥加密技术</h2><p>很多数字加密算法都是<strong>对称密钥</strong>（symmetric-key）加密技术，因为编码时使用的密钥值和解码时一样（e=d），统称为密钥k。</p>
 <p>发送端和接收端要共享相同的密钥k才能进行通信。发送端用共享的密钥来加密报文，并将得到的密文发送给接收端。接收端收到密文，并对其应用解密函数和相同的共享密钥，恢复出原始的明文。流行的对称密钥加密算法有：DES、Triple-DES、RC2 、RC4。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/b4QoZX7deFh2BTZr__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kJMwZKbtDqvji7a.png"
+                      alt="b4QoZX7deFh2BTZr__thumbnail.png"
                 ></p>
 <h3 id="14-3-1-密钥长度与枚举攻击；"><a href="#14-3-1-密钥长度与枚举攻击；" class="headerlink" title="14.3.1 密钥长度与枚举攻击；"></a>14.3.1 密钥长度与枚举攻击；</h3><p>在很多情况下，编/解码算法都是众所周知的，因此密钥是唯一保密的东西。</p>
 <p>用暴力去尝试所有的密钥值称为<strong>枚举攻击</strong>（enumeration attack）。好的加密算法会迫使攻击者试遍每一个可能的密钥，才能破解代码。</p>
@@ -1137,8 +954,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/R3C0ZWtLpOZaLWpA__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/cyUZdHxANTu97tg.png"
+                      alt="R3C0ZWtLpOZaLWpA__thumbnail.png"
                 ></p>
 <h3 id="14-4-1-RSA"><a href="#14-4-1-RSA" class="headerlink" title="14.4.1 RSA"></a>14.4.1 RSA</h3><p>所有公开密钥非对称加密系统所面临的共同挑战是，要确保即便有人拥有了下面所有的线索，也无法计算出保密的私有密钥：</p>
 <ol>
@@ -1153,51 +970,51 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Tke6UEV6jKnzqPSN__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/JcRPX8nAW2KgDpo.png"
+                      alt="Tke6UEV6jKnzqPSN__thumbnail.png"
                 ></p>
 <h2 id="14-6-数字证书"><a href="#14-6-数字证书" class="headerlink" title="14.6 数字证书"></a>14.6 数字证书</h2><h3 id="14-6-1-证书的主要内容"><a href="#14-6-1-证书的主要内容" class="headerlink" title="14.6.1 证书的主要内容"></a>14.6.1 证书的主要内容</h3><p>数字证书（certs）包含了由某个受信任组织担保的用户或公司（比如CA证书授权中心）的相关信息。CA证书中心用自己的私钥，对发送端的公钥和其他信息一起加密，生成”数字证书”。因为接受端只有用CA机构的公钥解密这份数字证书，才能拿到发送者的公钥，CA机构是绝对权威可信的，然后继续验证数字签名。这解决了发送端和接收端的公钥同时被替换的问题。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/fFoOZEhjrhEeQgdN__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/G3CDi1Krl2Z59qL.png"
+                      alt="fFoOZEhjrhEeQgdN__thumbnail.png"
                 ></p>
 <h3 id="14-6-2-X-509-v3证书"><a href="#14-6-2-X-509-v3证书" class="headerlink" title="14.6.2 X.509 v3证书"></a>14.6.2 X.509 v3证书</h3><p>大多数证书都以X.509 v3标准格式来存储它们的信息。X.509 v3证书提供了一种标准的方式，将证书信息规范至一些可解析字段中。基于X.509证书的签名有：Web服务器证书、客户端电子邮件证书、软件代码签名证书和证书颁发机构证书。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hspZDgv7mPLSk21u__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/bByFuUQC7NInJ23.png"
+                      alt="hspZDgv7mPLSk21u__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/zPbm4kXgLajyitzJ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/eECKZzIkQaGsYHn.png"
+                      alt="zPbm4kXgLajyitzJ__thumbnail.png"
                 ></p>
 <h3 id="14-6-3-用证书对服务器进行认证"><a href="#14-6-3-用证书对服务器进行认证" class="headerlink" title="14.6.3 用证书对服务器进行认证"></a>14.6.3 用证书对服务器进行认证</h3><p>通过HTTPS建立一个安全Web事务之后，浏览器会自动获取所连接服务器的数字证书。如果服务器没有证书，安全连接就会失败。浏览器收到证书时会对签名颁发机构进行检查。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SD8nb5zOtht8Okfl__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zxqIrC6iV1wbLZs.png"
+                      alt="SD8nb5zOtht8Okfl__thumbnail.png"
                 ></p>
 <h2 id="14-7-HTTPS细节介绍"><a href="#14-7-HTTPS细节介绍" class="headerlink" title="14.7 HTTPS细节介绍"></a>14.7 HTTPS细节介绍</h2><p>HTTPS是最常见的HTTP安全版本。HTTPS将HTTP协议与一组强大的对称、非对称和基于证书的加密技术结合在一起。</p>
 <h3 id="14-7-1-HTTPS概述"><a href="#14-7-1-HTTPS概述" class="headerlink" title="14.7.1 HTTPS概述"></a>14.7.1 HTTPS概述</h3><p>HTTPS就是在安全的传输层上发送的HTTP。HTTPS没有将未加密的HTTP报文发送给TCP，而是先将其发送给了一个安全层，对其进行加密。HTTP安全层是通过SSL及其现代替代协议TLS来实现的。术语SSL同时来表示SSL或者TLS。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Dcf7PaKFNvsZgcjI__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/XlTijkFArSQERvw.png"
+                      alt="Dcf7PaKFNvsZgcjI__thumbnail.png"
                 ></p>
 <h3 id="14-7-2-HTTPS方案"><a href="#14-7-2-HTTPS方案" class="headerlink" title="14.7.2 HTTPS方案"></a>14.7.2 HTTPS方案</h3><p>安全HTTP是可选的。因此，对Web服务器发起请求时，会去检查URL的方案前缀。因为SSL是个二进制协议，与HTTP完全不同， 如果SSL从端口80到达，Web服务器会将二进制SSL流量理解为错误的HTTP并关闭连接。</p>
 <h3 id="14-7-3-建立安全传输"><a href="#14-7-3-建立安全传输" class="headerlink" title="14.7.3 建立安全传输"></a>14.7.3 建立安全传输</h3><p>在HTTPS中，客户端首先打开一条到Web服务器端口443的连接。一旦建立了TCP连接，客户端和服务器就会初始化SSL层，对加密参数进行沟通，并交换密钥。握手完成之后，客户端就将请求报文发送给安全层。在将这些报文发送给TCP之前，都要先对其进行加密。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wELgIlWVSdCcZivr__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/NMiYZGj785gxROW.png"
+                      alt="wELgIlWVSdCcZivr__thumbnail.png"
                 ></p>
 <h4 id="14-7-3-1-SSL握手"><a href="#14-7-3-1-SSL握手" class="headerlink" title="14.7.3.1 SSL握手"></a>14.7.3.1 SSL握手</h4><p>在发送已加密的HTTP报文前，客户端和服务器进行一次SSL握手，它们要完成以下工作：</p>
 <ol>
@@ -1209,8 +1026,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/GzOgAMKnHN1Dx72w__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kaDtWuZFMd1ciGw.png"
+                      alt="GzOgAMKnHN1Dx72w__thumbnail.png"
                 ></p>
 <h3 id="14-7-4-服务器证书"><a href="#14-7-4-服务器证书" class="headerlink" title="14.7.4 服务器证书"></a>14.7.4 服务器证书</h3><p>SSL支持双向认证，将服务器证书承载回客户端，再将客户端的证书回送给服务器。但实际中很少出现服务器要求使用客户端证书，安全HTTPS事务总是要求使用服务器证书的。</p>
 <h4 id="14-7-4-1-站点证书的有效性"><a href="#14-7-4-1-站点证书的有效性" class="headerlink" title="14.7.4 .1 站点证书的有效性"></a>14.7.4 .1 站点证书的有效性</h4><p>SSL自身不要求用户检查Web服务器证书，但大部分现代浏览器都会对证书进行简单的完整性检查，并为用户提供进行进一步彻查的手段。验证步骤如下所述：</p>
@@ -1235,8 +1052,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ioF0MOUNikHKQnIO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/e4EUHGJDPcs6MXZ.png"
+                      alt="ioF0MOUNikHKQnIO__thumbnail.png"
                 ></p>
 <p>解决方案：<strong>HTTPS SSL 隧道协议</strong>。客户端在开始加密之前，通过CONNECT的扩展方法发送以明文形式的要连接的安全主机和端口信息，告知给代理，客户端会等待来自代理的响应。e.g.  CONNECT home.netscape.com:443   HTTP/1. 0</p>
 <p>代理会对请求进行评估，确保它有效且用户有权请求这样一条连接。如果正常，代理会建立到目标服务器的连接。如果成功，就向客户端发送条200 Connection Established响应。之后直接在客户端和服务器之间以隧道形式传输数据。</p>
@@ -1263,8 +1080,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/9z3SKbU9LiOg10nD.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/YQCaD1G28o5Swdz.png"
+                      alt="image.png"
                 ></p>
 <h2 id="16-3-多语言字符编码入门"><a href="#16-3-多语言字符编码入门" class="headerlink" title="16.3 多语言字符编码入门"></a>16.3 多语言字符编码入门</h2><h3 id="16-3-1-字符集术语"><a href="#16-3-1-字符集术语" class="headerlink" title="16.3.1 字符集术语"></a>16.3.1 字符集术语</h3><p>以下是应当了解的电子化字符系统的8个术语。</p>
 <ol>
@@ -1282,8 +1099,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/NvnVR2cvmvkeRIbM.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/9CWXzZRbD7iJGdN.png"
+                      alt="image _1_.png"
                 ></p>
 <h3 id="16-3-4-字符编码方案"><a href="#16-3-4-字符编码方案" class="headerlink" title="16.3.4 字符编码方案"></a>16.3.4 字符编码方案</h3><p>字符编码方案规定如何把字符的代码数字打包装入内容比特，以及在另一端如何将其解包回字符代码（参见图16-7）。字符编码方案有以下3种主要类型。</p>
 <ol>
@@ -1296,8 +1113,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Dx8XMxFY7W9laV0b.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/gNGEMCxcHwLW9sy.png"
+                      alt="image _2_.png"
                 ></p>
 <h3 id="16-5-3-转义和反转义"><a href="#16-5-3-转义和反转义" class="headerlink" title="16.5.3 转义和反转义"></a>16.5.3 转义和反转义</h3><p>可以在URI内部插入保留字符以及原本不支持的字符，每个转义是一组3字符序列，由百分号（%）后面跟上两个十六进制数字的字符。这两个十六进制数字就表示一个US-ASCI字符的代码。例如，要在URL中插入一个空白（ASCII 32），可以用转义%20，</p>
 <p>在内部处理时，HTTP应用程序应当在传输和转发URI的时候保持转义不变,HTTP应用程序应该仅在需要数据的时候才对URI进行转义。需要注意，要转义的值本身应该在US-ASCI代码值的范围内（0~127）。</p>
@@ -1318,8 +1135,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EBpTVPRVB1EIXEsa.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
+                      alt="image.png"
                 ></p>
 <h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
 <p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
@@ -1332,8 +1149,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/HoumlCwmoUMpL06y.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
+                      alt="image _1_.png"
                 ></p>
 <p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
 <h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>
@@ -1394,8 +1211,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/vSWXWaoSBV0q5cRm.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/iPrAHfGDqR8Mesd.png"
+                      alt="image _2_.png"
                 ></p>
 <p>有以下两种方法把客户端的请求导向特定的服务器。</p>
 <ol>
@@ -1449,8 +1266,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/08MIWSWe91XVl7d9.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Al9KaUwCZBNSx7G.png"
+                      alt="image.png"
                 ></p>
 <p>DNS局限性：没有考虑任何与客户端和服务器的相对位置，或者服务器当前负载有关的因素。其次很多Web浏览器或操作系统都会进行DNS缓存，以减少DNS查找的开销。DNS轮转通常都不会平衡单个客户端的负载。</p>
 <p>因此有些增强的DNS服务器会使用其他一些技术来选择地址的顺序。</p>
@@ -1464,31 +1281,31 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/jtYuU2zgbTOgk8af.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2Il5cpGM38WotJH.png"
+                      alt="image _1_.png"
                 ></p>
 <h3 id="20-4-3-任播寻址"><a href="#20-4-3-任播寻址" class="headerlink" title="20.4.3 任播寻址"></a>20.4.3 任播寻址</h3><p>在任播寻址中，几个地理上分散的服务器拥有完全相同的IP地址，而且会通过骨干路由器的“最短路径”路由功能将客户端的请求发送给离它最近的服务器。这种方法需要，每台服务器都要向邻近的骨干路由器广告，服务器会通过路由器通信协议与其邻近的骨干路由器通信。骨干路由器收到发送给任播地址的分组时，会像平常一样寻找接受那个IP地址的最近的“路由器”。由于服务器是将自己作为那个地址的路由器广告出去的，所以骨干路由器会将分组发送给服务器。</p>
 <p>任播寻址仍是项实验性技术。要使用分布式任播技术，服务器须使用“路由器语言”，且路由器必须能够处理可能出现的地址冲突，因为因特网地址基本都是假定一台服务器只有一个地址的。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/gvuBlGIYhNzgbeQq.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Nrh85dgCUJTPGFI.png"
+                      alt="image _2_.png"
                 ></p>
 <h3 id="20-4-4IP-MAC转发"><a href="#20-4-4IP-MAC转发" class="headerlink" title="20.4.4IP MAC转发"></a>20.4.4IP MAC转发</h3><p>在以太网中，HTTP报文都是以携带地址的数据分组的形式发送的。每个分组有一个的MAC地址，这是第二层设备（通常是交换机和HUB）会接收具有特定输入MAC地址的分组，然后将其转发到特定的输出MAC地址上去。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wg6sv971ZBqMMy4c.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/VEoGWqiDmRNaLZB.png"
+                      alt="image _3_.png"
                 ></p>
 <p>通常，如果缓存中没有请求需要的HTTP内容，代理缓存就会代表客户端向此内容的原始服务器发送一条HTTP请求。交换机会将端口80的请求从代理（MAC6）发送给因特网网关（MAC5）</p>
 <p>支持MAC转发的第四层交换机通常会将请求转发给几个代理缓存，并在它们之间平衡负载。因为MAC地址转发只是点对点的，所以服务器或代理只能位于离交换机一跳远的地方。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/suezzXP36gkSuRWQ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2TdyikbQZLY1IWJ.png"
+                      alt="QQ截图20210304204846.png"
                 ></p>
 <h3 id="20-4-5-IP地址转发"><a href="#20-4-5-IP地址转发" class="headerlink" title="20.4.5 IP地址转发"></a>20.4.5 IP地址转发</h3><p>在IP地址转发中，交换机或其他第四层设备会检测输入分组中的TCP/IP地址，并通过修改目的IP地址，对分组进行相应的转发。与MAC转发相比，优点是目标服务器只要位于交换机的上游就行，而非一跳远的地方，而且通常第三层的端到端因特网路由都会将分组传送到正确的地方。</p>
 <p>这种类型的转发也称为NAT（Network Address Translation，网络地址转换）。</p>
@@ -1496,8 +1313,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/OmPVDAXtOy1Xw1Se.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/pyioQk2YVaBXsEc.png"
+                      alt="image _4_.png"
                 ></p>
 <p>有以下两种方式可以控制响应的返回路径。</p>
 <ol>
@@ -1519,8 +1336,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/RoX5gd0y8oWnbVCP.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/FOXqjtdfATC1lBo.png"
+                      alt="image _5_.png"
                 ></p>
 <h2 id="20-6-缓存重定向方法"><a href="#20-6-缓存重定向方法" class="headerlink" title="20.6 缓存重定向方法"></a>20.6 缓存重定向方法</h2><p>WCCP协议可以使路由器将Web流量重定向到代理缓存中去。WCCP负责路由器和缓存服务器之间的通信，这样路由器就可以对缓存进行验证（确保启动且运行），在缓存之间进行负载均衡，并将特定类型的流量发送给特定的缓存了。</p>
 <p>下面是WCCP重定向在HTTP上工作过程的概述。</p>
@@ -1539,8 +1356,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wdlgcE57WzFyA8Oh.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/54XhGHIWUtJS1cz.png"
+                      alt="image _6_.png"
                 ></p>
 <h2 id="20-8-缓存阵列路由协议"><a href="#20-8-缓存阵列路由协议" class="headerlink" title="20.8 缓存阵列路由协议"></a>20.8 缓存阵列路由协议</h2><p>通过CARP（缓存阵列路由协议）协议来管理一组代理服务器，多个代理服务器的负载分散到一组服务器上。CARP是ICP的一个替代品。它们都允许管理者通过使用多个代理服务器来提高性能。</p>
 <p>通过ICP协议连接起来的每个代理服务器都是将内容进行了冗余镜像的独立缓存服务器，在不同的代理服务器之间复制Web对象条目是可行的。相反，用CARP连接起来的一组服务器会被当作一个大型的缓存服务器，其中每个组件服务器都只包含全部缓存文档中的一部分。</p>
@@ -1549,8 +1366,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ffxXEPOeNFzeXx7X.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/GYDefJaBXAbCdS4.png"
+                      alt="image _7_.png"
                 ></p>
 <h2 id="20-9-超文本缓存协议（略）"><a href="#20-9-超文本缓存协议（略）" class="headerlink" title="20.9 超文本缓存协议（略）"></a>20.9 超文本缓存协议（略）</h2><p>HTCP（超文本缓存协议）允许兄弟缓存之间通过URL和所有的请求及响应首部来相互查询文档是否存在，以降低错误命中的可能。而且HTCP允许兄弟缓存监视或请求在对方的缓存中添加或删除所选中的文档，并修改对方已缓存文档的缓存策略。ICP和HTCP事务之间的区别体现在请求和响应细节上。</p>
 ]]></content>
@@ -1586,8 +1403,8 @@
 <h4 id="2-3-2-1-第一个阶段：从网页的URL到构建DOM树"><a href="#2-3-2-1-第一个阶段：从网页的URL到构建DOM树" class="headerlink" title="2.3.2.1 第一个阶段：从网页的URL到构建DOM树"></a>2.3.2.1 第一个阶段：从网页的URL到构建DOM树</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/uSXBGLwftTz59OfO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/lirgHwQ6LBcDU7u.png"
+                      alt="uSXBGLwftTz59OfO__thumbnail.png"
                 ></p>
 <p>具体的过程如下：</p>
 <ol>
@@ -1604,8 +1421,8 @@
 <h4 id="2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文"><a href="#2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文" class="headerlink" title="2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文"></a>2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/5zAmE3T5IrREBagI__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/BxFNhne3Lwm76ld.png"
+                      alt="5zAmE3T5IrREBagI__thumbnail.png"
                 ></p>
 <p>这一阶段的具体过程如下。</p>
 <ol>
@@ -1617,8 +1434,8 @@
 <h4 id="2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。"><a href="#2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。" class="headerlink" title="2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。"></a>2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3oObbcPTpx9gzPCi__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/XrFjB2oaqOKkg85.png"
+                      alt="3oObbcPTpx9gzPCi__thumbnail.png"
                 ></p>
 <p>图中这一阶段对应的具体过程如下。</p>
 <ol>
@@ -1660,15 +1477,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/0daCvmpdLOgUMBoZl.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/SejVWMfxqd1UJwC.png"
+                      alt="0daCvmpdLOgUMBoZ__thumbnail.png"
                 ></p>
 <h3 id="4-1-2-资源缓存"><a href="#4-1-2-资源缓存" class="headerlink" title="4.1.2 资源缓存"></a>4.1.2 资源缓存</h3><p>资源的缓存机制的基本思想是建立一个资源的缓存池，当WebKit需要请求资源的时候，先从资源池中查找是否存在相应的资源。WebKit从资源池中查找资源的关键字是URL。如果没有，WebKit创建一个新的CachedResource子类的对象，并发送真正的请求给服务器，WebKit收到资源后将其设置到该资源类的对象中去，以便于缓存后下次使用。这里的缓存指的是内存缓存，而不同于在网络栈部分的磁盘缓存。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/DADmcG38TQhFjPbK.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/NrcO3mnTpqWfUKH.png"
+                      alt="DADmcG38TQhFjPbK__thumbnail.png"
                 ></p>
 <h3 id="4-1-3-资源加载器"><a href="#4-1-3-资源加载器" class="headerlink" title="4.1.3 资源加载器"></a>4.1.3 资源加载器</h3><p>按照加载器的类型来分，WebKit 总共有三种类型的加载器。</p>
 <ol>
@@ -1677,8 +1494,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3IcXzyYa57u2Lz0U.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/UpEoau5rzePs2xg.png"
+                      alt="3IcXzyYa57u2Lz0U__thumbnail.png"
                 ></p>
 <ol start="2">
 <li><strong>资源缓存机制的资源加载器</strong>，特点是所有特定加载器都共享它来查找并插入缓存资源——<strong>CachedResourceLoader类</strong>。特定加载器先是通过缓存机制的资源加载器来查找是否有缓存资源，它属于HTML的文档对象。</li>
@@ -1686,8 +1503,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Lql2quYaEeTXRUBf.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/YqjmButO51IrWMH.png"
+                      alt="Lql2quYaEeTXRUBf__thumbnail.png"
                 ></p>
 <ol start="3">
 <li><strong>通用的资源加载器</strong>——ResourceLoader类，是在WebKit需要从网络或者文件系统获取资源的时候使用该类只负责获得资源的数据，因此被所有特定资源加载器所共享。它属于CachedResource类，但它同CachedResourceLoader类没有继承关系，这容易混淆。</li>
@@ -1695,15 +1512,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/yxLtJhDragnUUhta.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/oCLGxvzqYsTiM4B.png"
+                      alt="yxLtJhDragnUUhta__thumbnail.png"
                 ></p>
 <h3 id="4-1-4-过程"><a href="#4-1-4-过程" class="headerlink" title="4.1.4 过程"></a>4.1.4 过程</h3><p>下图是一个带有资源缓存机制的资源加载的全过程，包括资源已经在缓存中和不在缓存中两种情况。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/gVXqqiTMWy0JHXYe.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/S5sq3j2B7AJkh8Z.png"
+                      alt="gVXqqiTMWy0JHXYe__thumbnail.png"
                 ></p>
 <p>通常一些资源的加载是异步执行的，资源的获取和加载不会阻碍当前WebKit的渲染过程，例如图片、CSS文件。但网页也存在某些特别的资源会阻碍主线程的渲染过程，例如JavaScript代码文件。这会严重影响WebKit下载资源的效率，因为后面可能还有许多需要下载的资源。</p>
 <p>webkit的解决方案：当前的主线程被阻碍时，WebKit 会启动另外一个线程去遍历后面的HTML网页，收集需要的资源URL，然后发送请求，避免被阻碍。同时WebKit 能够并发下载这些资源，甚至并发下载JavaScript代码资源。</p>
@@ -1713,8 +1530,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/sqo0VXyFsDg0m6zY.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zRYpIGO153oBacy.png"
+                      alt="sqo0VXyFsDg0m6zY__thumbnail.png"
                 ></p>
 <p>Renderer进程在网页的加载过程中需要获取资源，但是由于安全性（当沙箱模型打开的时候，Renderer进程是没有权限去获取资源的）和效率上（资源共享等问题）的考虑，Renderer进程的资源获取实际上是通过进程间通信将任务交给Browser进程来完成，Browser 进程有权限从网络或者本地获取资源。</p>
 <p>在Chromium架构的Renderer进程中，ResourceHandleInternal 类通过IPCResource-LoaderBridge类同Browser进程通信。IPCResourceL oaderBridge类继承自ResourceL oaderBridge类，其作用是负责发起请求的对象和回复结果的解释工作，实际消息的接收和派发交给ResourceDispatcher类来处理。</p>
@@ -1724,8 +1541,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/byBPW6KAwIpeU5mS.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/oaZmxBWi7Gp9IN3.png"
+                      alt="byBPW6KAwIpeU5mS__thumbnail.png"
                 ></p>
 <p>图中还有两个ResourceHandle子类，第一个是LayeredResourceHandle类，它同SyncResourceHandle类和AsyncResourceHandle类不一样，自己不直接参与资源的处理，而是将处理转给另一个ResourceHandle对象。LayeredResourceHandle 类没有实际意义，仅是BufferedResourceHandle的父类。该缓冲类用来缓冲网络或者文件传过来的数据，直到数据足够满足需求然后转给设置的另一个ResourceHandle对象。Throttling-ResourceHandle类是在面对很多个资源请求时仅使用一个URLRequest对象来获取资源，这可以有效地减少网络的开销，因为不需要重新建立多个网络连接。</p>
 <p>此外，在Chromium中还有很多ResourceHandle的子类，它们的作用各异。</p>
@@ -1742,15 +1559,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/i4uSsMXfcjQTaa2X.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/nOMpuIyAZlef94V.png"
+                      alt="i4uSsMXfcjQTaa2X__thumbnail.png"
                 ></p>
 <h4 id="4-3-2-2-网络栈结构"><a href="#4-3-2-2-网络栈结构" class="headerlink" title="4.3.2.2 网络栈结构"></a>4.3.2.2 网络栈结构</h4><p>下图描述了从URLRequest类到Socket类之间的调用过程。以HTTP协议为例，图中列出建立TCP的socket连接过程中涉及的类。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/icP92vja3jnJnFsb.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/G1TS9n3xUDeQcmR.png"
+                      alt="icP92vja3jnJnFsb__thumbnail.png"
                 ></p>
 <p>首先是URLRequest类被上层调用并启动请求的时候，它会根据URL的“scheme”来决定需要创建什么类型的请求。“scheme”也就是URL的协议类型，例如“http://”、“fle://”，也可以是自定义的scheme，例如Android系统的“fle://android asset/”。URLRequest对象创建的是一个URLRequestJob子类的一个对象，例如图中的URLRequestHttpJob类。为了支持自定义的scheme：处理方式，Chromium使用工厂模式。URLRequestJob 类和它的工厂类URLRequestJobFactory 的管理工作都由URLRequestJlobManager类负责。基本的思路是，用户可以在该类中注册多个工厂，当有URLRequest请求时，先由工厂检查它是否需要处理该“scheme”，如果没有，工厂管理类继续交给下一个工厂“类来处理。最后，如果没有任何工厂能够处理，Chromium则交给内置的工厂来检查和处理是否为“http://“、“http:/“或者“fle://”</p>
 <p>等，图4-15用来描述这些类的关系。.</p>
@@ -1758,8 +1575,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3x9ruL4MGbG59Khg.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/hCIzoRZM2B4udwF.png"
+                      alt="3x9ruL4MGbG59Khg__thumbnail.png"
                 ></p>
 <p>再次，HttpNetworkTransaction 类使用HttpNetworkSession 类来管理连接会话。</p>
 <p>HttpNetworkSession类通过它的成员HttpStreamFactory 对象来建立TCP Socket连接，之后Chromium创建HttpStream对象。HttpStreamFactory对象将和网络之间的数据读写交给自己新创建的一一个HttpStream子类的对象来处理。</p>
@@ -1767,8 +1584,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Ssn77qEXGwUk9Sqv.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/g3BnOhN1L8UfWqZ.png"
+                      alt="Ssn77qEXGwUk9Sqv__thumbnail.png"
                 ></p>
 <h4 id="4-3-2-3-代理"><a href="#4-3-2-3-代理" class="headerlink" title="4.3.2.3 代理"></a>4.3.2.3 代理</h4><p>当用户设置代理时，上面的网络栈结构是如何组织的呢？用户代理依赖以下类来处理。</p>
 <ol>
@@ -1779,13 +1596,12 @@
 <li>ProxyResolverV8：ProxyResolver的子类，使用V8引擎来解析和执行脚本。</li>
 </ol>
 <p>下图不仅描述上面这些类，也描述了Chromium中获取网络代理的过程。图中数字代表获取网络代理的次序，其中的分支3.1和4.1分别表示简单的代理设置和代理脚本设置的处理过程。</p>
-<p><img  
+<h4 id="4-3-2-4-域名解析（DNS）"><a href="#4-3-2-4-域名解析（DNS）" class="headerlink" title="4.3.2.4 域名解析（DNS）"></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Fb9e4AescqSYA2fZ.png"
-                      alt="图片"
-                ></p>
-<h4 id="4-3-2-4-域名解析（DNS）"><a href="#4-3-2-4-域名解析（DNS）" class="headerlink" title="4.3.2.4 域名解析（DNS）"></a>4.3.2.4 域名解析（DNS）</h4><p>通常情况下，用户都是使用域名来访问网络资源的，所以在建立TCP连接前需要解析域名。Chromium中使用HostResolverImpl类来解析域名，具体调用的函数是“getaddrinfo（）”，该函数是一个阻塞式的函数，所以Chromium理所当然使用单独的线程来处理它，这是Chromium的原则之一。因此当调试Chromium的进程时，会看到很多线程被创建然后退出。</p>
+                     data-src="https://i.loli.net/2021/03/08/rLt2XjCBhMSAqKv.png"
+                      alt="Fb9e4AescqSYA2fZ__thumbnail.png"
+                >4.3.2.4 域名解析（DNS）</h4><p>通常情况下，用户都是使用域名来访问网络资源的，所以在建立TCP连接前需要解析域名。Chromium中使用HostResolverImpl类来解析域名，具体调用的函数是“getaddrinfo（）”，该函数是一个阻塞式的函数，所以Chromium理所当然使用单独的线程来处理它，这是Chromium的原则之一。因此当调试Chromium的进程时，会看到很多线程被创建然后退出。</p>
 <p>为了考虑效率，使用HostCache类来保存解析后的域名，最多时会有多达1000个的域名和地址映射关系会被存储起来。看起来DNS的解析很简单，好像也没有什么值得深究的，其实不然，域名解析也可以有优化的空间，因为优化可以有效的减少用户等待的时间。</p>
 ]]></content>
       <categories>
@@ -1795,201 +1611,6 @@
       </categories>
       <tags>
         <tag>WebKit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>04-链接管理</title>
-    <url>/2021/01/23/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h2 id="4-1-TCP链接"><a href="#4-1-TCP链接" class="headerlink" title="4.1 TCP链接"></a>4.1 TCP链接</h2><h3 id="4-1-1-TCP的可靠数据管道"><a href="#4-1-1-TCP的可靠数据管道" class="headerlink" title="4.1.1 TCP的可靠数据管道"></a>4.1.1 TCP的可靠数据管道</h3><p>HTTP连接实际，上就是TCP连接和一些使用连接的规则，TCP为HTTP提供了一条可靠的比特传输管道。</p>
-<h3 id="4-1-2-TCP流、IP分组"><a href="#4-1-2-TCP流、IP分组" class="headerlink" title="4.1.2 TCP流、IP分组"></a>4.1.2 TCP流、IP分组</h3><p>TCP的数据是通过IP分组（IP 数据报）的小数据块来发送的。安全版本HTTPS就是在HTTP和TCP之间插入了一个（称为TLS或SSL的）密码加密层图。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EcJv4cg2UJABtNpp.png"
-                      alt="图片"
-                ></p>
-<p>TCP段是由IP分组承载。每个IP分组中包括：</p>
-<pre><code>    1. 一个IP分组首部，包含源和目的IP地址、长度和其他一些标记（通常为20字节）；
-    2. 一个TCP段首部包含了TCP端口号、TCP控制标记，以及用于数据排序和完整性检查的一些数字值。（通常为20字节）；
-    3. 一个TCP数据块（0个或多个字节）。</code></pre>
-<h3 id="4-1-3-TCP连接的正确运行"><a href="#4-1-3-TCP连接的正确运行" class="headerlink" title="4.1.3 TCP连接的正确运行"></a>4.1.3 TCP连接的正确运行</h3><p>计算机随时都有几条TCP连接处于打开状态，TCP 通过端口号来保持连接的正确运行。</p>
-<p>TCP连接通过4个值来识别：&lt;<strong>源IP地址、源端口号、目的IP地址、目的端口号</strong>&gt;。这4个值唯一地定义了一条连接。两条不同的TCP连接不能拥有4个完全相同的地址组件值（但不同连接的部分组件可以拥有相同的值）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/46GDogLOzoqcLen7.png"
-                      alt="图片"
-                ></p>
-<h3 id="4-1-4-TCP套接字编程"><a href="#4-1-4-TCP套接字编程" class="headerlink" title="4.1.4 TCP套接字编程"></a>4.1.4 TCP套接字编程</h3><p>操作系统提供了一些操纵其TCP连接的工具。我们来看一个TCP编程接口。这个套接字API向HTTP程序员隐藏了TCP和IP的所有细节。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qv4I1NjxFUOC6xh8.png"
-                      alt="图片"
-                ></p>
-<p>套接字API允许用户创建TCP的端点数据结构，将这些端点与远程服务器的TCP端点进行连接，并对数据流进行读写。TCP API隐藏了所有底层网络协议的握手细节，以及TCP数据流与IP分组之间的分段和重装细节。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/vAn3ica3x7NtExWZ.png"
-                      alt="图片"
-                ></p>
-<p>从Web服务器等待连接（S4）开始。客户端根据URL判定出IP地址和端口号，并建立一条到服务器的TCP连接（C3）。</p>
-<p>建立连接后，客户端就会发送HTTP请求（C5），服务器读取请求（S6）。一旦服务器获取了整条请求报文，就会对请求进行处理，执行所请求的动作（S7），并将数据写回客户端。客户端读取数据（C6），并对响应数据进行处理（C7）。</p>
-<h2 id="4-2-TCP性能"><a href="#4-2-TCP性能" class="headerlink" title="4.2 TCP性能"></a>4.2 TCP性能</h2><h3 id="4-2-1-HTTP事务的时延"><a href="#4-2-1-HTTP事务的时延" class="headerlink" title="4.2.1 HTTP事务的时延"></a>4.2.1 HTTP事务的时延</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/N1zHevdCojb7owBy.png"
-                      alt="图片"
-                ></p>
-<p>与建立TCP连接、传输请求、响应报文的时间相比，事务处理可能是很短的，除非客户端或服务器超载，或正处理复杂的动态资源，否则HTTP时延就是由TCP网络时延构成的。</p>
-<p>HTTP事务的时延原因：</p>
-<p>（1）<strong>DNS解析</strong>，但大多数HTTP客户端都有一个小的DNS缓存，用来保存近期所访问站点的IP地址，可以很快地将主机名解析出来。</p>
-<p>（2）客户端会向服务器发送一条TCP连接请求，并等待服务器回送请求接受应答。每条新的<strong>TCP连接的连接建立时延</strong>，最多只有一两秒钟，但如果有数百个HTTP事务的话，这个值会很高。</p>
-<p>（3）连接建立后，客户端就会通过新建立的TCP管道来发送HTTP请求。数据到达时，Web服务器从TCP连接中<strong>读取请求报文</strong>，并<strong>处理请求报文</strong>，因特网<strong>传输请求报文</strong>、服务器处理请求报文都需要时间。</p>
-<p>（4）Web服务器会<strong>回送HTTP响应</strong>，这些TCP网络时延的大小取决于<strong>硬件速度</strong>、<strong>网络和服务器的负载</strong>，<strong>请求和响应报文的尺寸</strong>，以及客户端和服务器之间的<strong>距离</strong>。<strong>TCP协议的技术复杂性</strong>也会对时延产生巨大的影响。</p>
-<h3 id="4-2-2-TCP相关时延"><a href="#4-2-2-TCP相关时延" class="headerlink" title="4.2.2 TCP相关时延"></a>4.2.2 TCP相关时延</h3><pre><code>1. TCP连接建立握手，
-2. 用于捎带确认的TCP延迟确认算法
-3. TCP慢启动拥塞控制；
-4. 数据聚集的Nagle算法；
-5. TIME_WAIT时延和端口耗尽。</code></pre>
-<h4 id="4-2-2-1-TCP连接的握手时延"><a href="#4-2-2-1-TCP连接的握手时延" class="headerlink" title="4.2.2.1 TCP连接的握手时延"></a>4.2.2.1 TCP连接的握手时延</h4><p>建立一条新的TCP连接时，甚至是在发送任意数据之前，TCP软件之间会交换一系列的IP分组，对连接的有关参数进行沟通。如果连接用来传送少量数据，这些交换过程就会降低HTTP的性能。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/McjEXqUcLmE8y4Qe.png"
-                      alt="图片"
-                ></p>
-<p><strong>TCP连接握手步骤:</strong></p>
-<pre><code>1. 请求新的TCP连接时，客户端要向服务器发送一个小的TCP分组（通常是40 ~60个字节）。这个分组中设置了一个特殊的SYN标记，说明这是一个连接请求（参见a）。
-2. 如果服务器接受连接，会对一些连接参数进行计算，并向客户端回送一个TCP分组，这个分组中的SYN和ACK标记都被置位，说明连接请求已被接受（参见b）。
-3. 最后，客户端向服务器回送一条确认信息，通知它连接已成功建立（参见图c）。现代的TCP栈都允许客户端在这个确认分组中发送数据。</code></pre>
-<p>通常HTTP事务不会交换太多数据，SYN/SYN+ACK握手会产生一个可测量的时延。TCP连接的ACK分组通常都足够承载整个HTTP请求报文，而且很多HTTP服务器响应报文都可以放人一个IP分组中去。最后导致小的HTTP事务可能会在TCP建立上花费50%，或更多的时间。</p>
-<h4 id="4-2-2-2-延迟确认"><a href="#4-2-2-2-延迟确认" class="headerlink" title="4.2.2.2 延迟确认"></a>4.2.2.2 延迟确认</h4><p>每个TCP段有一个序列号和数据完整性校验和，来确保数据的成功传输。接收者收到完好的段时，会向发送者回送确认分组。如果发送者没有在指定时间内收到确认信息，发送者就认为分组已破坏或损毁，会重发数据。</p>
-<p>由于确认报文很小，所以TCP允许在发往相同方向的输出数据分组中对其进行“<strong>捎带</strong>”。TCP将返回的确认信息与输出的数据分组结合在一起。</p>
-<p>为增加确认报文找到同向传输数据分组的可能，TCP栈实现了一种<strong>“延迟确认”算法，</strong>会在一个特定的窗口时间（通常100 ~ 200毫秒）内将输出确认存放在缓冲区中，以寻找能捎带它的输出数据分组。如果在那个时间段内没有输出数据分组，就将确认信息放在单独的分组中传送。</p>
-<p>但是，HTTP具有双峰特征的请求-应答行为，导致当希望有相反方向回传分组的时候，偏偏没有那么多。</p>
-<p>延迟确认算法会引入相当大的时延。根据所使用操作系统的不同，可以调整或禁止延迟确认算法。</p>
-<h4 id="4-2-2-3-TCP慢启动"><a href="#4-2-2-3-TCP慢启动" class="headerlink" title="4.2.2.3 TCP慢启动"></a>4.2.2.3 TCP慢启动</h4><p>TCP数据传输的性能还取决于TCP连接的使用期（age）。TCP连接会随着时间进行自我“调谐”，起初会限制连接的最大速度，如果数据成功传输，会随着时间的推移提高传输的速度。这种调谐被称为TCP慢启动（slow start），防止因特网的突然过载和拥塞。</p>
-<p>TCP慢启动限制了一个TCP端点在任意时刻可以传输的分组数。HTTP事务不能一次将所有分组都发送出去，必须发送一个分组，等待确认，才可以发送两个分组，再次被确认，就可以发送四个分组，以此类推。这种方式被称为“打开拥塞窗口”。</p>
-<p>由于这种拥塞控制特性，新连接的传输速度会比已经交换过数据的“已调谐”连接慢。</p>
-<h4 id="4-2-2-4-Nagle算法与TCP-NODELAY"><a href="#4-2-2-4-Nagle算法与TCP-NODELAY" class="headerlink" title="4.2.2.4 Nagle算法与TCP_NODELAY"></a>4.2.2.4 Nagle算法与TCP_NODELAY</h4><p>TCP有数据流接口，每个TCP段中都至少装载了40个字节的标记和首部，所以如果TCP发送了大量包含少量数据的分组，网络的性能会下降。</p>
-<p><strong>Nagle算法</strong>：试图在发送一个分组之前，将大量TCP数据绑定在一起，以提高网络效率。Nagle算法鼓励发送全尺寸的段，只有当所有其他分组都被确认之后，才发送非全尺寸的分组。如果其他分组仍在传输中，就将那部分数据缓存起来。只有当挂起分组被确认，或者缓存中积累了足够发送一个全尺寸分组的数据时，才会将缓存的数据发送出去。</p>
-<p><strong>Nagle算法缺陷</strong>：首先，小的HTTP报文可能无法填满一个分组，可能会因为等待那些永远不会到来的额外数据而产生时延。其次，Nagle算法与延迟确认之间的交互存在问题，Nagle算法会阻止数据的发送，直到有确认分组抵达为止，但确认分组自身会被延迟确认算法延迟100 ~ 200毫秒。</p>
-<p>HTTP应用程序通常设置参数TCP_NODELAY，禁用Nagle算法，这样须确保会向TCP写入大块的数据，不会产生一堆小分组。</p>
-<h4 id="4-2-2-5-TIME-WAIT累积与端口耗尽"><a href="#4-2-2-5-TIME-WAIT累积与端口耗尽" class="headerlink" title="4.2.2.5 TIME__WAIT累积与端口耗尽"></a>4.2.2.5 TIME__WAIT累积与端口耗尽</h4><p>当某个TCP端点关闭TCP连接时，会在内存中维护一个小的控制块，用来记录最近所关闭连接的IP地址和端口号，维持的时间，是最大分段使用期的两倍（称为2MSL，通常为2分钟）左右，以确保在这段时间内不会创建具有相同地址和端口号的新连接。这也防止之前连接的复制分组插入了具有相同连接值的新TCP流，会破坏TCP数据。</p>
-<p>但在性能基准测试时，TIME__WAIT 也限制了可用的连接值组合。因为在只有一个客户端和一台Web服务器的情况下，构建一条TCP连接的4个值，只有源端口号可以随意改变，客户端每次连接到服务器上去时，都会获得一个新的源端口，以实现连接的唯一性。但由于可用源端口的数量有限，而且在2MSL秒内连接是无法重用的，连接率就被限制了。</p>
-<p>可以增加客户端负载生成机器的数量，或者确保客户端和服务器在循环使用几个虚拟IP地址以增加更多的连接组合。</p>
-<p>即使没有遇到端口耗尽问题，也要小心有大量连接处于打开状态的情况，或为处于等待状态的连接分配了大量控制块的情况。在有大量打开连接或控制块的情况下，有些操作系统的速度会减缓。</p>
-<h2 id="4-3-HTTP链接的处理"><a href="#4-3-HTTP链接的处理" class="headerlink" title="4.3 HTTP链接的处理"></a>4.3 HTTP链接的处理</h2><h3 id="4-3-1-connection首部"><a href="#4-3-1-connection首部" class="headerlink" title="4.3.1 connection首部"></a>4.3.1 connection首部</h3><p>Connection首部有3种类型的标签：</p>
-<pre><code>1. HTTP 首部字段名，列出了只与此连接有关的首部；
-2. 任意标签值，用于描述此连接的非标准选项；
-3. 值close，说明操作完成之后需关闭这条持久连接。</code></pre>
-<p>如果连接标签中包含了HTTP首部字段的名称，那么这个首部字段就包含了与一些连接有关的信息，不能将其转发，在将报文转发出去之前，删除Connection所列出的首部字段以及自身。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/MWKLFwHwkjmuqWQY.png"
-                      alt="图片"
-                ></p>
-<h3 id="4-3-2-串行事务处理时延"><a href="#4-3-2-串行事务处理时延" class="headerlink" title="4.3.2 串行事务处理时延"></a>4.3.2 串行事务处理时延</h3><p>串行加载缺点：1、叠加链接时延和慢启动时延。2、有些浏览器需要完全加载后才显示。</p>
-<p>新的链接方法：</p>
-<pre><code>1. 并行连接：通过多条TCP连接发起并发的HTTP请求。
-2. 持久连接：重用TCP连接，以消除连接及关闭时延。
-3. 管道化连接：通过共享的TCP连接发起并发的HTTP请求。
-4. 复用的连接：交替传送请求和响应报文（实验阶段）。</code></pre>
-<h2 id="4-4-并行链接"><a href="#4-4-并行链接" class="headerlink" title="4.4 并行链接"></a>4.4 并行链接</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/E02QnUnHmeOPbogJ.png"
-                      alt="图片"
-                ></h2><p>并行链接的优点：</p>
-<pre><code>1. 每个事务都有自己的连接，装载是并行的，连接的时延也是重叠的。（嵌入的组件不一定都在同一台Web服务器上，可以同多台服务器建立并行的连接）。
-2. 可以让用户感觉更快。</code></pre>
-<p>并行链接的缺点：</p>
-<pre><code>1. 如果并行加载多个对象，每个对象竞争有限的带宽，都会以较慢的速度按比例加载。
-2. 打开大量连接会消耗很多内存资源，从造成服务器、代理性能的下降。
-3. 由于TCP慢启动特性，每条新连接的性能都会有所降低。</code></pre>
-<p>浏览器一般会将并行连接的总数限制为4个。服务器可以随意关闭来自特定客户端的超量连接。</p>
-<h2 id="4-5-持久链接"><a href="#4-5-持久链接" class="headerlink" title="4.5 持久链接"></a>4.5 持久链接</h2><p><strong>站点本地性</strong>（site locality）：Web客户端经常打开到同一个站点的连接。因此，初始化了对某服务器HTTP请求的应用程序可能会对那台服务器不久发起更多的请求。</p>
-<p><strong>持久连接</strong>：HTTP设备在事务处理结束之后将TCP连接保持在打开状态，以便为未来的HTTP请求重用现存的连接，直到客户端或服务器决定将其关闭为止。</p>
-<p>优点：避开缓慢的连接建立阶段；避免慢启动的拥塞适应阶段。</p>
-<p>缺点：累积出大量的空闲连接，耗费本地以及远程客户端和服务器上的资源。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/RUOT3rgreZZqeDQ5.png"
-                      alt="图片"
-                ></p>
-<p>持久连接与并行连接配合使用是高效的方式。通常，Web应用程序打开少量的并行连接，其中的每一个都是持久连接。</p>
-<p>持久连接有两种类型：比较老的**”keep-alive”连接<strong>，现代的</strong>“persistent”连接**</p>
-<h3 id="4-5-1-HTTP-1-0-keep-alive连接"><a href="#4-5-1-HTTP-1-0-keep-alive连接" class="headerlink" title="4.5.1 HTTP/1.0+   keep-alive连接"></a>4.5.1 HTTP/1.0+   keep-alive连接</h3><p>客户端通过包含Connection：Keep-Alive首部请求，将一条连接保持在打开状态。如果服务器可以，就在响应中包含相同的首部，否则说明服务器不支keep-alive，会在发回响应报文之后关闭连接。</p>
-<p>只有当连接上的报文，实体主体部分的长度都和相应的Content-Length一致，有多部件媒体类型，或是用分块传输编码方式编码的，连接才能持久保持。</p>
-<p>Keep-Alive通用首部中指定的、由逗号分隔的选项来调节keep-alive的行为：</p>
-<pre><code>1. 参数**timeout**在Keep-Alive响应首部发送，服务器希望将连接保持在活跃状态的时间。
-2. 参数**max**在Keep-Alive响应首部发送，服务器希望为多少个事务保持此连接的活跃状态。
-3. Keep-Alive首部支持任意未经处理的属性，用于诊断和调试。语法为name[=value]。</code></pre>
-<h4 id="4-5-1-1-哑代理"><a href="#4-5-1-1-哑代理" class="headerlink" title="4.5.1.1 哑代理"></a>4.5.1.1 哑代理</h4><p>老的或简单的代理都是<strong>盲中继</strong>（blind relay），只是将字节从一个连接转发到另一个连接中去，不对Connection首部进行特殊的处理。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EBTdTrTeWy3Jfd15.png"
-                      alt="图片"
-                ></p>
-<p>后果：客户端和服务器都认为它们在进行keep-alive对话，但代理等待源端服务器关闭连接，源端服务器认为连接保持在打开状态，所以不会去关闭连接，反而立即转向下一条请求。而代理并不认为同一条连接上会有其他请求，<strong>请求被忽略</strong>。这会使浏览器<strong>一直处于挂起状态</strong>，直到客户端或服务器将连接超时，并将其关闭为止。</p>
-<p>有几个不能作为Connection首部值列出，包括Proxy-Authenticate、Proxy-Connection、</p>
-<p>Transfer-Encoding和Upgrade。</p>
-<h4 id="4-5-1-2-插入Proxy-Connection解决哑代理"><a href="#4-5-1-2-插入Proxy-Connection解决哑代理" class="headerlink" title="4.5.1.2 插入Proxy-Connection解决哑代理"></a>4.5.1.2 插入Proxy-Connection解决哑代理</h4><p>浏览器向代理发送非标准的Proxy-Connection扩展首部，而不是官方支持的Connection首部。如果代理是盲中继，将无意义的Proxy-Connection首部转发给Web服务器，服务器会忽略此首部，否则就用Connection首部取代Proxy-Connection首部，然后将其发送给服务器。</p>
-<p>对有多层次代理的情况，Proxy-Connection 仍然无法解决问题。</p>
-<h3 id="4-5-2-HTTP-1-1-持久连接"><a href="#4-5-2-HTTP-1-1-持久连接" class="headerlink" title="4.5.2 HTTP/1.1  持久连接"></a>4.5.2 HTTP/1.1  持久连接</h3><p><strong>持久连接（</strong>persistent connection），在默认情况下是激活的。除非向报文中显式地添加一个Connection：close首部。但客户端和服务器仍然可以随时关闭空闲的连接。不发送Connection:close并不意味着服务器承诺永远将连接保持在打开状态。</p>
-<p>只有当连接上的报文，实体主体部分的长度都和相应的Content-Length一致，或是用分块传输编码方式编码的，连接才能持久保持。</p>
-<p>一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载。</p>
-<h2 id="4-6-管道化连接"><a href="#4-6-管道化连接" class="headerlink" title="4.6 管道化连接"></a>4.6 管道化连接</h2><p>HTTP/1.1允许在持久连接上可选地使用<strong>请求管道</strong>。在响应到达之前，可以将多条请求放入队列。当第一条请求流向服务器时，第二条和第三条请求也可以开始发送了。在高时延网络条件下，这样做可以降低网络的环回时间，提高性能。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SmB3DWYPPxzXolFI.png"
-                      alt="图片"
-                ></p>
-<p>管道化连接的限制：</p>
-<ol>
-<li>HTTP客户端确认是持久连接，才能使用管道。</li>
-<li>必须按照与请求相同的顺序回送HTTP响应。HTTP报文中没有序列号标签，因此如果收到的响应失序了，就没办法将其与请求匹配起来了。</li>
-<li>HTTP客户端必须做好连接会在任意时刻关闭的准备，还要准备好重发所有未完成的管道化请求。</li>
-<li>HTTP客户端不应该用管道化的方式发送会产生副作用的请求（比如POST）。出错的时候，管道化方式会阻碍客户端了解服务器执行的是一系列管道化请求中的哪一些。<h2 id="4-7-关闭连接"><a href="#4-7-关闭连接" class="headerlink" title="4.7 关闭连接"></a>4.7 关闭连接</h2></li>
-</ol>
-<h3 id="4-7-1-任意解除连接"><a href="#4-7-1-任意解除连接" class="headerlink" title="4.7.1 任意解除连接"></a>4.7.1 任意解除连接</h3><p>所有HTTP客户端、服务器或代理都可以在任意时刻关闭一条TCP传输连接。通常会在一条报文结束时关闭连接，但也有可能出错，对管道化持久连接来说，这种情形是很常见的。</p>
-<h3 id="4-7-2-Content-Length及截尾操作"><a href="#4-7-2-Content-Length及截尾操作" class="headerlink" title="4.7.2 Content-Length及截尾操作"></a>4.7.2 Content-Length及截尾操作</h3><p>每条HTTP响应都应该有Content-Length首部。一些老的HTTP服务器会省略或者包含错误的长度指示，这就要依赖服务器发出的连接关闭来说明数据的真实末尾。</p>
-<p>客户端或代理收到一条随连接关闭而结束的HTTP响应，且实际传输的实体长度与Content-Length并不匹配或没有Content-Length时，接收端应该质疑长度的正确性。</p>
-<p>如果接收端是个缓存代理，不应该缓存这条响应（以降低今后将潜在的错误报文混合起来的可能），而是原封不动地转发出去，以维护语义的透明性。</p>
-<h3 id="4-7-3-连接关闭容限、重试、幂等性"><a href="#4-7-3-连接关闭容限、重试、幂等性" class="headerlink" title="4.7.3 连接关闭容限、重试、幂等性"></a>4.7.3 连接关闭容限、重试、幂等性</h3><p>如果在客户端执行事务的过程中，传输连接关闭了，除非事务处理会带来副作用，否则客户端就应该重新打开连接，并重试一次。对管道化连接来说，源端服务器关闭连接，就会留下大量未处理的请求，需要重新调度。</p>
-<p>如果一个事务，不管是执行几次，得到的结果都相同，这个事务就是<strong>幂等</strong>的。要发送一条非幂等请求，需要等待来自前一条请求的响应状态。</p>
-<p>用户Agent代理一定不能自动重试非幂等方法或序列。比如post订单，大多数浏览器都会提供一个对话框，询问用户是否希望再次发起事务处理。</p>
-<h3 id="4-7-4-正常关闭连接"><a href="#4-7-4-正常关闭连接" class="headerlink" title="4.7.4 正常关闭连接"></a>4.7.4 正常关闭连接</h3><h4 id="4-7-4-1-完全关闭与半关闭"><a href="#4-7-4-1-完全关闭与半关闭" class="headerlink" title="4.7.4.1 完全关闭与半关闭"></a>4.7.4.1 完全关闭与半关闭</h4><p>应用程序可以关闭TCP输入和输出信道中的任意一个或两者。</p>
-<p>套接字调用<strong>close（）</strong>将TCP连接的输入输出信道都关闭了，称作“<strong>完全关闭</strong>”，如图a所示。</p>
-<p>套接字调用<strong>shutdown（）</strong>单独关闭输入或输出信道，这被称为<strong>“半关闭”</strong>，如图b所示。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/HqfJNF2eliisLFNQ.png"
-                      alt="图片"
-                ></p>
-<h4 id="4-7-4-2-TCP关闭及重置错误"><a href="#4-7-4-2-TCP关闭及重置错误" class="headerlink" title="4.7.4.2 TCP关闭及重置错误"></a>4.7.4.2 TCP关闭及重置错误</h4><p>当应用程序开始与很多其他类型的HTTP客户端、服务器和代理进行对话且使用管道化持久连接时，使用半关闭来防止对等实体收到非预期的写入错误。</p>
-<p>关闭连接的输出信道总是安全的。连接另一端的对等实体会在从其缓冲区中读出所有数据之后收到一条通知，说明流结束了，知道连接关闭了。</p>
-<p>关闭连接的输入信道比较危险，除非知道另一端不再发送数据。如果向已关闭的输入信道发送数据，操作系统会回送一条TCP“<strong>连接被对端重置</strong>”报文，删除对端还未读取的所有缓存数据。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DZvhKCeOgaAwmwKW.png"
-                      alt="图片"
-                ></p>
-<h4 id="4-7-4-3-正常关闭"><a href="#4-7-4-3-正常关闭" class="headerlink" title="4.7.4.3 正常关闭"></a>4.7.4.3 正常关闭</h4><p>应用程序首先应该关闭它们的输出信道，然后等待另一端的对等实体关闭它的输出信道。当两端都知道不再发送数据（比如关闭输出信道）后，连接就会被完全关闭，不会有重置的危险。</p>
-<p>但不无法确保对等实体会实现半关闭，或对其进行检查。因此，想要正常关闭连接的应用程序应该先半关闭其输出信道，然后周期性地检查其输入信道的状态（查找数据，或流的末尾）。如果在一定的时间区间内对端没有关闭输入信道，应用程序可以强制关闭连接，以节省资源。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>04-链接管理</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -2013,8 +1634,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/pzJLam8z7mPDhlLa__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/zrlwpHmco57i2PW.png"
+                      alt="pzJLam8z7mPDhlLa__original.png"
                 ></p>
 <h2 id="5-5-1-第一步——接受客户端连接"><a href="#5-5-1-第一步——接受客户端连接" class="headerlink" title="5.5.1 第一步——接受客户端连接"></a>5.5.1 第一步——接受客户端连接</h2><p>如果客户端已经打开了一条到服务器的持久连接，可以使用那条连接来发送它的请求。否则，客户端需要打开一条新的到服务器的连接。</p>
 <h3 id="5-5-1-1-处理新连接"><a href="#5-5-1-1-处理新连接" class="headerlink" title="5.5.1.1 处理新连接"></a>5.5.1.1 处理新连接</h3><p>客户端请求一条到Web服务器的TCP连接时，Web服务器会建立连接，判断连接的另一端是哪个客户端，从TCP连接中将IP地址解析出来。一旦新连接建立起来并被接受，服务器就会将新连接添加到其现存Web服务器连接列表中，做好监视连接上数据传输的准备。</p>
@@ -2024,8 +1645,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/HnlHkh82fRKut68j__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/BSiXQd2bOTuN53a.png"
+                      alt="HnlHkh82fRKut68j__original.png"
                 ></p>
 <p>ident在公共因特网上并不能很好地工作，原因包括：</p>
 <pre><code>1. 很多客户端PC没有运行ident识别协议守护进程软件；
@@ -2046,8 +1667,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/6J2aJFF37Qfi51H7__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/JL5lRyhHMOqg4xd.png"
+                      alt="6J2aJFF37Qfi51H7.png"
                 ></p>
 <h3 id="5-5-2-2-连接的输入-输出处理结构"><a href="#5-5-2-2-连接的输入-输出处理结构" class="headerlink" title="5.5.2.2 连接的输入/输出处理结构"></a>5.5.2.2 连接的输入/输出处理结构</h3><p>高性能的Web服务器能够同时支持数千条连接。连接可能在快速地或者慢速向Web服务器发送请求甚至空闲着。因为请求可能会在任意时刻到达，所以Web服务器会不停地观察有无新的Web请求。不同的Web服务器结构会以不同的方式为请求服务。</p>
 <ol>
@@ -2069,8 +1690,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/2mA4SsoOK7nSD7FP__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/QzpRsmfEyFrSeuM.png"
+                      alt="2mA4SsoOK7nSD7FP.png"
                 ></p>
 <h2 id="5-5-3-第三步——处理请求"><a href="#5-5-3-第三步——处理请求" class="headerlink" title="5.5.3 第三步——处理请求"></a>5.5.3 第三步——处理请求</h2><p>一旦Web服务器收到了请求，就可以根据方法、资源、首部和可选的主体部分来对请求进行处理了。比如POST要求请求报文中必须带有实体主体部分的数据；比如OPTIONS允许有也可以没有请求的主体部分。比如GET禁止在请求报文中包含实体的主体数据。</p>
 <h2 id="5-5-4-第四步——对资源的映射及访问"><a href="#5-5-4-第四步——对资源的映射及访问" class="headerlink" title="5.5.4 第四步——对资源的映射及访问"></a>5.5.4 第四步——对资源的映射及访问</h2><p>Web服务器是资源服务器。它们负责发送预先创建好的内容，比如HTML页面或图片，以及运行在服务器上的资源生成程序所产生的动态内容。将内容传送给客户端之前，要将请求报文中的URI映射为Web服务器上适当的内容或内容生成器，以识别出内容的源头。</p>
@@ -2078,8 +1699,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/YjRu2XQ3AOUZMPxL__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/NfA8CvY7cpJeb9Z.png"
+                      alt="YjRu2XQ3AOUZMPxL.png"
                 ></p>
 <p>在配置文件httpd.conf中添加<strong>DocumentRoot行</strong>为Apache Web服务器设置文档的根目录：DocumentRoot/usr/local/httpd/files</p>
 <p>服务器不能让相对URL退到docroot之外，将文件系统的其余部分暴露出来。</p>
@@ -2087,16 +1708,16 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/h2lrUmLfCt6WWhJe__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/ohlBFpvjKqM5RVD.png"
+                      alt="h2lrUmLfCt6WWhJe__thumbnail.png"
                 ></p>
 <p>对ApacheWeb服务器来说，为每个虛拟Web站点配置一个VirtualHost块，每个虚拟服务器都要包含DocumentRoot。</p>
 <h4 id="5-5-4-1-2-用户的主目录docroot"><a href="#5-5-4-1-2-用户的主目录docroot" class="headerlink" title="5.5.4.1.2 用户的主目录docroot"></a>5.5.4.1.2 用户的主目录docroot</h4><p>Docroot的另一种常见应用是在Web服务器上为人们提供私有的Web站点。通常把以斜杠和波浪号（/~）开始，后面跟着用户名的URI映射为此用户的私有文档根目录。私有docroot通常是用户主目录下那个名为public_html 的目录，也可将其配置为其他值。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mzxmQqltivIgO2q9__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/XRS34sTM8odOjJc.png"
+                      alt="mzxmQqltivIgO2q9__thumbnail.png"
                 ></p>
 <h3 id="5-5-4-2-目录列表"><a href="#5-5-4-2-目录列表" class="headerlink" title="5.5.4.2 目录列表"></a>5.5.4.2 目录列表</h3><p>Web服务器可以接收对目录URL的请求，其路径可以解析为一个目录，而不是文件。对大多数Web服务器对目录URL的请求采取不同的动作：</p>
 <ol>
@@ -2112,8 +1733,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/QX5bpDmH8lbf0JpV__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/AfQbyTgORts29kv.png"
+                      alt="QX5bpDmH8lbf0JpV__thumbnail.png"
                 ></p>
 <p>Apache允许用户将URI路径名组件映射为可执行文件目录，服务器会试着去执行目录中的程序。</p>
 <p>Apache允许用户用一个特殊的文件扩展名来标识可执行文件。这种方式就可以将可执行脚本放在任意目录中了。e.g.  AddHandler cgi-script.cgi （执行所有以.cgi结尾的Web资源）。</p>
@@ -2183,6 +1804,201 @@
       </tags>
   </entry>
   <entry>
+    <title>04-链接管理</title>
+    <url>/2021/01/23/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h2 id="4-1-TCP链接"><a href="#4-1-TCP链接" class="headerlink" title="4.1 TCP链接"></a>4.1 TCP链接</h2><h3 id="4-1-1-TCP的可靠数据管道"><a href="#4-1-1-TCP的可靠数据管道" class="headerlink" title="4.1.1 TCP的可靠数据管道"></a>4.1.1 TCP的可靠数据管道</h3><p>HTTP连接实际，上就是TCP连接和一些使用连接的规则，TCP为HTTP提供了一条可靠的比特传输管道。</p>
+<h3 id="4-1-2-TCP流、IP分组"><a href="#4-1-2-TCP流、IP分组" class="headerlink" title="4.1.2 TCP流、IP分组"></a>4.1.2 TCP流、IP分组</h3><p>TCP的数据是通过IP分组（IP 数据报）的小数据块来发送的。安全版本HTTPS就是在HTTP和TCP之间插入了一个（称为TLS或SSL的）密码加密层图。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/BcYmKZklw5pDSIs.png"
+                      alt="EcJv4cg2UJABtNpp__thumbnail.png"
+                ></p>
+<p>TCP段是由IP分组承载。每个IP分组中包括：</p>
+<pre><code>    1. 一个IP分组首部，包含源和目的IP地址、长度和其他一些标记（通常为20字节）；
+    2. 一个TCP段首部包含了TCP端口号、TCP控制标记，以及用于数据排序和完整性检查的一些数字值。（通常为20字节）；
+    3. 一个TCP数据块（0个或多个字节）。</code></pre>
+<h3 id="4-1-3-TCP连接的正确运行"><a href="#4-1-3-TCP连接的正确运行" class="headerlink" title="4.1.3 TCP连接的正确运行"></a>4.1.3 TCP连接的正确运行</h3><p>计算机随时都有几条TCP连接处于打开状态，TCP 通过端口号来保持连接的正确运行。</p>
+<p>TCP连接通过4个值来识别：&lt;<strong>源IP地址、源端口号、目的IP地址、目的端口号</strong>&gt;。这4个值唯一地定义了一条连接。两条不同的TCP连接不能拥有4个完全相同的地址组件值（但不同连接的部分组件可以拥有相同的值）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/B6FQoYxgDh1sqbG.png"
+                      alt="46GDogLOzoqcLen7__thumbnail.png"
+                ></p>
+<h3 id="4-1-4-TCP套接字编程"><a href="#4-1-4-TCP套接字编程" class="headerlink" title="4.1.4 TCP套接字编程"></a>4.1.4 TCP套接字编程</h3><p>操作系统提供了一些操纵其TCP连接的工具。我们来看一个TCP编程接口。这个套接字API向HTTP程序员隐藏了TCP和IP的所有细节。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/o1AtgCIRBbeWjDF.png"
+                      alt="qv4I1NjxFUOC6xh8__thumbnail.png"
+                ></p>
+<p>套接字API允许用户创建TCP的端点数据结构，将这些端点与远程服务器的TCP端点进行连接，并对数据流进行读写。TCP API隐藏了所有底层网络协议的握手细节，以及TCP数据流与IP分组之间的分段和重装细节。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/3h56inwBySqHbtE.png"
+                      alt="vAn3ica3x7NtExWZ__thumbnail.png"
+                ></p>
+<p>从Web服务器等待连接（S4）开始。客户端根据URL判定出IP地址和端口号，并建立一条到服务器的TCP连接（C3）。</p>
+<p>建立连接后，客户端就会发送HTTP请求（C5），服务器读取请求（S6）。一旦服务器获取了整条请求报文，就会对请求进行处理，执行所请求的动作（S7），并将数据写回客户端。客户端读取数据（C6），并对响应数据进行处理（C7）。</p>
+<h2 id="4-2-TCP性能"><a href="#4-2-TCP性能" class="headerlink" title="4.2 TCP性能"></a>4.2 TCP性能</h2><h3 id="4-2-1-HTTP事务的时延"><a href="#4-2-1-HTTP事务的时延" class="headerlink" title="4.2.1 HTTP事务的时延"></a>4.2.1 HTTP事务的时延</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/Kyjzs8YnHod3DqX.png"
+                      alt="N1zHevdCojb7owBy__thumbnail.png"
+                ></p>
+<p>与建立TCP连接、传输请求、响应报文的时间相比，事务处理可能是很短的，除非客户端或服务器超载，或正处理复杂的动态资源，否则HTTP时延就是由TCP网络时延构成的。</p>
+<p>HTTP事务的时延原因：</p>
+<p>（1）<strong>DNS解析</strong>，但大多数HTTP客户端都有一个小的DNS缓存，用来保存近期所访问站点的IP地址，可以很快地将主机名解析出来。</p>
+<p>（2）客户端会向服务器发送一条TCP连接请求，并等待服务器回送请求接受应答。每条新的<strong>TCP连接的连接建立时延</strong>，最多只有一两秒钟，但如果有数百个HTTP事务的话，这个值会很高。</p>
+<p>（3）连接建立后，客户端就会通过新建立的TCP管道来发送HTTP请求。数据到达时，Web服务器从TCP连接中<strong>读取请求报文</strong>，并<strong>处理请求报文</strong>，因特网<strong>传输请求报文</strong>、服务器处理请求报文都需要时间。</p>
+<p>（4）Web服务器会<strong>回送HTTP响应</strong>，这些TCP网络时延的大小取决于<strong>硬件速度</strong>、<strong>网络和服务器的负载</strong>，<strong>请求和响应报文的尺寸</strong>，以及客户端和服务器之间的<strong>距离</strong>。<strong>TCP协议的技术复杂性</strong>也会对时延产生巨大的影响。</p>
+<h3 id="4-2-2-TCP相关时延"><a href="#4-2-2-TCP相关时延" class="headerlink" title="4.2.2 TCP相关时延"></a>4.2.2 TCP相关时延</h3><pre><code>1. TCP连接建立握手，
+2. 用于捎带确认的TCP延迟确认算法
+3. TCP慢启动拥塞控制；
+4. 数据聚集的Nagle算法；
+5. TIME_WAIT时延和端口耗尽。</code></pre>
+<h4 id="4-2-2-1-TCP连接的握手时延"><a href="#4-2-2-1-TCP连接的握手时延" class="headerlink" title="4.2.2.1 TCP连接的握手时延"></a>4.2.2.1 TCP连接的握手时延</h4><p>建立一条新的TCP连接时，甚至是在发送任意数据之前，TCP软件之间会交换一系列的IP分组，对连接的有关参数进行沟通。如果连接用来传送少量数据，这些交换过程就会降低HTTP的性能。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/pcMj5YAJitqbS6o.png"
+                      alt="McjEXqUcLmE8y4Qe__thumbnail.png"
+                ></p>
+<p><strong>TCP连接握手步骤:</strong></p>
+<pre><code>1. 请求新的TCP连接时，客户端要向服务器发送一个小的TCP分组（通常是40 ~60个字节）。这个分组中设置了一个特殊的SYN标记，说明这是一个连接请求（参见a）。
+2. 如果服务器接受连接，会对一些连接参数进行计算，并向客户端回送一个TCP分组，这个分组中的SYN和ACK标记都被置位，说明连接请求已被接受（参见b）。
+3. 最后，客户端向服务器回送一条确认信息，通知它连接已成功建立（参见图c）。现代的TCP栈都允许客户端在这个确认分组中发送数据。</code></pre>
+<p>通常HTTP事务不会交换太多数据，SYN/SYN+ACK握手会产生一个可测量的时延。TCP连接的ACK分组通常都足够承载整个HTTP请求报文，而且很多HTTP服务器响应报文都可以放人一个IP分组中去。最后导致小的HTTP事务可能会在TCP建立上花费50%，或更多的时间。</p>
+<h4 id="4-2-2-2-延迟确认"><a href="#4-2-2-2-延迟确认" class="headerlink" title="4.2.2.2 延迟确认"></a>4.2.2.2 延迟确认</h4><p>每个TCP段有一个序列号和数据完整性校验和，来确保数据的成功传输。接收者收到完好的段时，会向发送者回送确认分组。如果发送者没有在指定时间内收到确认信息，发送者就认为分组已破坏或损毁，会重发数据。</p>
+<p>由于确认报文很小，所以TCP允许在发往相同方向的输出数据分组中对其进行“<strong>捎带</strong>”。TCP将返回的确认信息与输出的数据分组结合在一起。</p>
+<p>为增加确认报文找到同向传输数据分组的可能，TCP栈实现了一种<strong>“延迟确认”算法，</strong>会在一个特定的窗口时间（通常100 ~ 200毫秒）内将输出确认存放在缓冲区中，以寻找能捎带它的输出数据分组。如果在那个时间段内没有输出数据分组，就将确认信息放在单独的分组中传送。</p>
+<p>但是，HTTP具有双峰特征的请求-应答行为，导致当希望有相反方向回传分组的时候，偏偏没有那么多。</p>
+<p>延迟确认算法会引入相当大的时延。根据所使用操作系统的不同，可以调整或禁止延迟确认算法。</p>
+<h4 id="4-2-2-3-TCP慢启动"><a href="#4-2-2-3-TCP慢启动" class="headerlink" title="4.2.2.3 TCP慢启动"></a>4.2.2.3 TCP慢启动</h4><p>TCP数据传输的性能还取决于TCP连接的使用期（age）。TCP连接会随着时间进行自我“调谐”，起初会限制连接的最大速度，如果数据成功传输，会随着时间的推移提高传输的速度。这种调谐被称为TCP慢启动（slow start），防止因特网的突然过载和拥塞。</p>
+<p>TCP慢启动限制了一个TCP端点在任意时刻可以传输的分组数。HTTP事务不能一次将所有分组都发送出去，必须发送一个分组，等待确认，才可以发送两个分组，再次被确认，就可以发送四个分组，以此类推。这种方式被称为“打开拥塞窗口”。</p>
+<p>由于这种拥塞控制特性，新连接的传输速度会比已经交换过数据的“已调谐”连接慢。</p>
+<h4 id="4-2-2-4-Nagle算法与TCP-NODELAY"><a href="#4-2-2-4-Nagle算法与TCP-NODELAY" class="headerlink" title="4.2.2.4 Nagle算法与TCP_NODELAY"></a>4.2.2.4 Nagle算法与TCP_NODELAY</h4><p>TCP有数据流接口，每个TCP段中都至少装载了40个字节的标记和首部，所以如果TCP发送了大量包含少量数据的分组，网络的性能会下降。</p>
+<p><strong>Nagle算法</strong>：试图在发送一个分组之前，将大量TCP数据绑定在一起，以提高网络效率。Nagle算法鼓励发送全尺寸的段，只有当所有其他分组都被确认之后，才发送非全尺寸的分组。如果其他分组仍在传输中，就将那部分数据缓存起来。只有当挂起分组被确认，或者缓存中积累了足够发送一个全尺寸分组的数据时，才会将缓存的数据发送出去。</p>
+<p><strong>Nagle算法缺陷</strong>：首先，小的HTTP报文可能无法填满一个分组，可能会因为等待那些永远不会到来的额外数据而产生时延。其次，Nagle算法与延迟确认之间的交互存在问题，Nagle算法会阻止数据的发送，直到有确认分组抵达为止，但确认分组自身会被延迟确认算法延迟100 ~ 200毫秒。</p>
+<p>HTTP应用程序通常设置参数TCP_NODELAY，禁用Nagle算法，这样须确保会向TCP写入大块的数据，不会产生一堆小分组。</p>
+<h4 id="4-2-2-5-TIME-WAIT累积与端口耗尽"><a href="#4-2-2-5-TIME-WAIT累积与端口耗尽" class="headerlink" title="4.2.2.5 TIME__WAIT累积与端口耗尽"></a>4.2.2.5 TIME__WAIT累积与端口耗尽</h4><p>当某个TCP端点关闭TCP连接时，会在内存中维护一个小的控制块，用来记录最近所关闭连接的IP地址和端口号，维持的时间，是最大分段使用期的两倍（称为2MSL，通常为2分钟）左右，以确保在这段时间内不会创建具有相同地址和端口号的新连接。这也防止之前连接的复制分组插入了具有相同连接值的新TCP流，会破坏TCP数据。</p>
+<p>但在性能基准测试时，TIME__WAIT 也限制了可用的连接值组合。因为在只有一个客户端和一台Web服务器的情况下，构建一条TCP连接的4个值，只有源端口号可以随意改变，客户端每次连接到服务器上去时，都会获得一个新的源端口，以实现连接的唯一性。但由于可用源端口的数量有限，而且在2MSL秒内连接是无法重用的，连接率就被限制了。</p>
+<p>可以增加客户端负载生成机器的数量，或者确保客户端和服务器在循环使用几个虚拟IP地址以增加更多的连接组合。</p>
+<p>即使没有遇到端口耗尽问题，也要小心有大量连接处于打开状态的情况，或为处于等待状态的连接分配了大量控制块的情况。在有大量打开连接或控制块的情况下，有些操作系统的速度会减缓。</p>
+<h2 id="4-3-HTTP链接的处理"><a href="#4-3-HTTP链接的处理" class="headerlink" title="4.3 HTTP链接的处理"></a>4.3 HTTP链接的处理</h2><h3 id="4-3-1-connection首部"><a href="#4-3-1-connection首部" class="headerlink" title="4.3.1 connection首部"></a>4.3.1 connection首部</h3><p>Connection首部有3种类型的标签：</p>
+<pre><code>1. HTTP 首部字段名，列出了只与此连接有关的首部；
+2. 任意标签值，用于描述此连接的非标准选项；
+3. 值close，说明操作完成之后需关闭这条持久连接。</code></pre>
+<p>如果连接标签中包含了HTTP首部字段的名称，那么这个首部字段就包含了与一些连接有关的信息，不能将其转发，在将报文转发出去之前，删除Connection所列出的首部字段以及自身。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/d6Kyks1VMU3bLYA.png"
+                      alt="MWKLFwHwkjmuqWQY__original.png"
+                ></p>
+<h3 id="4-3-2-串行事务处理时延"><a href="#4-3-2-串行事务处理时延" class="headerlink" title="4.3.2 串行事务处理时延"></a>4.3.2 串行事务处理时延</h3><p>串行加载缺点：1、叠加链接时延和慢启动时延。2、有些浏览器需要完全加载后才显示。</p>
+<p>新的链接方法：</p>
+<pre><code>1. 并行连接：通过多条TCP连接发起并发的HTTP请求。
+2. 持久连接：重用TCP连接，以消除连接及关闭时延。
+3. 管道化连接：通过共享的TCP连接发起并发的HTTP请求。
+4. 复用的连接：交替传送请求和响应报文（实验阶段）。</code></pre>
+<h2 id="4-4-并行链接"><a href="#4-4-并行链接" class="headerlink" title="4.4 并行链接"></a>4.4 并行链接</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/A6ETjvVg29zX3rw.png"
+                      alt="E02QnUnHmeOPbogJ__original.png"
+                ></h2><p>并行链接的优点：</p>
+<pre><code>1. 每个事务都有自己的连接，装载是并行的，连接的时延也是重叠的。（嵌入的组件不一定都在同一台Web服务器上，可以同多台服务器建立并行的连接）。
+2. 可以让用户感觉更快。</code></pre>
+<p>并行链接的缺点：</p>
+<pre><code>1. 如果并行加载多个对象，每个对象竞争有限的带宽，都会以较慢的速度按比例加载。
+2. 打开大量连接会消耗很多内存资源，从造成服务器、代理性能的下降。
+3. 由于TCP慢启动特性，每条新连接的性能都会有所降低。</code></pre>
+<p>浏览器一般会将并行连接的总数限制为4个。服务器可以随意关闭来自特定客户端的超量连接。</p>
+<h2 id="4-5-持久链接"><a href="#4-5-持久链接" class="headerlink" title="4.5 持久链接"></a>4.5 持久链接</h2><p><strong>站点本地性</strong>（site locality）：Web客户端经常打开到同一个站点的连接。因此，初始化了对某服务器HTTP请求的应用程序可能会对那台服务器不久发起更多的请求。</p>
+<p><strong>持久连接</strong>：HTTP设备在事务处理结束之后将TCP连接保持在打开状态，以便为未来的HTTP请求重用现存的连接，直到客户端或服务器决定将其关闭为止。</p>
+<p>优点：避开缓慢的连接建立阶段；避免慢启动的拥塞适应阶段。</p>
+<p>缺点：累积出大量的空闲连接，耗费本地以及远程客户端和服务器上的资源。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/XpykQEHGe4K1Rfm.png"
+                      alt="RUOT3rgreZZqeDQ5__original.png"
+                ></p>
+<p>持久连接与并行连接配合使用是高效的方式。通常，Web应用程序打开少量的并行连接，其中的每一个都是持久连接。</p>
+<p>持久连接有两种类型：比较老的**”keep-alive”连接<strong>，现代的</strong>“persistent”连接**</p>
+<h3 id="4-5-1-HTTP-1-0-keep-alive连接"><a href="#4-5-1-HTTP-1-0-keep-alive连接" class="headerlink" title="4.5.1 HTTP/1.0+   keep-alive连接"></a>4.5.1 HTTP/1.0+   keep-alive连接</h3><p>客户端通过包含Connection：Keep-Alive首部请求，将一条连接保持在打开状态。如果服务器可以，就在响应中包含相同的首部，否则说明服务器不支keep-alive，会在发回响应报文之后关闭连接。</p>
+<p>只有当连接上的报文，实体主体部分的长度都和相应的Content-Length一致，有多部件媒体类型，或是用分块传输编码方式编码的，连接才能持久保持。</p>
+<p>Keep-Alive通用首部中指定的、由逗号分隔的选项来调节keep-alive的行为：</p>
+<pre><code>1. 参数**timeout**在Keep-Alive响应首部发送，服务器希望将连接保持在活跃状态的时间。
+2. 参数**max**在Keep-Alive响应首部发送，服务器希望为多少个事务保持此连接的活跃状态。
+3. Keep-Alive首部支持任意未经处理的属性，用于诊断和调试。语法为name[=value]。</code></pre>
+<h4 id="4-5-1-1-哑代理"><a href="#4-5-1-1-哑代理" class="headerlink" title="4.5.1.1 哑代理"></a>4.5.1.1 哑代理</h4><p>老的或简单的代理都是<strong>盲中继</strong>（blind relay），只是将字节从一个连接转发到另一个连接中去，不对Connection首部进行特殊的处理。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/szK69eWZDEVytLj.png"
+                      alt="EBTdTrTeWy3Jfd15__original.png"
+                ></p>
+<p>后果：客户端和服务器都认为它们在进行keep-alive对话，但代理等待源端服务器关闭连接，源端服务器认为连接保持在打开状态，所以不会去关闭连接，反而立即转向下一条请求。而代理并不认为同一条连接上会有其他请求，<strong>请求被忽略</strong>。这会使浏览器<strong>一直处于挂起状态</strong>，直到客户端或服务器将连接超时，并将其关闭为止。</p>
+<p>有几个不能作为Connection首部值列出，包括Proxy-Authenticate、Proxy-Connection、</p>
+<p>Transfer-Encoding和Upgrade。</p>
+<h4 id="4-5-1-2-插入Proxy-Connection解决哑代理"><a href="#4-5-1-2-插入Proxy-Connection解决哑代理" class="headerlink" title="4.5.1.2 插入Proxy-Connection解决哑代理"></a>4.5.1.2 插入Proxy-Connection解决哑代理</h4><p>浏览器向代理发送非标准的Proxy-Connection扩展首部，而不是官方支持的Connection首部。如果代理是盲中继，将无意义的Proxy-Connection首部转发给Web服务器，服务器会忽略此首部，否则就用Connection首部取代Proxy-Connection首部，然后将其发送给服务器。</p>
+<p>对有多层次代理的情况，Proxy-Connection 仍然无法解决问题。</p>
+<h3 id="4-5-2-HTTP-1-1-持久连接"><a href="#4-5-2-HTTP-1-1-持久连接" class="headerlink" title="4.5.2 HTTP/1.1  持久连接"></a>4.5.2 HTTP/1.1  持久连接</h3><p><strong>持久连接（</strong>persistent connection），在默认情况下是激活的。除非向报文中显式地添加一个Connection：close首部。但客户端和服务器仍然可以随时关闭空闲的连接。不发送Connection:close并不意味着服务器承诺永远将连接保持在打开状态。</p>
+<p>只有当连接上的报文，实体主体部分的长度都和相应的Content-Length一致，或是用分块传输编码方式编码的，连接才能持久保持。</p>
+<p>一个用户客户端对任何服务器或代理最多只能维护两条持久连接，以防服务器过载。</p>
+<h2 id="4-6-管道化连接"><a href="#4-6-管道化连接" class="headerlink" title="4.6 管道化连接"></a>4.6 管道化连接</h2><p>HTTP/1.1允许在持久连接上可选地使用<strong>请求管道</strong>。在响应到达之前，可以将多条请求放入队列。当第一条请求流向服务器时，第二条和第三条请求也可以开始发送了。在高时延网络条件下，这样做可以降低网络的环回时间，提高性能。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/rBgSFhCpoTQbLdw.png"
+                      alt="SmB3DWYPPxzXolFI__original.png"
+                ></p>
+<p>管道化连接的限制：</p>
+<ol>
+<li>HTTP客户端确认是持久连接，才能使用管道。</li>
+<li>必须按照与请求相同的顺序回送HTTP响应。HTTP报文中没有序列号标签，因此如果收到的响应失序了，就没办法将其与请求匹配起来了。</li>
+<li>HTTP客户端必须做好连接会在任意时刻关闭的准备，还要准备好重发所有未完成的管道化请求。</li>
+<li>HTTP客户端不应该用管道化的方式发送会产生副作用的请求（比如POST）。出错的时候，管道化方式会阻碍客户端了解服务器执行的是一系列管道化请求中的哪一些。<h2 id="4-7-关闭连接"><a href="#4-7-关闭连接" class="headerlink" title="4.7 关闭连接"></a>4.7 关闭连接</h2></li>
+</ol>
+<h3 id="4-7-1-任意解除连接"><a href="#4-7-1-任意解除连接" class="headerlink" title="4.7.1 任意解除连接"></a>4.7.1 任意解除连接</h3><p>所有HTTP客户端、服务器或代理都可以在任意时刻关闭一条TCP传输连接。通常会在一条报文结束时关闭连接，但也有可能出错，对管道化持久连接来说，这种情形是很常见的。</p>
+<h3 id="4-7-2-Content-Length及截尾操作"><a href="#4-7-2-Content-Length及截尾操作" class="headerlink" title="4.7.2 Content-Length及截尾操作"></a>4.7.2 Content-Length及截尾操作</h3><p>每条HTTP响应都应该有Content-Length首部。一些老的HTTP服务器会省略或者包含错误的长度指示，这就要依赖服务器发出的连接关闭来说明数据的真实末尾。</p>
+<p>客户端或代理收到一条随连接关闭而结束的HTTP响应，且实际传输的实体长度与Content-Length并不匹配或没有Content-Length时，接收端应该质疑长度的正确性。</p>
+<p>如果接收端是个缓存代理，不应该缓存这条响应（以降低今后将潜在的错误报文混合起来的可能），而是原封不动地转发出去，以维护语义的透明性。</p>
+<h3 id="4-7-3-连接关闭容限、重试、幂等性"><a href="#4-7-3-连接关闭容限、重试、幂等性" class="headerlink" title="4.7.3 连接关闭容限、重试、幂等性"></a>4.7.3 连接关闭容限、重试、幂等性</h3><p>如果在客户端执行事务的过程中，传输连接关闭了，除非事务处理会带来副作用，否则客户端就应该重新打开连接，并重试一次。对管道化连接来说，源端服务器关闭连接，就会留下大量未处理的请求，需要重新调度。</p>
+<p>如果一个事务，不管是执行几次，得到的结果都相同，这个事务就是<strong>幂等</strong>的。要发送一条非幂等请求，需要等待来自前一条请求的响应状态。</p>
+<p>用户Agent代理一定不能自动重试非幂等方法或序列。比如post订单，大多数浏览器都会提供一个对话框，询问用户是否希望再次发起事务处理。</p>
+<h3 id="4-7-4-正常关闭连接"><a href="#4-7-4-正常关闭连接" class="headerlink" title="4.7.4 正常关闭连接"></a>4.7.4 正常关闭连接</h3><h4 id="4-7-4-1-完全关闭与半关闭"><a href="#4-7-4-1-完全关闭与半关闭" class="headerlink" title="4.7.4.1 完全关闭与半关闭"></a>4.7.4.1 完全关闭与半关闭</h4><p>应用程序可以关闭TCP输入和输出信道中的任意一个或两者。</p>
+<p>套接字调用<strong>close（）</strong>将TCP连接的输入输出信道都关闭了，称作“<strong>完全关闭</strong>”，如图a所示。</p>
+<p>套接字调用<strong>shutdown（）</strong>单独关闭输入或输出信道，这被称为<strong>“半关闭”</strong>，如图b所示。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/XaR3DEm9GuULlNs.png"
+                      alt="HqfJNF2eliisLFNQ__original.png"
+                ></p>
+<h4 id="4-7-4-2-TCP关闭及重置错误"><a href="#4-7-4-2-TCP关闭及重置错误" class="headerlink" title="4.7.4.2 TCP关闭及重置错误"></a>4.7.4.2 TCP关闭及重置错误</h4><p>当应用程序开始与很多其他类型的HTTP客户端、服务器和代理进行对话且使用管道化持久连接时，使用半关闭来防止对等实体收到非预期的写入错误。</p>
+<p>关闭连接的输出信道总是安全的。连接另一端的对等实体会在从其缓冲区中读出所有数据之后收到一条通知，说明流结束了，知道连接关闭了。</p>
+<p>关闭连接的输入信道比较危险，除非知道另一端不再发送数据。如果向已关闭的输入信道发送数据，操作系统会回送一条TCP“<strong>连接被对端重置</strong>”报文，删除对端还未读取的所有缓存数据。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/QfXG1hNrvmxoDLB.png"
+                      alt="DZvhKCeOgaAwmwKW__original.png"
+                ></p>
+<h4 id="4-7-4-3-正常关闭"><a href="#4-7-4-3-正常关闭" class="headerlink" title="4.7.4.3 正常关闭"></a>4.7.4.3 正常关闭</h4><p>应用程序首先应该关闭它们的输出信道，然后等待另一端的对等实体关闭它的输出信道。当两端都知道不再发送数据（比如关闭输出信道）后，连接就会被完全关闭，不会有重置的危险。</p>
+<p>但不无法确保对等实体会实现半关闭，或对其进行检查。因此，想要正常关闭连接的应用程序应该先半关闭其输出信道，然后周期性地检查其输入信道的状态（查找数据，或流的末尾）。如果在一定的时间区间内对端没有关闭输入信道，应用程序可以强制关闭连接，以节省资源。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>04-链接管理</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>06-代理</title>
     <url>/2021/01/23/note/HTTP/06-%E4%BB%A3%E7%90%86/</url>
     <content><![CDATA[<h1 id="6-1-Web的-中间实体"><a href="#6-1-Web的-中间实体" class="headerlink" title="6.1 Web的 中间实体"></a>6.1 Web的 中间实体</h1><p>Web上的代理服务器是代表客户端完成事务处理的中间人。HTTP的代理服务器既是Web服务器又是Web客户端。</p>
@@ -2208,8 +2024,8 @@
 <p>在集中式代理服务器上可以对所有访问控制功能进行配置，而无需在众多由不同组织管理、不同厂商制造、使用不同模式的Web服务器上进行经常性的访问控制升级。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/pqBy6kmLeBWZV7aG__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/d8KC24sWEakyeZq.png"
+                      alt="pqBy6kmLeBWZV7aG.png"
                 ></p>
 <ol start="3">
 <li><strong>安全防火墙</strong></li>
@@ -2218,8 +2034,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/tDT5ij0kvoywHIjQ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/2EYom5XjtMRKcW6.png"
+                      alt="tDT5ij0kvoywHIjQ__thumbnail.png"
                 ></p>
 <ol start="4">
 <li><strong>Web缓存</strong></li>
@@ -2237,8 +2053,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/MavD3X6KgAr6iSp7__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/FTsdtzrCXflucPY.png"
+                      alt="MavD3X6KgAr6iSp7__thumbnail.png"
                 ></p>
 <ol start="7">
 <li><strong>转码器</strong></li>
@@ -2256,8 +2072,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/C514fsJkpTUSr3Mj__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/jdWInHAMKaqyD72.png"
+                      alt="C514fsJkpTUSr3Mj__thumbnail.png"
                 ></p>
 <ol start="2">
 <li><strong>访问（入口）代理</strong></li>
@@ -2266,8 +2082,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/FkNHex993CoqIdQy__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/PnJCv7LoE2GhFK6.png"
+                      alt="FkNHex993CoqIdQy__thumbnail.png"
                 ></p>
 <ol start="3">
 <li><strong>反向代理</strong></li>
@@ -2276,8 +2092,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/gaArfFB4Cn2B7FQL__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/rsQ3Ujy68klButd.png"
+                      alt="gaArfFB4Cn2B7FQL__thumbnail.png"
                 ></p>
 <ol start="4">
 <li><strong>网络交换代理</strong></li>
@@ -2286,8 +2102,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/pXAesc94BLzDz3HV__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/xonWmKcysiPkf2Q.png"
+                      alt="pXAesc94BLzDz3HV__thumbnail.png"
                 ></p>
 <h2 id="6-5-2-代理的层次结构"><a href="#6-5-2-代理的层次结构" class="headerlink" title="6.5.2 代理的层次结构"></a>6.5.2 代理的层次结构</h2><p>通过<strong>代理层次结构</strong>（proxy hierarchy）将代理级联起来。在代理的层次结构中，会将报文从一个代理传给另一个代理，直到最终抵达原始服务器为止（然后通过代理传回给客户端）。</p>
 <p>下一个入口（inbound）代理（靠近服务器）被称为父代理，下一个出口（outbound）代理（靠近客户端）被称为子代理。</p>
@@ -2343,8 +2159,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/AAivIeKbOTQBj2Rk__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/kQnzKs4qbBeV8Rl.png"
+                      alt="AAivIeKbOTQBj2Rk__thumbnail.png"
                 ></p>
 <ol start="4">
 <li><strong>WPAD的代理发现</strong></li>
@@ -2410,9 +2226,10 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/FVuc9ckHkakOalBe__thumbnail.png"
-                      alt="图片"
-                >注每个Via路标中最多包含4个组件：一个可选的协议名（默认为HTTP）、一个必选的协议版本、一个必选的节点名和一个可选的描述性注释。</p>
+                     data-src="https://i.loli.net/2021/03/07/npObsZldR1gjBiK.png"
+                      alt="FVuc9ckHkakOalBe__thumbnail.png"
+                ></p>
+<p>注每个Via路标中最多包含4个组件：一个可选的协议名（默认为HTTP）、一个必选的协议版本、一个必选的节点名和一个可选的描述性注释。</p>
 <ol>
 <li><strong>协议名</strong></li>
 </ol>
@@ -2454,14 +2271,197 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/hgRKHELPa0FxVZOO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/NkzjaLQrhTvPnU3.png"
+                      alt="hgRKHELPa0FxVZOO__thumbnail.png"
                 ></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>06-代理</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>07-缓存</title>
+    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
+<ol>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
+</ol>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
+                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
+                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
+                ></p>
+<ol start="2">
+<li><strong>再验证未命中</strong></li>
+</ol>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
+                      alt="yIucryfnFQtd0k4c__thumbnail.png"
+                ></p>
+<ol start="3">
+<li><strong>对象被删除</strong></li>
+</ol>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
+</ol>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
+                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
+                ></p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
+                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
+                ></p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
+                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
+                ></p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
+                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
+                ></p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
+<ol>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
+</ol>
+<p>缓存返回的内容有以下几种情况：</p>
+<ol>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
+</ol>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
+                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
+                ></p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
+<ol>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
+</ol>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
+                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
+                      alt="c66vSOYHG3viCCN0__thumbnail.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -2483,11 +2483,11 @@
 <h3 id="13-2-2-用随机数防止重放攻击"><a href="#13-2-2-用随机数防止重放攻击" class="headerlink" title="13.2.2 用随机数防止重放攻击"></a>13.2.2 用随机数防止重放攻击</h3><p>仅仅隐藏密码并不能避免危险，因为即便不知道密码，也可以截获摘要，并一遍遍地重放给服务器。解决办法：服务器在www-Authenticate质询中传送给客户端一个称为<strong>随机数</strong>（nonce）的特殊令牌，这个数会经常发生变化。客户端在计算摘要之前要先将这个随机数令牌附加到密码上去。</p>
 <p>在密码中加入随机数就会使摘要随着随机数的每–次变化而变化。记录下的密码摘要只对特定的随机值有效，而没有密码的话，攻击者就无法计算出正确的摘要，这样就可以防止重放攻击的发生。</p>
 <h3 id="13-2-3-摘要认证的握手机制"><a href="#13-2-3-摘要认证的握手机制" class="headerlink" title="13.2.3 摘要认证的握手机制"></a>13.2.3 摘要认证的握手机制</h3><p>HTTP摘要认证协议所用首部与基本认证类似。它在传统首部中添加了一个新的可选首部Authorization-Info。</p>
-<p><img  
+<p>![图片]<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/LKKAx2TPmRP22yYG__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kS9wKW172HulOen.png"
+                      alt="LKKAx2TPmRP22yYG__thumbnail.png"
                 ></p>
 <h2 id="13-3-摘要的计算"><a href="#13-3-摘要的计算" class="headerlink" title="13.3 摘要的计算"></a>13.3 摘要的计算</h2><p>摘要认证的核心是对公共信息、保密信息和有时限的随机值这个组合的单向摘要。摘要是根据以下三个组件计算出来的：</p>
 <ol>
@@ -2504,8 +2504,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wds6DoVwtCD0ntzK__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/gLWk6sqniwXRo1x.png"
+                      alt="wds6DoVwtCD0ntzK__thumbnail.png"
                 ></p>
 <h3 id="13-2-2-与报文有关的数据（A2）"><a href="#13-2-2-与报文有关的数据（A2）" class="headerlink" title="13.2.2 与报文有关的数据（A2）"></a>13.2.2 与报文有关的数据（A2）</h3><p>根据所选择的保护质量（qop），为A2定义了两种策略:</p>
 <ol>
@@ -2515,8 +2515,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wDzTpT57Nsji2JHp__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/4iLBptYUodeIlJ7.png"
+                      alt="wDzTpT57Nsji2JHp__thumbnail.png"
                 ></p>
 <p>request-method是HTTP的请求方法。uri-directive-value 是请求行中的请求URI。可能是个”*”、absoluteURL或者abs_path，但它必须与请求URI一致。如果请求URI是absoluteURL，它必须是个绝对URL。</p>
 <h3 id="13-2-3-摘要算法总述"><a href="#13-2-3-摘要算法总述" class="headerlink" title="13.2.3 摘要算法总述"></a>13.2.3 摘要算法总述</h3><p>得到了两种给定了H、KD、A1和A2之后，计算摘要的方式：</p>
@@ -2527,14 +2527,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/g0aHLWSGVCRuUveg__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/jYnmcVkHxNKuFZw.png"
+                      alt="g0aHLWSGVCRuUveg__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DRNNnrURitHX377G__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/O1Bl5K6i7xDS2Hm.png"
+                      alt="DRNNnrURitHX377G__thumbnail.png"
                 ></p>
 <h3 id="13-2-4-预授权"><a href="#13-2-4-预授权" class="headerlink" title="13.2.4 预授权"></a>13.2.4 预授权</h3><p>预授权对基本认证来说并不重要，因为一旦用户与某站点进行了认证，浏览器通常会为后继对那个URL的请求发送正确的Authorization首部。</p>
 <p>对摘要认证来说，服务器会产生任意的随机数，所以在客户端收到质询之前，不一定能判定应该发送什么样的Authorization首部。</p>
@@ -2554,8 +2554,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/FpD971kcIakNiitO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/aMbvEZ6RpLPWJ4k.png"
+                      alt="FpD971kcIakNiitO__thumbnail.png"
                 ></p>
 <p>cnonce值和nc值必须是本报文所响应的客户端请求中的相应值。如果指定了qop=”auth”或qop=”auth-int”，就必须提供响应auth、cnonce 和nonce计数指令。</p>
 <h2 id="13-4-增强保护质量"><a href="#13-4-增强保护质量" class="headerlink" title="13.4 增强保护质量"></a>13.4 增强保护质量</h2><p>在三种摘要首部中提供qop字段：WWW-Authenticate、Authorization 和Authentication-Info可以实现客户端和服务器对不同类型及质量的保护进行协商。</p>
@@ -2634,8 +2634,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/YuTjZHTRjDigxdVP__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/cnoa3xepd6bS4Nf.png"
+                      alt="YuTjZHTRjDigxdVP__thumbnail.png"
                 ></p>
 <h2 id="15-2-Content-Length：实体的大小"><a href="#15-2-Content-Length：实体的大小" class="headerlink" title="15.2 Content-Length：实体的大小"></a>15.2 Content-Length：实体的大小</h2><p>Content-Length首部指示出报文中实体主体的字节大小，包含了所有内容编码的。Content-Length首部就是带有实体主体的报文必须使用的，除非使用了分块编码。使用Content-Length首部能够检测出服务器崩溃而导致的报文截尾，并对共享持久连接的多个报文进行正确分段。</p>
 <h3 id="15-2-1-检测截尾"><a href="#15-2-1-检测截尾" class="headerlink" title="15.2.1 检测截尾"></a>15.2.1 检测截尾</h3><p>HTTP的早期版本采用关闭连接的办法来划定报文的结束。但客户端无法区分是正常的连接关闭，还是由于服务器崩溃而导致的连接关闭。</p>
@@ -2665,8 +2665,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Hgvet3LTBs7pzFpx__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/jnyXQHRc4t2gT3U.png"
+                      alt="Hgvet3LTBs7pzFpx__thumbnail.png"
                 ></p>
 <h3 id="15-4-1-文本的字符编码"><a href="#15-4-1-文本的字符编码" class="headerlink" title="15.4.1 文本的字符编码"></a>15.4.1 文本的字符编码</h3><p>Content-Type首部还支持可选的参数来进一步说明内容的类型。比如charset（字符集）参数，说明把实体中的比特转换为文本文件中的字符的方法：Content-Type：text/html；</p>
 <h3 id="15-4-2-多部分媒体类型"><a href="#15-4-2-多部分媒体类型" class="headerlink" title="15.4.2 多部分媒体类型"></a>15.4.2 多部分媒体类型</h3><p>MIME中的multipart（多部分）电子邮件报文中包含多个报文，它们一起作为复杂报文发送。每一部分都是独立的，有各自的描述其内容的集，不同的部分之间用分界字符串连接。</p>
@@ -2685,15 +2685,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wfXRqxnk1BEU33wW__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ny5FQBflWuTLOAi.png"
+                      alt="wfXRqxnk1BEU33wW__thumbnail.png"
                 ></p>
 <h3 id="15-5-2-内容编码类型"><a href="#15-5-2-内容编码类型" class="headerlink" title="15.5.2 内容编码类型"></a>15.5.2 内容编码类型</h3><p>HTTP定义了一些标准的内容编码类型，并允许用扩展编码的形式增添更多的编码。由互联网号码分配机构（IANA）对各种编码进行标准化，它给每个内容编码算法分配了唯一的代号。Content-Encoding首部就用这些标准化的代号来说明编码时使用的算法。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Bd5Wji9r83iXfpN0__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/z2TfyUgZSmcl75A.png"
+                      alt="Bd5Wji9r83iXfpN0__thumbnail.png"
                 ></p>
 <h3 id="15-5-3-Accept-Encoding首部"><a href="#15-5-3-Accept-Encoding首部" class="headerlink" title="15.5.3 Accept-Encoding首部"></a>15.5.3 Accept-Encoding首部</h3><p>为了避免服务器使用客户端不支持的编码方式，客户端就把自己支持的内容编码方式列表放在请求的Accept-Encoding首部里发出去。如果HTTP请求中没有包含Accept-Encoding首部，服务器就可以假设客户端能够接受任何编码方式。</p>
 <p>客户端可以给每种编码附带Q（质量）值参数来说明编码的优先级。Q值范围从0.0到1.0，0.0说明客户端不想接受所说明的编码，1.0则表明最希望使用的编码。*表示“任何其他方法”。</p>
@@ -2702,8 +2702,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/KmJHDOGZldzZmjDu__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/qlKXONDHRMSLdmr.png"
+                      alt="KmJHDOGZldzZmjDu__thumbnail.png"
                 ></p>
 <h3 id="15-6-1-可靠传输"><a href="#15-6-1-可靠传输" class="headerlink" title="15.6.1 可靠传输"></a>15.6.1 可靠传输</h3><p>在HTTP协议中，底层的传输设施已经标准化且容错性好，只有少数情况下，所传输的报文主体可能会引发问题：</p>
 <ol>
@@ -2725,8 +2725,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/QefkJBLxwkzvePyF__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/yqf1AQakN5l3EWL.png"
+                      alt="QefkJBLxwkzvePyF__thumbnail.png"
                 ></p>
 <h4 id="15-6-3-2-分块报文的拖挂"><a href="#15-6-3-2-分块报文的拖挂" class="headerlink" title="15.6.3.2 分块报文的拖挂"></a>15.6.3.2 分块报文的拖挂</h4><p>只有客户端的TE首部中说明可以接受拖挂，才在分块的报文最后加上。产生原始响应的服务器也可以在分块的报文最后加上拖挂。</p>
 <p>拖挂的内容是可选的元数据，客户端不一定需要理解和使用（甚至可以忽略并丢弃拖挂中的内容）。拖挂中可以包含附带的首部字段，它们的值在报文开始的时候可能是无法确定的。比如Content-MD5 ，在文档生成之前很难算出它的MD5。</p>
@@ -2735,8 +2735,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/R2V1NNz6yChk86Tq__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/t1bpNjzZSgG4XVv.png"
+                      alt="R2V1NNz6yChk86Tq__thumbnail.png"
                 ></p>
 <h3 id="15-6-5-传输编码的规则"><a href="#15-6-5-传输编码的规则" class="headerlink" title="15.6.5 传输编码的规则"></a>15.6.5 传输编码的规则</h3><p>对报文主体使用传输编码时，必须遵守以下规则，使得接收方能够确定报文的传输长度：</p>
 <ol>
@@ -2755,14 +2755,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/m7VrGBnCBAIpGjwd__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ysK29bnJzuWZOcB.png"
+                      alt="m7VrGBnCBAIpGjwd__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/27woIO882zhDrUbJ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zUOXlkoVYQ3txPF.png"
+                      alt="27woIO882zhDrUbJ__thumbnail.png"
                 ></p>
 <h3 id="15-8-2-有条件的请求与验证码"><a href="#15-8-2-有条件的请求与验证码" class="headerlink" title="15.8.2 有条件的请求与验证码"></a>15.8.2 有条件的请求与验证码</h3><p>当原始服务器上的文档与缓存中已过期的副本相同，而缓存服务器还是要从原始服务器上取文档的话，那缓存服务器就是在浪费网络带宽，给缓存服务器和原始服务器增加不必要的负载。</p>
 <p>解决方案：仅当资源改变时才请求副本，这种特殊请求称为有条件的请求，仅当某个特定条件为真时才执行，如果条件不满足，服务器就发回一个HTTP错误码。</p>
@@ -2770,8 +2770,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ZOLwYk7M1G3NhugX__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2kSovtqjD1YQaNu.png"
+                      alt="ZOLwYk7M1G3NhugX__thumbnail.png"
                 ></p>
 <p>HTTP把验证码分为两类：<strong>弱验证码</strong>（weak validators）和<strong>强验证码</strong>（strong validators）。</p>
 <p>弱验证码不一定能唯一标识资源的一个实例，而强验证码可以。</p>
@@ -2789,8 +2789,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/W7dJGGZkH5D2R8X5__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/A2MzCgNQdYvInuW.png"
+                      alt="W7dJGGZkH5D2R8X5__thumbnail.png"
                 ></p>
 <p>Range首部在流行的<strong>点对点</strong>（Peer-to-Peer，P2P）文件共享客户端软件中得到广泛应用，它们从不同的对等实体同时下载多媒体文件的不同部分。</p>
 <p>范围请求属于实例操控，因为它们是在客户端和服务器之间针对特定的对象实例来交换信息的。也就是客户端的范围请求仅当客户端和服务器拥有文档的同一个版本时才有意义。</p>
@@ -2802,15 +2802,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/1zeEzzzA7jllslxR__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/a6SjMEOpBYmCJHl.png"
+                      alt="1zeEzzzA7jllslxR__thumbnail.png"
                 ></p>
 <p>客户端用A-IM首部说明可以接受的一些实例操控的类型。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/l9MCr1VSHCxu3wQi__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wRvzhJaXt6FPfme.png"
+                      alt="l9MCr1VSHCxu3wQi__thumbnail.png"
                 ></p>
 <p>服务器侧的<strong>差异生成器</strong>根据基线文档和该文档的最新实例，并用客户端在A-IM首部中指明的算法计算它们之间的差异。客户端侧的<strong>差异应用器</strong>得到差异，将其应用于基线文档，得到文档的最新实例。</p>
 <p>在返回给客户端之前，文档可以经过多种实例操控，这样可以获得最大程度的压缩。例如，用vcdiff算法产生的差异后可以再用gzip算法压缩。</p>
@@ -2818,8 +2818,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Ttoo45eBe0QpTIHZ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wtf3A2NQOVrXn8U.png"
+                      alt="Ttoo45eBe0QpTIHZ__thumbnail.png"
                 ></p>
 ]]></content>
       <categories>
@@ -2839,8 +2839,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3NEAHZuv3WuglE3I.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/a3fWkhvNVFGbXUM.png"
+                      alt="3NEAHZuv3WuglE3I__thumbnail.png"
                 ></p>
 <p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
 <p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
@@ -2855,8 +2855,8 @@
 <h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/IinKReweDux5nZou.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/c1kLXiOthd6oas5.png"
+                      alt="IinKReweDux5nZou__thumbnail.png"
                 ></p>
 <p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
 <p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
@@ -2873,8 +2873,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/qT1uN6gND8xF5hwh.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Ijui9pOAPyVHFwU.png"
+                      alt="qT1uN6gND8xF5hwh__thumbnail.png"
                 ></p>
 <p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
 <p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
@@ -2906,8 +2906,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/CTnRBqgG4ElY7uhV.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/YLSJcDgjMZpdmOy.png"
+                      alt="CTnRBqgG4ElY7uhV__thumbnail.png"
                 ></p>
 <p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
 <p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
@@ -2917,8 +2917,8 @@
 <h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/vbkdMTBjTVYMog53.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/6WhXVSPUxQrOz9C.png"
+                      alt="vbkdMTBjTVYMog53__thumbnail.png"
                 ></p>
 <p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
 <ol>
@@ -2940,8 +2940,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/DcFsDgQUQEzoXb3W.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/BNDilROn5je1LJd.png"
+                      alt="DcFsDgQUQEzoXb3W__thumbnail.png"
                 ></p>
 <p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
 <h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
@@ -2969,8 +2969,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/IZ9qB9RUHmSwUfSc.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ljF2cJTVagvwpei.png"
+                      alt="IZ9qB9RUHmSwUfSc__thumbnail.png"
                 ></p>
 <p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
 <p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
@@ -3005,16 +3005,16 @@
 <p>当把<code>num2</code>初始化为<code>num1</code>时，<code>num2</code>也会得到数值5。这个值跟存储在<code>num1</code>中的5是完全独立的，因为它是那个值的副本。这两个变量可以独立使用，互不干扰。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/Z3MwAaHFyTk7NBDe__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/EQOZDYdHoXrpage.png"
+                      alt="Z3MwAaHFyTk7NBDe__thumbnail.png"
                 ></p>
 <p>在把引用值从一个变量赋给另一个变量时，存储在变量中的值也会被复制到新变量所在的位置。区别在于，这里复制的值实际上是一个指针，它指向存储在堆内存中的对象。操作完成后，两个变量实际上指向同一个对象，因此一个对象上面的变化会在另一个对象上反映出来。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1;</span><br><span class="line">obj1.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj2.name); <span class="comment">// &quot;Nicholas&quot;</span></span><br></pre></td></tr></table></figure>
 <p>下图展示了变量与堆内存中对象之间的关系。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/DThTdySREjpH3Zdg__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/spkhyCGZXEOoWlt.png"
+                      alt="DThTdySREjpH3Zdg__thumbnail.png"
                 ></p>
 <h3 id="4-1-3-传递参数（review）"><a href="#4-1-3-传递参数（review）" class="headerlink" title="4.1.3　传递参数（review）"></a>4.1.3　传递参数（review）</h3><p>ECMAScript中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
 <p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，用ECMAScript的话说，就是<code>arguments</code>对象中的一个槽位）。</p>
@@ -3046,8 +3046,8 @@
 <p>以上代码涉及3个上下文：全局上下文、<code>changeColor()</code>和<code>swapColors()</code>的局部上下文。下图展示了这个例子的作用域链。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/HNpFjNH3iS4j2ofk__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Q6KyZFjctuAaSDV.png"
+                      alt="HNpFjNH3iS4j2ofk__thumbnail.png"
                 ></p>
 <p>矩形表示不同的上下文。内部上下文可以通过作用域链访问外部上下文中的一切，但外部上下文无法访问内部上下文中的任何东西。上下文之间的连接是线性的、有序的。每个上下文都可以到上一级上下文中去搜索变量和函数，但任何上下文都不能到下一级上下文中去搜索。<code>swapColors()</code>局部上下文的作用域链中有3个对象：<code>swapColors()</code>的变量对象、<code>changeColor()</code>的变量对象和全局变量对象。<code>swapColors()</code>的局部上下文首先从自己的变量对象开始搜索变量和函数，搜不到就去搜索上一级变量对象。<code>changeColor()</code>上下文的作用域链中只有2个对象：它自己的变量对象和全局变量对象。因此，它不能访问<code>swapColors()</code>的上下文。</p>
 <blockquote>
@@ -3737,8 +3737,8 @@
 <p>注意在移位后，数值右端会空出5位。左移会以0填充这些空位，让结果是完整的32位数值（见图3-2）。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/b7qdJi277GnnBKhO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Wo1bzsOAa2BZFYH.png"
+                      alt="b7qdJi277GnnBKhO__thumbnail.png"
                 ></p>
 <p>左移会保留它所操作数值的符号。比如，如果-2左移5位，将得到-64，而不是正64。</p>
 <h4 id="3-5-2-6-有符号右移"><a href="#3-5-2-6-有符号右移" class="headerlink" title="3.5.2.6   有符号右移"></a><strong>3.5.2.6   有符号右移</strong></h4><p>有符号右移由两个大于号（<code>&gt;&gt;</code>）表示，会将数值的所有32位都向右移，同时保留符号（正或负）。有符号右移实际上是左移的逆运算。</p>
@@ -3746,8 +3746,8 @@
 <p>同样，移位后就会出现空位。不过，右移后空位会出现在左侧，且在符号位之后（见图3-3）。ECMAScript会用符号位的值来填充这些空位，以得到完整的数值。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/lfyDtLTtly9xPjgW__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zdWytfUcQuvbgSJ.png"
+                      alt="lfyDtLTtly9xPjgW__thumbnail.png"
                 ></p>
 <h4 id="3-5-2-7-无符号右移"><a href="#3-5-2-7-无符号右移" class="headerlink" title="3.5.2.7   无符号右移"></a><strong>3.5.2.7   无符号右移</strong></h4><p>无符号右移用3个大于号表示（<code>&gt;&gt;&gt;</code>），会将数值的所有32位都向右移。对于正数，无符号右移与有符号右移结果相同。</p>
 <p>对于负数，有时候差异会非常大。右移会给空位补0，而不管符号位是什么。无符号右移操作符将负数的二进制表示当成正数的二进制表示来处理。因为负数是其绝对值的二补数，所以右移之后结果变得非常之大，如下面的例子所示：</p>

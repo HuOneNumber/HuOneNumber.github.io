@@ -268,8 +268,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/08MIWSWe91XVl7d9.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Al9KaUwCZBNSx7G.png"
+                      alt="image.png"
                 ></p>
 <p>DNS局限性：没有考虑任何与客户端和服务器的相对位置，或者服务器当前负载有关的因素。其次很多Web浏览器或操作系统都会进行DNS缓存，以减少DNS查找的开销。DNS轮转通常都不会平衡单个客户端的负载。</p>
 <p>因此有些增强的DNS服务器会使用其他一些技术来选择地址的顺序。</p>
@@ -283,31 +283,31 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/jtYuU2zgbTOgk8af.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2Il5cpGM38WotJH.png"
+                      alt="image _1_.png"
                 ></p>
 <h3 id="20-4-3-任播寻址"><a href="#20-4-3-任播寻址" class="headerlink" title="20.4.3 任播寻址"></a>20.4.3 任播寻址</h3><p>在任播寻址中，几个地理上分散的服务器拥有完全相同的IP地址，而且会通过骨干路由器的“最短路径”路由功能将客户端的请求发送给离它最近的服务器。这种方法需要，每台服务器都要向邻近的骨干路由器广告，服务器会通过路由器通信协议与其邻近的骨干路由器通信。骨干路由器收到发送给任播地址的分组时，会像平常一样寻找接受那个IP地址的最近的“路由器”。由于服务器是将自己作为那个地址的路由器广告出去的，所以骨干路由器会将分组发送给服务器。</p>
 <p>任播寻址仍是项实验性技术。要使用分布式任播技术，服务器须使用“路由器语言”，且路由器必须能够处理可能出现的地址冲突，因为因特网地址基本都是假定一台服务器只有一个地址的。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/gvuBlGIYhNzgbeQq.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Nrh85dgCUJTPGFI.png"
+                      alt="image _2_.png"
                 ></p>
 <h3 id="20-4-4IP-MAC转发"><a href="#20-4-4IP-MAC转发" class="headerlink" title="20.4.4IP MAC转发"></a>20.4.4IP MAC转发</h3><p>在以太网中，HTTP报文都是以携带地址的数据分组的形式发送的。每个分组有一个的MAC地址，这是第二层设备（通常是交换机和HUB）会接收具有特定输入MAC地址的分组，然后将其转发到特定的输出MAC地址上去。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wg6sv971ZBqMMy4c.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/VEoGWqiDmRNaLZB.png"
+                      alt="image _3_.png"
                 ></p>
 <p>通常，如果缓存中没有请求需要的HTTP内容，代理缓存就会代表客户端向此内容的原始服务器发送一条HTTP请求。交换机会将端口80的请求从代理（MAC6）发送给因特网网关（MAC5）</p>
 <p>支持MAC转发的第四层交换机通常会将请求转发给几个代理缓存，并在它们之间平衡负载。因为MAC地址转发只是点对点的，所以服务器或代理只能位于离交换机一跳远的地方。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/suezzXP36gkSuRWQ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2TdyikbQZLY1IWJ.png"
+                      alt="QQ截图20210304204846.png"
                 ></p>
 <h3 id="20-4-5-IP地址转发"><a href="#20-4-5-IP地址转发" class="headerlink" title="20.4.5 IP地址转发"></a>20.4.5 IP地址转发</h3><p>在IP地址转发中，交换机或其他第四层设备会检测输入分组中的TCP/IP地址，并通过修改目的IP地址，对分组进行相应的转发。与MAC转发相比，优点是目标服务器只要位于交换机的上游就行，而非一跳远的地方，而且通常第三层的端到端因特网路由都会将分组传送到正确的地方。</p>
 <p>这种类型的转发也称为NAT（Network Address Translation，网络地址转换）。</p>
@@ -315,8 +315,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/OmPVDAXtOy1Xw1Se.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/pyioQk2YVaBXsEc.png"
+                      alt="image _4_.png"
                 ></p>
 <p>有以下两种方式可以控制响应的返回路径。</p>
 <ol>
@@ -338,8 +338,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/RoX5gd0y8oWnbVCP.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/FOXqjtdfATC1lBo.png"
+                      alt="image _5_.png"
                 ></p>
 <h2 id="20-6-缓存重定向方法"><a href="#20-6-缓存重定向方法" class="headerlink" title="20.6 缓存重定向方法"></a>20.6 缓存重定向方法</h2><p>WCCP协议可以使路由器将Web流量重定向到代理缓存中去。WCCP负责路由器和缓存服务器之间的通信，这样路由器就可以对缓存进行验证（确保启动且运行），在缓存之间进行负载均衡，并将特定类型的流量发送给特定的缓存了。</p>
 <p>下面是WCCP重定向在HTTP上工作过程的概述。</p>
@@ -358,8 +358,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wdlgcE57WzFyA8Oh.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/54XhGHIWUtJS1cz.png"
+                      alt="image _6_.png"
                 ></p>
 <h2 id="20-8-缓存阵列路由协议"><a href="#20-8-缓存阵列路由协议" class="headerlink" title="20.8 缓存阵列路由协议"></a>20.8 缓存阵列路由协议</h2><p>通过CARP（缓存阵列路由协议）协议来管理一组代理服务器，多个代理服务器的负载分散到一组服务器上。CARP是ICP的一个替代品。它们都允许管理者通过使用多个代理服务器来提高性能。</p>
 <p>通过ICP协议连接起来的每个代理服务器都是将内容进行了冗余镜像的独立缓存服务器，在不同的代理服务器之间复制Web对象条目是可行的。相反，用CARP连接起来的一组服务器会被当作一个大型的缓存服务器，其中每个组件服务器都只包含全部缓存文档中的一部分。</p>
@@ -368,8 +368,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ffxXEPOeNFzeXx7X.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/GYDefJaBXAbCdS4.png"
+                      alt="image _7_.png"
                 ></p>
 <h2 id="20-9-超文本缓存协议（略）"><a href="#20-9-超文本缓存协议（略）" class="headerlink" title="20.9 超文本缓存协议（略）"></a>20.9 超文本缓存协议（略）</h2><p>HTCP（超文本缓存协议）允许兄弟缓存之间通过URL和所有的请求及响应首部来相互查询文档是否存在，以降低错误命中的可能。而且HTCP允许兄弟缓存监视或请求在对方的缓存中添加或删除所选中的文档，并修改对方已缓存文档的缓存策略。ICP和HTCP事务之间的区别体现在请求和响应细节上。</p>
 

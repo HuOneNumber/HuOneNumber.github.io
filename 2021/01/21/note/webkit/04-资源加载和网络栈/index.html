@@ -262,15 +262,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/0daCvmpdLOgUMBoZl.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/SejVWMfxqd1UJwC.png"
+                      alt="0daCvmpdLOgUMBoZ__thumbnail.png"
                 ></p>
 <h3 id="4-1-2-资源缓存"><a href="#4-1-2-资源缓存" class="headerlink" title="4.1.2 资源缓存"></a>4.1.2 资源缓存</h3><p>资源的缓存机制的基本思想是建立一个资源的缓存池，当WebKit需要请求资源的时候，先从资源池中查找是否存在相应的资源。WebKit从资源池中查找资源的关键字是URL。如果没有，WebKit创建一个新的CachedResource子类的对象，并发送真正的请求给服务器，WebKit收到资源后将其设置到该资源类的对象中去，以便于缓存后下次使用。这里的缓存指的是内存缓存，而不同于在网络栈部分的磁盘缓存。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/DADmcG38TQhFjPbK.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/NrcO3mnTpqWfUKH.png"
+                      alt="DADmcG38TQhFjPbK__thumbnail.png"
                 ></p>
 <h3 id="4-1-3-资源加载器"><a href="#4-1-3-资源加载器" class="headerlink" title="4.1.3 资源加载器"></a>4.1.3 资源加载器</h3><p>按照加载器的类型来分，WebKit 总共有三种类型的加载器。</p>
 <ol>
@@ -279,8 +279,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3IcXzyYa57u2Lz0U.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/UpEoau5rzePs2xg.png"
+                      alt="3IcXzyYa57u2Lz0U__thumbnail.png"
                 ></p>
 <ol start="2">
 <li><strong>资源缓存机制的资源加载器</strong>，特点是所有特定加载器都共享它来查找并插入缓存资源——<strong>CachedResourceLoader类</strong>。特定加载器先是通过缓存机制的资源加载器来查找是否有缓存资源，它属于HTML的文档对象。</li>
@@ -288,8 +288,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Lql2quYaEeTXRUBf.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/YqjmButO51IrWMH.png"
+                      alt="Lql2quYaEeTXRUBf__thumbnail.png"
                 ></p>
 <ol start="3">
 <li><strong>通用的资源加载器</strong>——ResourceLoader类，是在WebKit需要从网络或者文件系统获取资源的时候使用该类只负责获得资源的数据，因此被所有特定资源加载器所共享。它属于CachedResource类，但它同CachedResourceLoader类没有继承关系，这容易混淆。</li>
@@ -297,15 +297,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/yxLtJhDragnUUhta.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/oCLGxvzqYsTiM4B.png"
+                      alt="yxLtJhDragnUUhta__thumbnail.png"
                 ></p>
 <h3 id="4-1-4-过程"><a href="#4-1-4-过程" class="headerlink" title="4.1.4 过程"></a>4.1.4 过程</h3><p>下图是一个带有资源缓存机制的资源加载的全过程，包括资源已经在缓存中和不在缓存中两种情况。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/gVXqqiTMWy0JHXYe.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/S5sq3j2B7AJkh8Z.png"
+                      alt="gVXqqiTMWy0JHXYe__thumbnail.png"
                 ></p>
 <p>通常一些资源的加载是异步执行的，资源的获取和加载不会阻碍当前WebKit的渲染过程，例如图片、CSS文件。但网页也存在某些特别的资源会阻碍主线程的渲染过程，例如JavaScript代码文件。这会严重影响WebKit下载资源的效率，因为后面可能还有许多需要下载的资源。</p>
 <p>webkit的解决方案：当前的主线程被阻碍时，WebKit 会启动另外一个线程去遍历后面的HTML网页，收集需要的资源URL，然后发送请求，避免被阻碍。同时WebKit 能够并发下载这些资源，甚至并发下载JavaScript代码资源。</p>
@@ -315,8 +315,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/sqo0VXyFsDg0m6zY.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zRYpIGO153oBacy.png"
+                      alt="sqo0VXyFsDg0m6zY__thumbnail.png"
                 ></p>
 <p>Renderer进程在网页的加载过程中需要获取资源，但是由于安全性（当沙箱模型打开的时候，Renderer进程是没有权限去获取资源的）和效率上（资源共享等问题）的考虑，Renderer进程的资源获取实际上是通过进程间通信将任务交给Browser进程来完成，Browser 进程有权限从网络或者本地获取资源。</p>
 <p>在Chromium架构的Renderer进程中，ResourceHandleInternal 类通过IPCResource-LoaderBridge类同Browser进程通信。IPCResourceL oaderBridge类继承自ResourceL oaderBridge类，其作用是负责发起请求的对象和回复结果的解释工作，实际消息的接收和派发交给ResourceDispatcher类来处理。</p>
@@ -326,8 +326,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/byBPW6KAwIpeU5mS.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/oaZmxBWi7Gp9IN3.png"
+                      alt="byBPW6KAwIpeU5mS__thumbnail.png"
                 ></p>
 <p>图中还有两个ResourceHandle子类，第一个是LayeredResourceHandle类，它同SyncResourceHandle类和AsyncResourceHandle类不一样，自己不直接参与资源的处理，而是将处理转给另一个ResourceHandle对象。LayeredResourceHandle 类没有实际意义，仅是BufferedResourceHandle的父类。该缓冲类用来缓冲网络或者文件传过来的数据，直到数据足够满足需求然后转给设置的另一个ResourceHandle对象。Throttling-ResourceHandle类是在面对很多个资源请求时仅使用一个URLRequest对象来获取资源，这可以有效地减少网络的开销，因为不需要重新建立多个网络连接。</p>
 <p>此外，在Chromium中还有很多ResourceHandle的子类，它们的作用各异。</p>
@@ -344,15 +344,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/i4uSsMXfcjQTaa2X.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/nOMpuIyAZlef94V.png"
+                      alt="i4uSsMXfcjQTaa2X__thumbnail.png"
                 ></p>
 <h4 id="4-3-2-2-网络栈结构"><a href="#4-3-2-2-网络栈结构" class="headerlink" title="4.3.2.2 网络栈结构"></a>4.3.2.2 网络栈结构</h4><p>下图描述了从URLRequest类到Socket类之间的调用过程。以HTTP协议为例，图中列出建立TCP的socket连接过程中涉及的类。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/icP92vja3jnJnFsb.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/G1TS9n3xUDeQcmR.png"
+                      alt="icP92vja3jnJnFsb__thumbnail.png"
                 ></p>
 <p>首先是URLRequest类被上层调用并启动请求的时候，它会根据URL的“scheme”来决定需要创建什么类型的请求。“scheme”也就是URL的协议类型，例如“http://”、“fle://”，也可以是自定义的scheme，例如Android系统的“fle://android asset/”。URLRequest对象创建的是一个URLRequestJob子类的一个对象，例如图中的URLRequestHttpJob类。为了支持自定义的scheme：处理方式，Chromium使用工厂模式。URLRequestJob 类和它的工厂类URLRequestJobFactory 的管理工作都由URLRequestJlobManager类负责。基本的思路是，用户可以在该类中注册多个工厂，当有URLRequest请求时，先由工厂检查它是否需要处理该“scheme”，如果没有，工厂管理类继续交给下一个工厂“类来处理。最后，如果没有任何工厂能够处理，Chromium则交给内置的工厂来检查和处理是否为“http://“、“http:/“或者“fle://”</p>
 <p>等，图4-15用来描述这些类的关系。.</p>
@@ -360,8 +360,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/3x9ruL4MGbG59Khg.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/hCIzoRZM2B4udwF.png"
+                      alt="3x9ruL4MGbG59Khg__thumbnail.png"
                 ></p>
 <p>再次，HttpNetworkTransaction 类使用HttpNetworkSession 类来管理连接会话。</p>
 <p>HttpNetworkSession类通过它的成员HttpStreamFactory 对象来建立TCP Socket连接，之后Chromium创建HttpStream对象。HttpStreamFactory对象将和网络之间的数据读写交给自己新创建的一一个HttpStream子类的对象来处理。</p>
@@ -369,8 +369,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Ssn77qEXGwUk9Sqv.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/g3BnOhN1L8UfWqZ.png"
+                      alt="Ssn77qEXGwUk9Sqv__thumbnail.png"
                 ></p>
 <h4 id="4-3-2-3-代理"><a href="#4-3-2-3-代理" class="headerlink" title="4.3.2.3 代理"></a>4.3.2.3 代理</h4><p>当用户设置代理时，上面的网络栈结构是如何组织的呢？用户代理依赖以下类来处理。</p>
 <ol>
@@ -381,13 +381,12 @@
 <li>ProxyResolverV8：ProxyResolver的子类，使用V8引擎来解析和执行脚本。</li>
 </ol>
 <p>下图不仅描述上面这些类，也描述了Chromium中获取网络代理的过程。图中数字代表获取网络代理的次序，其中的分支3.1和4.1分别表示简单的代理设置和代理脚本设置的处理过程。</p>
-<p><img  
+<h4 id="4-3-2-4-域名解析（DNS）"><a href="#4-3-2-4-域名解析（DNS）" class="headerlink" title="4.3.2.4 域名解析（DNS）"></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/WebKit/Fb9e4AescqSYA2fZ.png"
-                      alt="图片"
-                ></p>
-<h4 id="4-3-2-4-域名解析（DNS）"><a href="#4-3-2-4-域名解析（DNS）" class="headerlink" title="4.3.2.4 域名解析（DNS）"></a>4.3.2.4 域名解析（DNS）</h4><p>通常情况下，用户都是使用域名来访问网络资源的，所以在建立TCP连接前需要解析域名。Chromium中使用HostResolverImpl类来解析域名，具体调用的函数是“getaddrinfo（）”，该函数是一个阻塞式的函数，所以Chromium理所当然使用单独的线程来处理它，这是Chromium的原则之一。因此当调试Chromium的进程时，会看到很多线程被创建然后退出。</p>
+                     data-src="https://i.loli.net/2021/03/08/rLt2XjCBhMSAqKv.png"
+                      alt="Fb9e4AescqSYA2fZ__thumbnail.png"
+                >4.3.2.4 域名解析（DNS）</h4><p>通常情况下，用户都是使用域名来访问网络资源的，所以在建立TCP连接前需要解析域名。Chromium中使用HostResolverImpl类来解析域名，具体调用的函数是“getaddrinfo（）”，该函数是一个阻塞式的函数，所以Chromium理所当然使用单独的线程来处理它，这是Chromium的原则之一。因此当调试Chromium的进程时，会看到很多线程被创建然后退出。</p>
 <p>为了考虑效率，使用HostCache类来保存解析后的域名，最多时会有多达1000个的域名和地址映射关系会被存储起来。看起来DNS的解析很简单，好像也没有什么值得深究的，其实不然，域名解析也可以有优化的空间，因为优化可以有效的减少用户等待的时间。</p>
 
         </div>

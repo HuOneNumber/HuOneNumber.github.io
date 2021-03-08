@@ -256,11 +256,11 @@
 <h3 id="13-2-2-用随机数防止重放攻击"><a href="#13-2-2-用随机数防止重放攻击" class="headerlink" title="13.2.2 用随机数防止重放攻击"></a>13.2.2 用随机数防止重放攻击</h3><p>仅仅隐藏密码并不能避免危险，因为即便不知道密码，也可以截获摘要，并一遍遍地重放给服务器。解决办法：服务器在www-Authenticate质询中传送给客户端一个称为<strong>随机数</strong>（nonce）的特殊令牌，这个数会经常发生变化。客户端在计算摘要之前要先将这个随机数令牌附加到密码上去。</p>
 <p>在密码中加入随机数就会使摘要随着随机数的每–次变化而变化。记录下的密码摘要只对特定的随机值有效，而没有密码的话，攻击者就无法计算出正确的摘要，这样就可以防止重放攻击的发生。</p>
 <h3 id="13-2-3-摘要认证的握手机制"><a href="#13-2-3-摘要认证的握手机制" class="headerlink" title="13.2.3 摘要认证的握手机制"></a>13.2.3 摘要认证的握手机制</h3><p>HTTP摘要认证协议所用首部与基本认证类似。它在传统首部中添加了一个新的可选首部Authorization-Info。</p>
-<p><img  
+<p>![图片]<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/LKKAx2TPmRP22yYG__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/kS9wKW172HulOen.png"
+                      alt="LKKAx2TPmRP22yYG__thumbnail.png"
                 ></p>
 <h2 id="13-3-摘要的计算"><a href="#13-3-摘要的计算" class="headerlink" title="13.3 摘要的计算"></a>13.3 摘要的计算</h2><p>摘要认证的核心是对公共信息、保密信息和有时限的随机值这个组合的单向摘要。摘要是根据以下三个组件计算出来的：</p>
 <ol>
@@ -277,8 +277,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wds6DoVwtCD0ntzK__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/gLWk6sqniwXRo1x.png"
+                      alt="wds6DoVwtCD0ntzK__thumbnail.png"
                 ></p>
 <h3 id="13-2-2-与报文有关的数据（A2）"><a href="#13-2-2-与报文有关的数据（A2）" class="headerlink" title="13.2.2 与报文有关的数据（A2）"></a>13.2.2 与报文有关的数据（A2）</h3><p>根据所选择的保护质量（qop），为A2定义了两种策略:</p>
 <ol>
@@ -288,8 +288,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wDzTpT57Nsji2JHp__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/4iLBptYUodeIlJ7.png"
+                      alt="wDzTpT57Nsji2JHp__thumbnail.png"
                 ></p>
 <p>request-method是HTTP的请求方法。uri-directive-value 是请求行中的请求URI。可能是个”*”、absoluteURL或者abs_path，但它必须与请求URI一致。如果请求URI是absoluteURL，它必须是个绝对URL。</p>
 <h3 id="13-2-3-摘要算法总述"><a href="#13-2-3-摘要算法总述" class="headerlink" title="13.2.3 摘要算法总述"></a>13.2.3 摘要算法总述</h3><p>得到了两种给定了H、KD、A1和A2之后，计算摘要的方式：</p>
@@ -300,14 +300,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/g0aHLWSGVCRuUveg__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/jYnmcVkHxNKuFZw.png"
+                      alt="g0aHLWSGVCRuUveg__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DRNNnrURitHX377G__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/O1Bl5K6i7xDS2Hm.png"
+                      alt="DRNNnrURitHX377G__thumbnail.png"
                 ></p>
 <h3 id="13-2-4-预授权"><a href="#13-2-4-预授权" class="headerlink" title="13.2.4 预授权"></a>13.2.4 预授权</h3><p>预授权对基本认证来说并不重要，因为一旦用户与某站点进行了认证，浏览器通常会为后继对那个URL的请求发送正确的Authorization首部。</p>
 <p>对摘要认证来说，服务器会产生任意的随机数，所以在客户端收到质询之前，不一定能判定应该发送什么样的Authorization首部。</p>
@@ -327,8 +327,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/FpD971kcIakNiitO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/aMbvEZ6RpLPWJ4k.png"
+                      alt="FpD971kcIakNiitO__thumbnail.png"
                 ></p>
 <p>cnonce值和nc值必须是本报文所响应的客户端请求中的相应值。如果指定了qop=”auth”或qop=”auth-int”，就必须提供响应auth、cnonce 和nonce计数指令。</p>
 <h2 id="13-4-增强保护质量"><a href="#13-4-增强保护质量" class="headerlink" title="13.4 增强保护质量"></a>13.4 增强保护质量</h2><p>在三种摘要首部中提供qop字段：WWW-Authenticate、Authorization 和Authentication-Info可以实现客户端和服务器对不同类型及质量的保护进行协商。</p>

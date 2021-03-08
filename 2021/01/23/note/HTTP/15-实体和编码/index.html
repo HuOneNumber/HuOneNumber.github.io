@@ -247,8 +247,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/YuTjZHTRjDigxdVP__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/cnoa3xepd6bS4Nf.png"
+                      alt="YuTjZHTRjDigxdVP__thumbnail.png"
                 ></p>
 <h2 id="15-2-Content-Length：实体的大小"><a href="#15-2-Content-Length：实体的大小" class="headerlink" title="15.2 Content-Length：实体的大小"></a>15.2 Content-Length：实体的大小</h2><p>Content-Length首部指示出报文中实体主体的字节大小，包含了所有内容编码的。Content-Length首部就是带有实体主体的报文必须使用的，除非使用了分块编码。使用Content-Length首部能够检测出服务器崩溃而导致的报文截尾，并对共享持久连接的多个报文进行正确分段。</p>
 <h3 id="15-2-1-检测截尾"><a href="#15-2-1-检测截尾" class="headerlink" title="15.2.1 检测截尾"></a>15.2.1 检测截尾</h3><p>HTTP的早期版本采用关闭连接的办法来划定报文的结束。但客户端无法区分是正常的连接关闭，还是由于服务器崩溃而导致的连接关闭。</p>
@@ -278,8 +278,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Hgvet3LTBs7pzFpx__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/jnyXQHRc4t2gT3U.png"
+                      alt="Hgvet3LTBs7pzFpx__thumbnail.png"
                 ></p>
 <h3 id="15-4-1-文本的字符编码"><a href="#15-4-1-文本的字符编码" class="headerlink" title="15.4.1 文本的字符编码"></a>15.4.1 文本的字符编码</h3><p>Content-Type首部还支持可选的参数来进一步说明内容的类型。比如charset（字符集）参数，说明把实体中的比特转换为文本文件中的字符的方法：Content-Type：text/html；</p>
 <h3 id="15-4-2-多部分媒体类型"><a href="#15-4-2-多部分媒体类型" class="headerlink" title="15.4.2 多部分媒体类型"></a>15.4.2 多部分媒体类型</h3><p>MIME中的multipart（多部分）电子邮件报文中包含多个报文，它们一起作为复杂报文发送。每一部分都是独立的，有各自的描述其内容的集，不同的部分之间用分界字符串连接。</p>
@@ -298,15 +298,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/wfXRqxnk1BEU33wW__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ny5FQBflWuTLOAi.png"
+                      alt="wfXRqxnk1BEU33wW__thumbnail.png"
                 ></p>
 <h3 id="15-5-2-内容编码类型"><a href="#15-5-2-内容编码类型" class="headerlink" title="15.5.2 内容编码类型"></a>15.5.2 内容编码类型</h3><p>HTTP定义了一些标准的内容编码类型，并允许用扩展编码的形式增添更多的编码。由互联网号码分配机构（IANA）对各种编码进行标准化，它给每个内容编码算法分配了唯一的代号。Content-Encoding首部就用这些标准化的代号来说明编码时使用的算法。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Bd5Wji9r83iXfpN0__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/z2TfyUgZSmcl75A.png"
+                      alt="Bd5Wji9r83iXfpN0__thumbnail.png"
                 ></p>
 <h3 id="15-5-3-Accept-Encoding首部"><a href="#15-5-3-Accept-Encoding首部" class="headerlink" title="15.5.3 Accept-Encoding首部"></a>15.5.3 Accept-Encoding首部</h3><p>为了避免服务器使用客户端不支持的编码方式，客户端就把自己支持的内容编码方式列表放在请求的Accept-Encoding首部里发出去。如果HTTP请求中没有包含Accept-Encoding首部，服务器就可以假设客户端能够接受任何编码方式。</p>
 <p>客户端可以给每种编码附带Q（质量）值参数来说明编码的优先级。Q值范围从0.0到1.0，0.0说明客户端不想接受所说明的编码，1.0则表明最希望使用的编码。*表示“任何其他方法”。</p>
@@ -315,8 +315,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/KmJHDOGZldzZmjDu__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/qlKXONDHRMSLdmr.png"
+                      alt="KmJHDOGZldzZmjDu__thumbnail.png"
                 ></p>
 <h3 id="15-6-1-可靠传输"><a href="#15-6-1-可靠传输" class="headerlink" title="15.6.1 可靠传输"></a>15.6.1 可靠传输</h3><p>在HTTP协议中，底层的传输设施已经标准化且容错性好，只有少数情况下，所传输的报文主体可能会引发问题：</p>
 <ol>
@@ -338,8 +338,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/QefkJBLxwkzvePyF__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/yqf1AQakN5l3EWL.png"
+                      alt="QefkJBLxwkzvePyF__thumbnail.png"
                 ></p>
 <h4 id="15-6-3-2-分块报文的拖挂"><a href="#15-6-3-2-分块报文的拖挂" class="headerlink" title="15.6.3.2 分块报文的拖挂"></a>15.6.3.2 分块报文的拖挂</h4><p>只有客户端的TE首部中说明可以接受拖挂，才在分块的报文最后加上。产生原始响应的服务器也可以在分块的报文最后加上拖挂。</p>
 <p>拖挂的内容是可选的元数据，客户端不一定需要理解和使用（甚至可以忽略并丢弃拖挂中的内容）。拖挂中可以包含附带的首部字段，它们的值在报文开始的时候可能是无法确定的。比如Content-MD5 ，在文档生成之前很难算出它的MD5。</p>
@@ -348,8 +348,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/R2V1NNz6yChk86Tq__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/t1bpNjzZSgG4XVv.png"
+                      alt="R2V1NNz6yChk86Tq__thumbnail.png"
                 ></p>
 <h3 id="15-6-5-传输编码的规则"><a href="#15-6-5-传输编码的规则" class="headerlink" title="15.6.5 传输编码的规则"></a>15.6.5 传输编码的规则</h3><p>对报文主体使用传输编码时，必须遵守以下规则，使得接收方能够确定报文的传输长度：</p>
 <ol>
@@ -368,14 +368,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/m7VrGBnCBAIpGjwd__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/ysK29bnJzuWZOcB.png"
+                      alt="m7VrGBnCBAIpGjwd__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/27woIO882zhDrUbJ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zUOXlkoVYQ3txPF.png"
+                      alt="27woIO882zhDrUbJ__thumbnail.png"
                 ></p>
 <h3 id="15-8-2-有条件的请求与验证码"><a href="#15-8-2-有条件的请求与验证码" class="headerlink" title="15.8.2 有条件的请求与验证码"></a>15.8.2 有条件的请求与验证码</h3><p>当原始服务器上的文档与缓存中已过期的副本相同，而缓存服务器还是要从原始服务器上取文档的话，那缓存服务器就是在浪费网络带宽，给缓存服务器和原始服务器增加不必要的负载。</p>
 <p>解决方案：仅当资源改变时才请求副本，这种特殊请求称为有条件的请求，仅当某个特定条件为真时才执行，如果条件不满足，服务器就发回一个HTTP错误码。</p>
@@ -383,8 +383,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/ZOLwYk7M1G3NhugX__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/2kSovtqjD1YQaNu.png"
+                      alt="ZOLwYk7M1G3NhugX__thumbnail.png"
                 ></p>
 <p>HTTP把验证码分为两类：<strong>弱验证码</strong>（weak validators）和<strong>强验证码</strong>（strong validators）。</p>
 <p>弱验证码不一定能唯一标识资源的一个实例，而强验证码可以。</p>
@@ -402,8 +402,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/W7dJGGZkH5D2R8X5__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/A2MzCgNQdYvInuW.png"
+                      alt="W7dJGGZkH5D2R8X5__thumbnail.png"
                 ></p>
 <p>Range首部在流行的<strong>点对点</strong>（Peer-to-Peer，P2P）文件共享客户端软件中得到广泛应用，它们从不同的对等实体同时下载多媒体文件的不同部分。</p>
 <p>范围请求属于实例操控，因为它们是在客户端和服务器之间针对特定的对象实例来交换信息的。也就是客户端的范围请求仅当客户端和服务器拥有文档的同一个版本时才有意义。</p>
@@ -415,15 +415,15 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/1zeEzzzA7jllslxR__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/a6SjMEOpBYmCJHl.png"
+                      alt="1zeEzzzA7jllslxR__thumbnail.png"
                 ></p>
 <p>客户端用A-IM首部说明可以接受的一些实例操控的类型。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/l9MCr1VSHCxu3wQi__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wRvzhJaXt6FPfme.png"
+                      alt="l9MCr1VSHCxu3wQi__thumbnail.png"
                 ></p>
 <p>服务器侧的<strong>差异生成器</strong>根据基线文档和该文档的最新实例，并用客户端在A-IM首部中指明的算法计算它们之间的差异。客户端侧的<strong>差异应用器</strong>得到差异，将其应用于基线文档，得到文档的最新实例。</p>
 <p>在返回给客户端之前，文档可以经过多种实例操控，这样可以获得最大程度的压缩。例如，用vcdiff算法产生的差异后可以再用gzip算法压缩。</p>
@@ -431,8 +431,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Ttoo45eBe0QpTIHZ__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wtf3A2NQOVrXn8U.png"
+                      alt="Ttoo45eBe0QpTIHZ__thumbnail.png"
                 ></p>
 
         </div>

@@ -781,8 +781,8 @@
 <p>注意在移位后，数值右端会空出5位。左移会以0填充这些空位，让结果是完整的32位数值（见图3-2）。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/b7qdJi277GnnBKhO__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Wo1bzsOAa2BZFYH.png"
+                      alt="b7qdJi277GnnBKhO__thumbnail.png"
                 ></p>
 <p>左移会保留它所操作数值的符号。比如，如果-2左移5位，将得到-64，而不是正64。</p>
 <h4 id="3-5-2-6-有符号右移"><a href="#3-5-2-6-有符号右移" class="headerlink" title="3.5.2.6   有符号右移"></a><strong>3.5.2.6   有符号右移</strong></h4><p>有符号右移由两个大于号（<code>&gt;&gt;</code>）表示，会将数值的所有32位都向右移，同时保留符号（正或负）。有符号右移实际上是左移的逆运算。</p>
@@ -790,8 +790,8 @@
 <p>同样，移位后就会出现空位。不过，右移后空位会出现在左侧，且在符号位之后（见图3-3）。ECMAScript会用符号位的值来填充这些空位，以得到完整的数值。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/lfyDtLTtly9xPjgW__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/zdWytfUcQuvbgSJ.png"
+                      alt="lfyDtLTtly9xPjgW__thumbnail.png"
                 ></p>
 <h4 id="3-5-2-7-无符号右移"><a href="#3-5-2-7-无符号右移" class="headerlink" title="3.5.2.7   无符号右移"></a><strong>3.5.2.7   无符号右移</strong></h4><p>无符号右移用3个大于号表示（<code>&gt;&gt;&gt;</code>），会将数值的所有32位都向右移。对于正数，无符号右移与有符号右移结果相同。</p>
 <p>对于负数，有时候差异会非常大。右移会给空位补0，而不管符号位是什么。无符号右移操作符将负数的二进制表示当成正数的二进制表示来处理。因为负数是其绝对值的二补数，所以右移之后结果变得非常之大，如下面的例子所示：</p>

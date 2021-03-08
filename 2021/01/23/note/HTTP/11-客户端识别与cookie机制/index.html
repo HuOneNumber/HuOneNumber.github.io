@@ -255,8 +255,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/OGLHbPyUzYspa9X1__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/5L8iAcKqhvVbH4N.png"
+                      alt="OGLHbPyUzYspa9X1__thumbnail.png"
                 ></p>
 <p>由于有些服务器会搜集E-mail地址，用于垃圾邮件的散发，所以很少有浏览器会发送From首部。实际上，From首部是由自动化的机器人或蜘蛛发送的。</p>
 <p>User-Agent首部包括浏览器的名称和版本，操作系统的相关信息。用于实现定制内容与特定的浏览器及其属性间的良好互操作，但并没有为识别特定的用户提供太多帮助。</p>
@@ -273,16 +273,16 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/UtHMnCSRoPNvPQj9__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/87AXogI6KjVtWf1.png"
+                      alt="UtHMnCSRoPNvPQj9__thumbnail.png"
                 ></p>
 <h2 id="11-4-用户登录"><a href="#11-4-用户登录" class="headerlink" title="11.4 用户登录"></a>11.4 用户登录</h2><p>Web服务器可以要求用户通过用户名和密码进行认证（登录）来显式地询问用户是谁。HTTP中包含了一种内建机制，可以用WWW-Authenticate首部和Authorization首部向Web站点传送用户的相关信息。</p>
 <p>如果服务器希望在为用户提供对站点的访问之前登录，可以向浏览器回送一条HTTP响应代码401 Login Required，然后浏览器显示一个登录对话框，一旦登录，浏览器就可以不断地在每条发往这个站点的请求甚至没有要求中，向服务器发送Authorization首部作为一种身份的标识。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/UtY4a0FC6TRmjhdo__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/8Kc5o9SdyMIVRfE.png"
+                      alt="UtY4a0FC6TRmjhdo__thumbnail.png"
                 ></p>
 <h2 id="11-5-胖URL"><a href="#11-5-胖URL" class="headerlink" title="11.5 胖URL"></a>11.5 胖URL</h2><p>有些Web站点会为每个用户生成特定版本的URL来追踪用户的身份。通常对真正的URL路径开始或结束的地方添加一些状态信息。用户浏览站点时，Web服务器会动态生成一些超链，继续维护URL中的状态信息。改动后包含了用户状态信息的URL被称为胖URL（fat URL）。</p>
 <p>但这种技术存在几个很严重的问题：</p>
@@ -312,22 +312,22 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/Jq2YLdpVHtY6PfRA__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/CXx8REyPFs7LhUY.png"
+                      alt="Jq2YLdpVHtY6PfRA__thumbnail.png"
                 ></p>
 <h3 id="11-6-6-cookies版本0（Netscape）"><a href="#11-6-6-cookies版本0（Netscape）" class="headerlink" title="11.6.6 cookies版本0（Netscape）"></a>11.6.6 cookies版本0（Netscape）</h3><p>最初的cookie规范是由网景公司定义的。这些“版本0”的cookie定义了Set-Coookie响应首部、cookie请求首部以及用于控制cookie的字段。</p>
 <h4 id="11-6-6-1-版本0的set-Cookie首部"><a href="#11-6-6-1-版本0的set-Cookie首部" class="headerlink" title="11.6.6.1 版本0的set-Cookie首部"></a>11.6.6.1 版本0的set-Cookie首部</h4><p>set-Cookie首部有一个强制性的cookie名和cookie 值。后面跟着可选的cookie属性，中间由分号分隔。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qdonImiSjvneeOvw__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/hZbMTLJrzs3KPuk.png"
+                      alt="qdonImiSjvneeOvw__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/GBdOJLwCMpYc0S2p__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/sIC5VgzkP8fB9Hj.png"
+                      alt="GBdOJLwCMpYc0S2p__thumbnail.png"
                 ></p>
 <h4 id="11-6-6-2-版本0的Cookie首部"><a href="#11-6-6-2-版本0的Cookie首部" class="headerlink" title="11.6.6.2 版本0的Cookie首部"></a>11.6.6.2 版本0的Cookie首部</h4><p>客户端发送请求时，会将所有与域、路径和安全过滤器相匹配的未过期cookie都发送给这个站点。所有cookie都被组合到一个Cookie首部中。</p>
 <h3 id="11-6-7-cookies版本1（RFC-2965）"><a href="#11-6-7-cookies版本1（RFC-2965）" class="headerlink" title="11.6.7 cookies版本1（RFC 2965）"></a>11.6.7 cookies版本1（RFC 2965）</h3><p>这个版本1标准引入了Set-Cookie2首部和Cookie2首部，但也能与版本0系统进行互操作。</p>
@@ -344,14 +344,14 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/5a2SbBmAsu83S7yy__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/pVqy9eLYgvZUxda.png"
+                      alt="5a2SbBmAsu83S7yy__thumbnail.png"
                 ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/mtVJtcN1kr8hhsQp__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/rDePvSIkW4th2Mj.png"
+                      alt="mtVJtcN1kr8hhsQp__thumbnail.png"
                 ></p>
 <h4 id="11-6-7-2-版本1的Cookie首部"><a href="#11-6-7-2-版本1的Cookie首部" class="headerlink" title="11.6.7.2 版本1的Cookie首部"></a>11.6.7.2 版本1的Cookie首部</h4><p>版本1的cookie会带回与传送的每个cookie相关的附加信息，用来描述每个cookie途径的过滤器。每个匹配的cookie都必须包含来自相应set-cookie2首部的所有Domain、Port 或Path属性。所有匹配cookie都是和它们的Set-Cookie2过滤器一同传输的，而且保留关键字都是以美元符号（$）开头的。</p>
 <h4 id="11-6-7-3-版本1的Cookie2首部和版本协商"><a href="#11-6-7-3-版本1的Cookie2首部和版本协商" class="headerlink" title="11.6.7.3 版本1的Cookie2首部和版本协商"></a>11.6.7.3 版本1的Cookie2首部和版本协商</h4><p>Cookie2请求首部负责在能够理解不同cookie规范版本的客户端和服务器之间进行互操作性的协商。</p>

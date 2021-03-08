@@ -248,8 +248,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EcJv4cg2UJABtNpp.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/BcYmKZklw5pDSIs.png"
+                      alt="EcJv4cg2UJABtNpp__thumbnail.png"
                 ></p>
 <p>TCP段是由IP分组承载。每个IP分组中包括：</p>
 <pre><code>    1. 一个IP分组首部，包含源和目的IP地址、长度和其他一些标记（通常为20字节）；
@@ -260,29 +260,29 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/46GDogLOzoqcLen7.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/B6FQoYxgDh1sqbG.png"
+                      alt="46GDogLOzoqcLen7__thumbnail.png"
                 ></p>
 <h3 id="4-1-4-TCP套接字编程"><a href="#4-1-4-TCP套接字编程" class="headerlink" title="4.1.4 TCP套接字编程"></a>4.1.4 TCP套接字编程</h3><p>操作系统提供了一些操纵其TCP连接的工具。我们来看一个TCP编程接口。这个套接字API向HTTP程序员隐藏了TCP和IP的所有细节。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/qv4I1NjxFUOC6xh8.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/o1AtgCIRBbeWjDF.png"
+                      alt="qv4I1NjxFUOC6xh8__thumbnail.png"
                 ></p>
 <p>套接字API允许用户创建TCP的端点数据结构，将这些端点与远程服务器的TCP端点进行连接，并对数据流进行读写。TCP API隐藏了所有底层网络协议的握手细节，以及TCP数据流与IP分组之间的分段和重装细节。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/vAn3ica3x7NtExWZ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/3h56inwBySqHbtE.png"
+                      alt="vAn3ica3x7NtExWZ__thumbnail.png"
                 ></p>
 <p>从Web服务器等待连接（S4）开始。客户端根据URL判定出IP地址和端口号，并建立一条到服务器的TCP连接（C3）。</p>
 <p>建立连接后，客户端就会发送HTTP请求（C5），服务器读取请求（S6）。一旦服务器获取了整条请求报文，就会对请求进行处理，执行所请求的动作（S7），并将数据写回客户端。客户端读取数据（C6），并对响应数据进行处理（C7）。</p>
 <h2 id="4-2-TCP性能"><a href="#4-2-TCP性能" class="headerlink" title="4.2 TCP性能"></a>4.2 TCP性能</h2><h3 id="4-2-1-HTTP事务的时延"><a href="#4-2-1-HTTP事务的时延" class="headerlink" title="4.2.1 HTTP事务的时延"></a>4.2.1 HTTP事务的时延</h3><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/N1zHevdCojb7owBy.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/Kyjzs8YnHod3DqX.png"
+                      alt="N1zHevdCojb7owBy__thumbnail.png"
                 ></p>
 <p>与建立TCP连接、传输请求、响应报文的时间相比，事务处理可能是很短的，除非客户端或服务器超载，或正处理复杂的动态资源，否则HTTP时延就是由TCP网络时延构成的。</p>
 <p>HTTP事务的时延原因：</p>
@@ -298,8 +298,8 @@
 <h4 id="4-2-2-1-TCP连接的握手时延"><a href="#4-2-2-1-TCP连接的握手时延" class="headerlink" title="4.2.2.1 TCP连接的握手时延"></a>4.2.2.1 TCP连接的握手时延</h4><p>建立一条新的TCP连接时，甚至是在发送任意数据之前，TCP软件之间会交换一系列的IP分组，对连接的有关参数进行沟通。如果连接用来传送少量数据，这些交换过程就会降低HTTP的性能。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/McjEXqUcLmE8y4Qe.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/pcMj5YAJitqbS6o.png"
+                      alt="McjEXqUcLmE8y4Qe__thumbnail.png"
                 ></p>
 <p><strong>TCP连接握手步骤:</strong></p>
 <pre><code>1. 请求新的TCP连接时，客户端要向服务器发送一个小的TCP分组（通常是40 ~60个字节）。这个分组中设置了一个特殊的SYN标记，说明这是一个连接请求（参见a）。
@@ -329,8 +329,8 @@
 <p>如果连接标签中包含了HTTP首部字段的名称，那么这个首部字段就包含了与一些连接有关的信息，不能将其转发，在将报文转发出去之前，删除Connection所列出的首部字段以及自身。<img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/MWKLFwHwkjmuqWQY.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/d6Kyks1VMU3bLYA.png"
+                      alt="MWKLFwHwkjmuqWQY__original.png"
                 ></p>
 <h3 id="4-3-2-串行事务处理时延"><a href="#4-3-2-串行事务处理时延" class="headerlink" title="4.3.2 串行事务处理时延"></a>4.3.2 串行事务处理时延</h3><p>串行加载缺点：1、叠加链接时延和慢启动时延。2、有些浏览器需要完全加载后才显示。</p>
 <p>新的链接方法：</p>
@@ -341,8 +341,8 @@
 <h2 id="4-4-并行链接"><a href="#4-4-并行链接" class="headerlink" title="4.4 并行链接"></a>4.4 并行链接</h2><h2 id=""><a href="#" class="headerlink" title=""></a><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/E02QnUnHmeOPbogJ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/A6ETjvVg29zX3rw.png"
+                      alt="E02QnUnHmeOPbogJ__original.png"
                 ></h2><p>并行链接的优点：</p>
 <pre><code>1. 每个事务都有自己的连接，装载是并行的，连接的时延也是重叠的。（嵌入的组件不一定都在同一台Web服务器上，可以同多台服务器建立并行的连接）。
 2. 可以让用户感觉更快。</code></pre>
@@ -358,8 +358,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/RUOT3rgreZZqeDQ5.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/XpykQEHGe4K1Rfm.png"
+                      alt="RUOT3rgreZZqeDQ5__original.png"
                 ></p>
 <p>持久连接与并行连接配合使用是高效的方式。通常，Web应用程序打开少量的并行连接，其中的每一个都是持久连接。</p>
 <p>持久连接有两种类型：比较老的**”keep-alive”连接<strong>，现代的</strong>“persistent”连接**</p>
@@ -373,8 +373,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EBTdTrTeWy3Jfd15.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/szK69eWZDEVytLj.png"
+                      alt="EBTdTrTeWy3Jfd15__original.png"
                 ></p>
 <p>后果：客户端和服务器都认为它们在进行keep-alive对话，但代理等待源端服务器关闭连接，源端服务器认为连接保持在打开状态，所以不会去关闭连接，反而立即转向下一条请求。而代理并不认为同一条连接上会有其他请求，<strong>请求被忽略</strong>。这会使浏览器<strong>一直处于挂起状态</strong>，直到客户端或服务器将连接超时，并将其关闭为止。</p>
 <p>有几个不能作为Connection首部值列出，包括Proxy-Authenticate、Proxy-Connection、</p>
@@ -388,8 +388,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/SmB3DWYPPxzXolFI.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/rBgSFhCpoTQbLdw.png"
+                      alt="SmB3DWYPPxzXolFI__original.png"
                 ></p>
 <p>管道化连接的限制：</p>
 <ol>
@@ -411,8 +411,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/HqfJNF2eliisLFNQ.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/XaR3DEm9GuULlNs.png"
+                      alt="HqfJNF2eliisLFNQ__original.png"
                 ></p>
 <h4 id="4-7-4-2-TCP关闭及重置错误"><a href="#4-7-4-2-TCP关闭及重置错误" class="headerlink" title="4.7.4.2 TCP关闭及重置错误"></a>4.7.4.2 TCP关闭及重置错误</h4><p>当应用程序开始与很多其他类型的HTTP客户端、服务器和代理进行对话且使用管道化持久连接时，使用半关闭来防止对等实体收到非预期的写入错误。</p>
 <p>关闭连接的输出信道总是安全的。连接另一端的对等实体会在从其缓冲区中读出所有数据之后收到一条通知，说明流结束了，知道连接关闭了。</p>
@@ -420,8 +420,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/DZvhKCeOgaAwmwKW.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/07/QfXG1hNrvmxoDLB.png"
+                      alt="DZvhKCeOgaAwmwKW__original.png"
                 ></p>
 <h4 id="4-7-4-3-正常关闭"><a href="#4-7-4-3-正常关闭" class="headerlink" title="4.7.4.3 正常关闭"></a>4.7.4.3 正常关闭</h4><p>应用程序首先应该关闭它们的输出信道，然后等待另一端的对等实体关闭它的输出信道。当两端都知道不再发送数据（比如关闭输出信道）后，连接就会被完全关闭，不会有重置的危险。</p>
 <p>但不无法确保对等实体会实现半关闭，或对其进行检查。因此，想要正常关闭连接的应用程序应该先半关闭其输出信道，然后周期性地检查其输入信道的状态（查找数据，或流的末尾）。如果在一定的时间区间内对端没有关闭输入信道，应用程序可以强制关闭连接，以节省资源。</p>

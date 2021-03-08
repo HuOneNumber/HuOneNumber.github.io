@@ -247,8 +247,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/EBpTVPRVB1EIXEsa.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
+                      alt="image.png"
                 ></p>
 <h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
 <p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
@@ -261,8 +261,8 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/HTTP/HoumlCwmoUMpL06y.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
+                      alt="image _1_.png"
                 ></p>
 <p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
 <h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>

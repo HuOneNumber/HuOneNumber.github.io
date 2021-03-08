@@ -260,16 +260,16 @@
 <p>当把<code>num2</code>初始化为<code>num1</code>时，<code>num2</code>也会得到数值5。这个值跟存储在<code>num1</code>中的5是完全独立的，因为它是那个值的副本。这两个变量可以独立使用，互不干扰。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/Z3MwAaHFyTk7NBDe__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/EQOZDYdHoXrpage.png"
+                      alt="Z3MwAaHFyTk7NBDe__thumbnail.png"
                 ></p>
 <p>在把引用值从一个变量赋给另一个变量时，存储在变量中的值也会被复制到新变量所在的位置。区别在于，这里复制的值实际上是一个指针，它指向存储在堆内存中的对象。操作完成后，两个变量实际上指向同一个对象，因此一个对象上面的变化会在另一个对象上反映出来。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> obj2 = obj1;</span><br><span class="line">obj1.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj2.name); <span class="comment">// &quot;Nicholas&quot;</span></span><br></pre></td></tr></table></figure>
 <p>下图展示了变量与堆内存中对象之间的关系。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/DThTdySREjpH3Zdg__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/spkhyCGZXEOoWlt.png"
+                      alt="DThTdySREjpH3Zdg__thumbnail.png"
                 ></p>
 <h3 id="4-1-3-传递参数（review）"><a href="#4-1-3-传递参数（review）" class="headerlink" title="4.1.3　传递参数（review）"></a>4.1.3　传递参数（review）</h3><p>ECMAScript中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
 <p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，用ECMAScript的话说，就是<code>arguments</code>对象中的一个槽位）。</p>
@@ -301,8 +301,8 @@
 <p>以上代码涉及3个上下文：全局上下文、<code>changeColor()</code>和<code>swapColors()</code>的局部上下文。下图展示了这个例子的作用域链。<br><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/note/JavaScript/HNpFjNH3iS4j2ofk__thumbnail.png"
-                      alt="图片"
+                     data-src="https://i.loli.net/2021/03/08/Q6KyZFjctuAaSDV.png"
+                      alt="HNpFjNH3iS4j2ofk__thumbnail.png"
                 ></p>
 <p>矩形表示不同的上下文。内部上下文可以通过作用域链访问外部上下文中的一切，但外部上下文无法访问内部上下文中的任何东西。上下文之间的连接是线性的、有序的。每个上下文都可以到上一级上下文中去搜索变量和函数，但任何上下文都不能到下一级上下文中去搜索。<code>swapColors()</code>局部上下文的作用域链中有3个对象：<code>swapColors()</code>的变量对象、<code>changeColor()</code>的变量对象和全局变量对象。<code>swapColors()</code>的局部上下文首先从自己的变量对象开始搜索变量和函数，搜不到就去搜索上一级变量对象。<code>changeColor()</code>上下文的作用域链中只有2个对象：它自己的变量对象和全局变量对象。因此，它不能访问<code>swapColors()</code>的上下文。</p>
 <blockquote>
