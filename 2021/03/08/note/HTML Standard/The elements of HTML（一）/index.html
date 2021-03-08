@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            The elements of HTML（一） |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">The elements of HTML（一）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv4</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-08 20:31:12
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/">HTML standard</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/The-elements-of-HTML%EF%BC%88%E4%B8%80%EF%BC%89/">The elements of HTML（一）</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WHATWG/">WHATWG</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HTML/">HTML</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>7.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>28 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <table>
+<thead>
+<tr>
+<th align="center"><strong>element</strong></th>
+<th><strong>meaning</strong></th>
+<th align="center"><strong>Categories</strong></th>
+<th align="left"><strong>Contexts in which this element can be used</strong></th>
+<th align="center"><strong>Content model</strong></th>
+<th align="left"><strong>Tag omission in text/html</strong></th>
+<th align="center"><strong>Content attributes</strong></th>
+<th align="left"><strong>remark</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">html</td>
+<td>文档的根</td>
+<td align="center">none</td>
+<td align="left">document、子片段</td>
+<td align="center">head后面跟一个body</td>
+<td align="left">第一个子元素不是注释，可以省略起始标签。html后没有紧跟注释，可以省略结束标签</td>
+<td align="center">manifest （现已不建议使用）</td>
+<td align="left">建议在htm添加lang属性</td>
+</tr>
+<tr>
+<td align="center">head</td>
+<td>metadata的集合（title、link、script、meta）</td>
+<td align="center">none</td>
+<td align="left">html内的第一个元素</td>
+<td align="center">如果是 iframe srcdoc 文档，可以有没有或多个元数据，title和base最多各有一个,其他类型，至少有一个以上的元数据，且必须有且只有一个title，最多一个base</td>
+<td align="left">head内为空可以省略起始标签，结束标签没有紧跟空格或者注释可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">大多数情况必须含title,除非html用作电子邮件格式</td>
+</tr>
+<tr>
+<td align="center">titile</td>
+<td>文档标题或名称</td>
+<td align="center">Metadata content</td>
+<td align="left">head内</td>
+<td align="center">text文本</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">text属性的getter方法返回title元素的子文本内容，text属性的setter方法用该元素内的给定值替换所有字符串title。用户代理在其用户界面中引用文档时，应使用文档标题。在用户界面titile的directionality应该设置为文档title的directionality（directionality暂未理解）</td>
+</tr>
+<tr>
+<td align="center">base</td>
+<td>页面上的所有链接规定默认地址或默认目标</td>
+<td align="center">Metadata content</td>
+<td align="left">head内</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">href— 文档基本URL<br>target— 用于超链接导航和表单提交的默认浏览上下文</td>
+<td align="left">target、href两个属性至少有一个。多个base的href,只有第一个有效果。href如果指定了content属性，则该属性必须包含一个有效的URL。base如果有href属性，必须在其他有定义获取url属性的元素之前（除了html元素，它的maifest不受影响）。target的frozen base URL这个概念不理解，那里一坨都没看懂</td>
+</tr>
+<tr>
+<td align="center">link</td>
+<td>文档链接到其他资源</td>
+<td align="center">Metadata content</td>
+<td align="left">head内、在noscript 元素作为head元素的子元素、allowed in the body:phrasing content元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">href— 超链接的地址<br>crossorigin —元素如何处理跨域请求<br>rel—包含超链接的文档和目标资源之间的关系<br>media —适用媒体<br>integrity—子资源完整性检查中使用的完整性元数据<br>hreflang —链接资源的语言<br>type —提示所引用资源的类型<br>referrerpolicy-  Referrer policy的取发起由元素<br>sizes—图标的大小（用于“ rel=“ icon”）<br>imagesrcset —在不同情况下使用的图像（例如，高分辨率显示器，小型显示器等）<br>imagesizes —不同页面布局的图像大小<br>as— 预加载请求的Potential destination（对于rel=“ preload”和rel=“ modulepreload”）<br>color—自定义网站图标时使用的颜色（对于rel=“ mask-icon”）<br>disabled —是否禁用链接<br>title —链接的标题；CSS样式表集名称。</td>
+<td align="left">必须有rel或者itemprop属性，不能同时使用。如果link元素具有itemprop属性，或者仅包含关键字的rel属性 ，也就是body-ok.link元素可以创建外部资源链接（stylesheet）和超链接(next)，链接类型和数量取决于rel属性的关键字,每个链接对会被单独处理。link创建的超链接和rel属性作用于全文档，a和area相反。</td>
+</tr>
+<tr>
+<td align="center">meta</td>
+<td>提供有关页面的元信息</td>
+<td align="center">Metadata content</td>
+<td align="left">如果charset存在，或者元素的http-equiv属性处于Encoding声明状态：head内。<br>如果http-equiv存在但不处于Encoding声明状态：head内。<br>如果http-equiv存在，但不处于Encoding声明状态：在作为head元素的子元素的noscript元素中。<br>如果name存在： metadata content。<br>如果itemprop存在： metadata content。<br>如果itemprop属性存在： phrasing content。</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">name —元数据名称<br>http-equiv —编译指示指令<br>content —元素的值<br>charset— 字符编码声明</td>
+<td align="left">每个文档meta的charset属性不得超过一个。name的值：application-name（提供页面代表的Web应用程序的名称）、author（作者）、description（描述页面）、generator（标识用于生成文档的软件包）、keywords（关键字，许多搜索引擎不考虑）、referrer（没懂）、theme-color（定义建议的颜色），以及其他自己定义的。http-equiv：content-language（设置编译设定的默认语言,鼓励使用lang）、content-type（字符编码声明）、default-style（设置默认 CSS样式表集的名称）、refresh（定义文档自动刷新的时间间隔）、set-cookie（此实用程序不符合要求，没有任何效果）、    x-ua-compatible（指定网页的兼容性模式设置）、content-security-policy（启用CSP内容安全策略）。</td>
+</tr>
+<tr>
+<td align="center">style</td>
+<td>将CSS样式表嵌入其文档中</td>
+<td align="center">Metadata content</td>
+<td align="left">metadata content、在作为head元素的子元素的noscript元素中</td>
+<td align="center">Text that gives a conformant style sheet</td>
+<td align="left">不可省略</td>
+<td align="center">media —适用媒体<br>title属性–CSS样式表集名称</td>
+<td align="left">如果media 省略该属性，则默认值为“ all”，这意味着默认情况下样式适用于所有媒体</td>
+</tr>
+<tr>
+<td align="center">body</td>
+<td>文档的内容</td>
+<td align="center">Sectioning root</td>
+<td align="left">html内的第二个元素</td>
+<td align="center">Flow content</td>
+<td align="left">如果元素为空，或第一个子元素不是空格或注释，除非第一个子元素是meta, link, script, style, 或者 template元素，起始标签可以省略。如果元素后面没有紧跟注释，可以省略结束标签。</td>
+<td align="center">onafterprint<br>onbeforeprint<br>onbeforeunload<br>onhashchange<br>onlanguagechange<br>onmessage<br>onmessageerror<br>onoffline<br>ononline<br>onpagehide<br>onpageshow<br>onpopstate<br>onrejectionhandled<br>onstorage<br>onunhandledrejection<br>onunload</td>
+<td align="left">文档只能有一个body元素。onerror事件将从目标冒泡到body、html、document、window，而body上的事件处理程序监视的是window而不是body。但是，使用addEventListener（）添加的事件侦听器将在事件冒泡通过body时运行，而不是在事件到达window对象时运行。</td>
+</tr>
+<tr>
+<td align="center">article</td>
+<td>规定独立的自包含内容，比如论坛帖子、报纸文章、博客条目、用户评论</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">与article元素关联的作者信息不适用于嵌套的article元素。</td>
+</tr>
+<tr>
+<td align="center">scetion</td>
+<td>文档或应用的通用部分，比如比如章节、页眉、页脚等</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当需要syndicate元素内容时，使用article而不是section.使用section时可以一直使h1</td>
+</tr>
+<tr>
+<td align="center">nav</td>
+<td>定义导航链接的部分</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">用于服务条款、版权信息的链接一般放在底部的footer而不是nav</td>
+</tr>
+<tr>
+<td align="center">aside</td>
+<td>与页面主内容无关，比如侧边栏，广告、拉引号</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">aside仅将元素用于括号是不合适的</td>
+</tr>
+<tr>
+<td align="center">h1、h2、h3……</td>
+<td>定义标题</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">作为hgroup的子元素，flow content 、heading content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">不要因为字体大小，来选择不同的h,一般css里改</td>
+</tr>
+<tr>
+<td align="center">hgroup</td>
+<td>标题部分，比如副标题、标语等</td>
+<td align="center">Flow content<br>Heading conten<br>Palpable content</td>
+<td align="left">flow content、heading content</td>
+<td align="center">包含一个以上h1-h6，并可以选择性的与支持脚本的元素（script、template）一起使用</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">hgroup的rank是其包含的h标签里的最高的一个。hgroup对两个标题进行分组，即便都是同等级的h标签，也是不对等的</td>
+</tr>
+<tr>
+<td align="center">header</td>
+<td>定义文档的页眉（介绍信息、导航辅助）</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有footer和header子代的flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">header不会引入新的部分</td>
+</tr>
+<tr>
+<td align="center">footer</td>
+<td>义文档或节的页脚，通常包含文档的作者、版权信息、使用条款链接、联系信息等等</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有footer和header子代的flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">通常在底部，但不是绝对的。比如像联系信息等有可能在footer也可以在address</td>
+</tr>
+<tr>
+<td align="center">address</td>
+<td>定义文档或文章作者的联系信息</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有heading content 、sectioning content 、header, footer,  address 子代的Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">address可以在articel内，也可以在body内(引用于整个文档)。address不能用于任何地址比如邮政地址（通常用P标签）,也不得用于除联系方式以外的信息，通常和其他信息包含在footer内。</td>
+</tr>
+<tr>
+<td align="center">p</td>
+<td>段落</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">Phrasing content</td>
+<td align="left">结束标签省略：p后紧跟address, p, aside, div, 等，或父元素没有内容，且父元素不是 a, audio, del, ins, map, noscript, video或自定义元素</td>
+<td align="center">Global attributes</td>
+<td align="left">当有更适用的标签时，不应该使用p。p 元素会自动在其前后创建一些空白。列表元素特别是ol、ul不能作为p的子元素。设计由多个结构段落组成的逻辑段落时，用div来代替p。</td>
+</tr>
+<tr>
+<td align="center">hr</td>
+<td>水平线</td>
+<td align="center">Flow content</td>
+<td align="left">Flow content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">hr不影响文档的轮廓</td>
+</tr>
+<tr>
+<td align="center">pre</td>
+<td>预格式化的文本块</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">Phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">pre的结构是由印刷规定而不是元素来表示。常用于表示：电子邮件、代码块（与code、samp、kbd一起使用）、ASCII文字</td>
+</tr>
+<tr>
+<td align="center">blockquote</td>
+<td>引用块</td>
+<td align="center">Flow content<br>Sectioning root<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes<br>cite —链接引用和编辑信息资源</td>
+<td align="left">blockquote中的内容是引用的其他资源， blockquote中的内容可以缩写，也可以按照文本语言的传统方式添加上下文。引用内容的属性必须放在blockquote外部。</td>
+</tr>
+<tr>
+<td align="center">ol</td>
+<td>有序列表</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">reversed —降序<br>start— 列表的起始值<br>type —列表标记的类型</td>
+<td align="left">type关键字：1（十进制数）、a（小写拉丁字母）、A（大写拉丁字母）、i（小写罗马数字）、I（大写罗马数字）</td>
+</tr>
+<tr>
+<td align="center">ul</td>
+<td>无序列表</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">menu</td>
+<td>代表命令的工具栏</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">li</td>
+<td>列表项</td>
+<td align="center">none</td>
+<td align="left">ol、ul、menu内</td>
+<td align="center">Flow content</td>
+<td align="left">如果li后紧跟另一个li元素或者其父元素没有内容，则结束标签可以省略</td>
+<td align="center">value—只有在ol内情况下，代表列表项的顺序值，必须为整数</td>
+<td align="left">不建议在li内放入h1元素</td>
+</tr>
+<tr>
+<td align="center">dl</td>
+<td>描述性列表</td>
+<td align="center">Flow content、Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">一个以上的dt后面跟着一个以上的dd，或者一个以上的div,可以和脚本支持的元素搭配使用</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">在单个dl元素中，每个名称不应该有多个dt元素。dl可以被包含在div内</td>
+</tr>
+<tr>
+<td align="center">dt</td>
+<td>列表中的项目（术语部分、名称）</td>
+<td align="center">none</td>
+<td align="left">在dl内的dd、dt之前，或者在div内的dd、dt之前</td>
+<td align="center">Flow content(没有footer、header、 sectioning content、heading content后代)</td>
+<td align="left">dt元素后面紧跟其他dd、dt，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">可以使用dfn元素表示术语的定义</td>
+</tr>
+<tr>
+<td align="center">dd</td>
+<td>条目的定义部分</td>
+<td align="center">none</td>
+<td align="left">在dl内的dd、dt之后，或者在div内的dd、dt之后</td>
+<td align="center">Flow content</td>
+<td align="left">dd元素后面紧跟其他dd、dt，或父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">figure</td>
+<td>独立的流内容（图表，图片，代码）</td>
+<td align="center">Flow content<br>Sectioning root<br>Palpable content</td>
+<td align="left">Flow content</td>
+<td align="center">Flow content 或Flow content后跟figcaption，或者figcaption前跟Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">figure被删除后，不能对文档流产生影响</td>
+</tr>
+<tr>
+<td align="center">figcaption</td>
+<td>figure的标题</td>
+<td align="center">none</td>
+<td align="left">figure内的第一个或最后一个元素</td>
+<td align="center">Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">mian</td>
+<td>文档的主要内容</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">Flow content，但只能有一个</td>
+<td align="center">Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">如果有多个main必须有hidden属性。main的父元素只能是html, body, div, form</td>
+</tr>
+<tr>
+<td align="center">div</td>
+<td>块级元素，无特殊含义</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">Flow content，或作为dl的子元素</td>
+<td align="center">如果是dl的子元素：一个以上的dt后跟一个以上dd，且可以与脚本支持元素使用。否则，Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当没有元素适合，建议使用div</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td>如果有href属性，代表资源的超链接。没有则表示为占位符。</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Interactive content:如果存在href属性.<br>Palpable content.</td>
+<td align="left">phrasing content</td>
+<td align="center">不能有交互式内容的子代，a元素子代，或者带有tabindex属性的子代</td>
+<td align="left">不可省略</td>
+<td align="center">href — 超链接的地址<br>target — 在何处打开链接文档<br>download — 被下载的超链接目标<br>ping — ping 的URL地址<br>rel —当前文档与被链接文档之间的关系<br>hreflang — 被链接资源的语言<br>type —提示被链接资源的的 MIME 类型<br>referrerpolicy— Referrer policy for fetches initiated by the element</td>
+<td align="left">如果没有href属性，则a元素其他属性必须省略。如果有 itemprop 属性，则必须有href属性。</td>
+</tr>
+<tr>
+<td align="center">em</td>
+<td>强调重点的内容</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">强调的级别由em数量决定。</td>
+</tr>
+<tr>
+<td align="center">strong</td>
+<td>对内容极其强调</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">strong通常强调标题、段落、警告、危险标志、用户更需要长时间看见的内容等，比em强调程度更大。</td>
+</tr>
+<tr>
+<td align="center">small</td>
+<td>小号字体</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">常用于免责声明、警告、法律限制、版权信息、属性、许可要求等。使用small并不代表内容不重要，不重要只需不使用em、strong即可，small和strong、em也可嵌套使用。small不适用于大篇幅如段落、列表等。只用于小段文本，也不适用于副标题。</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td>无关或不准确的内容（文本添加删除线）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">更推荐使用del元素。</td>
+</tr>
+<tr>
+<td align="center">cite</td>
+<td>引用或参考的内容，也可以是顺带提及的内容，通常是论文、文章、杂志等的标题</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">不能用于人名。</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td>引用了其他资源的phrasing content</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">cite — 引用的资源链接</td>
+<td align="left">不需要添加标点符号，UA会渲染添加。引用的资源可以是虚构的，不适合引用单独一个单词。不能用q代替不表示引用的引用（讽刺语句，通常会加标点符号，但这并不是引用）</td>
+</tr>
+<tr>
+<td align="center">dfn</td>
+<td>定义术语</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content，不包含dfn的子代</td>
+<td align="left">不可省略</td>
+<td align="center">title— 显示完整的术语或缩写的扩展</td>
+<td align="left">dfn的父元素需包含dfn内术语的定义，且其title属性不影响dfn。title只能是这个术语的定义，不能包含其他。</td>
+</tr>
+<tr>
+<td align="center">abbr</td>
+<td>简称或缩写</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">title— 显示完整的术语或缩写的扩展</td>
+<td align="left">适用情况：开发者想要解释缩写的含义；用户不熟悉的术语；存在需要进行语义注释的缩写。有title的abbr与没有title的abbr不会影响。</td>
+</tr>
+<tr>
+<td align="center">ruby</td>
+<td>定义 ruby 注释（有注音或其他注释）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">Phrasing content，不包含ruby或ruby子元素。单独的ruby,且自身不喊ruby。一个或多个rt。一个rb包含一个或多个rt</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">在没有ruby父元素的ruby中，内容被分为三段：基本文本片段；注释片段；可忽略片段（空格或rp）。其中tr对应注释片段，通常只有一个。</td>
+</tr>
+<tr>
+<td align="center">rt</td>
+<td>标记ruby注释的ruby文本组件</td>
+<td align="center">none</td>
+<td align="left">ruby的子元素</td>
+<td align="center">Phrasing content</td>
+<td align="left">rt后紧跟rt或tp，或其父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当它是ruby元素的子元素时，它本身并不表示任何东西，但是ruby元素使用它来确定它所代表的内容。</td>
+</tr>
+<tr>
+<td align="center">rp</td>
+<td>在ruby注释的ruby文本组件周围提供括号或其他内容</td>
+<td align="center">none</td>
+<td align="left">ruby的子元素，紧跟在rt之前或之后</td>
+<td align="center">Text</td>
+<td align="left">tp后紧跟tr或rp，或其父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">由不支持ruby注释的UA显示。</td>
+</tr>
+<tr>
+<td align="center">data</td>
+<td>本身的内容及其value的值</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">value — 机器可读的值</td>
+<td align="left">value属性必须存在，并且是以机器可读的格式来代表元素的内容。当内容与时间有关，使用time。适用于：当与微格式或微数据属性相结合时，元素用于提供用于数据处理的机器可读值和用于在Web浏览器中呈现的人可读值。在这种情况下，value的格式由所使用的微格式或微数据决定；当脚本有一个文本值要与人可读的值一起存储时，可以与页面中的脚本一起使用，value格式只取决于脚本的需要。</td>
+</tr>
+<tr>
+<td align="center">time</td>
+<td>时间相关的内容及其value的值</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">当有datatime属性：phrasing content ，否则为Text</td>
+<td align="left">不可省略</td>
+<td align="center">datetime — 机器可读的值</td>
+<td align="left">time的datetime值是datetime内容属性的值，否则为time元素的子文本内容。没有datetime属性的time元素不能有子元素。</td>
+</tr>
+<tr>
+<td align="center">code</td>
+<td>计算机代码片段</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">可以添加一个值为“language-XX”的class属性来指示所使用的语言。</td>
+</tr>
+<tr>
+<td align="center">var</td>
+<td>变量</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">samp</td>
+<td>样本；程序或计算机输出的引用</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">kbd</td>
+<td>用户输入（通常是键盘文本）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当kbd嵌套在samp中，表示系统回显的输入；当包含samp，表示基于系统输出的输入，例如调用菜单项；当kbd嵌套在另一个kbd中，表示一个实际的键或其他适合输入机制的单个输入单元。code、var、samp、kbd这些常与pre一起使用。</td>
+</tr>
+<tr>
+<td align="center">sub/sup</td>
+<td>上标/下标</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">特殊的排版要求才使用。</td>
+</tr>
+<tr>
+<td align="center">i</td>
+<td>斜体文本效果</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">适用于i的情况，要考虑是否用em和dfn更合适。</td>
+</tr>
+<tr>
+<td align="center">b</td>
+<td>粗体</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当没有其他元素适合时，才考虑用b。并非有重要的语义。</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td>下划线</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">注意避免导致用户错认为超链接。</td>
+</tr>
+<tr>
+<td align="center">mark</td>
+<td>突出显示文本</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">bdi</td>
+<td>从周围的文本格式设置中隔离</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">dir –默认为auto,不会继承父元素的样式</td>
+<td align="left">在发布用户生成的内容时，该标签很有用。</td>
+</tr>
+<tr>
+<td align="center">bdo</td>
+<td>可覆盖默认的文本方向</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">dir –定义文字的方向（ltr<br>、rtl）</td>
+<td align="left">必须设置dir属性，不能设置为auto。</td>
+</tr>
+<tr>
+<td align="center">sapn</td>
+<td>行内元素</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">br</td>
+<td>换行符</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">当段落只有br元素，代表占位符空行</td>
+</tr>
+<tr>
+<td align="center">wbr</td>
+<td>换行符的时机</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">如果文本过长，可能会导致换行，浏览器会按照wbr来换行，避免语义混乱。</td>
+</tr>
+<tr>
+<td align="center">ins</td>
+<td>文档新的添加</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">Transparent</td>
+<td align="left">不可省略</td>
+<td align="center">cite —引用文档的URL（解释变动原因）。<br>datetime —变化的日期和时间</td>
+<td align="left">ins 不应该跨越 implied paragraph边界</td>
+</tr>
+<tr>
+<td align="center">del</td>
+<td>文档的删除部分</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">Transparent</td>
+<td align="left">不可省略</td>
+<td align="center">cite —引用文档的URL（解释变动原因）。<br>datetime —变化的日期和时间</td>
+<td align="left">ins和del不能作为ul、ol的子元素。</td>
+</tr>
+<tr>
+<td align="center">img</td>
+<td>图片的展示</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Form-associated element<br>Interactive content(有usemap属性)<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">alt —不能正常显示时的替代文本<br>src —资源的地址<br>srcset — 图片应用的场景<br>sizes —图片设置的尺寸<br>crossorigin — 如何处理跨域请求<br>usemap—定义为客户器端图像映射<br>ismap—定义为服务器端图像映射<br>width — 宽度<br>height — 高度<br>referrerpolicy— 设置引用策略<br>decoding —图像解码的首选方法<br>loading — 确定懒加载时使用</td>
+<td align="left">建议懒加载的图片设置宽高属性，防止加载后页面布局改变。img元素不能当做页面的布局工具或展示透明的图片。设置了src和alt属性，但alt属性值为空字符串，图片是内容的装饰或补充，没有设置alt属性，代表图片是内容的关键部分，但没有可替换的文本内容。</td>
+</tr>
+<tr>
+<td align="center">iframe</td>
+<td>嵌套的浏览上下文</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>srcdoc —需要渲染的html文档<br>name — 名称<br>sandbox — 嵌套内容的安全规则<br>allow — iframe内容的功能策略<br>allowfullscreen—允许使用requestFullscreen()方法<br>allowpaymentrequest—允许使用PaymentRequest 界面处理支付请求<br>width — 宽度<br>height — 高度<br>referrerpolicy —引用策略</td>
+<td align="left">1、srcdoc属性“”内的&amp;和‘“”符号必须转义的,否则会提前结束，沙盒内容中提到的原始&amp;必须双重转义，以便在最初解析srcdoc属性时保留&amp;，防止再一次解析沙盒内容时误解&amp;。<br>2、同时有src和srcdoc属性，则后者的优先级更高。<br>3、iframe可能会延迟load事件。<br>4、如果没有设置src和srcdoc,或设置了不能解析，浏览上下文会保持在原始的about:blank页面。<br>5、sandbox属性值： allow-forms（重启表单）, allow-modals（重启模态对话框）, allow-orientation-lock（重启屏幕方向锁）, allow-pointer-lock（重启pointer lock API）, allow-popups（重启弹出框）, allow-popups-to-escape-sandbox（重新创建无沙箱的auxiliary浏览器上下文）, allow-presentation（重启presentation API）, allow-same-origin（使得内容被视为来自真实来源，而不是强制其进入唯一的来源）, allow-scripts（重启脚本）, allow-top-navigation（允许内容导航到顶级浏览器上下文）, allow-top-navigation-by-user-activation（只有当浏览器上下文的 active window短暂的激活时）, and allow-downloads。 allow-top-navigation 和allow-top-navigation-by-user-activation不能通知指定，否则只有前者起作用。</td>
+</tr>
+<tr>
+<td align="center">embed</td>
+<td>额外的程序或交互内容</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>type —嵌套资源的类型<br>width — 宽度<br>height — 高度</td>
+<td align="left">1、如果跳转到其他浏览器上下文，src属性不会改变<br>2、没有回退内容，子元素会被忽略。</td>
+</tr>
+<tr>
+<td align="center">object</td>
+<td>表示外部资源</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content（如果有usemap属性）<br>Listed and submittable form-associated element.<br>Palpable content.</td>
+<td align="left">embedded content</td>
+<td align="center">没有或多个param元素</td>
+<td align="left">不可省略</td>
+<td align="center">data — 资源地址<br>type —嵌套资源的类型<br>name — 名称<br>usemap —规定与对象一同使用的客户端图像映射的 URL<br>form — 规定对象所属的一个表单<br>width — 宽度<br>height — 高度</td>
+<td align="left">可以插入HTML 文档中的对象的数据和参数，以及可用来显示和操作数据的代码。</td>
+</tr>
+<tr>
+<td align="center">param</td>
+<td>作为脚本，嵌套在object的参数</td>
+<td align="center">None</td>
+<td align="left">在flow content前面的object子元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">name —参数名称<br>value — 参数的值</td>
+<td align="left">两个属性都必须存在。</td>
+</tr>
+<tr>
+<td align="center">video</td>
+<td>播放视频、电影，或带字幕的音频文件</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Embedded content.<br>Interactive content(如果有controls属性 )<br>Palpable content.</td>
+<td align="left">embedded content</td>
+<td align="center">如果有src属性：没有或多个track,并且是透明的，没有媒体子元素。<br>没有src属性：没有或多个source，接着没有或多个track,并且是透明的，没有媒体子元素。</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>crossorigin — 如何处理跨域请求<br>poster — 播放前显示的画面url<br>preload—页面加载时视频也加载<br>autoplay—页面加载好后自动播放<br>playsinline —内联形式播放<br>loop —循环播放<br>muted —默认静音<br>controls —展示控件<br>width —宽<br>height — 高</td>
+<td align="left">1、可以在video内插入文本，当浏览器不支持时，用于提供一些帮助信息。<br>2、字幕、手语、音频描述可以直接嵌入到视频，其中字幕也可以用track外引文件，音频描述可以以文本通过WebVTT 文件，track会将文本合成语音，WebVTT也可以提供章节信息。<br>3、视频中的每一帧对应哪个播放位置由视频流的格式决定。</td>
+</tr>
+<tr>
+<td align="center">audio</td>
+<td>音频</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Embedded content.<br>Interactive content、Palpable content(如果有controls属性 )</td>
+<td align="left">embedded content</td>
+<td align="center">如果有src属性：没有或多个track,并且是透明的，没有媒体子元素。<br>没有src属性：没有或多个source，接着没有或多个track,并且是透明的，没有媒体子元素。</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>crossorigin — 如何处理跨域请求<br>preload—页面加载时音频也加载<br>autoplay—页面加载好后自动播放<br>loop —循环播放<br>muted —默认静音<br>controls —展示控件</td>
+<td align="left">当字幕和手语视频可以使用时，video可以代替audio.</td>
+</tr>
+<tr>
+<td align="center">track</td>
+<td></td>
+<td align="center">none</td>
+<td align="left">在flow content前面的媒体子元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">kind — 轨道的文本类型<br>src — 资源地址<br>srclang — 轨道语言<br>label — 标签<br>default — 默认的轨道</td>
+<td align="left">1、kind关键字（可以省略，缺失默认 subtitles ，无效默认 metadata）<br>captions：播放器中显示的简短说明<br>chapters：定义章节，用于导航媒介资源<br>descriptions：定描述，用于通过音频描述媒介的内容<br>metadata：定义脚本使用的内容<br>subtitles：定义字幕，用于在视频中显示字幕<br>2、媒体元素的最多有一个这样的track（kind属性除metadata以外，并且指定了default）<br>3、track的readstatus：<br>0：未加载<br>1：正在加载<br>2：加载完成<br>3：加载失败</td>
+</tr>
+<tr>
+<td align="center">table</td>
+<td>表格</td>
+<td align="center">Flow content.<br>Palpable content.</td>
+<td align="left">flow content</td>
+<td align="center">顺序如下：caption（可选）、colgroup(0个或多个)、thead 、tbody 或tr（0个或多个）、tfoot0个或多个）、脚本支持元素（可选）</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">1、table不能用于布局的工具<br>2、如果一个表格不以第一行和第一列作为标题，或着其他特殊情况，应该引入介绍该表格的解释性信息。</td>
+</tr>
+<tr>
+<td align="center">caption</td>
+<td>表格标题</td>
+<td align="center">none</td>
+<td align="left">table内的第一个元素</td>
+<td align="center">没有子代table元素的Flow content</td>
+<td align="left">如果caption后没有紧跟空格或注释，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">1、当figure元素除了figurecaption以外，只有table元素，应该省略caption而使用figurecaption。<br>2、caption可以用来解释表格内容，使得其更容易理解</td>
+</tr>
+<tr>
+<td align="center">colgroup</td>
+<td>对表格中的列进行组合，以便对其进行格式化</td>
+<td align="center">none</td>
+<td align="left">table内，在caption后，在thead, tbody, tfoot或tr前.</td>
+<td align="center">有span属性，nothing，否则，零个或多个col和template元素</td>
+<td align="left">起始标签省略：colgroup内是一个元素col，或元素前面没有紧跟另一个已省略结束标签的colgroup，如元素为空，则不可省略<br>结束标签省略：colgroup后没有紧跟空格或注释</td>
+<td align="center">Global attributes<br>span —列组应该横跨的列数</td>
+<td align="left">1、colgroup内没有col,则应该在元素上设置span属性，值在1—1000之间。</td>
+</tr>
+<tr>
+<td align="center">col</td>
+<td>为表格中一个或多个列定义属性值</td>
+<td align="center">none</td>
+<td align="left">作为没有span属性的colgroup子元素</td>
+<td align="center">nothing</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes<br>span —列组应该横跨的列数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tbody</td>
+<td>表格主体</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup和thead之后，但前提是没有作为table子元素的tr。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">起始标签省略：tbody内的第一个元素是tr，或没有紧在省略了结束标签的tbody、thead、tfoot之前，元素内为空时不能省略。<br>结束标签省略：tbody后紧跟tbody、tfoot，或父元素没有内容</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">thead</td>
+<td>表格的表头</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup之后，在tbody、tfoot之前，但前提是没有其他head。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">如果thead元素后紧跟tbody或tfoot元素，结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tfoot</td>
+<td>表格的页脚</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup和thead、tbody、tr之后，但前提是没有其他tfoot。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">父元素没有内容，可以省略结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tr</td>
+<td>表格中的行</td>
+<td align="center">none</td>
+<td align="left">thead的子元素.<br>tbody的子元素.<br>tfoot 的子元素.<br>table的子元素，在caption, colgroup,thead之后，前提是没有作为table子元素的tbody</td>
+<td align="center">零个或多个 td, th，或支持脚本的元素</td>
+<td align="left">tr后紧跟另一个tr，或父元素没有内容，结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">td</td>
+<td>表格的标准单元格</td>
+<td align="center">Sectioning root</td>
+<td align="left">tr的子元素</td>
+<td align="center">Flow content</td>
+<td align="left">td后紧跟td或th，或父元素没有内容，结束标签可以省略</td>
+<td align="center">colspan — 单元格可横跨的列数<br>rowspan — 单元格可横跨的行数<br>headers — 与单元格相关的表头</td>
+<td align="left">用户代理，特别是在非可视环境中，或者在无法将表显示为2D网格的情况下，当呈现单元格的内容时，可能会提供单元格的用户上下文；例如，给出单元格在表模型中的位置，或列出单元格的标题单元格（由分配标题单元格的算法确定）。</td>
+</tr>
+<tr>
+<td align="center">th</td>
+<td>表头单元格</td>
+<td align="center">none</td>
+<td align="left">th的子元素</td>
+<td align="center">Flow content,但没有header,footer,sectioning content,heading content后代</td>
+<td align="left">th后紧跟td或th，或父元素没有内容，结束标签可以省略</td>
+<td align="center">colspan — 单元格可横跨的列数<br>rowspan — 单元格可横跨的行数<br>headers — 与单元格相关的表头<br>scope — 表头数据与单元数据相关联的方法<br>abbr — 单元格中内容的缩写版本</td>
+<td align="left">scope属性值字：<br>1、col   规定单元格是列的表头。<br>2、row    规定单元格是行的表头。<br>3、colgroup    规定单元格是列组的表头。<br>4、rowgroup    规定单元格是行组的表头。</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：The elements of HTML（一）</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-08 20:31:12</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/08/note/HTML Standard/The elements of HTML（一）/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%BA%8C%EF%BC%89/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">The elements of HTML（二）</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/08/note/HTML%20Standard/Semantics_%20structure_%20and%20APIs%20of%20HTML%20documents/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Semantics, structure, and APIs of HTML documents</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

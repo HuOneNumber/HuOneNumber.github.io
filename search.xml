@@ -1,6 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Common infrastructure</title>
+    <url>/2021/03/08/note/HTML%20Standard/Common%20infrastructure/</url>
+    <content><![CDATA[<p><strong>Parallelism</strong>并行性，指不同的进程可以同时进行，同时为了避免对相同的数据进行不同的操作，这里使用队列(先进先出)来解决。但所举的例子，没怎么懂。。</p>
+<p><strong>Resources</strong>资源，资源能否被支持，取决于资源的格式，是否为critical资源由资源格式的规范来定义，对于CSS样式表，关键子资源是通过@import 规则导入的样式表及其间接导入的样式表。</p>
+<p><strong>element type 元素类型，</strong>有local name 和 namespace命名空间，如果属性名称与XML中Name定义的生产匹配，且不包含：，则该属性名称能与XML兼容。</p>
+<p><strong>DOM trees</strong>，当有些element和 attribute没有指定值时，会有默认值，比如div标签的display属性默认值就是block，有时呢格局需要我们又会设置为none。当一个node作为插入时的参数时，将连接 browsing-context，remove时，断开 browsing-context连接。<strong>browsing context</strong>是指呈现给用户的document对象内的一个环境。shadowroot 这个概念目前没怎么能理解到，查询得知是 DOM 子树的根节点</p>
+<p><strong>Scripting</strong>，foo 更为精确的说应该是interface object</p>
+<p><strong>Plugins</strong>，是content handlers 的 implementation-defined set</p>
+<p><strong>Character encodings</strong>，字符编码， 是 byte streams 和 Unicode strings之间转换的方式，其中utf-16不兼容ASCII.</p>
+<p><strong>Conformance classes</strong>，<strong>Conforming documents</strong>是指遵守 conformance criteria的文档，user agent 无权处理不符合标准的文档。用户代理可以分为Web browsers and other interactive 用户代理、Non-interactive presentation 用户代理、support the suggested default rendering 的Visual 用户代理、不支持 scripting 的用户代理，<strong>UA</strong>使得服务器能够识别客户使用的操作系统及版本、CPU 类型、浏览器及版本、浏览器渲染引擎、浏览器语言、浏览器插件等</p>
+<p><strong>Conformance checkers，</strong>在进行检查时，没有 browsing context和脚本的运行，<strong>conformance criteria</strong>分为三种：通过DTD，通过machine，通过人检查，conformance checker必须满足检查前两种。</p>
+<p><strong>Data mining tools，</strong>处理HTML和XML文档的工具和程序<strong>，</strong>除了渲染文档和检查其符合性以外，还要根据其处理的文档语义进行处理。</p>
+<p><strong>Authoring tools and markup generators，</strong>Authoring tools 分为两类。一种是 tools that work from structure or semantic data，还有一种tools that work on a WYSIWYG（所见即所得） media-specific editing basis，创作工具 应该能让用户能够创建结构良好，语义丰富，独立于媒体的内容， 规范描述了两种 authoring formats，一种基于XML,另一种， custom format inspired by SGML(标准通用标记语言)，也就是HTML。一些 conformance requirements是对元素、属性、方法、对象的要求，分为两类，一种是内容模型限制的要求（ documents and authoring tools），一种是实现行为的要求（UA） 。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>Common infrastructure</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Semantics, structure, and APIs of HTML documents</title>
+    <url>/2021/03/08/note/HTML%20Standard/Semantics_%20structure_%20and%20APIs%20of%20HTML%20documents/</url>
+    <content><![CDATA[<p><strong>Document object</strong>:包含<strong>HTTPS state，</strong>代表传输数据的网络信道的安全属性，<strong>referrer policy、module ma、feature policy、CSP list</strong>包含了内容安全策略</p>
+<p>Semantics ，元素、属性、属性值规范都定义了语义，不能用于定义语义以外的目的，不得使用规范以外的元素、属性、属性值。html具有描述进度条的progresss元素。</p>
+<p><strong>Elements in the DOM，</strong>HTML元素必须实现规范列出的接口，并将这些接口expose to 脚本。</p>
+<p><strong>Element definitions</strong>，每一个元素包含以下信息的定义：类别、Contexts in which this element can be used、内容模型、Tag omission in text/html、内容属性、Accessibility considerations、DOM 接口。</p>
+<p><strong>Content models，</strong>每一个元素都内容模型，即对元素预期内容的描述，元素的内容是其dom中的子元素。元素之间允许有空格，元素之间的字符表示为Text，DOM节点，空Text节点和 Text仅由这些字符的序列组成的节点被视为 元素间空格。 在确定元素的内容是否与元素的内容模型匹配时，以及遵循定义文档和元素语义的算法时，必须忽略元素间空格，注释节点和处理指令节点（处理指令节点没懂）。HTML元素可以没有父节点。当元素的内容模型为空，该元素不包含任何Text节点（元素间空格除外）且不包含元素节点。</p>
+<p><strong>Kinds of content，</strong>元素可以属于一个或者多个类别，甚至有些元素不属于任何特定类别，</p>
+<ol>
+<li><strong>Metadata content：</strong>设置其余内容的表示形式或行为、是指文档与其他文档的关系、传达其他 “out of band” 信息的内容。</li>
+<li><strong>Flow content：</strong>大多元素都属于这个类别，常见的a、div、table……。</li>
+<li>**Sectioning content: **用于定义内容标题和页脚，比如article、aside、nav、section。</li>
+<li><strong>Heading content：</strong>h1、h2…。</li>
+<li><strong>Phrasing content：</strong>分类为Phrasing content的大多元素只能包含Phrasing content的元素。3.2.5.2.5后面一节暂未理解。</li>
+<li><strong>Embedded content，</strong>将另一个资源导入文档中的内容，或来自插入到文档中的另一个词汇表中的内容，如audio、video,有些有 fallback content，比如外部资源的格式不支持所显示的内容</li>
+<li><strong>Interactive content，</strong>a、button、input。。。。</li>
+<li><strong>Palpable content，</strong>没理解</li>
+<li><strong>Script-supporting elements，</strong>script、template</li>
+</ol>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>Semantics, structure, and APIs of HTML documents</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The elements of HTML（三）</title>
+    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="area元素"><a href="#area元素" class="headerlink" title="area元素"></a><strong>area元素</strong></h2><p>图像映射上文本和对应区域的超链接或图像映射上的dead area</p>
+<p><strong>Categories</strong>:Flow content、Phrasing content.</p>
+<p><strong>Contexts in which this element can be used</strong>:仅当有一个map祖先，phrasing content</p>
+<p><strong>Content model</strong>:无</p>
+<p><strong>Tag omission in text/html</strong>:没有结束标签</p>
+<p><strong>Content attributes:</strong></p>
+<p>Global attributes</p>
+<p>alt —定义此区域的替换文本。</p>
+<p>coords — 可点击区域的坐标</p>
+<p>shape —定义区域的形状</p>
+<p>href — 超链接地址</p>
+<p>target — 在何处打开 href 属性指定的目标 URL</p>
+<p>download — 是否下载资源后不是导航</p>
+<p>ping — URLs to ping</p>
+<p>rel —超链接的文档中的位置与目标资源之间的关系</p>
+<p>referrerpolicy — Referrer policy</p>
+<p>1、area的父元素一定是map</p>
+<p>2、area有href属性，代表超链接，这种情况下，必须有alt属性。如果没有href属性，alt属性可以省略，target, download, ping, rel, referrerpolicy 必须省略。</p>
+<p>3、shape</p>
+<p>|State|Keywords|Notes|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|Circle state|circle|必须有 coords  属性（3个整数，最后一个非负）|<br>|    |circ|    |<br>|Default state|default|不能有 coords  属性|<br>|Polygon state|poly|必须有 coords  属性（至少6个整数，且是偶数）|<br>|    |polygon|    |<br>|Rectangle state|rect|必须有 coords  属性（4个整数，第一个小于第三个，第二个小于第四个）|<br>|    |rectangle|    |</p>
+<p>4、如果area有itemprop属性，则也必须设置href属性</p>
+<h2 id="MathML"><a href="#MathML" class="headerlink" title="MathML"></a><strong>MathML</strong></h2><p>MathML 是数学标记语言，是一种基于XML的标准，用来在互联网上书写数学符号和公式的置标语言。</p>
+<math>
+
+<p><mi>x</mi></p>
+<p><mo>=</mo></p>
+<mfrac>
+
+<mrow>
+
+<p><mo form="prefix">−</mo> <mi>b</mi></p>
+<p><mo>±</mo></p>
+<msqrt>
+
+<p><msup> <mi>b</mi> <mn>2</mn> </msup></p>
+<p><mo>−</mo></p>
+<p><mn>4</mn> <mo>⁢</mo> <mi>a</mi> <mo>⁢</mo> <mi>c</mi></p>
+</msqrt>
+
+</mrow>
+
+<mrow>
+
+<p><mn>2</mn> <mo>⁢</mo> <mi>a</mi></p>
+</mrow>
+
+</mfrac>
+
+</math>
+
+<h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a><strong>SVG</strong></h2><p>是一种用于描述二维的矢量图形，基于 XML 的标记语言。SVG 相对于图像，就好比 HTML 相对于文本。</p>
+<p>doc = iframe . getSVGDocument()</p>
+<p>doc = embed . getSVGDocument()</p>
+<p>doc = object . getSVGDocument()</p>
+<p>如果iframe、embed或object元素用于嵌入SVG，则返回Document对象。</p>
+<hr>
+<h2 id="list"><a href="#list" class="headerlink" title="list"></a><strong>list</strong></h2><p>coords/coordinate  坐标值</p>
+<p>rectangle 矩形</p>
+<p>polygon 多边形</p>
+<p>negative 负数；消极的</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>The elements of HTML（三）</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The elements of HTML（四）</title>
+    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>表单</strong>是一种网页组件，可以包含表单控件如文本，按钮，复选框，范围或颜色选择器控件。 用户可以与这样的表单进行交互并提供数据，随后这些数据被发送到服务器用于进一步处理 （例如返回搜索或计算结果）。</p>
+<p>编写表单的步骤（没有顺序）：编写用户界面、实现服务器端的处理、用户界面与服务器端通信的配置。</p>
+<h1 id="用户界面的编写"><a href="#用户界面的编写" class="headerlink" title="用户界面的编写"></a>用户界面的编写</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span>  </span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Customer name: <span class="tag">&lt;<span class="name">input</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Telephone: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">tel</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>E-mail address: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">email</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Size <span class="tag">&lt;/<span class="name">legend</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Small <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Medium <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Large <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Toppings <span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Bacon <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Extra Cheese <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Onion <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Mushroom <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Preferred delivery time: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">time</span> <span class="attr">min</span>=<span class="string">&quot;11:00&quot;</span> <span class="attr">max</span>=<span class="string">&quot;21:00&quot;</span> <span class="attr">step</span>=<span class="string">&quot;900&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Delivery instructions: <span class="tag">&lt;<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">button</span>&gt;</span>Submit order<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">**简要说明：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>表单都以****form 元素开始。多数控件都由 input 元素表示，它默认提供一个文本控件。</li>
+<li>使用 label 元素来描述控件，标签文本和控件自己都会进入 label 元素内。</li>
+<li>表单的每一部分都是一个段落，一般用 p 元素来与其他部分分隔。</li>
+<li>单选按钮用 input 元素，设置 type 属性，值为 radio。 name属性值一样让单选按钮成组。</li>
+<li>fieldset 元素让一批控件成为一组，控件组的标题由 fieldset 中的 legend 表示。</li>
+<li>这些复选框使用 input 元素， type 属性值为 checkbox：。</li>
+<li>电话号码的表单控件（type 属性设为 tel 的 input 元素）， e-mail 地址（type 属性设为 email 的 input 元素）：</li>
+<li>type 属性设为 time 的 input 元素来询问配送时间。 很多控件都可以设置可选值的范围；这个例子中的属性是 min, max 和step。这些属性分别用来设置最小时间，最大时间， 以及允许的值之间的间隔（单位为秒）。</li>
+<li>textarea 元素可以用来提供多行文本。</li>
+<li>为了让表单可以提交，用一个 button 元素。<h1 id="用户界面与服务器端通信的配置"><a href="#用户界面与服务器端通信的配置" class="headerlink" title="用户界面与服务器端通信的配置"></a>用户界面与服务器端通信的配置</h1></li>
+</ol>
+<p>表单提交通常是GET 或 POST 请求。在 form 元素上使用 method 属性来指定使用哪种方法。 指定编码方式要使用 enctype 属性。action 属性来指定处理提交的数据服务的 URL。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;form method&#x3D;&quot;post&quot;</span><br><span class="line">      enctype&#x3D;&quot;application&#x2F;x-www-form-urlencoded&quot;</span><br><span class="line">      action&#x3D;&quot;https:&#x2F;&#x2F;pizza.example.com&#x2F;order.cgi&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>每个需要提交的表单控件都要有一个名字来对应提交的数据。属性name指定了提交的名字。他们之间可以通过 value 属性给它们不同的值来区分。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;small&quot;&gt; Small &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;medium&quot;&gt; Medium &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;large&quot;&gt; Large &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="客户端表单验证"><a href="#客户端表单验证" class="headerlink" title="客户端表单验证"></a>客户端表单验证</h1><p>通过表单标记使得用户代理可以在表单提交之前检查用户输入，但服务器仍然必须校验输入是有效的（因为恶意用户可以很容易绕过表单验证）， 但这使我们可以避免因为只能在服务器上检查而造成用户等待。input 元素上的required 属性，表示只有给出值之后表单才可以提交。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<p>使用 maxlength 属性来限制输入的长度。 把这个属性添加到 textarea 元素上，我们可以限制用户输入到 1000 字符。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Delivery instructions: &lt;textarea name&#x3D;&quot;comments&quot; maxlength&#x3D;1000&gt;&lt;&#x2F;textarea&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<p>提交表单时，每个不合法的表单控件上，以及 form 元素上都会触发 invalid 事件， 这个事件可以用来显示表单存在哪些问题的一个描述。</p>
+<h1 id="启用表单控件的客户端自动填充"><a href="#启用表单控件的客户端自动填充" class="headerlink" title="启用表单控件的客户端自动填充"></a>启用表单控件的客户端自动填充</h1><p>浏览器可以帮助用户自动填充表单控件，避免让用户每次重新输入。为了帮助用户代理做自动填充，可以使用 autocomplete 属性来描述字段的用途。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required autocomplete&#x3D;&quot;shipping name&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="提高用户手机端体验"><a href="#提高用户手机端体验" class="headerlink" title="提高用户手机端体验"></a>提高用户手机端体验</h1><p>有些设备使用inputmode属性为用户提供多种输入方式。例如，在输入信用卡号码时，用户可能希望只看到0-9数字键，而在输入姓名时，用户可能希望看到每个单词默认大写的表单字段。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;&lt;p&gt;&lt;label&gt;Buzzer code: &lt;input name&#x3D;&quot;custbuzz&quot; inputmode&#x3D;&quot;number&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="type-autocomplete-inputmode之间的区别"><a href="#type-autocomplete-inputmode之间的区别" class="headerlink" title="type, autocomplete, inputmode之间的区别"></a>type, autocomplete, inputmode之间的区别</h1><p>input元素上的type属性决定用户代理将使用哪种控件来公开字段。</p>
+<p>autocomplete属性描述了用户将输入的值实际表示的内容。</p>
+<p>当控件是文本控件时，inputmode属性决定使用哪种输入方式。</p>
+<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><p>|<strong>element</strong>|<strong>meaning</strong>|<strong>Categories</strong>|<strong>Contexts in which this element can be used</strong>|<strong>Content model</strong>|<strong>Tag omission in text/html</strong>|<strong>Content attributes</strong>|<strong>remark</strong>|<br>|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-:|:—-|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-|<br>|form|表单|Flow content.<br>Palpable content|flow content|Flow content,但没有form元素后代|不可省略|accept-charset—服务器处理表单数据的字符集<br>action — 表单提交的url<br>autocomplete—form内控件设置自动填充<br>enctype—发送表单数据之前如何对其进行编码<br>method —表单提交使用的HTTP方法<br>name — 用于使用API时的名称<br>novalidate —表单提交时不用进行验证<br>target —表单提交的上下文<br>rel|    |<br>|label|为 input 元素定义标注|Flow content<br>Phrasing content<br>Interactive content<br>Palpable content|phrasing content|Phrasing content，但没有后代labelable元素，除非它是元素的 labeled control且没有后代label。|不可省略|for — 绑定到哪个表单元素|1.要么通过for属性（属性值和需要绑定控件id一样），要么将控件放在label元素内。|</p>
+<h1 id="Input-type"><a href="#Input-type" class="headerlink" title="Input type"></a>Input type</h1><p>|||button定义可单击的按钮（主要与JavaScript一起使用以激活脚本）|<br>|:—-|:—-|:—-:|:—-|<br>|||checkbox定义一个复选框|<br>|color<br>||定义颜色选择器|<br>|date<br>||定义日期控件（年，月，日（无时间））|<br>|datetime-local<br>||定义日期和时间控件（年，月，日，时间（无时区）|<br>|||file定义文件选择字段和“浏览”按钮（用于文件上载）|<br>|||image将图像定义为提交按钮|<br>|||month定义月份和年份控件（无时区）|<br>|||number定义用于输入数字的字段|<br>|||password定义密码字段|<br>|||radio定义单选按钮|<br>|||range定义范围控件（如滑块控件）|<br>|||reset定义重置按钮|<br>|||submit定义提交按钮|<br>|||time定义用于输入时间的控件（无时区）|<br>|week<br>||定义周和年控制（无时区）|<br>|||hidden定义隐藏的输入字段禁止进行约束验证；|<br>|||如果那么name和_charset_值相同，必须省略value属性。text定义单行文本字段没有指定type值或无效，默认为文本控件。|<br>|||输入值和value值禁止使用回车符或换行符。search定义用于输入搜索字符串的文本字段|<br>|||tel定义用于输入电话号码的字段输入值和value值禁止使用回车符或换行符。|<br>|||不强制使用特定规则。url定义用于输入URL的字段可以为空字符串，但不能使用回车符或换行符。|<br>|当元素的值既不是空字符串，也不是有效的绝对URL，元素的类型不匹配email<br>|||</p>
+<h1 id="定义电子邮件地址的字段当设置了multiple属性：Input-attribute"><a href="#定义电子邮件地址的字段当设置了multiple属性：Input-attribute" class="headerlink" title="定义电子邮件地址的字段当设置了multiple属性：Input attribute"></a>定义电子邮件地址的字段当设置了multiple属性：Input attribute</h1><table>
+<thead>
+<tr>
+<th align="left">accept</th>
+<th align="left">规定通过文件上传来提交</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">alt</td>
+<td align="left">图像不可用的替代文本</td>
+</tr>
+<tr>
+<td align="left">autocomplete</td>
+<td align="left">是否使用输入字段的自动</td>
+</tr>
+<tr>
+<td align="left">checked</td>
+<td align="left">首次加载时是否被选中</td>
+</tr>
+<tr>
+<td align="left">dirname</td>
+<td align="left">输入字段的文本方向</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td align="left">是否禁用此元素</td>
+</tr>
+<tr>
+<td align="left">form</td>
+<td align="left">规定输入字段所属的一个</td>
+</tr>
+<tr>
+<td align="left">formaction</td>
+<td align="left">覆盖表单的 action 属性</td>
+</tr>
+<tr>
+<td align="left">formenctype</td>
+<td align="left">覆盖表单的 enctype 属性</td>
+</tr>
+<tr>
+<td align="left">formmethod</td>
+<td align="left">覆盖表单的 method 属性</td>
+</tr>
+<tr>
+<td align="left">formnovalidate</td>
+<td align="left">覆盖表单的 novalidate</td>
+</tr>
+<tr>
+<td align="left">formtarget</td>
+<td align="left">覆盖表单的 target 属性n</td>
+</tr>
+<tr>
+<td align="left">height</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">list</td>
+<td align="left">预定义的选项列表</td>
+</tr>
+<tr>
+<td align="left">max</td>
+<td align="left">输入字段的最大值</td>
+</tr>
+<tr>
+<td align="left">maxlength</td>
+<td align="left">输入字段的最大长度</td>
+</tr>
+<tr>
+<td align="left">min</td>
+<td align="left">输入字段的最小值</td>
+</tr>
+<tr>
+<td align="left">minlength</td>
+<td align="left">输入字段的最小长度</td>
+</tr>
+<tr>
+<td align="left">multiple</td>
+<td align="left">是否允许多个值</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">元素名称</td>
+</tr>
+<tr>
+<td align="left">pattern</td>
+<td align="left">输入字段的值的格式</td>
+</tr>
+<tr>
+<td align="left">placeholder</td>
+<td align="left">用户填写输入字段的提示</td>
+</tr>
+<tr>
+<td align="left">readonly</td>
+<td align="left">是否允许用户修改</td>
+</tr>
+<tr>
+<td align="left">required</td>
+<td align="left">是否必须填写</td>
+</tr>
+<tr>
+<td align="left">size</td>
+<td align="left">控件尺寸</td>
+</tr>
+<tr>
+<td align="left">src</td>
+<td align="left">资源地址</td>
+</tr>
+<tr>
+<td align="left">step</td>
+<td align="left">输入的间隔</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">控件类型</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">元素的值</td>
+</tr>
+<tr>
+<td align="left">width</td>
+<td align="left">宽</td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">pattern的描述</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>The elements of HTML（四）</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>02-URL与资源</title>
     <url>/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/</url>
     <content><![CDATA[<h2 id="2-1-URL语法"><a href="#2-1-URL语法" class="headerlink" title="2.1 URL语法"></a><strong>2.1 URL语法</strong></h2><p><strong>URI</strong>：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。</p>
@@ -1452,7 +1757,7 @@
   </entry>
   <entry>
     <title>02-HTML网页和结构</title>
-    <url>/2021/01/21/note/webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
+    <url>/2021/01/21/note/Webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
 <h2 id="2-1-网页构成"><a href="#2-1-网页构成" class="headerlink" title="2.1 网页构成"></a>2.1 网页构成</h2><h3 id="2-1-1-基本元素和树状结构"><a href="#2-1-1-基本元素和树状结构" class="headerlink" title="2.1.1 基本元素和树状结构"></a>2.1.1 基本元素和树状结构</h3><p>现在的网页基本上都是动态网页（Dynamic HTML），这就需要JavaScript代码用来控制网页内部的逻辑，CSS用来描述网页的显示信息。</p>
 <p>整个网页可以看成一种树状结构，其树根是html，这是网页的根元素（或称节点）。根下面包含两个子节点head和body。</p>
@@ -1527,7 +1832,7 @@
   </entry>
   <entry>
     <title>04-资源加载和网络栈</title>
-    <url>/2021/01/21/note/webkit/04-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/</url>
+    <url>/2021/01/21/note/Webkit/04-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/</url>
     <content><![CDATA[<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
 <h2 id="4-1-WebKit资源加载机制"><a href="#4-1-WebKit资源加载机制" class="headerlink" title="4.1 WebKit资源加载机制"></a>4.1 WebKit资源加载机制</h2><h3 id="4-1-1资源"><a href="#4-1-1资源" class="headerlink" title="4.1.1资源"></a>4.1.1资源</h3><p>网页本身就是一种资源，而且网页还需要依赖很多其他类型的资源，例如图片、视频等。</p>
 <p>HTML支持的资源主要包括以下类型。</p>
@@ -1681,6 +1986,1017 @@
       </categories>
       <tags>
         <tag>WebKit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The elements of HTML（一）</title>
+    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th align="center"><strong>element</strong></th>
+<th><strong>meaning</strong></th>
+<th align="center"><strong>Categories</strong></th>
+<th align="left"><strong>Contexts in which this element can be used</strong></th>
+<th align="center"><strong>Content model</strong></th>
+<th align="left"><strong>Tag omission in text/html</strong></th>
+<th align="center"><strong>Content attributes</strong></th>
+<th align="left"><strong>remark</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">html</td>
+<td>文档的根</td>
+<td align="center">none</td>
+<td align="left">document、子片段</td>
+<td align="center">head后面跟一个body</td>
+<td align="left">第一个子元素不是注释，可以省略起始标签。html后没有紧跟注释，可以省略结束标签</td>
+<td align="center">manifest （现已不建议使用）</td>
+<td align="left">建议在htm添加lang属性</td>
+</tr>
+<tr>
+<td align="center">head</td>
+<td>metadata的集合（title、link、script、meta）</td>
+<td align="center">none</td>
+<td align="left">html内的第一个元素</td>
+<td align="center">如果是 iframe srcdoc 文档，可以有没有或多个元数据，title和base最多各有一个,其他类型，至少有一个以上的元数据，且必须有且只有一个title，最多一个base</td>
+<td align="left">head内为空可以省略起始标签，结束标签没有紧跟空格或者注释可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">大多数情况必须含title,除非html用作电子邮件格式</td>
+</tr>
+<tr>
+<td align="center">titile</td>
+<td>文档标题或名称</td>
+<td align="center">Metadata content</td>
+<td align="left">head内</td>
+<td align="center">text文本</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">text属性的getter方法返回title元素的子文本内容，text属性的setter方法用该元素内的给定值替换所有字符串title。用户代理在其用户界面中引用文档时，应使用文档标题。在用户界面titile的directionality应该设置为文档title的directionality（directionality暂未理解）</td>
+</tr>
+<tr>
+<td align="center">base</td>
+<td>页面上的所有链接规定默认地址或默认目标</td>
+<td align="center">Metadata content</td>
+<td align="left">head内</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">href— 文档基本URL<br>target— 用于超链接导航和表单提交的默认浏览上下文</td>
+<td align="left">target、href两个属性至少有一个。多个base的href,只有第一个有效果。href如果指定了content属性，则该属性必须包含一个有效的URL。base如果有href属性，必须在其他有定义获取url属性的元素之前（除了html元素，它的maifest不受影响）。target的frozen base URL这个概念不理解，那里一坨都没看懂</td>
+</tr>
+<tr>
+<td align="center">link</td>
+<td>文档链接到其他资源</td>
+<td align="center">Metadata content</td>
+<td align="left">head内、在noscript 元素作为head元素的子元素、allowed in the body:phrasing content元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">href— 超链接的地址<br>crossorigin —元素如何处理跨域请求<br>rel—包含超链接的文档和目标资源之间的关系<br>media —适用媒体<br>integrity—子资源完整性检查中使用的完整性元数据<br>hreflang —链接资源的语言<br>type —提示所引用资源的类型<br>referrerpolicy-  Referrer policy的取发起由元素<br>sizes—图标的大小（用于“ rel=“ icon”）<br>imagesrcset —在不同情况下使用的图像（例如，高分辨率显示器，小型显示器等）<br>imagesizes —不同页面布局的图像大小<br>as— 预加载请求的Potential destination（对于rel=“ preload”和rel=“ modulepreload”）<br>color—自定义网站图标时使用的颜色（对于rel=“ mask-icon”）<br>disabled —是否禁用链接<br>title —链接的标题；CSS样式表集名称。</td>
+<td align="left">必须有rel或者itemprop属性，不能同时使用。如果link元素具有itemprop属性，或者仅包含关键字的rel属性 ，也就是body-ok.link元素可以创建外部资源链接（stylesheet）和超链接(next)，链接类型和数量取决于rel属性的关键字,每个链接对会被单独处理。link创建的超链接和rel属性作用于全文档，a和area相反。</td>
+</tr>
+<tr>
+<td align="center">meta</td>
+<td>提供有关页面的元信息</td>
+<td align="center">Metadata content</td>
+<td align="left">如果charset存在，或者元素的http-equiv属性处于Encoding声明状态：head内。<br>如果http-equiv存在但不处于Encoding声明状态：head内。<br>如果http-equiv存在，但不处于Encoding声明状态：在作为head元素的子元素的noscript元素中。<br>如果name存在： metadata content。<br>如果itemprop存在： metadata content。<br>如果itemprop属性存在： phrasing content。</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">name —元数据名称<br>http-equiv —编译指示指令<br>content —元素的值<br>charset— 字符编码声明</td>
+<td align="left">每个文档meta的charset属性不得超过一个。name的值：application-name（提供页面代表的Web应用程序的名称）、author（作者）、description（描述页面）、generator（标识用于生成文档的软件包）、keywords（关键字，许多搜索引擎不考虑）、referrer（没懂）、theme-color（定义建议的颜色），以及其他自己定义的。http-equiv：content-language（设置编译设定的默认语言,鼓励使用lang）、content-type（字符编码声明）、default-style（设置默认 CSS样式表集的名称）、refresh（定义文档自动刷新的时间间隔）、set-cookie（此实用程序不符合要求，没有任何效果）、    x-ua-compatible（指定网页的兼容性模式设置）、content-security-policy（启用CSP内容安全策略）。</td>
+</tr>
+<tr>
+<td align="center">style</td>
+<td>将CSS样式表嵌入其文档中</td>
+<td align="center">Metadata content</td>
+<td align="left">metadata content、在作为head元素的子元素的noscript元素中</td>
+<td align="center">Text that gives a conformant style sheet</td>
+<td align="left">不可省略</td>
+<td align="center">media —适用媒体<br>title属性–CSS样式表集名称</td>
+<td align="left">如果media 省略该属性，则默认值为“ all”，这意味着默认情况下样式适用于所有媒体</td>
+</tr>
+<tr>
+<td align="center">body</td>
+<td>文档的内容</td>
+<td align="center">Sectioning root</td>
+<td align="left">html内的第二个元素</td>
+<td align="center">Flow content</td>
+<td align="left">如果元素为空，或第一个子元素不是空格或注释，除非第一个子元素是meta, link, script, style, 或者 template元素，起始标签可以省略。如果元素后面没有紧跟注释，可以省略结束标签。</td>
+<td align="center">onafterprint<br>onbeforeprint<br>onbeforeunload<br>onhashchange<br>onlanguagechange<br>onmessage<br>onmessageerror<br>onoffline<br>ononline<br>onpagehide<br>onpageshow<br>onpopstate<br>onrejectionhandled<br>onstorage<br>onunhandledrejection<br>onunload</td>
+<td align="left">文档只能有一个body元素。onerror事件将从目标冒泡到body、html、document、window，而body上的事件处理程序监视的是window而不是body。但是，使用addEventListener（）添加的事件侦听器将在事件冒泡通过body时运行，而不是在事件到达window对象时运行。</td>
+</tr>
+<tr>
+<td align="center">article</td>
+<td>规定独立的自包含内容，比如论坛帖子、报纸文章、博客条目、用户评论</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">与article元素关联的作者信息不适用于嵌套的article元素。</td>
+</tr>
+<tr>
+<td align="center">scetion</td>
+<td>文档或应用的通用部分，比如比如章节、页眉、页脚等</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当需要syndicate元素内容时，使用article而不是section.使用section时可以一直使h1</td>
+</tr>
+<tr>
+<td align="center">nav</td>
+<td>定义导航链接的部分</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">用于服务条款、版权信息的链接一般放在底部的footer而不是nav</td>
+</tr>
+<tr>
+<td align="center">aside</td>
+<td>与页面主内容无关，比如侧边栏，广告、拉引号</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">aside仅将元素用于括号是不合适的</td>
+</tr>
+<tr>
+<td align="center">h1、h2、h3……</td>
+<td>定义标题</td>
+<td align="center">Flow content<br>Sectioning content<br>Palpable content</td>
+<td align="left">作为hgroup的子元素，flow content 、heading content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">不要因为字体大小，来选择不同的h,一般css里改</td>
+</tr>
+<tr>
+<td align="center">hgroup</td>
+<td>标题部分，比如副标题、标语等</td>
+<td align="center">Flow content<br>Heading conten<br>Palpable content</td>
+<td align="left">flow content、heading content</td>
+<td align="center">包含一个以上h1-h6，并可以选择性的与支持脚本的元素（script、template）一起使用</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">hgroup的rank是其包含的h标签里的最高的一个。hgroup对两个标题进行分组，即便都是同等级的h标签，也是不对等的</td>
+</tr>
+<tr>
+<td align="center">header</td>
+<td>定义文档的页眉（介绍信息、导航辅助）</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有footer和header子代的flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">header不会引入新的部分</td>
+</tr>
+<tr>
+<td align="center">footer</td>
+<td>义文档或节的页脚，通常包含文档的作者、版权信息、使用条款链接、联系信息等等</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有footer和header子代的flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">通常在底部，但不是绝对的。比如像联系信息等有可能在footer也可以在address</td>
+</tr>
+<tr>
+<td align="center">address</td>
+<td>定义文档或文章作者的联系信息</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">没有heading content 、sectioning content 、header, footer,  address 子代的Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">address可以在articel内，也可以在body内(引用于整个文档)。address不能用于任何地址比如邮政地址（通常用P标签）,也不得用于除联系方式以外的信息，通常和其他信息包含在footer内。</td>
+</tr>
+<tr>
+<td align="center">p</td>
+<td>段落</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">Phrasing content</td>
+<td align="left">结束标签省略：p后紧跟address, p, aside, div, 等，或父元素没有内容，且父元素不是 a, audio, del, ins, map, noscript, video或自定义元素</td>
+<td align="center">Global attributes</td>
+<td align="left">当有更适用的标签时，不应该使用p。p 元素会自动在其前后创建一些空白。列表元素特别是ol、ul不能作为p的子元素。设计由多个结构段落组成的逻辑段落时，用div来代替p。</td>
+</tr>
+<tr>
+<td align="center">hr</td>
+<td>水平线</td>
+<td align="center">Flow content</td>
+<td align="left">Flow content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">hr不影响文档的轮廓</td>
+</tr>
+<tr>
+<td align="center">pre</td>
+<td>预格式化的文本块</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">Phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">pre的结构是由印刷规定而不是元素来表示。常用于表示：电子邮件、代码块（与code、samp、kbd一起使用）、ASCII文字</td>
+</tr>
+<tr>
+<td align="center">blockquote</td>
+<td>引用块</td>
+<td align="center">Flow content<br>Sectioning root<br>Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes<br>cite —链接引用和编辑信息资源</td>
+<td align="left">blockquote中的内容是引用的其他资源， blockquote中的内容可以缩写，也可以按照文本语言的传统方式添加上下文。引用内容的属性必须放在blockquote外部。</td>
+</tr>
+<tr>
+<td align="center">ol</td>
+<td>有序列表</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">reversed —降序<br>start— 列表的起始值<br>type —列表标记的类型</td>
+<td align="left">type关键字：1（十进制数）、a（小写拉丁字母）、A（大写拉丁字母）、i（小写罗马数字）、I（大写罗马数字）</td>
+</tr>
+<tr>
+<td align="center">ul</td>
+<td>无序列表</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">menu</td>
+<td>代表命令的工具栏</td>
+<td align="center">Flow content.<br>如果至少含有一个li:Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">li和脚本支持元素</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">li</td>
+<td>列表项</td>
+<td align="center">none</td>
+<td align="left">ol、ul、menu内</td>
+<td align="center">Flow content</td>
+<td align="left">如果li后紧跟另一个li元素或者其父元素没有内容，则结束标签可以省略</td>
+<td align="center">value—只有在ol内情况下，代表列表项的顺序值，必须为整数</td>
+<td align="left">不建议在li内放入h1元素</td>
+</tr>
+<tr>
+<td align="center">dl</td>
+<td>描述性列表</td>
+<td align="center">Flow content、Palpable content</td>
+<td align="left">flow content</td>
+<td align="center">一个以上的dt后面跟着一个以上的dd，或者一个以上的div,可以和脚本支持的元素搭配使用</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">在单个dl元素中，每个名称不应该有多个dt元素。dl可以被包含在div内</td>
+</tr>
+<tr>
+<td align="center">dt</td>
+<td>列表中的项目（术语部分、名称）</td>
+<td align="center">none</td>
+<td align="left">在dl内的dd、dt之前，或者在div内的dd、dt之前</td>
+<td align="center">Flow content(没有footer、header、 sectioning content、heading content后代)</td>
+<td align="left">dt元素后面紧跟其他dd、dt，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">可以使用dfn元素表示术语的定义</td>
+</tr>
+<tr>
+<td align="center">dd</td>
+<td>条目的定义部分</td>
+<td align="center">none</td>
+<td align="left">在dl内的dd、dt之后，或者在div内的dd、dt之后</td>
+<td align="center">Flow content</td>
+<td align="left">dd元素后面紧跟其他dd、dt，或父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">figure</td>
+<td>独立的流内容（图表，图片，代码）</td>
+<td align="center">Flow content<br>Sectioning root<br>Palpable content</td>
+<td align="left">Flow content</td>
+<td align="center">Flow content 或Flow content后跟figcaption，或者figcaption前跟Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">figure被删除后，不能对文档流产生影响</td>
+</tr>
+<tr>
+<td align="center">figcaption</td>
+<td>figure的标题</td>
+<td align="center">none</td>
+<td align="left">figure内的第一个或最后一个元素</td>
+<td align="center">Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">mian</td>
+<td>文档的主要内容</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">Flow content，但只能有一个</td>
+<td align="center">Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">如果有多个main必须有hidden属性。main的父元素只能是html, body, div, form</td>
+</tr>
+<tr>
+<td align="center">div</td>
+<td>块级元素，无特殊含义</td>
+<td align="center">Flow content<br>Palpable content</td>
+<td align="left">Flow content，或作为dl的子元素</td>
+<td align="center">如果是dl的子元素：一个以上的dt后跟一个以上dd，且可以与脚本支持元素使用。否则，Flow content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当没有元素适合，建议使用div</td>
+</tr>
+<tr>
+<td align="center">a</td>
+<td>如果有href属性，代表资源的超链接。没有则表示为占位符。</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Interactive content:如果存在href属性.<br>Palpable content.</td>
+<td align="left">phrasing content</td>
+<td align="center">不能有交互式内容的子代，a元素子代，或者带有tabindex属性的子代</td>
+<td align="left">不可省略</td>
+<td align="center">href — 超链接的地址<br>target — 在何处打开链接文档<br>download — 被下载的超链接目标<br>ping — ping 的URL地址<br>rel —当前文档与被链接文档之间的关系<br>hreflang — 被链接资源的语言<br>type —提示被链接资源的的 MIME 类型<br>referrerpolicy— Referrer policy for fetches initiated by the element</td>
+<td align="left">如果没有href属性，则a元素其他属性必须省略。如果有 itemprop 属性，则必须有href属性。</td>
+</tr>
+<tr>
+<td align="center">em</td>
+<td>强调重点的内容</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">强调的级别由em数量决定。</td>
+</tr>
+<tr>
+<td align="center">strong</td>
+<td>对内容极其强调</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">strong通常强调标题、段落、警告、危险标志、用户更需要长时间看见的内容等，比em强调程度更大。</td>
+</tr>
+<tr>
+<td align="center">small</td>
+<td>小号字体</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">常用于免责声明、警告、法律限制、版权信息、属性、许可要求等。使用small并不代表内容不重要，不重要只需不使用em、strong即可，small和strong、em也可嵌套使用。small不适用于大篇幅如段落、列表等。只用于小段文本，也不适用于副标题。</td>
+</tr>
+<tr>
+<td align="center">s</td>
+<td>无关或不准确的内容（文本添加删除线）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">更推荐使用del元素。</td>
+</tr>
+<tr>
+<td align="center">cite</td>
+<td>引用或参考的内容，也可以是顺带提及的内容，通常是论文、文章、杂志等的标题</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">不能用于人名。</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td>引用了其他资源的phrasing content</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">cite — 引用的资源链接</td>
+<td align="left">不需要添加标点符号，UA会渲染添加。引用的资源可以是虚构的，不适合引用单独一个单词。不能用q代替不表示引用的引用（讽刺语句，通常会加标点符号，但这并不是引用）</td>
+</tr>
+<tr>
+<td align="center">dfn</td>
+<td>定义术语</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content，不包含dfn的子代</td>
+<td align="left">不可省略</td>
+<td align="center">title— 显示完整的术语或缩写的扩展</td>
+<td align="left">dfn的父元素需包含dfn内术语的定义，且其title属性不影响dfn。title只能是这个术语的定义，不能包含其他。</td>
+</tr>
+<tr>
+<td align="center">abbr</td>
+<td>简称或缩写</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">title— 显示完整的术语或缩写的扩展</td>
+<td align="left">适用情况：开发者想要解释缩写的含义；用户不熟悉的术语；存在需要进行语义注释的缩写。有title的abbr与没有title的abbr不会影响。</td>
+</tr>
+<tr>
+<td align="center">ruby</td>
+<td>定义 ruby 注释（有注音或其他注释）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">Phrasing content，不包含ruby或ruby子元素。单独的ruby,且自身不喊ruby。一个或多个rt。一个rb包含一个或多个rt</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">在没有ruby父元素的ruby中，内容被分为三段：基本文本片段；注释片段；可忽略片段（空格或rp）。其中tr对应注释片段，通常只有一个。</td>
+</tr>
+<tr>
+<td align="center">rt</td>
+<td>标记ruby注释的ruby文本组件</td>
+<td align="center">none</td>
+<td align="left">ruby的子元素</td>
+<td align="center">Phrasing content</td>
+<td align="left">rt后紧跟rt或tp，或其父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当它是ruby元素的子元素时，它本身并不表示任何东西，但是ruby元素使用它来确定它所代表的内容。</td>
+</tr>
+<tr>
+<td align="center">rp</td>
+<td>在ruby注释的ruby文本组件周围提供括号或其他内容</td>
+<td align="center">none</td>
+<td align="left">ruby的子元素，紧跟在rt之前或之后</td>
+<td align="center">Text</td>
+<td align="left">tp后紧跟tr或rp，或其父元素没有内容，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">由不支持ruby注释的UA显示。</td>
+</tr>
+<tr>
+<td align="center">data</td>
+<td>本身的内容及其value的值</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">value — 机器可读的值</td>
+<td align="left">value属性必须存在，并且是以机器可读的格式来代表元素的内容。当内容与时间有关，使用time。适用于：当与微格式或微数据属性相结合时，元素用于提供用于数据处理的机器可读值和用于在Web浏览器中呈现的人可读值。在这种情况下，value的格式由所使用的微格式或微数据决定；当脚本有一个文本值要与人可读的值一起存储时，可以与页面中的脚本一起使用，value格式只取决于脚本的需要。</td>
+</tr>
+<tr>
+<td align="center">time</td>
+<td>时间相关的内容及其value的值</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">当有datatime属性：phrasing content ，否则为Text</td>
+<td align="left">不可省略</td>
+<td align="center">datetime — 机器可读的值</td>
+<td align="left">time的datetime值是datetime内容属性的值，否则为time元素的子文本内容。没有datetime属性的time元素不能有子元素。</td>
+</tr>
+<tr>
+<td align="center">code</td>
+<td>计算机代码片段</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">可以添加一个值为“language-XX”的class属性来指示所使用的语言。</td>
+</tr>
+<tr>
+<td align="center">var</td>
+<td>变量</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">samp</td>
+<td>样本；程序或计算机输出的引用</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">kbd</td>
+<td>用户输入（通常是键盘文本）</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当kbd嵌套在samp中，表示系统回显的输入；当包含samp，表示基于系统输出的输入，例如调用菜单项；当kbd嵌套在另一个kbd中，表示一个实际的键或其他适合输入机制的单个输入单元。code、var、samp、kbd这些常与pre一起使用。</td>
+</tr>
+<tr>
+<td align="center">sub/sup</td>
+<td>上标/下标</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">特殊的排版要求才使用。</td>
+</tr>
+<tr>
+<td align="center">i</td>
+<td>斜体文本效果</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">适用于i的情况，要考虑是否用em和dfn更合适。</td>
+</tr>
+<tr>
+<td align="center">b</td>
+<td>粗体</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">当没有其他元素适合时，才考虑用b。并非有重要的语义。</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td>下划线</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">注意避免导致用户错认为超链接。</td>
+</tr>
+<tr>
+<td align="center">mark</td>
+<td>突出显示文本</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">bdi</td>
+<td>从周围的文本格式设置中隔离</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">dir –默认为auto,不会继承父元素的样式</td>
+<td align="left">在发布用户生成的内容时，该标签很有用。</td>
+</tr>
+<tr>
+<td align="center">bdo</td>
+<td>可覆盖默认的文本方向</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">dir –定义文字的方向（ltr<br>、rtl）</td>
+<td align="left">必须设置dir属性，不能设置为auto。</td>
+</tr>
+<tr>
+<td align="center">sapn</td>
+<td>行内元素</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">phrasing content</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">br</td>
+<td>换行符</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">当段落只有br元素，代表占位符空行</td>
+</tr>
+<tr>
+<td align="center">wbr</td>
+<td>换行符的时机</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left">如果文本过长，可能会导致换行，浏览器会按照wbr来换行，避免语义混乱。</td>
+</tr>
+<tr>
+<td align="center">ins</td>
+<td>文档新的添加</td>
+<td align="center">Flow content<br>Phrasing content<br>Palpable content</td>
+<td align="left">phrasing content</td>
+<td align="center">Transparent</td>
+<td align="left">不可省略</td>
+<td align="center">cite —引用文档的URL（解释变动原因）。<br>datetime —变化的日期和时间</td>
+<td align="left">ins 不应该跨越 implied paragraph边界</td>
+</tr>
+<tr>
+<td align="center">del</td>
+<td>文档的删除部分</td>
+<td align="center">Flow content<br>Phrasing content</td>
+<td align="left">phrasing content</td>
+<td align="center">Transparent</td>
+<td align="left">不可省略</td>
+<td align="center">cite —引用文档的URL（解释变动原因）。<br>datetime —变化的日期和时间</td>
+<td align="left">ins和del不能作为ul、ol的子元素。</td>
+</tr>
+<tr>
+<td align="center">img</td>
+<td>图片的展示</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Form-associated element<br>Interactive content(有usemap属性)<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">alt —不能正常显示时的替代文本<br>src —资源的地址<br>srcset — 图片应用的场景<br>sizes —图片设置的尺寸<br>crossorigin — 如何处理跨域请求<br>usemap—定义为客户器端图像映射<br>ismap—定义为服务器端图像映射<br>width — 宽度<br>height — 高度<br>referrerpolicy— 设置引用策略<br>decoding —图像解码的首选方法<br>loading — 确定懒加载时使用</td>
+<td align="left">建议懒加载的图片设置宽高属性，防止加载后页面布局改变。img元素不能当做页面的布局工具或展示透明的图片。设置了src和alt属性，但alt属性值为空字符串，图片是内容的装饰或补充，没有设置alt属性，代表图片是内容的关键部分，但没有可替换的文本内容。</td>
+</tr>
+<tr>
+<td align="center">iframe</td>
+<td>嵌套的浏览上下文</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>srcdoc —需要渲染的html文档<br>name — 名称<br>sandbox — 嵌套内容的安全规则<br>allow — iframe内容的功能策略<br>allowfullscreen—允许使用requestFullscreen()方法<br>allowpaymentrequest—允许使用PaymentRequest 界面处理支付请求<br>width — 宽度<br>height — 高度<br>referrerpolicy —引用策略</td>
+<td align="left">1、srcdoc属性“”内的&amp;和‘“”符号必须转义的,否则会提前结束，沙盒内容中提到的原始&amp;必须双重转义，以便在最初解析srcdoc属性时保留&amp;，防止再一次解析沙盒内容时误解&amp;。<br>2、同时有src和srcdoc属性，则后者的优先级更高。<br>3、iframe可能会延迟load事件。<br>4、如果没有设置src和srcdoc,或设置了不能解析，浏览上下文会保持在原始的about:blank页面。<br>5、sandbox属性值： allow-forms（重启表单）, allow-modals（重启模态对话框）, allow-orientation-lock（重启屏幕方向锁）, allow-pointer-lock（重启pointer lock API）, allow-popups（重启弹出框）, allow-popups-to-escape-sandbox（重新创建无沙箱的auxiliary浏览器上下文）, allow-presentation（重启presentation API）, allow-same-origin（使得内容被视为来自真实来源，而不是强制其进入唯一的来源）, allow-scripts（重启脚本）, allow-top-navigation（允许内容导航到顶级浏览器上下文）, allow-top-navigation-by-user-activation（只有当浏览器上下文的 active window短暂的激活时）, and allow-downloads。 allow-top-navigation 和allow-top-navigation-by-user-activation不能通知指定，否则只有前者起作用。</td>
+</tr>
+<tr>
+<td align="center">embed</td>
+<td>额外的程序或交互内容</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content<br>Palpable content</td>
+<td align="left">embedded content</td>
+<td align="center">无</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>type —嵌套资源的类型<br>width — 宽度<br>height — 高度</td>
+<td align="left">1、如果跳转到其他浏览器上下文，src属性不会改变<br>2、没有回退内容，子元素会被忽略。</td>
+</tr>
+<tr>
+<td align="center">object</td>
+<td>表示外部资源</td>
+<td align="center">Flow content<br>Phrasing content<br>Embedded content<br>Interactive content（如果有usemap属性）<br>Listed and submittable form-associated element.<br>Palpable content.</td>
+<td align="left">embedded content</td>
+<td align="center">没有或多个param元素</td>
+<td align="left">不可省略</td>
+<td align="center">data — 资源地址<br>type —嵌套资源的类型<br>name — 名称<br>usemap —规定与对象一同使用的客户端图像映射的 URL<br>form — 规定对象所属的一个表单<br>width — 宽度<br>height — 高度</td>
+<td align="left">可以插入HTML 文档中的对象的数据和参数，以及可用来显示和操作数据的代码。</td>
+</tr>
+<tr>
+<td align="center">param</td>
+<td>作为脚本，嵌套在object的参数</td>
+<td align="center">None</td>
+<td align="left">在flow content前面的object子元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">name —参数名称<br>value — 参数的值</td>
+<td align="left">两个属性都必须存在。</td>
+</tr>
+<tr>
+<td align="center">video</td>
+<td>播放视频、电影，或带字幕的音频文件</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Embedded content.<br>Interactive content(如果有controls属性 )<br>Palpable content.</td>
+<td align="left">embedded content</td>
+<td align="center">如果有src属性：没有或多个track,并且是透明的，没有媒体子元素。<br>没有src属性：没有或多个source，接着没有或多个track,并且是透明的，没有媒体子元素。</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>crossorigin — 如何处理跨域请求<br>poster — 播放前显示的画面url<br>preload—页面加载时视频也加载<br>autoplay—页面加载好后自动播放<br>playsinline —内联形式播放<br>loop —循环播放<br>muted —默认静音<br>controls —展示控件<br>width —宽<br>height — 高</td>
+<td align="left">1、可以在video内插入文本，当浏览器不支持时，用于提供一些帮助信息。<br>2、字幕、手语、音频描述可以直接嵌入到视频，其中字幕也可以用track外引文件，音频描述可以以文本通过WebVTT 文件，track会将文本合成语音，WebVTT也可以提供章节信息。<br>3、视频中的每一帧对应哪个播放位置由视频流的格式决定。</td>
+</tr>
+<tr>
+<td align="center">audio</td>
+<td>音频</td>
+<td align="center">Flow content.<br>Phrasing content.<br>Embedded content.<br>Interactive content、Palpable content(如果有controls属性 )</td>
+<td align="left">embedded content</td>
+<td align="center">如果有src属性：没有或多个track,并且是透明的，没有媒体子元素。<br>没有src属性：没有或多个source，接着没有或多个track,并且是透明的，没有媒体子元素。</td>
+<td align="left">不可省略</td>
+<td align="center">src — 资源地址<br>crossorigin — 如何处理跨域请求<br>preload—页面加载时音频也加载<br>autoplay—页面加载好后自动播放<br>loop —循环播放<br>muted —默认静音<br>controls —展示控件</td>
+<td align="left">当字幕和手语视频可以使用时，video可以代替audio.</td>
+</tr>
+<tr>
+<td align="center">track</td>
+<td></td>
+<td align="center">none</td>
+<td align="left">在flow content前面的媒体子元素</td>
+<td align="center">无</td>
+<td align="left">没有结束标签</td>
+<td align="center">kind — 轨道的文本类型<br>src — 资源地址<br>srclang — 轨道语言<br>label — 标签<br>default — 默认的轨道</td>
+<td align="left">1、kind关键字（可以省略，缺失默认 subtitles ，无效默认 metadata）<br>captions：播放器中显示的简短说明<br>chapters：定义章节，用于导航媒介资源<br>descriptions：定描述，用于通过音频描述媒介的内容<br>metadata：定义脚本使用的内容<br>subtitles：定义字幕，用于在视频中显示字幕<br>2、媒体元素的最多有一个这样的track（kind属性除metadata以外，并且指定了default）<br>3、track的readstatus：<br>0：未加载<br>1：正在加载<br>2：加载完成<br>3：加载失败</td>
+</tr>
+<tr>
+<td align="center">table</td>
+<td>表格</td>
+<td align="center">Flow content.<br>Palpable content.</td>
+<td align="left">flow content</td>
+<td align="center">顺序如下：caption（可选）、colgroup(0个或多个)、thead 、tbody 或tr（0个或多个）、tfoot0个或多个）、脚本支持元素（可选）</td>
+<td align="left">不可省略</td>
+<td align="center">Global attributes</td>
+<td align="left">1、table不能用于布局的工具<br>2、如果一个表格不以第一行和第一列作为标题，或着其他特殊情况，应该引入介绍该表格的解释性信息。</td>
+</tr>
+<tr>
+<td align="center">caption</td>
+<td>表格标题</td>
+<td align="center">none</td>
+<td align="left">table内的第一个元素</td>
+<td align="center">没有子代table元素的Flow content</td>
+<td align="left">如果caption后没有紧跟空格或注释，则结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left">1、当figure元素除了figurecaption以外，只有table元素，应该省略caption而使用figurecaption。<br>2、caption可以用来解释表格内容，使得其更容易理解</td>
+</tr>
+<tr>
+<td align="center">colgroup</td>
+<td>对表格中的列进行组合，以便对其进行格式化</td>
+<td align="center">none</td>
+<td align="left">table内，在caption后，在thead, tbody, tfoot或tr前.</td>
+<td align="center">有span属性，nothing，否则，零个或多个col和template元素</td>
+<td align="left">起始标签省略：colgroup内是一个元素col，或元素前面没有紧跟另一个已省略结束标签的colgroup，如元素为空，则不可省略<br>结束标签省略：colgroup后没有紧跟空格或注释</td>
+<td align="center">Global attributes<br>span —列组应该横跨的列数</td>
+<td align="left">1、colgroup内没有col,则应该在元素上设置span属性，值在1—1000之间。</td>
+</tr>
+<tr>
+<td align="center">col</td>
+<td>为表格中一个或多个列定义属性值</td>
+<td align="center">none</td>
+<td align="left">作为没有span属性的colgroup子元素</td>
+<td align="center">nothing</td>
+<td align="left">没有结束标签</td>
+<td align="center">Global attributes<br>span —列组应该横跨的列数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tbody</td>
+<td>表格主体</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup和thead之后，但前提是没有作为table子元素的tr。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">起始标签省略：tbody内的第一个元素是tr，或没有紧在省略了结束标签的tbody、thead、tfoot之前，元素内为空时不能省略。<br>结束标签省略：tbody后紧跟tbody、tfoot，或父元素没有内容</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">thead</td>
+<td>表格的表头</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup之后，在tbody、tfoot之前，但前提是没有其他head。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">如果thead元素后紧跟tbody或tfoot元素，结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tfoot</td>
+<td>表格的页脚</td>
+<td align="center">none</td>
+<td align="left">table的子元素，在caption、colgroup和thead、tbody、tr之后，但前提是没有其他tfoot。</td>
+<td align="center">零个或多个tr以及支持脚本的元素</td>
+<td align="left">父元素没有内容，可以省略结束标签</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">tr</td>
+<td>表格中的行</td>
+<td align="center">none</td>
+<td align="left">thead的子元素.<br>tbody的子元素.<br>tfoot 的子元素.<br>table的子元素，在caption, colgroup,thead之后，前提是没有作为table子元素的tbody</td>
+<td align="center">零个或多个 td, th，或支持脚本的元素</td>
+<td align="left">tr后紧跟另一个tr，或父元素没有内容，结束标签可以省略</td>
+<td align="center">Global attributes</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">td</td>
+<td>表格的标准单元格</td>
+<td align="center">Sectioning root</td>
+<td align="left">tr的子元素</td>
+<td align="center">Flow content</td>
+<td align="left">td后紧跟td或th，或父元素没有内容，结束标签可以省略</td>
+<td align="center">colspan — 单元格可横跨的列数<br>rowspan — 单元格可横跨的行数<br>headers — 与单元格相关的表头</td>
+<td align="left">用户代理，特别是在非可视环境中，或者在无法将表显示为2D网格的情况下，当呈现单元格的内容时，可能会提供单元格的用户上下文；例如，给出单元格在表模型中的位置，或列出单元格的标题单元格（由分配标题单元格的算法确定）。</td>
+</tr>
+<tr>
+<td align="center">th</td>
+<td>表头单元格</td>
+<td align="center">none</td>
+<td align="left">th的子元素</td>
+<td align="center">Flow content,但没有header,footer,sectioning content,heading content后代</td>
+<td align="left">th后紧跟td或th，或父元素没有内容，结束标签可以省略</td>
+<td align="center">colspan — 单元格可横跨的列数<br>rowspan — 单元格可横跨的行数<br>headers — 与单元格相关的表头<br>scope — 表头数据与单元数据相关联的方法<br>abbr — 单元格中内容的缩写版本</td>
+<td align="left">scope属性值字：<br>1、col   规定单元格是列的表头。<br>2、row    规定单元格是行的表头。<br>3、colgroup    规定单元格是列组的表头。<br>4、rowgroup    规定单元格是行组的表头。</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>The elements of HTML（一）</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The elements of HTML（二）</title>
+    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>基于设备像素比。</strong>缩放级别和屏幕像素密度（上一点）都会影响单个CSS pixel 上的物理屏幕像素。适用当图片的于染大小固定的情况下，在 img 元素上用 src 和 srcset 属性， 使用 x 描述符来提供多个只有大小不同的图片（小图是大图的缩略版）。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于视口的选择：</strong>作者可能要显示同一张图片，但渲染大小根据 viewport 宽度有所不同。 可以使用 srcset 和 sizes 属性，使用 w 描述符来提供多个只有大小不同的图片 （小图是大图的缩略版）。 用户代理将会根据指定的 w 描述符和 sizes 属性指定的渲染大小为每个图片计算等效像素密度。 然后它可以根据用户屏幕的像素密度、缩放级别和任何可能的其他因素（比如用户网络状态）选择任何一个资源。  通过使用 w 描述符和 sizes 属性， 不论用户设备有多大用户代理都可以选择下载正确的图片资源。 在新的用户代理中，当 srcset 属性使用 w 描述符时， src 属性会被忽略。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">sizes</span>=<span class="string">&quot;100vw&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&quot;</span>   <span class="attr">src</span>=<span class="string">&quot;wolf-400.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The rad wolf&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于艺术选择：</strong>作者可能会根据图片的渲染大小显示不同的图片内容。可以用 picture 元素和 source 元素和 media 属性提供多张内容不同的图片 （例如小的图片是大图的裁剪版）。 用户代理会选择 media 属性中的媒体查询匹配的第一个 source 元素，然后从它的 srcset 属性中选择一个合适的 URL。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 45em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;large.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 32em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;med.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;small.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The wolf runs through the snow.&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于图片格式的选择：</strong>作者可能希望显示同样的图片内容但根据用户代理的支持情况使用不同的图片格式。 可以使用 source 元素上的 type 属性来提供多种格式的图片。在这个例子中，用户代理会选择第一个 type 属性为支持的 MIME 类型的源。 如果用户代理支持 WebP 就会选择第一个 source 元素。 如果不支持 WebP，但支持 JPEG XR 就会选择第二个 source 元素。 如果这两种都不支持，就会选择 img 元素。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.webp&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/webp&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jxr&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/vnd.ms-photo&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a><strong>Decoding</strong></h2><table>
+<thead>
+<tr>
+<th align="left">Keyword</th>
+<th align="left">State</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sync</td>
+<td align="left">Sync</td>
+<td align="left">表示优先同步解码此图像，以便与其他内容进行原子表示。</td>
+</tr>
+<tr>
+<td align="left">async</td>
+<td align="left">Async</td>
+<td align="left">指示优先选择异步解码此图像，以避免延迟其他内容的呈现。</td>
+</tr>
+<tr>
+<td align="left">auto</td>
+<td align="left">Auto</td>
+<td align="left">表示默认值，用户代理可以自由选择任何解码行为。</td>
+</tr>
+</tbody></table>
+<p>可以使用该decode()方法来控制解码行为。由于该decode()方法独立于负责将内容呈现到屏幕的过程执行解码，因此它不受decoding属性的影响</p>
+<h2 id="alt使用"><a href="#alt使用" class="headerlink" title="alt使用"></a><strong>alt使用</strong></h2><p>除非另有说明，必须指定 alt 属性且它的值不能为空，且必须适合替代图片。 对 alt 属性具体的要求取决于它要表示什么图片.编写替代文本时要考虑的最一般规则如下：1、 alt 属性的文本替换每个图像不会改变页面的含义。2、 alt 属性的值不应该包含图片的 caption, title 或 legend 文本。3、 应该包含的替代文本是用于替代图片的，而不是图片的补充， 用 title 属性可以提供补充信息。5、 alt 属性的值不应该重复已经由后面的文字提供的信息。</p>
+<p><strong>使用情况：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">1、当创建 超链接 的 a 元素或 button 元素没有文本内容只包含一个或更多图片时，alt 属性必须包含一些文字来传达链接或按钮的用途。</span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;green.html&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;green.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Green&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>2、具有替代图形表示形式的短语或段落：图表，图表，图形，地图，插图，文本必须在alt属性中给出，并且必须传达与src 属性中指定的图像相同的消息。重要的是要意识到替代文本是图像的替代品，而不是图像的描述。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;house.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The house is white, with a boarded front door.&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3、一个文档可以包含图标信息，图标是为了帮助视觉浏览器的用户一目了然地识别功能。有些情况下，图标是文本标签的补充，它们传达同样的含义。 那些情况下，alt 属性必须存在且为空。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/icons/help.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span> Help<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>另外一些情况下，图标旁边没有文字来描述它的含义；这样的图标就应该解释自己的含义。 那些情况下，同等的文本标签必须通过alt 属性给出。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;movies.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Movies&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>4、图像仅由文本组成，并且图像的目的是不是突出显示用于渲染文本的实际印刷效果，而是传达文本本身。在这种情况下，alt必须存在属性，但属性必须包含与图像本身相同的文本。在这种情况下，替代文本就是图像所代表的字符。（ps:如果由于作者的默认系统字体不支持给定字符而使他们倾向于使用图像，那么考虑Web字体。）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;initials/o.svg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;O&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5、图像实际上只是补充，它的存在只会增强周围的文本。在这些情况下，alt必须存在该属性，但其值必须为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>According to a study covering several billion pages,about 9% triggered the Standards mode.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;rendering-mode-pie-chart.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6、辅助图像。图像对内容并不重要，但它既不是纯粹的装饰，也不是文本的全部多余。在这些情况下，该alt属性必须存在，并且其值应为空字符串或图像传达的信息的文本表示形式。</p>
+<p>7、纯装饰性图像，这样的图像是装饰性的，但仍构成内容的一部分。alt必须存在该属性，但其值必须为空字符串。</p>
+<p>8、组成但个没有链接的大图的图片组，当一张图片被切分为若干个小图片文件，用来拼装成原来的大图时，这些图片中要有一个的 alt 属性按照相关规则设置为大图的替代文本。 然后其他所有剩余图片必须把 alt 属性设为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo1.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;XYZ Corp&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo2.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>9、组成单个有链接的大图的图片组。通常带连接的图片应该使用 图片映射 而不是切分图片。但是，如果图片确实已经被切分了，而且切分后的部分是链接的唯一内容， 那么每个链接必须有一个图片必须把它的 alt 属性设置为表示链接用途的替代文本。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=left&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-left.png&quot;</span>  <span class="attr">alt</span>=<span class="string">&quot;Left side. &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-middle.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=right&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-right.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Right side.&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>10、内容的关键部分，图片是内容的关键部分。比如照片库页面中的图片，如何为内容关键的图片提供替代文本，取决于图片的出处。</p>
+<p>通常情况：通过 alt 属性给出替代图片的文字。</p>
+<p>难以提供完整描述的图片： alt 属性也必须包含一些适当的替代文本， 但可以比较简短。</p>
+<p>未知内容的图片：alt 属性可以忽略，但必须符合以下条件之一：（1）img 元素在 包含 figcaption 的 figure 元素中， 且这个 figcaption 元素包含除元素间空白的内容，而且忽略 figcaption 元素及其后代节点后， figure 元素没有其他 流式内容 后代， 元素间空白 和 img 元素除外。（2）title 属性存在且值非空。</p>
+<p>11、不是给用户看的图片，首先应该避免使用不用来显示的 img 元素。如果一个 img 元素不是用于显示的，比如用于计算页面浏览量的服务。 那么 alt 属性必须为空字符串。在这些场景下，width 和 height 属性必须设为 0。</p>
+<p>12、给特定的、已知一定可以查看图片的人的 e-mail 或私人文档中的图片，可以省略alt 属性。但是，即使在这种情况下，也强烈建议作者包括替代文本，如上所示。</p>
+<p>13、标记生成器指引</p>
+<p>标记生成器应尽可能从用户那里获取替代文本。但是在许多情况下这是不可能的。</p>
+<p>对于仅作为链接内容的图像，标记生成器应检查链接目标以确定目标标题或目标URL，并将以此方式获得的信息用作替代文本。</p>
+<p>对于具有标题的图像，标记生成器应使用figure和 figcaption元素或title属性来提供图像的标题。</p>
+<p>作为最后的选择，实现者应在图像为纯装饰性图像下（第7条），将alt 属性设置为空字符串，或假设图像是内容的关键部分（第10条未知内容的图片）完全省略alt属性。</p>
+<p>标记生成器可以 在img元素上指定generator-unable-to-provide-required-alt 属性，这些元素他们无法为其获取替代文本，因此为其省略了该alt属性。</p>
+<p>14、规范检查工具指引</p>
+<p>规范检查工具必须把缺少 alt 属性报告为错误， 以下除外：上面第10条、12条、13条所举特殊情况。</p>
+<h1 id="Media"><a href="#Media" class="headerlink" title="Media"></a><strong>Media</strong></h1><p>audio和video元素，都可用于音频和视频。主要区别只是audio元素没有视觉内容（例如视频或字幕）的播放区域，而video元素却有 。</p>
+<h2 id="error-codes"><a href="#error-codes" class="headerlink" title="error codes"></a><strong>error codes</strong></h2><p>media.error  返回一个表示该元素当前错误状态的MediaError 对象。如无，返回null</p>
+<p>media.error.code   返回当错错误状态的代码</p>
+<p>media.error.message返回有关遇到的错误情况的特定信息诊断消息。消息和消息格式通常在不同的用户代理之间不一致。如果没有此类消息，则返回空字符串。</p>
+<ul>
+<li>1 = MEDIA_ERR_ABORTED - 取回过程被用户中止</li>
+<li>2 = MEDIA_ERR_NETWORK - 当下载时某种网络发生错误</li>
+<li>3 = MEDIA_ERR_DECODE - 当解码时发生错误</li>
+<li>4 = MEDIA_ERR_SRC_NOT_SUPPORTED - 不支持音频/视频<h2 id="媒体资源位置"><a href="#媒体资源位置" class="headerlink" title="媒体资源位置"></a><strong>媒体资源位置</strong></h2></li>
+</ul>
+<p>media . srcObject [ = source ]    允许为media元素分配一个media provider对象。</p>
+<p>media . currentSrc 返回当前媒体资源的URL。没有媒体资源或没有 URL时返回空字符串。</p>
+<p>有三种方法可以指定媒体资源（优先级从大到小）：srcObjectIDL属性，src内容属性和source元素。</p>
+<h2 id="MIME-types"><a href="#MIME-types" class="headerlink" title="MIME types"></a><strong>MIME types</strong></h2><p>只有不带参数的 application/octet-stream”MIME类型 “是特殊情况；如果出现任何参数，则将其与任何其他MIME type一样对待。</p>
+<p>media . canPlayType(type)    检测浏览器是否能播放指定的音频/视频类型</p>
+<p>返回值：</p>
+<ol>
+<li>“probably” - 浏览器最可能支持该音频/视频类型</li>
+<li>“maybe” - 浏览器也许支持该音频/视频类型</li>
+<li>“” - （空字符串）浏览器不支持该音频/视频类型</li>
+</ol>
+<p>source元素的type属性允许用户代理避免下载使用其无法呈现的格式的资源。</p>
+<h2 id="Network-states"><a href="#Network-states" class="headerlink" title="Network states"></a><strong>Network states</strong></h2><p>media . networkState  从下面的代码列表中，返回该元素网络活动的当前状态。</p>
+<ol>
+<li>0 = NETWORK_EMPTY - 音频/视频尚未初始化</li>
+<li>1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络</li>
+<li>2 = NETWORK_LOADING - 浏览器正在下载数据</li>
+<li>3 = NETWORK_NO_SOURCE - 未找到音频/视频来源<h2 id="Loading-the-media-resource"><a href="#Loading-the-media-resource" class="headerlink" title="Loading the media resource"></a><strong>Loading the media resource</strong></h2></li>
+</ol>
+<p>media . load()    重新加载音频/视频元素。</p>
+<p>media . buffered  属性返回 TimeRanges 对象，表示用户的音视频缓冲范围。</p>
+<p>TimeRanges 对象属性：</p>
+<ol>
+<li>length - 获得音视频中已缓冲范围的数量</li>
+<li>start(index) - 获得某个已缓冲范围的开始位置</li>
+<li>end(index) - 获得某个已缓冲范围的结束位置<h2 id="Offsets-into-the-media-resource"><a href="#Offsets-into-the-media-resource" class="headerlink" title="Offsets into the media resource"></a><strong>Offsets into the media resource</strong></h2></li>
+</ol>
+<p>media . duration  返回当前音频/视频的长度，以秒计。如果未设置音频/视频，则返回NaN，如果是无限流，返回 Infinity</p>
+<p>media . currentTime [ = value ]    设置或返回音频/视频播放的当前位置</p>
+<h2 id="Playing-the-media-resource"><a href="#Playing-the-media-resource" class="headerlink" title="Playing the media resource"></a><strong>Playing the media resource</strong></h2><p>media . paused   返回音频/视频是否已暂停。true 指示音频/视频已暂停。否则为 false。</p>
+<p>media . ended  返回音频/视频是否已结束。如果播放已结束，则返回 true。否则返回 false。</p>
+<p>media . defaultPlaybackRate [ = value ]  设置或返回音频/视频的默认播放速度。</p>
+<p>media . playbackRate [ = value ]   属性设置或返回音频/视频的当前播放速度。</p>
+<p>media . played   返回TimeRanges 对象。TimeRanges 对象表示用户已经播放或看到的音频/视频范围。</p>
+<p>media . play() 开始播放当前的音频或视频。</p>
+<p>media . pause()  暂停当前播放的音频/视频</p>
+<h2 id="Seeking"><a href="#Seeking" class="headerlink" title="Seeking"></a><strong>Seeking</strong></h2><p>media . seeking  返回用户目前是否在音频/视频中寻址，如果用户正在寻址，则为 true。否则为 false。</p>
+<p>media . seekable  返回TimeRanges对象。表示音频/视频中用户可寻址的范围。</p>
+<ol>
+<li>length - 获得音频/视频中可寻址范围的数量</li>
+<li>start(<em>index</em>) - 获得可寻址范围的开始位置</li>
+<li>end(<em>index</em>) - 获得可寻址范围的结束位置</li>
+</ol>
+<p>media . fastSeek( time )  寻求尽可能快地接近给定的时间，以精度换取速度。（要查找精确的时间，使用currentTime属性。）如果媒体资源尚未加载，则不执行任何操作。</p>
+<h2 id="Media-resources-with-multiple-media-tracks"><a href="#Media-resources-with-multiple-media-tracks" class="headerlink" title="Media resources with multiple media tracks"></a><strong>Media resources with multiple media tracks</strong></h2><p>media . audioTracks返回一个表示该媒体资源可用的音频轨的AudioTrackList对象(包含有audioTrack对象)</p>
+<p>media . videoTracks   返回一个表示该媒体资源可用的视频轨道的 videoTrackList对象。(包含有videoTrack对象)</p>
+<p>media . audioTracks . length           media . videoTracks . length</p>
+<p>返回可用音轨的数量</p>
+<p>audioTrack=media.audioTracks[index]       videoTrack=media.videoTracks[index]</p>
+<p>通过 index 来获得 AudioTrack或VideoTrack 对象</p>
+<p>audioTrack=media.audioTracks.getTrackById(id)</p>
+<p>videoTrack=media.videoTracks.getTrackById(id)</p>
+<p>通过 id 来获得AudioTrack或VideoTrack 对象</p>
+<p>audioTrack . id           videoTrack . id</p>
+<p>获得音轨、视频轨道的 id</p>
+<p>audioTrack . kind      videoTrack . kind</p>
+<p>获得音轨、视频轨道的类型</p>
+<p>audioTrack . label          videoTrack . label</p>
+<p>获得音轨、视频轨道的标签</p>
+<p>audioTrack . language          videoTrack . language</p>
+<p>获得音轨、视频轨道的语言</p>
+<p>audioTrack . enabled [ = value ]    获得或设置音轨是否是活动的 (true|false)</p>
+<p>videoTrack . selected [ = value ]    获得或设置视频轨道是否是活动的 (true|false)</p>
+<p>media . videoTracks . selectedIndex获得当前 VideoTrack 对象的下标，没有返回-1</p>
+<h2 id="AudioTrack和VideoTrack的kind-关键字"><a href="#AudioTrack和VideoTrack的kind-关键字" class="headerlink" title="AudioTrack和VideoTrack的kind 关键字"></a>AudioTrack和VideoTrack的kind 关键字</h2><p>|类别|定义|适用于|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|“ alternative”|主音轨的一种替代，例如不同的歌曲（音频）或不同的角度（视频）。|音频和视频。|<br>|“ captions”|带有字幕的主视频轨道的版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ descriptions”|视频轨道的音频描述。|仅音频。|<br>|“ main”|主要音频或视频轨道。|音频和视频。|<br>|“ main-desc”|主要音轨，混合有音频说明。|仅音频。|<br>|“ sign”|音轨的手语解释。|仅视频。|<br>|“ subtitles”|带有字幕的主视频轨道版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ translation”|主音轨的翻译版本。|仅音频。|<br>|“ commentary”|有关主要音频或视频轨道的评论，例如导演的评论。|音频和视频。|<br>|“ ”|用户代理无法识别任何明确的种类或轨道的元数据给出的种类。|音频和视频。<br>|</p>
+<h2 id="Text-track-API"><a href="#Text-track-API" class="headerlink" title="Text track API"></a><strong>Text track API</strong></h2><p>media . textTracks . length    获得音频/视频中可用的文本轨道的数量</p>
+<p>media . textTracks[ n ]    返回TextTrack对象，表示媒体元素的文本轨道列表中的第n个文本轨道。</p>
+<p>textTrack = media . textTracks . getTrackById( id )     返回给定id的TextTrack对象，如果没有，则返回null。</p>
+<p>textTrack = media . addTextTrack( kind [, label [, language ] ] )</p>
+<p>创建和返回新的文本轨道。新的TextTrack对象会被添加到视频/音频元素的文本轨道列表中。</p>
+<p>textTrack . kind    返回文本轨道的类型。</p>
+<p>textTrack . label   返回文本轨道的标签。</p>
+<p>textTrack . language    返回文本轨道的语言。</p>
+<p>textTrack . id    返回文本轨道的id</p>
+<p>textTrack.inBandMetadataTrackDispatchType     返回文本轨道 in-band metadata track dispatch type字符串。</p>
+<p>textTrack.mode [=value]</p>
+<p>获得或设置该轨道是否是活动的(“disabled”|”hidden”|”showing”)</p>
+<p>textTrack . cues        获得 TextTrackCueList 对象的 cues 列表</p>
+<p>textTrack . activeCues       获得 TextTrackCueList 对象形式的当前活动文本轨道 cues</p>
+<p>textTrack . addCue( cue )          向 cues 列表添加一个 cue</p>
+<p>textTrack . removeCue( cue )      向 cues 列表删除一个 cue</p>
+<p>cuelist . length    返回cuse列表的cue数量</p>
+<p>cuelist[index]        返回给定index的cue</p>
+<p>cuelist . getCueById( id )   返回给定id的cue</p>
+<p>cue . track    返回属于文本轨道cue的TextTract</p>
+<p>cue . id [ = value ]   返回或设置cue的id</p>
+<p>cue . startTime [ = value ]   返回或设置cue的开始时间的id</p>
+<p>cue . endTime [ = value ]    返回或设置cue的结束时间的id</p>
+<p>cue . pauseOnExit [ = value ]   是否设置暂停或退出标志，是则返回true,否则为false</p>
+<h2 id="User-interface"><a href="#User-interface" class="headerlink" title="User interface"></a><strong>User interface</strong></h2><p>media . volume [ = value ]</p>
+<p>设置或返回音频/视频的当前音量,必须是介于 0.0 与 1.0 之间的数字。0是静音，1最大</p>
+<p>media . muted [ = value ]</p>
+<p>设置或返回音频/视频是否应该被静音（true）。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>The elements of HTML（二）</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
       </tags>
   </entry>
   <entry>
@@ -1873,189 +3189,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>04-链接管理</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>07-缓存</title>
-    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
-<ol>
-<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
-<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
-<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
-<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
-</ol>
-<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
-<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
-                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
-                ></p>
-<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
-<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
-<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
-<ol>
-<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
-                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
-                ></p>
-<ol start="2">
-<li><strong>再验证未命中</strong></li>
-</ol>
-<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
-                      alt="yIucryfnFQtd0k4c__thumbnail.png"
-                ></p>
-<ol start="3">
-<li><strong>对象被删除</strong></li>
-</ol>
-<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
-<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
-<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
-<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
-<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
-<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
-<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
-<ol>
-<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
-<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
-<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
-</ol>
-<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
-<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
-<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
-<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
-<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
-                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
-                ></p>
-<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
-<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
-<ol>
-<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
-<li>根据URL动态地选择一个特定的父缓存。</li>
-<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
-<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
-</ol>
-<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
-                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
-                ></p>
-<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
-<ol>
-<li>接收——缓存从网络中读取抵达的请求报文。</li>
-<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
-<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
-<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
-<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
-<li>发送——缓存通过网络将响应发回给客户端。</li>
-<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
-                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
-                ></p>
-<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
-<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
-<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
-<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
-<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
-                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
-                ></p>
-<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
-<ol>
-<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
-<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
-</ol>
-<p>缓存返回的内容有以下几种情况：</p>
-<ol>
-<li>“足够新鲜”的已缓存副本；</li>
-<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
-<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
-<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
-</ol>
-<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
-<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
-<ol>
-<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
-<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
-</ol>
-<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
-<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
-<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
-<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
-<ol>
-<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
-<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
-<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
-<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
-</ol>
-<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
-<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
-<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
-                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
-                ></p>
-<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
-<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
-<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
-<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
-<ol>
-<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
-<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
-<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
-<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
-<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
-<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
-</ol>
-<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
-<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
-                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
-                ></p>
-<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
-<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
-<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
-                      alt="c66vSOYHG3viCCN0__thumbnail.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -2532,6 +3665,189 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>06-代理</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>07-缓存</title>
+    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
+<ol>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
+</ol>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
+                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
+                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
+                ></p>
+<ol start="2">
+<li><strong>再验证未命中</strong></li>
+</ol>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
+                      alt="yIucryfnFQtd0k4c__thumbnail.png"
+                ></p>
+<ol start="3">
+<li><strong>对象被删除</strong></li>
+</ol>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
+</ol>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
+                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
+                ></p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
+                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
+                ></p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
+                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
+                ></p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
+                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
+                ></p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
+<ol>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
+</ol>
+<p>缓存返回的内容有以下几种情况：</p>
+<ol>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
+</ol>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
+                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
+                ></p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
+<ol>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
+</ol>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
+                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
+                      alt="c66vSOYHG3viCCN0__thumbnail.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -3735,7 +5051,7 @@
   </entry>
   <entry>
     <title>03-WebKit架构和模块</title>
-    <url>/2021/01/21/note/webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
+    <url>/2021/01/21/note/Webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
     <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
 <h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
 <p><img  

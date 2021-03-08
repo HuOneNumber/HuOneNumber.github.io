@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            The elements of HTML（四） |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">The elements of HTML（四）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv4</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-08 20:31:19
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/">HTML standard</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/The-elements-of-HTML%EF%BC%88%E5%9B%9B%EF%BC%89/">The elements of HTML（四）</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WHATWG/">WHATWG</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HTML/">HTML</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>2.4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>10 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>表单</strong>是一种网页组件，可以包含表单控件如文本，按钮，复选框，范围或颜色选择器控件。 用户可以与这样的表单进行交互并提供数据，随后这些数据被发送到服务器用于进一步处理 （例如返回搜索或计算结果）。</p>
+<p>编写表单的步骤（没有顺序）：编写用户界面、实现服务器端的处理、用户界面与服务器端通信的配置。</p>
+<h1 id="用户界面的编写"><a href="#用户界面的编写" class="headerlink" title="用户界面的编写"></a>用户界面的编写</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span>  </span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Customer name: <span class="tag">&lt;<span class="name">input</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Telephone: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">tel</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>E-mail address: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">email</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Size <span class="tag">&lt;/<span class="name">legend</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Small <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Medium <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Large <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Toppings <span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Bacon <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Extra Cheese <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Onion <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Mushroom <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Preferred delivery time: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">time</span> <span class="attr">min</span>=<span class="string">&quot;11:00&quot;</span> <span class="attr">max</span>=<span class="string">&quot;21:00&quot;</span> <span class="attr">step</span>=<span class="string">&quot;900&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Delivery instructions: <span class="tag">&lt;<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">button</span>&gt;</span>Submit order<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">**简要说明：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>表单都以****form 元素开始。多数控件都由 input 元素表示，它默认提供一个文本控件。</li>
+<li>使用 label 元素来描述控件，标签文本和控件自己都会进入 label 元素内。</li>
+<li>表单的每一部分都是一个段落，一般用 p 元素来与其他部分分隔。</li>
+<li>单选按钮用 input 元素，设置 type 属性，值为 radio。 name属性值一样让单选按钮成组。</li>
+<li>fieldset 元素让一批控件成为一组，控件组的标题由 fieldset 中的 legend 表示。</li>
+<li>这些复选框使用 input 元素， type 属性值为 checkbox：。</li>
+<li>电话号码的表单控件（type 属性设为 tel 的 input 元素）， e-mail 地址（type 属性设为 email 的 input 元素）：</li>
+<li>type 属性设为 time 的 input 元素来询问配送时间。 很多控件都可以设置可选值的范围；这个例子中的属性是 min, max 和step。这些属性分别用来设置最小时间，最大时间， 以及允许的值之间的间隔（单位为秒）。</li>
+<li>textarea 元素可以用来提供多行文本。</li>
+<li>为了让表单可以提交，用一个 button 元素。<h1 id="用户界面与服务器端通信的配置"><a href="#用户界面与服务器端通信的配置" class="headerlink" title="用户界面与服务器端通信的配置"></a>用户界面与服务器端通信的配置</h1></li>
+</ol>
+<p>表单提交通常是GET 或 POST 请求。在 form 元素上使用 method 属性来指定使用哪种方法。 指定编码方式要使用 enctype 属性。action 属性来指定处理提交的数据服务的 URL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;form method&#x3D;&quot;post&quot;</span><br><span class="line">      enctype&#x3D;&quot;application&#x2F;x-www-form-urlencoded&quot;</span><br><span class="line">      action&#x3D;&quot;https:&#x2F;&#x2F;pizza.example.com&#x2F;order.cgi&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>每个需要提交的表单控件都要有一个名字来对应提交的数据。属性name指定了提交的名字。他们之间可以通过 value 属性给它们不同的值来区分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;small&quot;&gt; Small &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;medium&quot;&gt; Medium &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;large&quot;&gt; Large &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="客户端表单验证"><a href="#客户端表单验证" class="headerlink" title="客户端表单验证"></a>客户端表单验证</h1><p>通过表单标记使得用户代理可以在表单提交之前检查用户输入，但服务器仍然必须校验输入是有效的（因为恶意用户可以很容易绕过表单验证）， 但这使我们可以避免因为只能在服务器上检查而造成用户等待。input 元素上的required 属性，表示只有给出值之后表单才可以提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<p>使用 maxlength 属性来限制输入的长度。 把这个属性添加到 textarea 元素上，我们可以限制用户输入到 1000 字符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Delivery instructions: &lt;textarea name&#x3D;&quot;comments&quot; maxlength&#x3D;1000&gt;&lt;&#x2F;textarea&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<p>提交表单时，每个不合法的表单控件上，以及 form 元素上都会触发 invalid 事件， 这个事件可以用来显示表单存在哪些问题的一个描述。</p>
+<h1 id="启用表单控件的客户端自动填充"><a href="#启用表单控件的客户端自动填充" class="headerlink" title="启用表单控件的客户端自动填充"></a>启用表单控件的客户端自动填充</h1><p>浏览器可以帮助用户自动填充表单控件，避免让用户每次重新输入。为了帮助用户代理做自动填充，可以使用 autocomplete 属性来描述字段的用途。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required autocomplete&#x3D;&quot;shipping name&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="提高用户手机端体验"><a href="#提高用户手机端体验" class="headerlink" title="提高用户手机端体验"></a>提高用户手机端体验</h1><p>有些设备使用inputmode属性为用户提供多种输入方式。例如，在输入信用卡号码时，用户可能希望只看到0-9数字键，而在输入姓名时，用户可能希望看到每个单词默认大写的表单字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt;p&gt;&lt;label&gt;Buzzer code: &lt;input name&#x3D;&quot;custbuzz&quot; inputmode&#x3D;&quot;number&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="type-autocomplete-inputmode之间的区别"><a href="#type-autocomplete-inputmode之间的区别" class="headerlink" title="type, autocomplete, inputmode之间的区别"></a>type, autocomplete, inputmode之间的区别</h1><p>input元素上的type属性决定用户代理将使用哪种控件来公开字段。</p>
+<p>autocomplete属性描述了用户将输入的值实际表示的内容。</p>
+<p>当控件是文本控件时，inputmode属性决定使用哪种输入方式。</p>
+<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><p>|<strong>element</strong>|<strong>meaning</strong>|<strong>Categories</strong>|<strong>Contexts in which this element can be used</strong>|<strong>Content model</strong>|<strong>Tag omission in text/html</strong>|<strong>Content attributes</strong>|<strong>remark</strong>|<br>|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-:|:—-|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-|<br>|form|表单|Flow content.<br>Palpable content|flow content|Flow content,但没有form元素后代|不可省略|accept-charset—服务器处理表单数据的字符集<br>action — 表单提交的url<br>autocomplete—form内控件设置自动填充<br>enctype—发送表单数据之前如何对其进行编码<br>method —表单提交使用的HTTP方法<br>name — 用于使用API时的名称<br>novalidate —表单提交时不用进行验证<br>target —表单提交的上下文<br>rel|    |<br>|label|为 input 元素定义标注|Flow content<br>Phrasing content<br>Interactive content<br>Palpable content|phrasing content|Phrasing content，但没有后代labelable元素，除非它是元素的 labeled control且没有后代label。|不可省略|for — 绑定到哪个表单元素|1.要么通过for属性（属性值和需要绑定控件id一样），要么将控件放在label元素内。|</p>
+<h1 id="Input-type"><a href="#Input-type" class="headerlink" title="Input type"></a>Input type</h1><p>|||button定义可单击的按钮（主要与JavaScript一起使用以激活脚本）|<br>|:—-|:—-|:—-:|:—-|<br>|||checkbox定义一个复选框|<br>|color<br>||定义颜色选择器|<br>|date<br>||定义日期控件（年，月，日（无时间））|<br>|datetime-local<br>||定义日期和时间控件（年，月，日，时间（无时区）|<br>|||file定义文件选择字段和“浏览”按钮（用于文件上载）|<br>|||image将图像定义为提交按钮|<br>|||month定义月份和年份控件（无时区）|<br>|||number定义用于输入数字的字段|<br>|||password定义密码字段|<br>|||radio定义单选按钮|<br>|||range定义范围控件（如滑块控件）|<br>|||reset定义重置按钮|<br>|||submit定义提交按钮|<br>|||time定义用于输入时间的控件（无时区）|<br>|week<br>||定义周和年控制（无时区）|<br>|||hidden定义隐藏的输入字段禁止进行约束验证；|<br>|||如果那么name和_charset_值相同，必须省略value属性。text定义单行文本字段没有指定type值或无效，默认为文本控件。|<br>|||输入值和value值禁止使用回车符或换行符。search定义用于输入搜索字符串的文本字段|<br>|||tel定义用于输入电话号码的字段输入值和value值禁止使用回车符或换行符。|<br>|||不强制使用特定规则。url定义用于输入URL的字段可以为空字符串，但不能使用回车符或换行符。|<br>|当元素的值既不是空字符串，也不是有效的绝对URL，元素的类型不匹配email<br>|||</p>
+<h1 id="定义电子邮件地址的字段当设置了multiple属性：Input-attribute"><a href="#定义电子邮件地址的字段当设置了multiple属性：Input-attribute" class="headerlink" title="定义电子邮件地址的字段当设置了multiple属性：Input attribute"></a>定义电子邮件地址的字段当设置了multiple属性：Input attribute</h1><table>
+<thead>
+<tr>
+<th align="left">accept</th>
+<th align="left">规定通过文件上传来提交</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">alt</td>
+<td align="left">图像不可用的替代文本</td>
+</tr>
+<tr>
+<td align="left">autocomplete</td>
+<td align="left">是否使用输入字段的自动</td>
+</tr>
+<tr>
+<td align="left">checked</td>
+<td align="left">首次加载时是否被选中</td>
+</tr>
+<tr>
+<td align="left">dirname</td>
+<td align="left">输入字段的文本方向</td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td align="left">是否禁用此元素</td>
+</tr>
+<tr>
+<td align="left">form</td>
+<td align="left">规定输入字段所属的一个</td>
+</tr>
+<tr>
+<td align="left">formaction</td>
+<td align="left">覆盖表单的 action 属性</td>
+</tr>
+<tr>
+<td align="left">formenctype</td>
+<td align="left">覆盖表单的 enctype 属性</td>
+</tr>
+<tr>
+<td align="left">formmethod</td>
+<td align="left">覆盖表单的 method 属性</td>
+</tr>
+<tr>
+<td align="left">formnovalidate</td>
+<td align="left">覆盖表单的 novalidate</td>
+</tr>
+<tr>
+<td align="left">formtarget</td>
+<td align="left">覆盖表单的 target 属性n</td>
+</tr>
+<tr>
+<td align="left">height</td>
+<td align="left">高</td>
+</tr>
+<tr>
+<td align="left">list</td>
+<td align="left">预定义的选项列表</td>
+</tr>
+<tr>
+<td align="left">max</td>
+<td align="left">输入字段的最大值</td>
+</tr>
+<tr>
+<td align="left">maxlength</td>
+<td align="left">输入字段的最大长度</td>
+</tr>
+<tr>
+<td align="left">min</td>
+<td align="left">输入字段的最小值</td>
+</tr>
+<tr>
+<td align="left">minlength</td>
+<td align="left">输入字段的最小长度</td>
+</tr>
+<tr>
+<td align="left">multiple</td>
+<td align="left">是否允许多个值</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">元素名称</td>
+</tr>
+<tr>
+<td align="left">pattern</td>
+<td align="left">输入字段的值的格式</td>
+</tr>
+<tr>
+<td align="left">placeholder</td>
+<td align="left">用户填写输入字段的提示</td>
+</tr>
+<tr>
+<td align="left">readonly</td>
+<td align="left">是否允许用户修改</td>
+</tr>
+<tr>
+<td align="left">required</td>
+<td align="left">是否必须填写</td>
+</tr>
+<tr>
+<td align="left">size</td>
+<td align="left">控件尺寸</td>
+</tr>
+<tr>
+<td align="left">src</td>
+<td align="left">资源地址</td>
+</tr>
+<tr>
+<td align="left">step</td>
+<td align="left">输入的间隔</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">控件类型</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">元素的值</td>
+</tr>
+<tr>
+<td align="left">width</td>
+<td align="left">宽</td>
+</tr>
+<tr>
+<td align="left">title</td>
+<td align="left">pattern的描述</td>
+</tr>
+</tbody></table>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：The elements of HTML（四）</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-08 20:31:19</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/08/note/HTML Standard/The elements of HTML（四）/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%B8%89%EF%BC%89/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">The elements of HTML（三）</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%9A%84%E7%BC%96%E5%86%99"><span class="nav-text">用户界面的编写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%80%9A%E4%BF%A1%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">用户界面与服务器端通信的配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81"><span class="nav-text">客户端表单验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E8%A1%A8%E5%8D%95%E6%8E%A7%E4%BB%B6%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85"><span class="nav-text">启用表单控件的客户端自动填充</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E7%94%A8%E6%88%B7%E6%89%8B%E6%9C%BA%E7%AB%AF%E4%BD%93%E9%AA%8C"><span class="nav-text">提高用户手机端体验</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#type-autocomplete-inputmode%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">type, autocomplete, inputmode之间的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Input"><span class="nav-text">Input</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Input-type"><span class="nav-text">Input type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%94%B5%E5%AD%90%E9%82%AE%E4%BB%B6%E5%9C%B0%E5%9D%80%E7%9A%84%E5%AD%97%E6%AE%B5%E5%BD%93%E8%AE%BE%E7%BD%AE%E4%BA%86multiple%E5%B1%9E%E6%80%A7%EF%BC%9AInput-attribute"><span class="nav-text">定义电子邮件地址的字段当设置了multiple属性：Input attribute</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

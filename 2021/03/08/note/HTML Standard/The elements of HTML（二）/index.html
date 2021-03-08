@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            The elements of HTML（二） |
+        
+        HuOneNumber | 个人博客
+    </title>
+    <link rel="shortcut icon" href="/images/avatar.png">
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"忠于自我、追求极致，这就是极客精神！","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.3.0"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content normal-code-theme">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">The elements of HTML（二）</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span>胡倚豪</span>
+                        <span class="level">Lv4</span>
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i> 2021-03-08 20:31:15
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/">HTML standard</a>
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTML-standard/The-elements-of-HTML%EF%BC%88%E4%BA%8C%EF%BC%89/">The elements of HTML（二）</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>
+            <ul>
+                
+                    <li>
+                        <a href="/tags/WHATWG/">WHATWG</a>
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/HTML/">HTML</a>
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i> <span>4.6k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i> <span>17 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i> <span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>基于设备像素比。</strong>缩放级别和屏幕像素密度（上一点）都会影响单个CSS pixel 上的物理屏幕像素。适用当图片的于染大小固定的情况下，在 img 元素上用 src 和 srcset 属性， 使用 x 描述符来提供多个只有大小不同的图片（小图是大图的缩略版）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于视口的选择：</strong>作者可能要显示同一张图片，但渲染大小根据 viewport 宽度有所不同。 可以使用 srcset 和 sizes 属性，使用 w 描述符来提供多个只有大小不同的图片 （小图是大图的缩略版）。 用户代理将会根据指定的 w 描述符和 sizes 属性指定的渲染大小为每个图片计算等效像素密度。 然后它可以根据用户屏幕的像素密度、缩放级别和任何可能的其他因素（比如用户网络状态）选择任何一个资源。  通过使用 w 描述符和 sizes 属性， 不论用户设备有多大用户代理都可以选择下载正确的图片资源。 在新的用户代理中，当 srcset 属性使用 w 描述符时， src 属性会被忽略。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">sizes</span>=<span class="string">&quot;100vw&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&quot;</span>   <span class="attr">src</span>=<span class="string">&quot;wolf-400.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The rad wolf&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于艺术选择：</strong>作者可能会根据图片的渲染大小显示不同的图片内容。可以用 picture 元素和 source 元素和 media 属性提供多张内容不同的图片 （例如小的图片是大图的裁剪版）。 用户代理会选择 media 属性中的媒体查询匹配的第一个 source 元素，然后从它的 srcset 属性中选择一个合适的 URL。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 45em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;large.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 32em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;med.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;small.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The wolf runs through the snow.&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于图片格式的选择：</strong>作者可能希望显示同样的图片内容但根据用户代理的支持情况使用不同的图片格式。 可以使用 source 元素上的 type 属性来提供多种格式的图片。在这个例子中，用户代理会选择第一个 type 属性为支持的 MIME 类型的源。 如果用户代理支持 WebP 就会选择第一个 source 元素。 如果不支持 WebP，但支持 JPEG XR 就会选择第二个 source 元素。 如果这两种都不支持，就会选择 img 元素。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.webp&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/webp&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jxr&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/vnd.ms-photo&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a><strong>Decoding</strong></h2><table>
+<thead>
+<tr>
+<th align="left">Keyword</th>
+<th align="left">State</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sync</td>
+<td align="left">Sync</td>
+<td align="left">表示优先同步解码此图像，以便与其他内容进行原子表示。</td>
+</tr>
+<tr>
+<td align="left">async</td>
+<td align="left">Async</td>
+<td align="left">指示优先选择异步解码此图像，以避免延迟其他内容的呈现。</td>
+</tr>
+<tr>
+<td align="left">auto</td>
+<td align="left">Auto</td>
+<td align="left">表示默认值，用户代理可以自由选择任何解码行为。</td>
+</tr>
+</tbody></table>
+<p>可以使用该decode()方法来控制解码行为。由于该decode()方法独立于负责将内容呈现到屏幕的过程执行解码，因此它不受decoding属性的影响</p>
+<h2 id="alt使用"><a href="#alt使用" class="headerlink" title="alt使用"></a><strong>alt使用</strong></h2><p>除非另有说明，必须指定 alt 属性且它的值不能为空，且必须适合替代图片。 对 alt 属性具体的要求取决于它要表示什么图片.编写替代文本时要考虑的最一般规则如下：1、 alt 属性的文本替换每个图像不会改变页面的含义。2、 alt 属性的值不应该包含图片的 caption, title 或 legend 文本。3、 应该包含的替代文本是用于替代图片的，而不是图片的补充， 用 title 属性可以提供补充信息。5、 alt 属性的值不应该重复已经由后面的文字提供的信息。</p>
+<p><strong>使用情况：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、当创建 超链接 的 a 元素或 button 元素没有文本内容只包含一个或更多图片时，alt 属性必须包含一些文字来传达链接或按钮的用途。</span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;green.html&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;green.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Green&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>2、具有替代图形表示形式的短语或段落：图表，图表，图形，地图，插图，文本必须在alt属性中给出，并且必须传达与src 属性中指定的图像相同的消息。重要的是要意识到替代文本是图像的替代品，而不是图像的描述。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;house.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The house is white, with a boarded front door.&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3、一个文档可以包含图标信息，图标是为了帮助视觉浏览器的用户一目了然地识别功能。有些情况下，图标是文本标签的补充，它们传达同样的含义。 那些情况下，alt 属性必须存在且为空。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/icons/help.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span> Help<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>另外一些情况下，图标旁边没有文字来描述它的含义；这样的图标就应该解释自己的含义。 那些情况下，同等的文本标签必须通过alt 属性给出。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;movies.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Movies&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>4、图像仅由文本组成，并且图像的目的是不是突出显示用于渲染文本的实际印刷效果，而是传达文本本身。在这种情况下，alt必须存在属性，但属性必须包含与图像本身相同的文本。在这种情况下，替代文本就是图像所代表的字符。（ps:如果由于作者的默认系统字体不支持给定字符而使他们倾向于使用图像，那么考虑Web字体。）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;initials/o.svg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;O&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5、图像实际上只是补充，它的存在只会增强周围的文本。在这些情况下，alt必须存在该属性，但其值必须为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>According to a study covering several billion pages,about 9% triggered the Standards mode.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;rendering-mode-pie-chart.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6、辅助图像。图像对内容并不重要，但它既不是纯粹的装饰，也不是文本的全部多余。在这些情况下，该alt属性必须存在，并且其值应为空字符串或图像传达的信息的文本表示形式。</p>
+<p>7、纯装饰性图像，这样的图像是装饰性的，但仍构成内容的一部分。alt必须存在该属性，但其值必须为空字符串。</p>
+<p>8、组成但个没有链接的大图的图片组，当一张图片被切分为若干个小图片文件，用来拼装成原来的大图时，这些图片中要有一个的 alt 属性按照相关规则设置为大图的替代文本。 然后其他所有剩余图片必须把 alt 属性设为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo1.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;XYZ Corp&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo2.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>9、组成单个有链接的大图的图片组。通常带连接的图片应该使用 图片映射 而不是切分图片。但是，如果图片确实已经被切分了，而且切分后的部分是链接的唯一内容， 那么每个链接必须有一个图片必须把它的 alt 属性设置为表示链接用途的替代文本。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=left&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-left.png&quot;</span>  <span class="attr">alt</span>=<span class="string">&quot;Left side. &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-middle.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=right&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-right.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Right side.&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>10、内容的关键部分，图片是内容的关键部分。比如照片库页面中的图片，如何为内容关键的图片提供替代文本，取决于图片的出处。</p>
+<p>通常情况：通过 alt 属性给出替代图片的文字。</p>
+<p>难以提供完整描述的图片： alt 属性也必须包含一些适当的替代文本， 但可以比较简短。</p>
+<p>未知内容的图片：alt 属性可以忽略，但必须符合以下条件之一：（1）img 元素在 包含 figcaption 的 figure 元素中， 且这个 figcaption 元素包含除元素间空白的内容，而且忽略 figcaption 元素及其后代节点后， figure 元素没有其他 流式内容 后代， 元素间空白 和 img 元素除外。（2）title 属性存在且值非空。</p>
+<p>11、不是给用户看的图片，首先应该避免使用不用来显示的 img 元素。如果一个 img 元素不是用于显示的，比如用于计算页面浏览量的服务。 那么 alt 属性必须为空字符串。在这些场景下，width 和 height 属性必须设为 0。</p>
+<p>12、给特定的、已知一定可以查看图片的人的 e-mail 或私人文档中的图片，可以省略alt 属性。但是，即使在这种情况下，也强烈建议作者包括替代文本，如上所示。</p>
+<p>13、标记生成器指引</p>
+<p>标记生成器应尽可能从用户那里获取替代文本。但是在许多情况下这是不可能的。</p>
+<p>对于仅作为链接内容的图像，标记生成器应检查链接目标以确定目标标题或目标URL，并将以此方式获得的信息用作替代文本。</p>
+<p>对于具有标题的图像，标记生成器应使用figure和 figcaption元素或title属性来提供图像的标题。</p>
+<p>作为最后的选择，实现者应在图像为纯装饰性图像下（第7条），将alt 属性设置为空字符串，或假设图像是内容的关键部分（第10条未知内容的图片）完全省略alt属性。</p>
+<p>标记生成器可以 在img元素上指定generator-unable-to-provide-required-alt 属性，这些元素他们无法为其获取替代文本，因此为其省略了该alt属性。</p>
+<p>14、规范检查工具指引</p>
+<p>规范检查工具必须把缺少 alt 属性报告为错误， 以下除外：上面第10条、12条、13条所举特殊情况。</p>
+<h1 id="Media"><a href="#Media" class="headerlink" title="Media"></a><strong>Media</strong></h1><p>audio和video元素，都可用于音频和视频。主要区别只是audio元素没有视觉内容（例如视频或字幕）的播放区域，而video元素却有 。</p>
+<h2 id="error-codes"><a href="#error-codes" class="headerlink" title="error codes"></a><strong>error codes</strong></h2><p>media.error  返回一个表示该元素当前错误状态的MediaError 对象。如无，返回null</p>
+<p>media.error.code   返回当错错误状态的代码</p>
+<p>media.error.message返回有关遇到的错误情况的特定信息诊断消息。消息和消息格式通常在不同的用户代理之间不一致。如果没有此类消息，则返回空字符串。</p>
+<ul>
+<li>1 = MEDIA_ERR_ABORTED - 取回过程被用户中止</li>
+<li>2 = MEDIA_ERR_NETWORK - 当下载时某种网络发生错误</li>
+<li>3 = MEDIA_ERR_DECODE - 当解码时发生错误</li>
+<li>4 = MEDIA_ERR_SRC_NOT_SUPPORTED - 不支持音频/视频<h2 id="媒体资源位置"><a href="#媒体资源位置" class="headerlink" title="媒体资源位置"></a><strong>媒体资源位置</strong></h2></li>
+</ul>
+<p>media . srcObject [ = source ]    允许为media元素分配一个media provider对象。</p>
+<p>media . currentSrc 返回当前媒体资源的URL。没有媒体资源或没有 URL时返回空字符串。</p>
+<p>有三种方法可以指定媒体资源（优先级从大到小）：srcObjectIDL属性，src内容属性和source元素。</p>
+<h2 id="MIME-types"><a href="#MIME-types" class="headerlink" title="MIME types"></a><strong>MIME types</strong></h2><p>只有不带参数的 application/octet-stream”MIME类型 “是特殊情况；如果出现任何参数，则将其与任何其他MIME type一样对待。</p>
+<p>media . canPlayType(type)    检测浏览器是否能播放指定的音频/视频类型</p>
+<p>返回值：</p>
+<ol>
+<li>“probably” - 浏览器最可能支持该音频/视频类型</li>
+<li>“maybe” - 浏览器也许支持该音频/视频类型</li>
+<li>“” - （空字符串）浏览器不支持该音频/视频类型</li>
+</ol>
+<p>source元素的type属性允许用户代理避免下载使用其无法呈现的格式的资源。</p>
+<h2 id="Network-states"><a href="#Network-states" class="headerlink" title="Network states"></a><strong>Network states</strong></h2><p>media . networkState  从下面的代码列表中，返回该元素网络活动的当前状态。</p>
+<ol>
+<li>0 = NETWORK_EMPTY - 音频/视频尚未初始化</li>
+<li>1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络</li>
+<li>2 = NETWORK_LOADING - 浏览器正在下载数据</li>
+<li>3 = NETWORK_NO_SOURCE - 未找到音频/视频来源<h2 id="Loading-the-media-resource"><a href="#Loading-the-media-resource" class="headerlink" title="Loading the media resource"></a><strong>Loading the media resource</strong></h2></li>
+</ol>
+<p>media . load()    重新加载音频/视频元素。</p>
+<p>media . buffered  属性返回 TimeRanges 对象，表示用户的音视频缓冲范围。</p>
+<p>TimeRanges 对象属性：</p>
+<ol>
+<li>length - 获得音视频中已缓冲范围的数量</li>
+<li>start(index) - 获得某个已缓冲范围的开始位置</li>
+<li>end(index) - 获得某个已缓冲范围的结束位置<h2 id="Offsets-into-the-media-resource"><a href="#Offsets-into-the-media-resource" class="headerlink" title="Offsets into the media resource"></a><strong>Offsets into the media resource</strong></h2></li>
+</ol>
+<p>media . duration  返回当前音频/视频的长度，以秒计。如果未设置音频/视频，则返回NaN，如果是无限流，返回 Infinity</p>
+<p>media . currentTime [ = value ]    设置或返回音频/视频播放的当前位置</p>
+<h2 id="Playing-the-media-resource"><a href="#Playing-the-media-resource" class="headerlink" title="Playing the media resource"></a><strong>Playing the media resource</strong></h2><p>media . paused   返回音频/视频是否已暂停。true 指示音频/视频已暂停。否则为 false。</p>
+<p>media . ended  返回音频/视频是否已结束。如果播放已结束，则返回 true。否则返回 false。</p>
+<p>media . defaultPlaybackRate [ = value ]  设置或返回音频/视频的默认播放速度。</p>
+<p>media . playbackRate [ = value ]   属性设置或返回音频/视频的当前播放速度。</p>
+<p>media . played   返回TimeRanges 对象。TimeRanges 对象表示用户已经播放或看到的音频/视频范围。</p>
+<p>media . play() 开始播放当前的音频或视频。</p>
+<p>media . pause()  暂停当前播放的音频/视频</p>
+<h2 id="Seeking"><a href="#Seeking" class="headerlink" title="Seeking"></a><strong>Seeking</strong></h2><p>media . seeking  返回用户目前是否在音频/视频中寻址，如果用户正在寻址，则为 true。否则为 false。</p>
+<p>media . seekable  返回TimeRanges对象。表示音频/视频中用户可寻址的范围。</p>
+<ol>
+<li>length - 获得音频/视频中可寻址范围的数量</li>
+<li>start(<em>index</em>) - 获得可寻址范围的开始位置</li>
+<li>end(<em>index</em>) - 获得可寻址范围的结束位置</li>
+</ol>
+<p>media . fastSeek( time )  寻求尽可能快地接近给定的时间，以精度换取速度。（要查找精确的时间，使用currentTime属性。）如果媒体资源尚未加载，则不执行任何操作。</p>
+<h2 id="Media-resources-with-multiple-media-tracks"><a href="#Media-resources-with-multiple-media-tracks" class="headerlink" title="Media resources with multiple media tracks"></a><strong>Media resources with multiple media tracks</strong></h2><p>media . audioTracks返回一个表示该媒体资源可用的音频轨的AudioTrackList对象(包含有audioTrack对象)</p>
+<p>media . videoTracks   返回一个表示该媒体资源可用的视频轨道的 videoTrackList对象。(包含有videoTrack对象)</p>
+<p>media . audioTracks . length           media . videoTracks . length</p>
+<p>返回可用音轨的数量</p>
+<p>audioTrack=media.audioTracks[index]       videoTrack=media.videoTracks[index]</p>
+<p>通过 index 来获得 AudioTrack或VideoTrack 对象</p>
+<p>audioTrack=media.audioTracks.getTrackById(id)</p>
+<p>videoTrack=media.videoTracks.getTrackById(id)</p>
+<p>通过 id 来获得AudioTrack或VideoTrack 对象</p>
+<p>audioTrack . id           videoTrack . id</p>
+<p>获得音轨、视频轨道的 id</p>
+<p>audioTrack . kind      videoTrack . kind</p>
+<p>获得音轨、视频轨道的类型</p>
+<p>audioTrack . label          videoTrack . label</p>
+<p>获得音轨、视频轨道的标签</p>
+<p>audioTrack . language          videoTrack . language</p>
+<p>获得音轨、视频轨道的语言</p>
+<p>audioTrack . enabled [ = value ]    获得或设置音轨是否是活动的 (true|false)</p>
+<p>videoTrack . selected [ = value ]    获得或设置视频轨道是否是活动的 (true|false)</p>
+<p>media . videoTracks . selectedIndex获得当前 VideoTrack 对象的下标，没有返回-1</p>
+<h2 id="AudioTrack和VideoTrack的kind-关键字"><a href="#AudioTrack和VideoTrack的kind-关键字" class="headerlink" title="AudioTrack和VideoTrack的kind 关键字"></a>AudioTrack和VideoTrack的kind 关键字</h2><p>|类别|定义|适用于|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|“ alternative”|主音轨的一种替代，例如不同的歌曲（音频）或不同的角度（视频）。|音频和视频。|<br>|“ captions”|带有字幕的主视频轨道的版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ descriptions”|视频轨道的音频描述。|仅音频。|<br>|“ main”|主要音频或视频轨道。|音频和视频。|<br>|“ main-desc”|主要音轨，混合有音频说明。|仅音频。|<br>|“ sign”|音轨的手语解释。|仅视频。|<br>|“ subtitles”|带有字幕的主视频轨道版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ translation”|主音轨的翻译版本。|仅音频。|<br>|“ commentary”|有关主要音频或视频轨道的评论，例如导演的评论。|音频和视频。|<br>|“ ”|用户代理无法识别任何明确的种类或轨道的元数据给出的种类。|音频和视频。<br>|</p>
+<h2 id="Text-track-API"><a href="#Text-track-API" class="headerlink" title="Text track API"></a><strong>Text track API</strong></h2><p>media . textTracks . length    获得音频/视频中可用的文本轨道的数量</p>
+<p>media . textTracks[ n ]    返回TextTrack对象，表示媒体元素的文本轨道列表中的第n个文本轨道。</p>
+<p>textTrack = media . textTracks . getTrackById( id )     返回给定id的TextTrack对象，如果没有，则返回null。</p>
+<p>textTrack = media . addTextTrack( kind [, label [, language ] ] )</p>
+<p>创建和返回新的文本轨道。新的TextTrack对象会被添加到视频/音频元素的文本轨道列表中。</p>
+<p>textTrack . kind    返回文本轨道的类型。</p>
+<p>textTrack . label   返回文本轨道的标签。</p>
+<p>textTrack . language    返回文本轨道的语言。</p>
+<p>textTrack . id    返回文本轨道的id</p>
+<p>textTrack.inBandMetadataTrackDispatchType     返回文本轨道 in-band metadata track dispatch type字符串。</p>
+<p>textTrack.mode [=value]</p>
+<p>获得或设置该轨道是否是活动的(“disabled”|”hidden”|”showing”)</p>
+<p>textTrack . cues        获得 TextTrackCueList 对象的 cues 列表</p>
+<p>textTrack . activeCues       获得 TextTrackCueList 对象形式的当前活动文本轨道 cues</p>
+<p>textTrack . addCue( cue )          向 cues 列表添加一个 cue</p>
+<p>textTrack . removeCue( cue )      向 cues 列表删除一个 cue</p>
+<p>cuelist . length    返回cuse列表的cue数量</p>
+<p>cuelist[index]        返回给定index的cue</p>
+<p>cuelist . getCueById( id )   返回给定id的cue</p>
+<p>cue . track    返回属于文本轨道cue的TextTract</p>
+<p>cue . id [ = value ]   返回或设置cue的id</p>
+<p>cue . startTime [ = value ]   返回或设置cue的开始时间的id</p>
+<p>cue . endTime [ = value ]    返回或设置cue的结束时间的id</p>
+<p>cue . pauseOnExit [ = value ]   是否设置暂停或退出标志，是则返回true,否则为false</p>
+<h2 id="User-interface"><a href="#User-interface" class="headerlink" title="User interface"></a><strong>User interface</strong></h2><p>media . volume [ = value ]</p>
+<p>设置或返回音频/视频的当前音量,必须是介于 0.0 与 1.0 之间的数字。0是静音，1最大</p>
+<p>media . muted [ = value ]</p>
+<p>设置或返回音频/视频是否应该被静音（true）。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：The elements of HTML（二）</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-03-08 20:31:15</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/03/08/note/HTML Standard/The elements of HTML（二）/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%B8%89%EF%BC%89/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">The elements of HTML（三）</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%B8%80%EF%BC%89/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">The elements of HTML（一）</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    
+        
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+
+                        let author = '胡倚豪';
+                        author && (author = author.toLocaleLowerCase());
+
+                        for (let vcard of vcards) {
+                            const vnick = vcard.querySelector('.vhead .vnick');
+                            if (vnick.innerHTML.toLocaleLowerCase() === author) {
+                                vnick.innerHTML = `${author} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2021</span> -
+            
+            2021 &nbsp; <a href="/">胡倚豪</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数 <span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量 <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <!-- <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动 | 主题 <a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.3.0</a>
+        </div> -->
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Image"><span class="nav-text">Image</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoding"><span class="nav-text">Decoding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alt%E4%BD%BF%E7%94%A8"><span class="nav-text">alt使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Media"><span class="nav-text">Media</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#error-codes"><span class="nav-text">error codes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AA%92%E4%BD%93%E8%B5%84%E6%BA%90%E4%BD%8D%E7%BD%AE"><span class="nav-text">媒体资源位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIME-types"><span class="nav-text">MIME types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-states"><span class="nav-text">Network states</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loading-the-media-resource"><span class="nav-text">Loading the media resource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Offsets-into-the-media-resource"><span class="nav-text">Offsets into the media resource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playing-the-media-resource"><span class="nav-text">Playing the media resource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Seeking"><span class="nav-text">Seeking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Media-resources-with-multiple-media-tracks"><span class="nav-text">Media resources with multiple media tracks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AudioTrack%E5%92%8CVideoTrack%E7%9A%84kind-%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-text">AudioTrack和VideoTrack的kind 关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text-track-API"><span class="nav-text">Text track API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#User-interface"><span class="nav-text">User interface</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.3.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
