@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>博客搭建的想法</title>
+    <url>/2021/03/09/diary/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%83%B3%E6%B3%95/</url>
+    <content><![CDATA[<p>长久的坚持学习并监督自己发布到博客上绝非易事，在我从刚开始浏览他人博客，到自己学习搭建博客这段时间，发现很多人的文章已是很早之前，或许是工作生活和其他压力，早将此事抛之脑后。</p>
+<p>我更希望这个博客记载着我从一个前端小白到略懂一二的树洞，也正如我网站的标语，慢慢来，深几度。</p>
+]]></content>
+      <categories>
+        <category>日记随笔</category>
+        <category>博客搭建的想法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>HTML Standard阅读初体验</title>
+    <url>/2021/03/09/tech/HTML%20Standard/</url>
+    <content><![CDATA[<h1 id="Abstract："><a href="#Abstract：" class="headerlink" title="Abstract："></a>Abstract：</h1><p>通过背景、针对人群、发展历程等几个方面说明了HTML规范的意义和适用范围，同时对规范中的表单序列化、对其他规范的兼容性、可扩展性三个设计目标进行详细说明。其次引入元素、节点、DOM树等概念简单介绍了HTML，最后举例来说明Web可能存在的安全问题并提供了易行的解决方法。</p>
+<h1 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h1><p>通览目录和前言的介绍，对近期所要学习的内容即HTM规范及其重要性有了一个初步的了解，比如对一些基础知识，譬如元素和节点两个概念的区别、DOM树的概念理解更加清晰。</p>
+<p>另一方面，在之前的前端学习中，只考虑到兼容性，至于安全性，除了post、HTTPS比get和HTTP安全以外就不甚了解，有些攻击甚至能威胁到服务器中的数据。</p>
+<p>如同规范里所说，“对于完整理解本规范的某些技术性部分，必须熟悉DOM的基础”，同时，在阅读途中也能了解到不仅限于所阅读的内容，比如1.10.2中所举的例子，也顺带去了解一下事件的捕获和冒泡机制，这些都要求我需要花更多的时间精力，但我想也才能更好的理解HTML规范，同时全英文的规范阅读对我的英语水平也将有极大的提升，相信不久，目前较为吃力的我也能逐渐以英语来记录我的笔记，</p>
+<p>总而言之，我目前的认知，阅读并理解HTML规范，就如同使用产品之前看说明书一样，能有助于安全、有效的开发的同时，也减少了后期的维护成本。</p>
+]]></content>
+      <categories>
+        <category>日记随笔</category>
+        <category>HTML Standard阅读初体验</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>W3C阅读初体验</title>
+    <url>/2021/03/07/tech/W3C/</url>
+    <content><![CDATA[<p>对于technical report，一旦评审表明工作组满足了新标准的要求，进入Candidate Recommendation 阶段。W3C成员可以就规范是否适合作为W3C建议提供反馈，而工作组收集经验，以证明规范在实践中可行。下一阶段是Proposed Recommendation，以最终完成对W3C成员的评审。如果主管确定W3C成员评审支持其成为标准的规范，则将其发布为W3C Recommendation 。</p>
+<p>流程：WD –&gt;CR–&gt;PR–&gt;REC</p>
+<h4 id="成熟度级别："><a href="#成熟度级别：" class="headerlink" title="成熟度级别："></a>成熟度级别：</h4><p><strong>Working Draft (WD)：</strong>工作草案是W3C已发布以供社区（包括W3C成员，公众和其他技术组织）审查的文档。</p>
+<p><strong>Candidate Recommendation (CR)：</strong>是指满足产生该建议书及其依存关系的工作组的技术要求，或对工作组未维护并已得到广泛审核的建议书进行实质性更正的文档。</p>
+<p><strong>Proposed Recommendation（PR）：</strong>是W3C主任已接受的，具有足以成为REC的有质量的文件。</p>
+<p><strong>W3C Recommendation (REC)：</strong>W3C建议书是在广泛建立共识之后得到W3C成员和主任认可的规范或准则或要求集。随着技术发展，REC可能会变成An Edited Recommendation、An Amended Recommendation、A Superseded Recommendation、An Obsolete Recommendation。</p>
+<p><strong>技术报告的一般要求</strong>：</p>
+<p>1、在技​​术报告开发过程中发布的每个文档都必须是公共文档；</p>
+<p>2、每个文档都必须明确指出其成熟度，并且必须包含有关文档状态的信息；</p>
+<p>3、每个技术报告均由小组主席任命的一名或多名编辑人员进行编辑；</p>
+<p>4、不需要发布不符合团队发布规则（例如，命名、状态信息、样式和版权要求）的技术报告；</p>
+<p>5、W3C技术报告的主要语言是英语，W3C鼓励将其技术报告翻译成其他语言。</p>
+<p><strong>对规范更改的类别：</strong>No changes to text content 、Corrections that do not affect conformance 、Corrections that do not add new features  、New features，前两个被认为是 editorial changes, 后面两个是 substantive changes.</p>
+<h4 id="修改W3C-Recommendation"><a href="#修改W3C-Recommendation" class="headerlink" title="修改W3C Recommendation"></a><strong>修改W3C Recommendation</strong></h4><p>Errata Management是很重要的一部分，对于读者和实施者报告的错误，工作组必须保留记录。工作组可以要求对REC进行重新发布，或者如果没有工作组授权维护REC，则W3C 可以重新发布该REC，以进行更正，而不会导致对规范文本的任何更改。</p>
+]]></content>
+      <categories>
+        <category>日记随笔</category>
+        <category>W3C阅读初体验</category>
+      </categories>
+      <tags>
+        <tag>W3C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Common infrastructure</title>
     <url>/2021/03/08/note/HTML%20Standard/Common%20infrastructure/</url>
     <content><![CDATA[<p><strong>Parallelism</strong>并行性，指不同的进程可以同时进行，同时为了避免对相同的数据进行不同的操作，这里使用队列(先进先出)来解决。但所举的例子，没怎么懂。。</p>
@@ -37,7 +92,7 @@
 <ol>
 <li><strong>Metadata content：</strong>设置其余内容的表示形式或行为、是指文档与其他文档的关系、传达其他 “out of band” 信息的内容。</li>
 <li><strong>Flow content：</strong>大多元素都属于这个类别，常见的a、div、table……。</li>
-<li>**Sectioning content: **用于定义内容标题和页脚，比如article、aside、nav、section。</li>
+<li><strong>Sectioning content：</strong>用于定义内容标题和页脚，比如article、aside、nav、section。</li>
 <li><strong>Heading content：</strong>h1、h2…。</li>
 <li><strong>Phrasing content：</strong>分类为Phrasing content的大多元素只能包含Phrasing content的元素。3.2.5.2.5后面一节暂未理解。</li>
 <li><strong>Embedded content，</strong>将另一个资源导入文档中的内容，或来自插入到文档中的另一个词汇表中的内容，如audio、video,有些有 fallback content，比如外部资源的格式不支持所显示的内容</li>
@@ -65,60 +120,67 @@
 <p><strong>Content model</strong>:无</p>
 <p><strong>Tag omission in text/html</strong>:没有结束标签</p>
 <p><strong>Content attributes:</strong></p>
-<p>Global attributes</p>
-<p>alt —定义此区域的替换文本。</p>
-<p>coords — 可点击区域的坐标</p>
-<p>shape —定义区域的形状</p>
-<p>href — 超链接地址</p>
-<p>target — 在何处打开 href 属性指定的目标 URL</p>
-<p>download — 是否下载资源后不是导航</p>
-<p>ping — URLs to ping</p>
-<p>rel —超链接的文档中的位置与目标资源之间的关系</p>
-<p>referrerpolicy — Referrer policy</p>
+<p><strong>Global attributes：</strong></p>
+<ol>
+<li><p>alt —定义此区域的替换文本。</p>
+</li>
+<li><p>coords — 可点击区域的坐标</p>
+</li>
+<li><p>shape —定义区域的形状</p>
+</li>
+<li><p>href — 超链接地址</p>
+</li>
+<li><p>target — 在何处打开 href 属性指定的目标 URL</p>
+</li>
+<li><p>download — 是否下载资源后不是导航</p>
+</li>
+<li><p>ping — URLs to ping</p>
+</li>
+<li><p>rel —超链接的文档中的位置与目标资源之间的关系</p>
+</li>
+<li><p>referrerpolicy — Referrer policy</p>
+</li>
+</ol>
 <p>1、area的父元素一定是map</p>
 <p>2、area有href属性，代表超链接，这种情况下，必须有alt属性。如果没有href属性，alt属性可以省略，target, download, ping, rel, referrerpolicy 必须省略。</p>
 <p>3、shape</p>
-<p>|State|Keywords|Notes|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|Circle state|circle|必须有 coords  属性（3个整数，最后一个非负）|<br>|    |circ|    |<br>|Default state|default|不能有 coords  属性|<br>|Polygon state|poly|必须有 coords  属性（至少6个整数，且是偶数）|<br>|    |polygon|    |<br>|Rectangle state|rect|必须有 coords  属性（4个整数，第一个小于第三个，第二个小于第四个）|<br>|    |rectangle|    |</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Keywords</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Circle state</td>
+<td>circle/circ</td>
+<td>必须有 coords 属性（3个整数，最后一个非负）</td>
+</tr>
+<tr>
+<td>Default state</td>
+<td>default</td>
+<td>不能有 coords 属性</td>
+</tr>
+<tr>
+<td>Polygon state</td>
+<td>poly/polygon</td>
+<td>必须有 coords 属性（至少6个整数，且是偶数）</td>
+</tr>
+<tr>
+<td>Rectangle state</td>
+<td>rect/rectangle</td>
+<td>必须有 coords 属性（4个整数，第一个小于第三个，第二个小于第四个）</td>
+</tr>
+</tbody></table>
 <p>4、如果area有itemprop属性，则也必须设置href属性</p>
 <h2 id="MathML"><a href="#MathML" class="headerlink" title="MathML"></a><strong>MathML</strong></h2><p>MathML 是数学标记语言，是一种基于XML的标准，用来在互联网上书写数学符号和公式的置标语言。</p>
-<math>
-
-<p><mi>x</mi></p>
-<p><mo>=</mo></p>
-<mfrac>
-
-<mrow>
-
-<p><mo form="prefix">−</mo> <mi>b</mi></p>
-<p><mo>±</mo></p>
-<msqrt>
-
-<p><msup> <mi>b</mi> <mn>2</mn> </msup></p>
-<p><mo>−</mo></p>
-<p><mn>4</mn> <mo>⁢</mo> <mi>a</mi> <mo>⁢</mo> <mi>c</mi></p>
-</msqrt>
-
-</mrow>
-
-<mrow>
-
-<p><mn>2</mn> <mo>⁢</mo> <mi>a</mi></p>
-</mrow>
-
-</mfrac>
-
-</math>
-
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;math&gt;</span><br><span class="line"></span><br><span class="line">&lt;mi&gt;x&lt;&#x2F;mi&gt;</span><br><span class="line"></span><br><span class="line">&lt;mo&gt;&#x3D;&lt;&#x2F;mo&gt;</span><br><span class="line"></span><br><span class="line">&lt;mfrac&gt;</span><br><span class="line"></span><br><span class="line">&lt;mrow&gt;</span><br><span class="line"></span><br><span class="line">&lt;mo form&#x3D;&quot;prefix&quot;&gt;−&lt;&#x2F;mo&gt; &lt;mi&gt;b&lt;&#x2F;mi&gt;</span><br><span class="line"></span><br><span class="line">&lt;mo&gt;±&lt;&#x2F;mo&gt;</span><br><span class="line"></span><br><span class="line">&lt;msqrt&gt;</span><br><span class="line"></span><br><span class="line">&lt;msup&gt; &lt;mi&gt;b&lt;&#x2F;mi&gt; &lt;mn&gt;2&lt;&#x2F;mn&gt; &lt;&#x2F;msup&gt;</span><br><span class="line"></span><br><span class="line">&lt;mo&gt;−&lt;&#x2F;mo&gt;</span><br><span class="line"></span><br><span class="line">&lt;mn&gt;4&lt;&#x2F;mn&gt; &lt;mo&gt;⁢&lt;&#x2F;mo&gt; &lt;mi&gt;a&lt;&#x2F;mi&gt; &lt;mo&gt;⁢&lt;&#x2F;mo&gt; &lt;mi&gt;c&lt;&#x2F;mi&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;msqrt&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;mrow&gt;</span><br><span class="line"></span><br><span class="line">&lt;mrow&gt;</span><br><span class="line"></span><br><span class="line">&lt;mn&gt;2&lt;&#x2F;mn&gt; &lt;mo&gt;⁢&lt;&#x2F;mo&gt; &lt;mi&gt;a&lt;&#x2F;mi&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;mrow&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;mfrac&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;math&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a><strong>SVG</strong></h2><p>是一种用于描述二维的矢量图形，基于 XML 的标记语言。SVG 相对于图像，就好比 HTML 相对于文本。</p>
 <p>doc = iframe . getSVGDocument()</p>
 <p>doc = embed . getSVGDocument()</p>
 <p>doc = object . getSVGDocument()</p>
 <p>如果iframe、embed或object元素用于嵌入SVG，则返回Document对象。</p>
-<hr>
-<h2 id="list"><a href="#list" class="headerlink" title="list"></a><strong>list</strong></h2><p>coords/coordinate  坐标值</p>
-<p>rectangle 矩形</p>
-<p>polygon 多边形</p>
-<p>negative 负数；消极的</p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
@@ -135,9 +197,9 @@
     <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p><strong>表单</strong>是一种网页组件，可以包含表单控件如文本，按钮，复选框，范围或颜色选择器控件。 用户可以与这样的表单进行交互并提供数据，随后这些数据被发送到服务器用于进一步处理 （例如返回搜索或计算结果）。</p>
 <p>编写表单的步骤（没有顺序）：编写用户界面、实现服务器端的处理、用户界面与服务器端通信的配置。</p>
-<h1 id="用户界面的编写"><a href="#用户界面的编写" class="headerlink" title="用户界面的编写"></a>用户界面的编写</h1><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span>  </span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Customer name: <span class="tag">&lt;<span class="name">input</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Telephone: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">tel</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>E-mail address: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">email</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Size <span class="tag">&lt;/<span class="name">legend</span>&gt;</span>   </span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Small <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Medium <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span>&gt;</span> Large <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">fieldset</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">legend</span>&gt;</span> Pizza Toppings <span class="tag">&lt;/<span class="name">legend</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Bacon <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Extra Cheese <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Onion <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">checkbox</span>&gt;</span> Mushroom <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">fieldset</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Preferred delivery time: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">time</span> <span class="attr">min</span>=<span class="string">&quot;11:00&quot;</span> <span class="attr">max</span>=<span class="string">&quot;21:00&quot;</span> <span class="attr">step</span>=<span class="string">&quot;900&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Delivery instructions: <span class="tag">&lt;<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">button</span>&gt;</span>Submit order<span class="tag">&lt;/<span class="name">button</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">**简要说明：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="用户界面的编写"><a href="#用户界面的编写" class="headerlink" title="用户界面的编写"></a>用户界面的编写</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;form&gt;  </span><br><span class="line"> &lt;p&gt;&lt;label&gt;Customer name: &lt;input&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;p&gt;&lt;label&gt;Telephone: &lt;input type&#x3D;tel&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;p&gt;&lt;label&gt;E-mail address: &lt;input type&#x3D;email&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;fieldset&gt;</span><br><span class="line">  &lt;legend&gt; Pizza Size &lt;&#x2F;legend&gt;   </span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size&gt; Small &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size&gt; Medium &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size&gt; Large &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;&#x2F;fieldset&gt;</span><br><span class="line"> &lt;fieldset&gt;</span><br><span class="line">  &lt;legend&gt; Pizza Toppings &lt;&#x2F;legend&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;checkbox&gt; Bacon &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;checkbox&gt; Extra Cheese &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;checkbox&gt; Onion &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p&gt;&lt;label&gt; &lt;input type&#x3D;checkbox&gt; Mushroom &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;&#x2F;fieldset&gt;</span><br><span class="line"> &lt;p&gt;&lt;label&gt;Preferred delivery time: &lt;input type&#x3D;time min&#x3D;&quot;11:00&quot; max&#x3D;&quot;21:00&quot; step&#x3D;&quot;900&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;p&gt;&lt;label&gt;Delivery instructions: &lt;textarea&gt;&lt;&#x2F;textarea&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line"> &lt;p&gt;&lt;button&gt;Submit order&lt;&#x2F;button&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;&#x2F;form&gt;</span><br><span class="line">**简要说明：**</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <ol>
-<li>表单都以****form 元素开始。多数控件都由 input 元素表示，它默认提供一个文本控件。</li>
+<li>表单都以form元素开始。多数控件都由 input 元素表示，它默认提供一个文本控件。</li>
 <li>使用 label 元素来描述控件，标签文本和控件自己都会进入 label 元素内。</li>
 <li>表单的每一部分都是一个段落，一般用 p 元素来与其他部分分隔。</li>
 <li>单选按钮用 input 元素，设置 type 属性，值为 radio。 name属性值一样让单选按钮成组。</li>
@@ -149,23 +211,174 @@
 <li>为了让表单可以提交，用一个 button 元素。<h1 id="用户界面与服务器端通信的配置"><a href="#用户界面与服务器端通信的配置" class="headerlink" title="用户界面与服务器端通信的配置"></a>用户界面与服务器端通信的配置</h1></li>
 </ol>
 <p>表单提交通常是GET 或 POST 请求。在 form 元素上使用 method 属性来指定使用哪种方法。 指定编码方式要使用 enctype 属性。action 属性来指定处理提交的数据服务的 URL。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;form method&#x3D;&quot;post&quot;</span><br><span class="line">      enctype&#x3D;&quot;application&#x2F;x-www-form-urlencoded&quot;</span><br><span class="line">      action&#x3D;&quot;https:&#x2F;&#x2F;pizza.example.com&#x2F;order.cgi&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">enctype</span>=<span class="string">&quot;application/x-www-form-urlencoded&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">action</span>=<span class="string">&quot;https://pizza.example.com/order.cgi&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>每个需要提交的表单控件都要有一个名字来对应提交的数据。属性name指定了提交的名字。他们之间可以通过 value 属性给它们不同的值来区分。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt; &lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;small&quot;&gt; Small &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;medium&quot;&gt; Medium &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;&lt;label&gt;&lt;input type&#x3D;radio name&#x3D;size value&#x3D;&quot;large&quot;&gt; Large &lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span> <span class="attr">value</span>=<span class="string">&quot;small&quot;</span>&gt;</span> Small <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span> <span class="attr">value</span>=<span class="string">&quot;medium&quot;</span>&gt;</span> Medium <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">radio</span> <span class="attr">name</span>=<span class="string">size</span> <span class="attr">value</span>=<span class="string">&quot;large&quot;</span>&gt;</span> Large <span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="客户端表单验证"><a href="#客户端表单验证" class="headerlink" title="客户端表单验证"></a>客户端表单验证</h1><p>通过表单标记使得用户代理可以在表单提交之前检查用户输入，但服务器仍然必须校验输入是有效的（因为恶意用户可以很容易绕过表单验证）， 但这使我们可以避免因为只能在服务器上检查而造成用户等待。input 元素上的required 属性，表示只有给出值之后表单才可以提交。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Customer name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;custname&quot;</span> <span class="attr">required</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>使用 maxlength 属性来限制输入的长度。 把这个属性添加到 textarea 元素上，我们可以限制用户输入到 1000 字符。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Delivery instructions: &lt;textarea name&#x3D;&quot;comments&quot; maxlength&#x3D;1000&gt;&lt;&#x2F;textarea&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Delivery instructions: <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;comments&quot;</span> <span class="attr">maxlength</span>=<span class="string">1000</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>提交表单时，每个不合法的表单控件上，以及 form 元素上都会触发 invalid 事件， 这个事件可以用来显示表单存在哪些问题的一个描述。</p>
 <h1 id="启用表单控件的客户端自动填充"><a href="#启用表单控件的客户端自动填充" class="headerlink" title="启用表单控件的客户端自动填充"></a>启用表单控件的客户端自动填充</h1><p>浏览器可以帮助用户自动填充表单控件，避免让用户每次重新输入。为了帮助用户代理做自动填充，可以使用 autocomplete 属性来描述字段的用途。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p&gt;&lt;label&gt;Customer name: &lt;input name&#x3D;&quot;custname&quot; required autocomplete&#x3D;&quot;shipping name&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Customer name: <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;custname&quot;</span> <span class="attr">required</span> <span class="attr">autocomplete</span>=<span class="string">&quot;shipping name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="提高用户手机端体验"><a href="#提高用户手机端体验" class="headerlink" title="提高用户手机端体验"></a>提高用户手机端体验</h1><p>有些设备使用inputmode属性为用户提供多种输入方式。例如，在输入信用卡号码时，用户可能希望只看到0-9数字键，而在输入姓名时，用户可能希望看到每个单词默认大写的表单字段。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;&lt;p&gt;&lt;label&gt;Buzzer code: &lt;input name&#x3D;&quot;custbuzz&quot; inputmode&#x3D;&quot;number&quot;&gt;&lt;&#x2F;label&gt;&lt;&#x2F;p&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">&lt;<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>Buzzer code: <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&quot;custbuzz&quot;</span> <span class="attr">inputmode</span>=<span class="string">&quot;number&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h1 id="type-autocomplete-inputmode之间的区别"><a href="#type-autocomplete-inputmode之间的区别" class="headerlink" title="type, autocomplete, inputmode之间的区别"></a>type, autocomplete, inputmode之间的区别</h1><p>input元素上的type属性决定用户代理将使用哪种控件来公开字段。</p>
 <p>autocomplete属性描述了用户将输入的值实际表示的内容。</p>
 <p>当控件是文本控件时，inputmode属性决定使用哪种输入方式。</p>
-<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><p>|<strong>element</strong>|<strong>meaning</strong>|<strong>Categories</strong>|<strong>Contexts in which this element can be used</strong>|<strong>Content model</strong>|<strong>Tag omission in text/html</strong>|<strong>Content attributes</strong>|<strong>remark</strong>|<br>|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-:|:—-|:—-:|:—-|:—-:|:—-|:—-|:—-|:—-|<br>|form|表单|Flow content.<br>Palpable content|flow content|Flow content,但没有form元素后代|不可省略|accept-charset—服务器处理表单数据的字符集<br>action — 表单提交的url<br>autocomplete—form内控件设置自动填充<br>enctype—发送表单数据之前如何对其进行编码<br>method —表单提交使用的HTTP方法<br>name — 用于使用API时的名称<br>novalidate —表单提交时不用进行验证<br>target —表单提交的上下文<br>rel|    |<br>|label|为 input 元素定义标注|Flow content<br>Phrasing content<br>Interactive content<br>Palpable content|phrasing content|Phrasing content，但没有后代labelable元素，除非它是元素的 labeled control且没有后代label。|不可省略|for — 绑定到哪个表单元素|1.要么通过for属性（属性值和需要绑定控件id一样），要么将控件放在label元素内。|</p>
-<h1 id="Input-type"><a href="#Input-type" class="headerlink" title="Input type"></a>Input type</h1><p>|||button定义可单击的按钮（主要与JavaScript一起使用以激活脚本）|<br>|:—-|:—-|:—-:|:—-|<br>|||checkbox定义一个复选框|<br>|color<br>||定义颜色选择器|<br>|date<br>||定义日期控件（年，月，日（无时间））|<br>|datetime-local<br>||定义日期和时间控件（年，月，日，时间（无时区）|<br>|||file定义文件选择字段和“浏览”按钮（用于文件上载）|<br>|||image将图像定义为提交按钮|<br>|||month定义月份和年份控件（无时区）|<br>|||number定义用于输入数字的字段|<br>|||password定义密码字段|<br>|||radio定义单选按钮|<br>|||range定义范围控件（如滑块控件）|<br>|||reset定义重置按钮|<br>|||submit定义提交按钮|<br>|||time定义用于输入时间的控件（无时区）|<br>|week<br>||定义周和年控制（无时区）|<br>|||hidden定义隐藏的输入字段禁止进行约束验证；|<br>|||如果那么name和_charset_值相同，必须省略value属性。text定义单行文本字段没有指定type值或无效，默认为文本控件。|<br>|||输入值和value值禁止使用回车符或换行符。search定义用于输入搜索字符串的文本字段|<br>|||tel定义用于输入电话号码的字段输入值和value值禁止使用回车符或换行符。|<br>|||不强制使用特定规则。url定义用于输入URL的字段可以为空字符串，但不能使用回车符或换行符。|<br>|当元素的值既不是空字符串，也不是有效的绝对URL，元素的类型不匹配email<br>|||</p>
+<h1 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h1><table>
+<thead>
+<tr>
+<th><strong>element</strong></th>
+<th><strong>meaning</strong></th>
+<th><strong>Categories</strong></th>
+<th><strong>Contexts in which this element can be used</strong></th>
+<th><strong>Content model</strong></th>
+<th><strong>Tag omission in text/html</strong></th>
+<th><strong>Content attributes</strong></th>
+<th><strong>remark</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>form</td>
+<td>表单</td>
+<td>Flow content、Palpable content</td>
+<td>flow content</td>
+<td>Flow content,但没有form元素后代</td>
+<td>不可省略</td>
+<td>accept-charset—服务器处理表单数据的字符集action — 表单提交的urlautocomplete—form内控件设置自动填充enctype—发送表单数据之前如何对其进行编码method —表单提交使用的HTTP方法name — 用于使用API时的名称novalidate —表单提交时不用进行验证target —表单提交的上下文rel</td>
+<td></td>
+</tr>
+<tr>
+<td>label</td>
+<td>为 input 元素定义标注</td>
+<td>Flow content、Phrasing content、Interactive content、Palpable content</td>
+<td>phrasing content</td>
+<td>Phrasing content，但没有后代labelable元素，除非它是元素的 labeled control且没有后代label</td>
+<td>不可省略</td>
+<td>for — 绑定到哪个表单元素</td>
+<td>1.要么通过for属性（属性值和需要绑定控件id一样），要么将控件放在label元素内。</td>
+</tr>
+</tbody></table>
+<h1 id="Input-type"><a href="#Input-type" class="headerlink" title="Input type"></a>Input type</h1><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>button</td>
+<td>定义可单击的按钮（主要与JavaScript一起使用以激活脚本）</td>
+<td></td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>定义一个复选框</td>
+<td></td>
+</tr>
+<tr>
+<td>color</td>
+<td>定义颜色选择器</td>
+<td></td>
+</tr>
+<tr>
+<td>date</td>
+<td>定义日期控件（年，月，日（无时间））</td>
+<td></td>
+</tr>
+<tr>
+<td>datetime-local</td>
+<td>定义日期和时间控件（年，月，日，时间（无时区））</td>
+<td></td>
+</tr>
+<tr>
+<td>file</td>
+<td>定义文件选择字段和“浏览”按钮（用于文件上载）</td>
+<td></td>
+</tr>
+<tr>
+<td>image</td>
+<td>将图像定义为提交按</td>
+<td></td>
+</tr>
+<tr>
+<td>month</td>
+<td>定义月份和年份控件（无时区）</td>
+<td></td>
+</tr>
+<tr>
+<td>number</td>
+<td>定义用于输入数字的字段</td>
+<td></td>
+</tr>
+<tr>
+<td>password</td>
+<td>定义密码字段</td>
+<td></td>
+</tr>
+<tr>
+<td>radio</td>
+<td>定义单选按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>range</td>
+<td>定义范围控件（如滑块控件）</td>
+<td></td>
+</tr>
+<tr>
+<td>reset</td>
+<td>定义重置按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>submit</td>
+<td>定义提交按钮</td>
+<td></td>
+</tr>
+<tr>
+<td>time</td>
+<td>定义用于输入时间的控件（无时区）</td>
+<td></td>
+</tr>
+<tr>
+<td>week</td>
+<td>定义周和年控制（无时区）</td>
+<td></td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>定义隐藏的输入字段</td>
+<td>禁止进行约束验证；如果那么name和 <em>charset</em> 值相同，必须省略value属性。</td>
+</tr>
+<tr>
+<td>text</td>
+<td>定义单行文本字段</td>
+<td>没有指定type值或无效，默认为文本控件。输入值和value值禁止使用回车符或换行符。</td>
+</tr>
+<tr>
+<td>search</td>
+<td>定义用于输入搜索字符串的文本字段</td>
+<td>没有指定type值或无效，默认为文本控件。输入值和value值禁止使用回车符或换行符。</td>
+</tr>
+<tr>
+<td>tel</td>
+<td>定义用于输入电话号码的字段</td>
+<td>输入值和value值禁止使用回车符或换行符。不强制使用特定规则</td>
+</tr>
+<tr>
+<td>url</td>
+<td>定义用于输入URL的字段</td>
+<td>可以为空字符串，但不能使用回车符或换行符。当元素的值既不是空字符串，也不是有效的绝对URL，元素的类型不匹配</td>
+</tr>
+<tr>
+<td>email</td>
+<td>定义电子邮件地址的字段</td>
+<td>定义电子邮件地址的字段当设置了multiple属性：</td>
+</tr>
+</tbody></table>
 <h1 id="定义电子邮件地址的字段当设置了multiple属性：Input-attribute"><a href="#定义电子邮件地址的字段当设置了multiple属性：Input-attribute" class="headerlink" title="定义电子邮件地址的字段当设置了multiple属性：Input attribute"></a>定义电子邮件地址的字段当设置了multiple属性：Input attribute</h1><table>
 <thead>
 <tr>
@@ -988,65 +1201,6 @@
       </tags>
   </entry>
   <entry>
-    <title>12-基本认证机制</title>
-    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
-<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
-<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
-<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
-                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
-                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
-                ></p>
-<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
-                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
-                ></p>
-<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
-                      alt="qlzDftADKFeS3vHH__thumbnail.png"
-                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
-<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
-                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
-                ></p>
-<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
-<ol>
-<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
-<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
-<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
-<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
-<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
-</ol>
-<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>12-基本认证机制</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>11-客户端识别与cookie机制</title>
     <url>/2021/01/23/note/HTTP/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/</url>
     <content><![CDATA[<h2 id="11-1-个性化接触"><a href="#11-1-个性化接触" class="headerlink" title="11.1 个性化接触"></a>11.1 个性化接触</h2><p>现代的Web站点希望能够提供个性化的接触，希望对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。用户的识别机制：</p>
@@ -1186,6 +1340,65 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>11-客户端识别与cookie机制</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>12-基本认证机制</title>
+    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
+<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
+<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
+<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
+                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
+                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
+                ></p>
+<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
+                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
+                ></p>
+<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
+                      alt="qlzDftADKFeS3vHH__thumbnail.png"
+                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
+<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
+                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
+                ></p>
+<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
+<ol>
+<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
+<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
+<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
+<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
+<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
+</ol>
+<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>12-基本认证机制</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1751,8 +1964,8 @@
         <category>Positioned Layout Module Level 3</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>W3C</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -4349,8 +4562,8 @@
         <category>Backgrounds and Borders Level 3</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>W3C</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -4585,8 +4798,8 @@
         <category>Flexible Box Layout Module Level 1</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>W3C</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -5045,8 +5258,8 @@
         <category>Selectors Level 3</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>W3C</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
