@@ -943,151 +943,6 @@
       </tags>
   </entry>
   <entry>
-    <title>11-客户端识别与cookie机制</title>
-    <url>/2021/01/23/note/HTTP/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="11-1-个性化接触"><a href="#11-1-个性化接触" class="headerlink" title="11.1 个性化接触"></a>11.1 个性化接触</h2><p>现代的Web站点希望能够提供个性化的接触，希望对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。用户的识别机制：</p>
-<ol>
-<li><strong>HTTP首部</strong>，承载了用户身份信息。</li>
-<li><strong>客户端IP地址跟踪</strong>，通过用户的IP地址对其进行识别。</li>
-<li><strong>用户登录</strong>，用认证方式来识别用户。</li>
-<li><strong>胖URL</strong>，在URL中嵌人识别信息的技术。</li>
-<li><strong>cookie</strong>，持久身份识别技术。<h2 id="11-2-HTTP首部"><a href="#11-2-HTTP首部" class="headerlink" title="11.2 HTTP首部"></a>11.2 HTTP首部</h2></li>
-</ol>
-<p>七种常见的用来承载用户相关信息的HTTP请求首部，后四个首部用于更高级的识别技术。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/5L8iAcKqhvVbH4N.png"
-                      alt="OGLHbPyUzYspa9X1__thumbnail.png"
-                ></p>
-<p>由于有些服务器会搜集E-mail地址，用于垃圾邮件的散发，所以很少有浏览器会发送From首部。实际上，From首部是由自动化的机器人或蜘蛛发送的。</p>
-<p>User-Agent首部包括浏览器的名称和版本，操作系统的相关信息。用于实现定制内容与特定的浏览器及其属性间的良好互操作，但并没有为识别特定的用户提供太多帮助。</p>
-<p>Referer首部提供了用户来源页面的URL。Referer首部自身并不能完全标识用户，但它说明了用户之前访问过哪个页面。通过它可以更好地理解用户的浏览行为，以及用户的兴趣所在。</p>
-<p>From、User-Agent和Referer首部都不足以实现可靠的识别。</p>
-<h2 id="11-3-客户端IP地址"><a href="#11-3-客户端IP地址" class="headerlink" title="11.3 客户端IP地址"></a>11.3 客户端IP地址</h2><p>通常HTTP首部并不提供客户端的IP地址（有些代理会舔加Client-IP首部），但Web服务器可以找到承载HTTP请求的TCP连接另一端的IP地址。</p>
-<p>使用客户端IP地址来识别用户存在着很多缺点，限制了将其作为用户识别技术的效能：</p>
-<ol>
-<li>客户端IP地址描述的是所用的机器，而不是用户。如果多个用户共享同一台计算机，就无法对其进行区分。</li>
-<li>很多因特网服务提供商都会在用户登录时为其动态分配IP地址。用户每次登录时，都会得到一个不同的地址。</li>
-<li>为了提高安全性，并对稀缺的地址资源进行管理，很多用户通过<strong>网络地址转换</strong>（Network Address Translation，NAT）防火墙来浏览网络内容的。NAT设备将了防火墙后面的实际客户端的IP地址转换成了一个共享的防火墙IP地址（和不同的端口号）。</li>
-<li>HTTP代理和网关通常会打开一些新的到原始服务器的TCP连接。Web服务器看到的将是代理服务器的IP地址，而不是客户端的。但个别代理会添加特殊的Client-IP或x-Forwarded-For扩展首部来保存原始的IP地址。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/87AXogI6KjVtWf1.png"
-                      alt="UtHMnCSRoPNvPQj9__thumbnail.png"
-                ></p>
-<h2 id="11-4-用户登录"><a href="#11-4-用户登录" class="headerlink" title="11.4 用户登录"></a>11.4 用户登录</h2><p>Web服务器可以要求用户通过用户名和密码进行认证（登录）来显式地询问用户是谁。HTTP中包含了一种内建机制，可以用WWW-Authenticate首部和Authorization首部向Web站点传送用户的相关信息。</p>
-<p>如果服务器希望在为用户提供对站点的访问之前登录，可以向浏览器回送一条HTTP响应代码401 Login Required，然后浏览器显示一个登录对话框，一旦登录，浏览器就可以不断地在每条发往这个站点的请求甚至没有要求中，向服务器发送Authorization首部作为一种身份的标识。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/8Kc5o9SdyMIVRfE.png"
-                      alt="UtY4a0FC6TRmjhdo__thumbnail.png"
-                ></p>
-<h2 id="11-5-胖URL"><a href="#11-5-胖URL" class="headerlink" title="11.5 胖URL"></a>11.5 胖URL</h2><p>有些Web站点会为每个用户生成特定版本的URL来追踪用户的身份。通常对真正的URL路径开始或结束的地方添加一些状态信息。用户浏览站点时，Web服务器会动态生成一些超链，继续维护URL中的状态信息。改动后包含了用户状态信息的URL被称为胖URL（fat URL）。</p>
-<p>但这种技术存在几个很严重的问题：</p>
-<ol>
-<li><strong>丑陋的URL</strong>。浏览器中显示的胖URL会给新用户带来困扰。</li>
-<li><strong>无法共享URL。</strong>胖URL中包含了与特定用户和会话有关的状态信息。如果将其发送给其他人，可能就在无意中将你积累的个人信息都共享出去了。</li>
-<li><strong>破坏缓存</strong>。为每个URL生成用户特有的版本意味着不再有可供公共访问的URL需要缓存。</li>
-<li><strong>额外的服务器负荷</strong>。服务器需要重写HTML页面使URL变胖。</li>
-<li><strong>逃逸口</strong>。用户跳转到其他站点或者请求一个特定的URL时，就很容易在无意中“逃离”胖URL会话。只有当用户严格地追随预先修改过的链接时，胖URL才能工作。如果用户逃离此链接，就会丢失其进展信息，重新开始。</li>
-<li><strong>在会话间是非持久的</strong>。除非用户收藏了特定的胖URL，否则用户退出登录时，所有的信息都会丢失。<h2 id="11-6-cookie"><a href="#11-6-cookie" class="headerlink" title="11.6 cookie"></a>11.6 cookie</h2></li>
-</ol>
-<p>cookie是当前识别用户，实现持久会话的最好方式。它们定义了一些新的HTTP首部。cookie的存在也影响了缓存，大多数缓存和浏览器都不允许对任何cookie的内容进行缓存。</p>
-<h3 id="11-6-1-cookie的类型"><a href="#11-6-1-cookie的类型" class="headerlink" title="11.6.1 cookie的类型"></a>11.6.1 cookie的类型</h3><p>cookie可以笼统地分为两类：<strong>会话cookie</strong>和<strong>持久cookie</strong>。</p>
-<p>会话cookie是一种临时cookie，它记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除。如果设置了Discard参数，或者没有设置Expires或Max-Age参数来说明扩展的过期时间，这个cookie就是一个 会话cookie.</p>
-<p>持久cookie的生存时间更长，它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p>
-<h3 id="11-6-2-cookie是如何工作的"><a href="#11-6-2-cookie是如何工作的" class="headerlink" title="11.6.2 cookie是如何工作的"></a>11.6.2 cookie是如何工作的</h3><p>用户首次访问Web站点时，Web服务器给这个用户“拍上”一个独有的cookie，这样以后就可以识别出这个用户。cookie中包含了一个由（name=value）这样的信息构成的任意列表。</p>
-<p>cookie并不仅限于ID号，很多Web服务器会将信息直接保存在cookie中，并通过set-cookie或set-cookie2 HTTP响应（扩展）首部将其贴到用户身上去。浏览器会记住从服务器返回的cookie内容，并将cookie集存储在浏览器的cookie数据库中。将来用户返回同一站点时，浏览器会挑中那个服务器贴到用户上的那些cookie，并在一个cookie请求首部中将其传回去。</p>
-<h3 id="11-6-3-cookie罐：客户端的状态"><a href="#11-6-3-cookie罐：客户端的状态" class="headerlink" title="11.6.3 cookie罐：客户端的状态"></a>11.6.3 cookie罐：客户端的状态</h3><p>因为浏览器负责存储cookie信息，所以系统被称为<strong>客户端侧状态</strong>（client-sidestate）。cookie规范的正式名称为<strong>HTTP状态管理机制</strong>（HTTP state management mechanism）。不同的浏览器会以不同的方式来存储cookie。</p>
-<h3 id="11-6-4-不同站点使用不同的cookie"><a href="#11-6-4-不同站点使用不同的cookie" class="headerlink" title="11.6.4 不同站点使用不同的cookie"></a>11.6.4 不同站点使用不同的cookie</h3><p>浏览器内部的cookie罐中可以有很多cookie，但浏览器通常只向每个站点发送2 ~ 3个cookie，浏览器只向服务器发送服务器产生的那些cookie。原因如下：</p>
-<ol>
-<li>对所有cookie字节进行传输会严重降低性能。浏览器实际传输的cookie字节数要比实际的内容字节数多；</li>
-<li>cookie中包含的是服务器特有的名值对，所以对大部分站点来说，大多数cookie都只是无法识别的无用数据；</li>
-<li>将所有的cookie发送给所有站点会引发潜在的隐私问题。<h3 id="11-6-5-cookie成分"><a href="#11-6-5-cookie成分" class="headerlink" title="11.6.5 cookie成分"></a>11.6.5 cookie成分</h3></li>
-</ol>
-<p>现在使用的cookie规范有两个不同的版本：<strong>cookies版本0</strong>（也叫Netscape cookies）和<strong>cookies版本1</strong>（RFC 2965）。cookies 版本1是对cookies版本0的扩展，应用不如后者广泛。</p>
-<p>cookie规范版本0和版本1都不是作为HTTP/1.1规范的一部分提供的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/CXx8REyPFs7LhUY.png"
-                      alt="Jq2YLdpVHtY6PfRA__thumbnail.png"
-                ></p>
-<h3 id="11-6-6-cookies版本0（Netscape）"><a href="#11-6-6-cookies版本0（Netscape）" class="headerlink" title="11.6.6 cookies版本0（Netscape）"></a>11.6.6 cookies版本0（Netscape）</h3><p>最初的cookie规范是由网景公司定义的。这些“版本0”的cookie定义了Set-Coookie响应首部、cookie请求首部以及用于控制cookie的字段。</p>
-<h4 id="11-6-6-1-版本0的set-Cookie首部"><a href="#11-6-6-1-版本0的set-Cookie首部" class="headerlink" title="11.6.6.1 版本0的set-Cookie首部"></a>11.6.6.1 版本0的set-Cookie首部</h4><p>set-Cookie首部有一个强制性的cookie名和cookie 值。后面跟着可选的cookie属性，中间由分号分隔。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/hZbMTLJrzs3KPuk.png"
-                      alt="qdonImiSjvneeOvw__thumbnail.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/sIC5VgzkP8fB9Hj.png"
-                      alt="GBdOJLwCMpYc0S2p__thumbnail.png"
-                ></p>
-<h4 id="11-6-6-2-版本0的Cookie首部"><a href="#11-6-6-2-版本0的Cookie首部" class="headerlink" title="11.6.6.2 版本0的Cookie首部"></a>11.6.6.2 版本0的Cookie首部</h4><p>客户端发送请求时，会将所有与域、路径和安全过滤器相匹配的未过期cookie都发送给这个站点。所有cookie都被组合到一个Cookie首部中。</p>
-<h3 id="11-6-7-cookies版本1（RFC-2965）"><a href="#11-6-7-cookies版本1（RFC-2965）" class="headerlink" title="11.6.7 cookies版本1（RFC 2965）"></a>11.6.7 cookies版本1（RFC 2965）</h3><p>这个版本1标准引入了Set-Cookie2首部和Cookie2首部，但也能与版本0系统进行互操作。</p>
-<p>RFC 2965 cookie的主要改动包括下列内容：</p>
-<ol>
-<li>为每个cookie关联上解释性文本，对其目的进行解释。</li>
-<li>允许在浏览器退出时，不考虑过期时间，将cookie强制销毁。</li>
-<li>用相对秒数，而不是绝对日期来表示cookie的Max-Age.</li>
-<li>通过URL端口号，而不仅仅是域和路径来控制cookie的能力。</li>
-<li>通过Cookie首部回送域、端口和路径过滤器（如果有的话）。</li>
-<li>为实现互操作性使用的版本号。</li>
-<li>在Cookie首部从名字中区分出附加关键字的$前缀。<h4 id="11-6-7-1-版本1的set-Cookie2首部"><a href="#11-6-7-1-版本1的set-Cookie2首部" class="headerlink" title="11.6.7.1 版本1的set-Cookie2首部"></a>11.6.7.1 版本1的set-Cookie2首部</h4></li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/pVqy9eLYgvZUxda.png"
-                      alt="5a2SbBmAsu83S7yy__thumbnail.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/rDePvSIkW4th2Mj.png"
-                      alt="mtVJtcN1kr8hhsQp__thumbnail.png"
-                ></p>
-<h4 id="11-6-7-2-版本1的Cookie首部"><a href="#11-6-7-2-版本1的Cookie首部" class="headerlink" title="11.6.7.2 版本1的Cookie首部"></a>11.6.7.2 版本1的Cookie首部</h4><p>版本1的cookie会带回与传送的每个cookie相关的附加信息，用来描述每个cookie途径的过滤器。每个匹配的cookie都必须包含来自相应set-cookie2首部的所有Domain、Port 或Path属性。所有匹配cookie都是和它们的Set-Cookie2过滤器一同传输的，而且保留关键字都是以美元符号（$）开头的。</p>
-<h4 id="11-6-7-3-版本1的Cookie2首部和版本协商"><a href="#11-6-7-3-版本1的Cookie2首部和版本协商" class="headerlink" title="11.6.7.3 版本1的Cookie2首部和版本协商"></a>11.6.7.3 版本1的Cookie2首部和版本协商</h4><p>Cookie2请求首部负责在能够理解不同cookie规范版本的客户端和服务器之间进行互操作性的协商。</p>
-<p>如果服务器理解新形式的cookie，就能够识别出Cookie2首部，并在响应首部发送set-Cookie2（而不是Set-Cookie）。如果客户端从同一个响应中获得set-Cookie和Set-Cookie2首部，忽略Set-Cookie首部。</p>
-<p>如果客户端既支持版本0又支持版本1的cookie，但从服务器获得的是版本0的Set-Cookie首部，就应该带着版本0的Cookie首部发送cookie。但客户端还应该发送Cookie2：$Version=“1”来告知服务器它是可以升级的。</p>
-<h3 id="11-6-8-cookie与会话跟踪"><a href="#11-6-8-cookie与会话跟踪" class="headerlink" title="11.6.8 cookie与会话跟踪"></a>11.6.8 cookie与会话跟踪</h3><p>可以用cookie在用户与某个站点进行多项事务处理时对用户进行跟踪，启动一个事务链，在这些事务中Web服务器会通过一系列的重定向、URL重写以及cookie设置来附加标识信息。</p>
-<h3 id="11-6-9-cookie与缓存"><a href="#11-6-9-cookie与缓存" class="headerlink" title="11.6.9 cookie与缓存"></a>11.6.9 cookie与缓存</h3><p>缓存与cookie事务有关的文档时需要注意，cookie和缓存的规则并没有很好地建立起来。下 面是处理缓存时的一些指导性规则：</p>
-<ol>
-<li><strong>标示无法缓存的文档</strong></li>
-</ol>
-<p>如果除了Set-Cookie首部之外文档是可缓存的，就使用Cache-Control：no-cache=”Set-Cookie”，或者为可缓存文档使用Cache-Control：public，这样利于节省Web中的带宽。</p>
-<ol start="2">
-<li><strong>缓存Set-Cookie首部</strong></li>
-</ol>
-<p>如果向多个用户发送了相同的Set-Cookie首部，可能会破坏用户的定位。</p>
-<p>有些缓存在将响应缓存起来之前会删除set-Cookie首部，但这样由缓存提供服务的客户端就不会有cookie了。强制缓存与原始服务器重新验证每条请求，并将返回的所有Set-Cookie首部都合并到客户端的响应中去，就可以解决。原始服务器可以通过向缓存的副本中添加这个首部来要求进行这种再验证：Cache-Control：must-revalidate，max-age=0</p>
-<p>即便内容实际上是可以缓存的，一些缓存可能也会拒绝缓存所有包含Set-Cookie首部的响应。有些缓存允许使用缓存Set-Cookie图片，但不缓存文本的模式。</p>
-<ol start="3">
-<li><strong>处理带有Cookie首部的请求</strong></li>
-</ol>
-<p>带有Cookie首部的请求到达时，就在提示我们，得到的结果可能是私有的。一定要将私有内容标识为不可缓存的，但有些服务器可能会犯错，没有将此内容标记为不可缓存的。</p>
-<p>有些响应文档对应于携带Cookie首部的请求，一些缓存可能会不去缓存。有些缓存允许使用缓存cookie图片，而不缓存文本的模式。更广泛接受的方案是缓存带有Cookie首部的图片，将过期时间设置为零，强制每次都进行再验证。</p>
-<h3 id="11-6-10-cookie-安全性和隐私"><a href="#11-6-10-cookie-安全性和隐私" class="headerlink" title="11.6.10 cookie.安全性和隐私"></a>11.6.10 cookie.安全性和隐私</h3><p>第三方Web站点使用持久cookie来跟踪用户就是一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>11-客户端识别与cookie机制</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>08-集成点：网关、隧道及中继</title>
     <url>/2021/01/23/note/HTTP/08-%E9%9B%86%E6%88%90%E7%82%B9%EF%BC%9A%E7%BD%91%E5%85%B3%E3%80%81%E9%9A%A7%E9%81%93%E5%8F%8A%E4%B8%AD%E7%BB%A7/</url>
     <content><![CDATA[<h2 id="8-1-网关"><a href="#8-1-网关" class="headerlink" title="8.1 网关"></a>8.1 网关</h2><p>HTTP扩展和接口的发展是由用户需求驱动的。单个应用程序无法处理复杂资源的需求。网关（gateway）抽象出一种能够到达资源的方法，网关是资源和应用程序之间的粘合剂。应用程序可以（通过HTTP或其他已定义的接口）请求网关来处理某条请求，网关可以提供响应。</p>
@@ -1194,65 +1049,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>08-集成点：网关、隧道及中继</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>12-基本认证机制</title>
-    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
-    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
-<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
-<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
-<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
-                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
-                ></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
-                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
-                ></p>
-<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
-                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
-                ></p>
-<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
-                      alt="qlzDftADKFeS3vHH__thumbnail.png"
-                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
-<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
-                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
-                ></p>
-<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
-<ol>
-<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
-<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
-<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
-<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
-<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
-</ol>
-<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>12-基本认证机制</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1399,6 +1195,210 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>09-Web机器人</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>11-客户端识别与cookie机制</title>
+    <url>/2021/01/23/note/HTTP/11-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%86%E5%88%AB%E4%B8%8Ecookie%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="11-1-个性化接触"><a href="#11-1-个性化接触" class="headerlink" title="11.1 个性化接触"></a>11.1 个性化接触</h2><p>现代的Web站点希望能够提供个性化的接触，希望对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。用户的识别机制：</p>
+<ol>
+<li><strong>HTTP首部</strong>，承载了用户身份信息。</li>
+<li><strong>客户端IP地址跟踪</strong>，通过用户的IP地址对其进行识别。</li>
+<li><strong>用户登录</strong>，用认证方式来识别用户。</li>
+<li><strong>胖URL</strong>，在URL中嵌人识别信息的技术。</li>
+<li><strong>cookie</strong>，持久身份识别技术。<h2 id="11-2-HTTP首部"><a href="#11-2-HTTP首部" class="headerlink" title="11.2 HTTP首部"></a>11.2 HTTP首部</h2></li>
+</ol>
+<p>七种常见的用来承载用户相关信息的HTTP请求首部，后四个首部用于更高级的识别技术。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/5L8iAcKqhvVbH4N.png"
+                      alt="OGLHbPyUzYspa9X1__thumbnail.png"
+                ></p>
+<p>由于有些服务器会搜集E-mail地址，用于垃圾邮件的散发，所以很少有浏览器会发送From首部。实际上，From首部是由自动化的机器人或蜘蛛发送的。</p>
+<p>User-Agent首部包括浏览器的名称和版本，操作系统的相关信息。用于实现定制内容与特定的浏览器及其属性间的良好互操作，但并没有为识别特定的用户提供太多帮助。</p>
+<p>Referer首部提供了用户来源页面的URL。Referer首部自身并不能完全标识用户，但它说明了用户之前访问过哪个页面。通过它可以更好地理解用户的浏览行为，以及用户的兴趣所在。</p>
+<p>From、User-Agent和Referer首部都不足以实现可靠的识别。</p>
+<h2 id="11-3-客户端IP地址"><a href="#11-3-客户端IP地址" class="headerlink" title="11.3 客户端IP地址"></a>11.3 客户端IP地址</h2><p>通常HTTP首部并不提供客户端的IP地址（有些代理会舔加Client-IP首部），但Web服务器可以找到承载HTTP请求的TCP连接另一端的IP地址。</p>
+<p>使用客户端IP地址来识别用户存在着很多缺点，限制了将其作为用户识别技术的效能：</p>
+<ol>
+<li>客户端IP地址描述的是所用的机器，而不是用户。如果多个用户共享同一台计算机，就无法对其进行区分。</li>
+<li>很多因特网服务提供商都会在用户登录时为其动态分配IP地址。用户每次登录时，都会得到一个不同的地址。</li>
+<li>为了提高安全性，并对稀缺的地址资源进行管理，很多用户通过<strong>网络地址转换</strong>（Network Address Translation，NAT）防火墙来浏览网络内容的。NAT设备将了防火墙后面的实际客户端的IP地址转换成了一个共享的防火墙IP地址（和不同的端口号）。</li>
+<li>HTTP代理和网关通常会打开一些新的到原始服务器的TCP连接。Web服务器看到的将是代理服务器的IP地址，而不是客户端的。但个别代理会添加特殊的Client-IP或x-Forwarded-For扩展首部来保存原始的IP地址。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/87AXogI6KjVtWf1.png"
+                      alt="UtHMnCSRoPNvPQj9__thumbnail.png"
+                ></p>
+<h2 id="11-4-用户登录"><a href="#11-4-用户登录" class="headerlink" title="11.4 用户登录"></a>11.4 用户登录</h2><p>Web服务器可以要求用户通过用户名和密码进行认证（登录）来显式地询问用户是谁。HTTP中包含了一种内建机制，可以用WWW-Authenticate首部和Authorization首部向Web站点传送用户的相关信息。</p>
+<p>如果服务器希望在为用户提供对站点的访问之前登录，可以向浏览器回送一条HTTP响应代码401 Login Required，然后浏览器显示一个登录对话框，一旦登录，浏览器就可以不断地在每条发往这个站点的请求甚至没有要求中，向服务器发送Authorization首部作为一种身份的标识。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/8Kc5o9SdyMIVRfE.png"
+                      alt="UtY4a0FC6TRmjhdo__thumbnail.png"
+                ></p>
+<h2 id="11-5-胖URL"><a href="#11-5-胖URL" class="headerlink" title="11.5 胖URL"></a>11.5 胖URL</h2><p>有些Web站点会为每个用户生成特定版本的URL来追踪用户的身份。通常对真正的URL路径开始或结束的地方添加一些状态信息。用户浏览站点时，Web服务器会动态生成一些超链，继续维护URL中的状态信息。改动后包含了用户状态信息的URL被称为胖URL（fat URL）。</p>
+<p>但这种技术存在几个很严重的问题：</p>
+<ol>
+<li><strong>丑陋的URL</strong>。浏览器中显示的胖URL会给新用户带来困扰。</li>
+<li><strong>无法共享URL。</strong>胖URL中包含了与特定用户和会话有关的状态信息。如果将其发送给其他人，可能就在无意中将你积累的个人信息都共享出去了。</li>
+<li><strong>破坏缓存</strong>。为每个URL生成用户特有的版本意味着不再有可供公共访问的URL需要缓存。</li>
+<li><strong>额外的服务器负荷</strong>。服务器需要重写HTML页面使URL变胖。</li>
+<li><strong>逃逸口</strong>。用户跳转到其他站点或者请求一个特定的URL时，就很容易在无意中“逃离”胖URL会话。只有当用户严格地追随预先修改过的链接时，胖URL才能工作。如果用户逃离此链接，就会丢失其进展信息，重新开始。</li>
+<li><strong>在会话间是非持久的</strong>。除非用户收藏了特定的胖URL，否则用户退出登录时，所有的信息都会丢失。<h2 id="11-6-cookie"><a href="#11-6-cookie" class="headerlink" title="11.6 cookie"></a>11.6 cookie</h2></li>
+</ol>
+<p>cookie是当前识别用户，实现持久会话的最好方式。它们定义了一些新的HTTP首部。cookie的存在也影响了缓存，大多数缓存和浏览器都不允许对任何cookie的内容进行缓存。</p>
+<h3 id="11-6-1-cookie的类型"><a href="#11-6-1-cookie的类型" class="headerlink" title="11.6.1 cookie的类型"></a>11.6.1 cookie的类型</h3><p>cookie可以笼统地分为两类：<strong>会话cookie</strong>和<strong>持久cookie</strong>。</p>
+<p>会话cookie是一种临时cookie，它记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除。如果设置了Discard参数，或者没有设置Expires或Max-Age参数来说明扩展的过期时间，这个cookie就是一个 会话cookie.</p>
+<p>持久cookie的生存时间更长，它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p>
+<h3 id="11-6-2-cookie是如何工作的"><a href="#11-6-2-cookie是如何工作的" class="headerlink" title="11.6.2 cookie是如何工作的"></a>11.6.2 cookie是如何工作的</h3><p>用户首次访问Web站点时，Web服务器给这个用户“拍上”一个独有的cookie，这样以后就可以识别出这个用户。cookie中包含了一个由（name=value）这样的信息构成的任意列表。</p>
+<p>cookie并不仅限于ID号，很多Web服务器会将信息直接保存在cookie中，并通过set-cookie或set-cookie2 HTTP响应（扩展）首部将其贴到用户身上去。浏览器会记住从服务器返回的cookie内容，并将cookie集存储在浏览器的cookie数据库中。将来用户返回同一站点时，浏览器会挑中那个服务器贴到用户上的那些cookie，并在一个cookie请求首部中将其传回去。</p>
+<h3 id="11-6-3-cookie罐：客户端的状态"><a href="#11-6-3-cookie罐：客户端的状态" class="headerlink" title="11.6.3 cookie罐：客户端的状态"></a>11.6.3 cookie罐：客户端的状态</h3><p>因为浏览器负责存储cookie信息，所以系统被称为<strong>客户端侧状态</strong>（client-sidestate）。cookie规范的正式名称为<strong>HTTP状态管理机制</strong>（HTTP state management mechanism）。不同的浏览器会以不同的方式来存储cookie。</p>
+<h3 id="11-6-4-不同站点使用不同的cookie"><a href="#11-6-4-不同站点使用不同的cookie" class="headerlink" title="11.6.4 不同站点使用不同的cookie"></a>11.6.4 不同站点使用不同的cookie</h3><p>浏览器内部的cookie罐中可以有很多cookie，但浏览器通常只向每个站点发送2 ~ 3个cookie，浏览器只向服务器发送服务器产生的那些cookie。原因如下：</p>
+<ol>
+<li>对所有cookie字节进行传输会严重降低性能。浏览器实际传输的cookie字节数要比实际的内容字节数多；</li>
+<li>cookie中包含的是服务器特有的名值对，所以对大部分站点来说，大多数cookie都只是无法识别的无用数据；</li>
+<li>将所有的cookie发送给所有站点会引发潜在的隐私问题。<h3 id="11-6-5-cookie成分"><a href="#11-6-5-cookie成分" class="headerlink" title="11.6.5 cookie成分"></a>11.6.5 cookie成分</h3></li>
+</ol>
+<p>现在使用的cookie规范有两个不同的版本：<strong>cookies版本0</strong>（也叫Netscape cookies）和<strong>cookies版本1</strong>（RFC 2965）。cookies 版本1是对cookies版本0的扩展，应用不如后者广泛。</p>
+<p>cookie规范版本0和版本1都不是作为HTTP/1.1规范的一部分提供的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/CXx8REyPFs7LhUY.png"
+                      alt="Jq2YLdpVHtY6PfRA__thumbnail.png"
+                ></p>
+<h3 id="11-6-6-cookies版本0（Netscape）"><a href="#11-6-6-cookies版本0（Netscape）" class="headerlink" title="11.6.6 cookies版本0（Netscape）"></a>11.6.6 cookies版本0（Netscape）</h3><p>最初的cookie规范是由网景公司定义的。这些“版本0”的cookie定义了Set-Coookie响应首部、cookie请求首部以及用于控制cookie的字段。</p>
+<h4 id="11-6-6-1-版本0的set-Cookie首部"><a href="#11-6-6-1-版本0的set-Cookie首部" class="headerlink" title="11.6.6.1 版本0的set-Cookie首部"></a>11.6.6.1 版本0的set-Cookie首部</h4><p>set-Cookie首部有一个强制性的cookie名和cookie 值。后面跟着可选的cookie属性，中间由分号分隔。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/hZbMTLJrzs3KPuk.png"
+                      alt="qdonImiSjvneeOvw__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/sIC5VgzkP8fB9Hj.png"
+                      alt="GBdOJLwCMpYc0S2p__thumbnail.png"
+                ></p>
+<h4 id="11-6-6-2-版本0的Cookie首部"><a href="#11-6-6-2-版本0的Cookie首部" class="headerlink" title="11.6.6.2 版本0的Cookie首部"></a>11.6.6.2 版本0的Cookie首部</h4><p>客户端发送请求时，会将所有与域、路径和安全过滤器相匹配的未过期cookie都发送给这个站点。所有cookie都被组合到一个Cookie首部中。</p>
+<h3 id="11-6-7-cookies版本1（RFC-2965）"><a href="#11-6-7-cookies版本1（RFC-2965）" class="headerlink" title="11.6.7 cookies版本1（RFC 2965）"></a>11.6.7 cookies版本1（RFC 2965）</h3><p>这个版本1标准引入了Set-Cookie2首部和Cookie2首部，但也能与版本0系统进行互操作。</p>
+<p>RFC 2965 cookie的主要改动包括下列内容：</p>
+<ol>
+<li>为每个cookie关联上解释性文本，对其目的进行解释。</li>
+<li>允许在浏览器退出时，不考虑过期时间，将cookie强制销毁。</li>
+<li>用相对秒数，而不是绝对日期来表示cookie的Max-Age.</li>
+<li>通过URL端口号，而不仅仅是域和路径来控制cookie的能力。</li>
+<li>通过Cookie首部回送域、端口和路径过滤器（如果有的话）。</li>
+<li>为实现互操作性使用的版本号。</li>
+<li>在Cookie首部从名字中区分出附加关键字的$前缀。<h4 id="11-6-7-1-版本1的set-Cookie2首部"><a href="#11-6-7-1-版本1的set-Cookie2首部" class="headerlink" title="11.6.7.1 版本1的set-Cookie2首部"></a>11.6.7.1 版本1的set-Cookie2首部</h4></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/pVqy9eLYgvZUxda.png"
+                      alt="5a2SbBmAsu83S7yy__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rDePvSIkW4th2Mj.png"
+                      alt="mtVJtcN1kr8hhsQp__thumbnail.png"
+                ></p>
+<h4 id="11-6-7-2-版本1的Cookie首部"><a href="#11-6-7-2-版本1的Cookie首部" class="headerlink" title="11.6.7.2 版本1的Cookie首部"></a>11.6.7.2 版本1的Cookie首部</h4><p>版本1的cookie会带回与传送的每个cookie相关的附加信息，用来描述每个cookie途径的过滤器。每个匹配的cookie都必须包含来自相应set-cookie2首部的所有Domain、Port 或Path属性。所有匹配cookie都是和它们的Set-Cookie2过滤器一同传输的，而且保留关键字都是以美元符号（$）开头的。</p>
+<h4 id="11-6-7-3-版本1的Cookie2首部和版本协商"><a href="#11-6-7-3-版本1的Cookie2首部和版本协商" class="headerlink" title="11.6.7.3 版本1的Cookie2首部和版本协商"></a>11.6.7.3 版本1的Cookie2首部和版本协商</h4><p>Cookie2请求首部负责在能够理解不同cookie规范版本的客户端和服务器之间进行互操作性的协商。</p>
+<p>如果服务器理解新形式的cookie，就能够识别出Cookie2首部，并在响应首部发送set-Cookie2（而不是Set-Cookie）。如果客户端从同一个响应中获得set-Cookie和Set-Cookie2首部，忽略Set-Cookie首部。</p>
+<p>如果客户端既支持版本0又支持版本1的cookie，但从服务器获得的是版本0的Set-Cookie首部，就应该带着版本0的Cookie首部发送cookie。但客户端还应该发送Cookie2：$Version=“1”来告知服务器它是可以升级的。</p>
+<h3 id="11-6-8-cookie与会话跟踪"><a href="#11-6-8-cookie与会话跟踪" class="headerlink" title="11.6.8 cookie与会话跟踪"></a>11.6.8 cookie与会话跟踪</h3><p>可以用cookie在用户与某个站点进行多项事务处理时对用户进行跟踪，启动一个事务链，在这些事务中Web服务器会通过一系列的重定向、URL重写以及cookie设置来附加标识信息。</p>
+<h3 id="11-6-9-cookie与缓存"><a href="#11-6-9-cookie与缓存" class="headerlink" title="11.6.9 cookie与缓存"></a>11.6.9 cookie与缓存</h3><p>缓存与cookie事务有关的文档时需要注意，cookie和缓存的规则并没有很好地建立起来。下 面是处理缓存时的一些指导性规则：</p>
+<ol>
+<li><strong>标示无法缓存的文档</strong></li>
+</ol>
+<p>如果除了Set-Cookie首部之外文档是可缓存的，就使用Cache-Control：no-cache=”Set-Cookie”，或者为可缓存文档使用Cache-Control：public，这样利于节省Web中的带宽。</p>
+<ol start="2">
+<li><strong>缓存Set-Cookie首部</strong></li>
+</ol>
+<p>如果向多个用户发送了相同的Set-Cookie首部，可能会破坏用户的定位。</p>
+<p>有些缓存在将响应缓存起来之前会删除set-Cookie首部，但这样由缓存提供服务的客户端就不会有cookie了。强制缓存与原始服务器重新验证每条请求，并将返回的所有Set-Cookie首部都合并到客户端的响应中去，就可以解决。原始服务器可以通过向缓存的副本中添加这个首部来要求进行这种再验证：Cache-Control：must-revalidate，max-age=0</p>
+<p>即便内容实际上是可以缓存的，一些缓存可能也会拒绝缓存所有包含Set-Cookie首部的响应。有些缓存允许使用缓存Set-Cookie图片，但不缓存文本的模式。</p>
+<ol start="3">
+<li><strong>处理带有Cookie首部的请求</strong></li>
+</ol>
+<p>带有Cookie首部的请求到达时，就在提示我们，得到的结果可能是私有的。一定要将私有内容标识为不可缓存的，但有些服务器可能会犯错，没有将此内容标记为不可缓存的。</p>
+<p>有些响应文档对应于携带Cookie首部的请求，一些缓存可能会不去缓存。有些缓存允许使用缓存cookie图片，而不缓存文本的模式。更广泛接受的方案是缓存带有Cookie首部的图片，将过期时间设置为零，强制每次都进行再验证。</p>
+<h3 id="11-6-10-cookie-安全性和隐私"><a href="#11-6-10-cookie-安全性和隐私" class="headerlink" title="11.6.10 cookie.安全性和隐私"></a>11.6.10 cookie.安全性和隐私</h3><p>第三方Web站点使用持久cookie来跟踪用户就是一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>11-客户端识别与cookie机制</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>12-基本认证机制</title>
+    <url>/2021/01/23/note/HTTP/12-%E5%9F%BA%E6%9C%AC%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<h2 id="12-1-认证"><a href="#12-1-认证" class="headerlink" title="12.1 认证"></a>12.1 认证</h2><p>服务器需要通过某种方式来了解用户身份，从而判定用户可以访问的事务和资源。认证就意味着要证明你是谁。通常是通过提供用户名和密码来进行认证的。</p>
+<p>HTTP为认证提供了一种原生工具。尽管可以在HTTP的认证形式和cookie基础之上“运行自己的”认证工具，但在很多情况下，HTTP的原生认证功能就可以很好地满足要求。</p>
+<p>最常见的HTTP认证形式，<strong>基本认证</strong>（basic authentication），<strong>摘要认证</strong>（digest authentication）。</p>
+<h3 id="12-1-1-认证协议与首部"><a href="#12-1-1-认证协议与首部" class="headerlink" title="12.1.1  认证协议与首部"></a>12.1.1  认证协议与首部</h3><p>HTTP通过一组可定制的控制首部，为不同的认证协议提供了一个可扩展框架。认证协议也是在HTTP认证首部中指定的。可以随意设计一些使用HTTP质询/响应框架的新协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Qc3z4qZmlpSRDIF.png"
+                      alt="3I1T0Sqn0vGxXzWp__thumbnail.png"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/peGioQUZ7IylC62.png"
+                      alt="rkRrBdeZ0ZR0sz8V__thumbnail.png"
+                ></p>
+<p>Web服务器会将受保护的文档组织成一个<strong>安全域</strong>（security realm）。每个安全域都可以有不同的授权用户集，不同的用户对各个安全域的访问权限是不同的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TBj9MzoIDHLrSFU.png"
+                      alt="hOOl1LLNsJNi4Al7__thumbnail.png"
+                ></p>
+<h2 id="12-2-基本认证"><a href="#12-2-基本认证" class="headerlink" title="12.2 基本认证"></a>12.2 基本认证</h2><p>在基本认证中，Web服务器可以拒绝一个事务，质询客户端，请用户提供有效的用户名和密码。服务器会返回401状态码，而不是200状态码来初始化认证质询，并用WWW-Authent icate响应首部指定要访问的安全域。浏览器收到质询时，会打开一个对话框，请求用户输人这个域的用户名和密码。然后将用户名和密码稍加扰码，再用Authorization请求首部回送给服务器。基本认证协议没有使用Authentication-Info首部。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/dCwAg4KYpaTEXtW.png"
+                      alt="qlzDftADKFeS3vHH__thumbnail.png"
+                ></h3><h3 id="12-2-1-Base-64用户名-密码编码"><a href="#12-2-1-Base-64用户名-密码编码" class="headerlink" title="12.2.1 Base-64用户名/密码编码"></a>12.2.1 Base-64用户名/密码编码</h3><p>HTTP基本认证将（由冒号分隔的）用户名和密码打包在一起，并用Base 64编码方式对其进行编码。简单来说，Base-64 编码会将一个8位字节序列划分为一些6位的块。用每个6位的块在由64个字符组成的特殊的字母表中选择一个字符，这个字母表中包含了大部分字母和数字。</p>
+<h3 id="12-2-2-代理认证"><a href="#12-2-2-代理认证" class="headerlink" title="12.2.2 代理认证"></a>12.2.2 代理认证</h3><p>中间的代理服务器也可以实现认证功能，通过代理服务器提供对某组织内部资源的统一访问控制。代理认证的步骤与Web服务器身份验证的步骤相同，但首部和状态码都有所不同。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/KTnjvgwAZtaYpz6.png"
+                      alt="9TuJb1meuUYlSwAR__thumbnail.png"
+                ></p>
+<h2 id="12-3-基本认证的安全缺陷"><a href="#12-3-基本认证的安全缺陷" class="headerlink" title="12.3 基本认证的安全缺陷"></a>12.3 基本认证的安全缺陷</h2><p>基本认证只能用它来防止非恶意用户无意间进行的访问，或将其与SSL这样的加密技术配合使用。基本认证存在下列安全缺陷：</p>
+<ol>
+<li>虽然Base-64编码通过隐藏用户名和密码，可以很轻易地通过反向编码过程进行解码。</li>
+<li>即使第三方用户可以捕获被修改过的用户名和密码，并将修改过的用户名和密码重放给原始服务器，以获得对服务器的访问权。</li>
+<li>很多用户会在这些服务间使用相同的用户名和密码。可能被恶意先捕获明文形式的用户名和密码，然后访问重要的网站。</li>
+<li>没有针对代理和作为中间人的中间节点的防护措施，它们没有修改认证首部，但却修改了报文的其余部分。</li>
+<li>假冒服务器很容易骗过基本认证。如果在用户实际连接到一台恶意服务器或网关的时候，攻击者请求用户输入密码，将其存储起来以备未来使用，然后捏造错误信息传送给用户。</li>
+</ol>
+<p>通常基本认证来提供便捷且不重要的文档个性化服务或访问控制保护，可以防止用户不小心对文档进行访问。更安全的方案是，将基本认证与加密数据传输（比如SSL）配合使用，向恶意用户隐藏用户名和密码，或使用摘要认证。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>12-基本认证机制</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1694,49 +1694,6 @@
       </tags>
   </entry>
   <entry>
-    <title>21-日志记录与使用情况跟踪</title>
-    <url>/2021/03/08/note/HTTP/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/</url>
-    <content><![CDATA[<h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
-<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
-                      alt="image.png"
-                ></p>
-<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
-<ol>
-<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
-<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
-</ol>
-<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
-<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
-<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
-<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
-<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
-                      alt="image _1_.png"
-                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
-<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
-                      alt="image _2_.png"
-                ></h2>]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>21-日志记录与使用情况跟踪</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>18-Web主机托管</title>
     <url>/2021/03/05/note/HTTP/18-Web%E4%B8%BB%E6%9C%BA%E6%89%98%E7%AE%A1/</url>
     <content><![CDATA[<h2 id="18-1-主机托管服务"><a href="#18-1-主机托管服务" class="headerlink" title="18.1 主机托管服务"></a>18.1 主机托管服务</h2><p>对内容资源的存储、协调以及管理的职责统称为Web主机托管。如果不想自行管理服务器所需的软硬件，就需要主机托管服务。</p>
@@ -1942,6 +1899,151 @@
       </tags>
   </entry>
   <entry>
+    <title>21-日志记录与使用情况跟踪</title>
+    <url>/2021/03/08/note/HTTP/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/</url>
+    <content><![CDATA[<h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
+<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
+                      alt="image.png"
+                ></p>
+<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
+<ol>
+<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
+<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
+</ol>
+<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
+<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
+<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
+<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
+<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
+                      alt="image _1_.png"
+                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
+<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
+                      alt="image _2_.png"
+                ></h2>]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>21-日志记录与使用情况跟踪</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Positioned Layout Module Level 3</title>
+    <url>/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/</url>
+    <content><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>|name|postion|<br>|:—-:|:—-|:—-:|:—-|<br>|Value:|static<a class="link"   href="https://www.w3.org/TR/css-values-4/#comb-one" >|<i class="fas fa-external-link-alt"></i></a>relative | absolute | sticky | fixed|<br>|Initial:|static|<br>|Applies to:|除了table-column-group 和table-column以外的所有元素|<br>|Inherited:|不继承|</p>
+<h1 id="2-static-定位"><a href="#2-static-定位" class="headerlink" title="2 static 定位"></a>2 static 定位</h1><p>HTML 元素的默认值，即没有定位，遵循正常的文档流对象。</p>
+<p>静态定位的元素不会受到 top, bottom, left, right影响。</p>
+<h1 id="3-relative-定位"><a href="#3-relative-定位" class="headerlink" title="3 relative 定位"></a>3 relative 定位</h1><p>相对定位元素的定位是相对其正常位置。</p>
+<h1 id="4-absolute-定位"><a href="#4-absolute-定位" class="headerlink" title="4 absolute 定位"></a>4 absolute 定位</h1><p>绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:</p>
+<h1 id="5-sticky-定位"><a href="#5-sticky-定位" class="headerlink" title="5 sticky 定位"></a>5 sticky 定位</h1><p>sticky 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。</p>
+<p>position: sticky; 基于用户的滚动位置来定位。</p>
+<p>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。</p>
+<p>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</p>
+<p>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
+<p>这个特定阈值指的是 top, right, bottom 或 left 之一，换言之，指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
+<h1 id="6-fixed-定位"><a href="#6-fixed-定位" class="headerlink" title="6 fixed 定位"></a>6 fixed 定位</h1><p>元素的位置相对于浏览器窗口是固定位置。</p>
+<p>即使窗口是滚动的它也不会移动：</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Positioned Layout Module Level 3</category>
+      </categories>
+      <tags>
+        <tag>W3C</tag>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>02-HTML网页和结构</title>
+    <url>/2021/01/21/note/Webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
+<h2 id="2-1-网页构成"><a href="#2-1-网页构成" class="headerlink" title="2.1 网页构成"></a>2.1 网页构成</h2><h3 id="2-1-1-基本元素和树状结构"><a href="#2-1-1-基本元素和树状结构" class="headerlink" title="2.1.1 基本元素和树状结构"></a>2.1.1 基本元素和树状结构</h3><p>现在的网页基本上都是动态网页（Dynamic HTML），这就需要JavaScript代码用来控制网页内部的逻辑，CSS用来描述网页的显示信息。</p>
+<p>整个网页可以看成一种树状结构，其树根是html，这是网页的根元素（或称节点）。根下面包含两个子节点head和body。</p>
+<h3 id="2-1-2-HTML-5新特性"><a href="#2-1-2-HTML-5新特性" class="headerlink" title="2.1.2 HTML.5新特性"></a>2.1.2 HTML.5新特性</h3><p>HTML5引入的对2D和3D图形以及多媒体方面的支持，将彻底改变网页的渲染方式和复杂度，包括但是不限于：</p>
+<ol>
+<li><strong>video元素</strong>，支持在网页中播放视频。</li>
+<li><strong>Canvas 2D</strong>，Canvas 2D通过定义一个新的“canvas”元素，网页开发者利用该元素的2D绘图上下文（graphics context）调用标准定义的接口，绘制常见的2D图形，例如点、线、矩形、多边形等。</li>
+<li><strong>WebGL</strong>（也就是Canvas 3D）。WebGL则是使用“canvas”元素的3D绘图上下文调用标准定义的接口，绘制3D图形，这些接口类似于OpenGL ES的接口。</li>
+<li><strong>CSS3 3D变换</strong>（transform）和<strong>转换</strong>（transition）。CSS3 3D的变换和转换则可以作用于HTML的任意可视元素，制造出各种炫丽的3D效果。<h2 id="2-2-网页结构"><a href="#2-2-网页结构" class="headerlink" title="2.2 网页结构"></a>2.2 网页结构</h2></li>
+</ol>
+<h3 id="2-2-1-框结构"><a href="#2-2-1-框结构" class="headerlink" title="2.2.1 框结构"></a>2.2.1 框结构</h3><p>框结构可以用来对网页的布局进行分割，将网页分成几个框。网页开发者也可以让网页嵌入其他的网页，frameset、frame和iframe可以用来在当前网页中嵌入新的框结构。多框结构的网页非常不适合移动领域，因为该结构对触控操作来说是不方便的。</p>
+<h3 id="2-2-2-层次结构"><a href="#2-2-2-层次结构" class="headerlink" title="2.2.2 层次结构"></a>2.2.2 层次结构</h3><p>网页的层次结构是指网页中的元素可能分布在不同的层次中，也就是某些元素可能不同于它的父元素所在的层次，同时CSS部分的代码也会对网页的分层策略产生重要影响。</p>
+<p>对于需要复杂变换和处理的元素，WebKit 为它们构建新层其实是为了渲染引擎在处理上的方便和高效。</p>
+<h2 id="2-3-WebKit的网页渲染过程"><a href="#2-3-WebKit的网页渲染过程" class="headerlink" title="2.3 WebKit的网页渲染过程"></a>2.3 WebKit的网页渲染过程</h2><h3 id="2-3-1-加载和渲染"><a href="#2-3-1-加载和渲染" class="headerlink" title="2.3.1 加载和渲染"></a>2.3.1 加载和渲染</h3><p>浏览器的主要作用就是将用户输入的“URL”转变成可视化的图像，包含两个过程，一是网页加载过程，就是从“URL”到构建DOM树；二是网页渲染过程，从DOM树到生成可视化图像。这两个过程也会交叉，统称这两个过程为网页的渲染过程。</p>
+<p>网页通常比我们的屏幕可视面积要大，当前可见的区域称为<strong>视图</strong>（viewport），浏览器在渲染网页的时候，一般会加入滚动条以帮助翻滚网页。</p>
+<h3 id="2-3-2-WebKit的渲染过程"><a href="#2-3-2-WebKit的渲染过程" class="headerlink" title="2.3.2 WebKit的渲染过程"></a>2.3.2 WebKit的渲染过程</h3><p>网页的一般渲染过程中的数据包括网页内容、DOM、内部表示和图像，模块则包括HTML解释器、CSS解释器、JavaScript 引擎以及布局和绘图模块。</p>
+<p>根据数据的流向，将渲染过程分成三个阶段，第一个阶段是从网页的URL到构建DOM树，第二个阶段是从DOM树到构建WebKit的绘图上下文，第三个阶段是从绘图上下文到生成最终的图像。</p>
+<h4 id="2-3-2-1-第一个阶段：从网页的URL到构建DOM树"><a href="#2-3-2-1-第一个阶段：从网页的URL到构建DOM树" class="headerlink" title="2.3.2.1 第一个阶段：从网页的URL到构建DOM树"></a>2.3.2.1 第一个阶段：从网页的URL到构建DOM树</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/lirgHwQ6LBcDU7u.png"
+                      alt="uSXBGLwftTz59OfO__thumbnail.png"
+                ></p>
+<p>具体的过程如下：</p>
+<ol>
+<li>当用户输入网页URL的时候，WebKit调用其资源加载器加载该URL对应的网页。</li>
+<li>加载器依赖网络模块建立连接，发送请求并接收答复。</li>
+<li>WebKit接收到各种网页或者资源的数据，某些资源可能是同步或异步获取的。</li>
+<li>网页被交给HTML解释器转变成一系列的词语（Token）。</li>
+<li>解释器根据词语构建节点（Node），形成DOM树。</li>
+<li>如果节点是JavaScript代码的话，调用JavaScript引擎解释并执行。</li>
+<li>JavaScript代码可能会修改DOM树的结构。</li>
+<li>如果节点需要依赖其他资源，例如图片、CSS、视频等，调用资源加载器来加载它们，但是它们是异步的，不会阻碍当前DOM树的继续创建；如果是JavaScript资源URL（没有标记异步方式），则需要停止当前DOM树的创建，直到JavaScript的资源加载并被JavaScript引擎执行后才继续DOM树的创建。</li>
+</ol>
+<p>在上述的过程中，网页在加载和渲染过程中会发出“DOMConent”事件和DOM的“onload”事件，分别在DOM树构建完之后，以及DOM树建完并且网页所依赖的资源都加载完之后发生，因为某些资源的加载并不会阻碍DOM树的创建，所以这两个事件多数时候不是同时发生的。</p>
+<h4 id="2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文"><a href="#2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文" class="headerlink" title="2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文"></a>2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/BxFNhne3Lwm76ld.png"
+                      alt="5zAmE3T5IrREBagI__thumbnail.png"
+                ></p>
+<p>这一阶段的具体过程如下。</p>
+<ol>
+<li>CSS文件被CSS解释器解释成内部表示结构。</li>
+<li>CSS解释器工作完之后，在DOM树上附加解释后的样式信息，这就是RenderObject树。</li>
+<li>RenderObject节点在创建的同时，WebKit会根据网页的层次结构创建RenderLayer树，同时构建一个虚拟的绘图上下文，这中间还有复杂的内部过程。</li>
+</ol>
+<p>RenderObject树的建立并不表示DOM树会被销毁，图中的四个内部表示结构一直存在，直到网页被销毁。</p>
+<h4 id="2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。"><a href="#2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。" class="headerlink" title="2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。"></a>2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/XrFjB2oaqOKkg85.png"
+                      alt="3oObbcPTpx9gzPCi__thumbnail.png"
+                ></p>
+<p>图中这一阶段对应的具体过程如下。</p>
+<ol>
+<li>绘图上下文是一个与平台无关的抽象类，它将每个绘图操作桥接到不同的绘图具体实现类。</li>
+<li>绘图实现类有简单或复杂的实现。在Chromium中，它的实现相当复杂，需要Chromium的合成器来完成复杂的多进程和GPU加速机制。</li>
+<li>绘图实现类将 2D图形库或者3D图形库绘制的结果保存下来，交给浏览器来同浏览器界面一起显示。</li>
+</ol>
+<p>现代浏览器为了绘图上的高效性和安全性，可能会在这一过程中引入复杂的机制。而且，绘图也从之前单纯的软件渲染，到现在的GPU硬件渲染、混合渲染模型等方式。</p>
+<p>现代网页很多是动态网页，这意味着在渲染完成之后，由于网页的动画或者用户的交互，浏览器其实一直在不停地重复执行渲染过程。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>WebKit技术内幕</category>
+        <category>02-HTML网页和结构</category>
+      </categories>
+      <tags>
+        <tag>WebKit</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>04-资源加载和网络栈</title>
     <url>/2021/01/21/note/Webkit/04-%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%92%8C%E7%BD%91%E7%BB%9C%E6%A0%88/</url>
     <content><![CDATA[<p>使用网络栈下载网页和网页中的资源是渲染引擎工作过程的第一步，也是非常消耗时间的步骤。</p>
@@ -2097,291 +2199,6 @@
       </categories>
       <tags>
         <tag>WebKit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>02-HTML网页和结构</title>
-    <url>/2021/01/21/note/Webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
-<h2 id="2-1-网页构成"><a href="#2-1-网页构成" class="headerlink" title="2.1 网页构成"></a>2.1 网页构成</h2><h3 id="2-1-1-基本元素和树状结构"><a href="#2-1-1-基本元素和树状结构" class="headerlink" title="2.1.1 基本元素和树状结构"></a>2.1.1 基本元素和树状结构</h3><p>现在的网页基本上都是动态网页（Dynamic HTML），这就需要JavaScript代码用来控制网页内部的逻辑，CSS用来描述网页的显示信息。</p>
-<p>整个网页可以看成一种树状结构，其树根是html，这是网页的根元素（或称节点）。根下面包含两个子节点head和body。</p>
-<h3 id="2-1-2-HTML-5新特性"><a href="#2-1-2-HTML-5新特性" class="headerlink" title="2.1.2 HTML.5新特性"></a>2.1.2 HTML.5新特性</h3><p>HTML5引入的对2D和3D图形以及多媒体方面的支持，将彻底改变网页的渲染方式和复杂度，包括但是不限于：</p>
-<ol>
-<li><strong>video元素</strong>，支持在网页中播放视频。</li>
-<li><strong>Canvas 2D</strong>，Canvas 2D通过定义一个新的“canvas”元素，网页开发者利用该元素的2D绘图上下文（graphics context）调用标准定义的接口，绘制常见的2D图形，例如点、线、矩形、多边形等。</li>
-<li><strong>WebGL</strong>（也就是Canvas 3D）。WebGL则是使用“canvas”元素的3D绘图上下文调用标准定义的接口，绘制3D图形，这些接口类似于OpenGL ES的接口。</li>
-<li><strong>CSS3 3D变换</strong>（transform）和<strong>转换</strong>（transition）。CSS3 3D的变换和转换则可以作用于HTML的任意可视元素，制造出各种炫丽的3D效果。<h2 id="2-2-网页结构"><a href="#2-2-网页结构" class="headerlink" title="2.2 网页结构"></a>2.2 网页结构</h2></li>
-</ol>
-<h3 id="2-2-1-框结构"><a href="#2-2-1-框结构" class="headerlink" title="2.2.1 框结构"></a>2.2.1 框结构</h3><p>框结构可以用来对网页的布局进行分割，将网页分成几个框。网页开发者也可以让网页嵌入其他的网页，frameset、frame和iframe可以用来在当前网页中嵌入新的框结构。多框结构的网页非常不适合移动领域，因为该结构对触控操作来说是不方便的。</p>
-<h3 id="2-2-2-层次结构"><a href="#2-2-2-层次结构" class="headerlink" title="2.2.2 层次结构"></a>2.2.2 层次结构</h3><p>网页的层次结构是指网页中的元素可能分布在不同的层次中，也就是某些元素可能不同于它的父元素所在的层次，同时CSS部分的代码也会对网页的分层策略产生重要影响。</p>
-<p>对于需要复杂变换和处理的元素，WebKit 为它们构建新层其实是为了渲染引擎在处理上的方便和高效。</p>
-<h2 id="2-3-WebKit的网页渲染过程"><a href="#2-3-WebKit的网页渲染过程" class="headerlink" title="2.3 WebKit的网页渲染过程"></a>2.3 WebKit的网页渲染过程</h2><h3 id="2-3-1-加载和渲染"><a href="#2-3-1-加载和渲染" class="headerlink" title="2.3.1 加载和渲染"></a>2.3.1 加载和渲染</h3><p>浏览器的主要作用就是将用户输入的“URL”转变成可视化的图像，包含两个过程，一是网页加载过程，就是从“URL”到构建DOM树；二是网页渲染过程，从DOM树到生成可视化图像。这两个过程也会交叉，统称这两个过程为网页的渲染过程。</p>
-<p>网页通常比我们的屏幕可视面积要大，当前可见的区域称为<strong>视图</strong>（viewport），浏览器在渲染网页的时候，一般会加入滚动条以帮助翻滚网页。</p>
-<h3 id="2-3-2-WebKit的渲染过程"><a href="#2-3-2-WebKit的渲染过程" class="headerlink" title="2.3.2 WebKit的渲染过程"></a>2.3.2 WebKit的渲染过程</h3><p>网页的一般渲染过程中的数据包括网页内容、DOM、内部表示和图像，模块则包括HTML解释器、CSS解释器、JavaScript 引擎以及布局和绘图模块。</p>
-<p>根据数据的流向，将渲染过程分成三个阶段，第一个阶段是从网页的URL到构建DOM树，第二个阶段是从DOM树到构建WebKit的绘图上下文，第三个阶段是从绘图上下文到生成最终的图像。</p>
-<h4 id="2-3-2-1-第一个阶段：从网页的URL到构建DOM树"><a href="#2-3-2-1-第一个阶段：从网页的URL到构建DOM树" class="headerlink" title="2.3.2.1 第一个阶段：从网页的URL到构建DOM树"></a>2.3.2.1 第一个阶段：从网页的URL到构建DOM树</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/lirgHwQ6LBcDU7u.png"
-                      alt="uSXBGLwftTz59OfO__thumbnail.png"
-                ></p>
-<p>具体的过程如下：</p>
-<ol>
-<li>当用户输入网页URL的时候，WebKit调用其资源加载器加载该URL对应的网页。</li>
-<li>加载器依赖网络模块建立连接，发送请求并接收答复。</li>
-<li>WebKit接收到各种网页或者资源的数据，某些资源可能是同步或异步获取的。</li>
-<li>网页被交给HTML解释器转变成一系列的词语（Token）。</li>
-<li>解释器根据词语构建节点（Node），形成DOM树。</li>
-<li>如果节点是JavaScript代码的话，调用JavaScript引擎解释并执行。</li>
-<li>JavaScript代码可能会修改DOM树的结构。</li>
-<li>如果节点需要依赖其他资源，例如图片、CSS、视频等，调用资源加载器来加载它们，但是它们是异步的，不会阻碍当前DOM树的继续创建；如果是JavaScript资源URL（没有标记异步方式），则需要停止当前DOM树的创建，直到JavaScript的资源加载并被JavaScript引擎执行后才继续DOM树的创建。</li>
-</ol>
-<p>在上述的过程中，网页在加载和渲染过程中会发出“DOMConent”事件和DOM的“onload”事件，分别在DOM树构建完之后，以及DOM树建完并且网页所依赖的资源都加载完之后发生，因为某些资源的加载并不会阻碍DOM树的创建，所以这两个事件多数时候不是同时发生的。</p>
-<h4 id="2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文"><a href="#2-3-2-2-第二个阶段：从DOM树到构建完WebKit的绘图上下文" class="headerlink" title="2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文"></a>2.3.2.2 第二个阶段：从DOM树到构建完WebKit的绘图上下文</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/BxFNhne3Lwm76ld.png"
-                      alt="5zAmE3T5IrREBagI__thumbnail.png"
-                ></p>
-<p>这一阶段的具体过程如下。</p>
-<ol>
-<li>CSS文件被CSS解释器解释成内部表示结构。</li>
-<li>CSS解释器工作完之后，在DOM树上附加解释后的样式信息，这就是RenderObject树。</li>
-<li>RenderObject节点在创建的同时，WebKit会根据网页的层次结构创建RenderLayer树，同时构建一个虚拟的绘图上下文，这中间还有复杂的内部过程。</li>
-</ol>
-<p>RenderObject树的建立并不表示DOM树会被销毁，图中的四个内部表示结构一直存在，直到网页被销毁。</p>
-<h4 id="2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。"><a href="#2-3-2-3-第三个阶段：是从绘图上下文到生成最终的图像。" class="headerlink" title="2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。"></a>2.3.2.3 第三个阶段：是从绘图上下文到生成最终的图像。</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/XrFjB2oaqOKkg85.png"
-                      alt="3oObbcPTpx9gzPCi__thumbnail.png"
-                ></p>
-<p>图中这一阶段对应的具体过程如下。</p>
-<ol>
-<li>绘图上下文是一个与平台无关的抽象类，它将每个绘图操作桥接到不同的绘图具体实现类。</li>
-<li>绘图实现类有简单或复杂的实现。在Chromium中，它的实现相当复杂，需要Chromium的合成器来完成复杂的多进程和GPU加速机制。</li>
-<li>绘图实现类将 2D图形库或者3D图形库绘制的结果保存下来，交给浏览器来同浏览器界面一起显示。</li>
-</ol>
-<p>现代浏览器为了绘图上的高效性和安全性，可能会在这一过程中引入复杂的机制。而且，绘图也从之前单纯的软件渲染，到现在的GPU硬件渲染、混合渲染模型等方式。</p>
-<p>现代网页很多是动态网页，这意味着在渲染完成之后，由于网页的动画或者用户的交互，浏览器其实一直在不停地重复执行渲染过程。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>WebKit技术内幕</category>
-        <category>02-HTML网页和结构</category>
-      </categories>
-      <tags>
-        <tag>WebKit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Positioned Layout Module Level 3</title>
-    <url>/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/</url>
-    <content><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>|name|postion|<br>|:—-:|:—-|:—-:|:—-|<br>|Value:|static<a class="link"   href="https://www.w3.org/TR/css-values-4/#comb-one" >|<i class="fas fa-external-link-alt"></i></a>relative | absolute | sticky | fixed|<br>|Initial:|static|<br>|Applies to:|除了table-column-group 和table-column以外的所有元素|<br>|Inherited:|不继承|</p>
-<h1 id="2-static-定位"><a href="#2-static-定位" class="headerlink" title="2 static 定位"></a>2 static 定位</h1><p>HTML 元素的默认值，即没有定位，遵循正常的文档流对象。</p>
-<p>静态定位的元素不会受到 top, bottom, left, right影响。</p>
-<h1 id="3-relative-定位"><a href="#3-relative-定位" class="headerlink" title="3 relative 定位"></a>3 relative 定位</h1><p>相对定位元素的定位是相对其正常位置。</p>
-<h1 id="4-absolute-定位"><a href="#4-absolute-定位" class="headerlink" title="4 absolute 定位"></a>4 absolute 定位</h1><p>绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:</p>
-<h1 id="5-sticky-定位"><a href="#5-sticky-定位" class="headerlink" title="5 sticky 定位"></a>5 sticky 定位</h1><p>sticky 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。</p>
-<p>position: sticky; 基于用户的滚动位置来定位。</p>
-<p>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。</p>
-<p>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</p>
-<p>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
-<p>这个特定阈值指的是 top, right, bottom 或 left 之一，换言之，指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
-<h1 id="6-fixed-定位"><a href="#6-fixed-定位" class="headerlink" title="6 fixed 定位"></a>6 fixed 定位</h1><p>元素的位置相对于浏览器窗口是固定位置。</p>
-<p>即使窗口是滚动的它也不会移动：</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>W3C CSS</category>
-        <category>Positioned Layout Module Level 3</category>
-      </categories>
-      <tags>
-        <tag>W3C</tag>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>The elements of HTML（二）</title>
-    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>基于设备像素比。</strong>缩放级别和屏幕像素密度（上一点）都会影响单个CSS pixel 上的物理屏幕像素。适用当图片的于染大小固定的情况下，在 img 元素上用 src 和 srcset 属性， 使用 x 描述符来提供多个只有大小不同的图片（小图是大图的缩略版）。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>基于视口的选择：</strong>作者可能要显示同一张图片，但渲染大小根据 viewport 宽度有所不同。 可以使用 srcset 和 sizes 属性，使用 w 描述符来提供多个只有大小不同的图片 （小图是大图的缩略版）。 用户代理将会根据指定的 w 描述符和 sizes 属性指定的渲染大小为每个图片计算等效像素密度。 然后它可以根据用户屏幕的像素密度、缩放级别和任何可能的其他因素（比如用户网络状态）选择任何一个资源。  通过使用 w 描述符和 sizes 属性， 不论用户设备有多大用户代理都可以选择下载正确的图片资源。 在新的用户代理中，当 srcset 属性使用 w 描述符时， src 属性会被忽略。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">sizes</span>=<span class="string">&quot;100vw&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&quot;</span>   <span class="attr">src</span>=<span class="string">&quot;wolf-400.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The rad wolf&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>基于艺术选择：</strong>作者可能会根据图片的渲染大小显示不同的图片内容。可以用 picture 元素和 source 元素和 media 属性提供多张内容不同的图片 （例如小的图片是大图的裁剪版）。 用户代理会选择 media 属性中的媒体查询匹配的第一个 source 元素，然后从它的 srcset 属性中选择一个合适的 URL。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 45em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;large.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 32em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;med.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;small.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The wolf runs through the snow.&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>基于图片格式的选择：</strong>作者可能希望显示同样的图片内容但根据用户代理的支持情况使用不同的图片格式。 可以使用 source 元素上的 type 属性来提供多种格式的图片。在这个例子中，用户代理会选择第一个 type 属性为支持的 MIME 类型的源。 如果用户代理支持 WebP 就会选择第一个 source 元素。 如果不支持 WebP，但支持 JPEG XR 就会选择第二个 source 元素。 如果这两种都不支持，就会选择 img 元素。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.webp&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/webp&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jxr&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/vnd.ms-photo&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a><strong>Decoding</strong></h2><table>
-<thead>
-<tr>
-<th align="left">Keyword</th>
-<th align="left">State</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">sync</td>
-<td align="left">Sync</td>
-<td align="left">表示优先同步解码此图像，以便与其他内容进行原子表示。</td>
-</tr>
-<tr>
-<td align="left">async</td>
-<td align="left">Async</td>
-<td align="left">指示优先选择异步解码此图像，以避免延迟其他内容的呈现。</td>
-</tr>
-<tr>
-<td align="left">auto</td>
-<td align="left">Auto</td>
-<td align="left">表示默认值，用户代理可以自由选择任何解码行为。</td>
-</tr>
-</tbody></table>
-<p>可以使用该decode()方法来控制解码行为。由于该decode()方法独立于负责将内容呈现到屏幕的过程执行解码，因此它不受decoding属性的影响</p>
-<h2 id="alt使用"><a href="#alt使用" class="headerlink" title="alt使用"></a><strong>alt使用</strong></h2><p>除非另有说明，必须指定 alt 属性且它的值不能为空，且必须适合替代图片。 对 alt 属性具体的要求取决于它要表示什么图片.编写替代文本时要考虑的最一般规则如下：1、 alt 属性的文本替换每个图像不会改变页面的含义。2、 alt 属性的值不应该包含图片的 caption, title 或 legend 文本。3、 应该包含的替代文本是用于替代图片的，而不是图片的补充， 用 title 属性可以提供补充信息。5、 alt 属性的值不应该重复已经由后面的文字提供的信息。</p>
-<p><strong>使用情况：</strong></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">1、当创建 超链接 的 a 元素或 button 元素没有文本内容只包含一个或更多图片时，alt 属性必须包含一些文字来传达链接或按钮的用途。</span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;green.html&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;green.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Green&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span> </span><br></pre></td></tr></table></figure>
-<p>2、具有替代图形表示形式的短语或段落：图表，图表，图形，地图，插图，文本必须在alt属性中给出，并且必须传达与src 属性中指定的图像相同的消息。重要的是要意识到替代文本是图像的替代品，而不是图像的描述。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;house.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The house is white, with a boarded front door.&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>3、一个文档可以包含图标信息，图标是为了帮助视觉浏览器的用户一目了然地识别功能。有些情况下，图标是文本标签的补充，它们传达同样的含义。 那些情况下，alt 属性必须存在且为空。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/icons/help.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span> Help<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>另外一些情况下，图标旁边没有文字来描述它的含义；这样的图标就应该解释自己的含义。 那些情况下，同等的文本标签必须通过alt 属性给出。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;movies.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Movies&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>4、图像仅由文本组成，并且图像的目的是不是突出显示用于渲染文本的实际印刷效果，而是传达文本本身。在这种情况下，alt必须存在属性，但属性必须包含与图像本身相同的文本。在这种情况下，替代文本就是图像所代表的字符。（ps:如果由于作者的默认系统字体不支持给定字符而使他们倾向于使用图像，那么考虑Web字体。）</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;initials/o.svg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;O&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>5、图像实际上只是补充，它的存在只会增强周围的文本。在这些情况下，alt必须存在该属性，但其值必须为空字符串。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>According to a study covering several billion pages,about 9% triggered the Standards mode.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;rendering-mode-pie-chart.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>6、辅助图像。图像对内容并不重要，但它既不是纯粹的装饰，也不是文本的全部多余。在这些情况下，该alt属性必须存在，并且其值应为空字符串或图像传达的信息的文本表示形式。</p>
-<p>7、纯装饰性图像，这样的图像是装饰性的，但仍构成内容的一部分。alt必须存在该属性，但其值必须为空字符串。</p>
-<p>8、组成但个没有链接的大图的图片组，当一张图片被切分为若干个小图片文件，用来拼装成原来的大图时，这些图片中要有一个的 alt 属性按照相关规则设置为大图的替代文本。 然后其他所有剩余图片必须把 alt 属性设为空字符串。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo1.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;XYZ Corp&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo2.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>9、组成单个有链接的大图的图片组。通常带连接的图片应该使用 图片映射 而不是切分图片。但是，如果图片确实已经被切分了，而且切分后的部分是链接的唯一内容， 那么每个链接必须有一个图片必须把它的 alt 属性设置为表示链接用途的替代文本。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=left&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-left.png&quot;</span>  <span class="attr">alt</span>=<span class="string">&quot;Left side. &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-middle.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=right&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-right.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Right side.&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>10、内容的关键部分，图片是内容的关键部分。比如照片库页面中的图片，如何为内容关键的图片提供替代文本，取决于图片的出处。</p>
-<p>通常情况：通过 alt 属性给出替代图片的文字。</p>
-<p>难以提供完整描述的图片： alt 属性也必须包含一些适当的替代文本， 但可以比较简短。</p>
-<p>未知内容的图片：alt 属性可以忽略，但必须符合以下条件之一：（1）img 元素在 包含 figcaption 的 figure 元素中， 且这个 figcaption 元素包含除元素间空白的内容，而且忽略 figcaption 元素及其后代节点后， figure 元素没有其他 流式内容 后代， 元素间空白 和 img 元素除外。（2）title 属性存在且值非空。</p>
-<p>11、不是给用户看的图片，首先应该避免使用不用来显示的 img 元素。如果一个 img 元素不是用于显示的，比如用于计算页面浏览量的服务。 那么 alt 属性必须为空字符串。在这些场景下，width 和 height 属性必须设为 0。</p>
-<p>12、给特定的、已知一定可以查看图片的人的 e-mail 或私人文档中的图片，可以省略alt 属性。但是，即使在这种情况下，也强烈建议作者包括替代文本，如上所示。</p>
-<p>13、标记生成器指引</p>
-<p>标记生成器应尽可能从用户那里获取替代文本。但是在许多情况下这是不可能的。</p>
-<p>对于仅作为链接内容的图像，标记生成器应检查链接目标以确定目标标题或目标URL，并将以此方式获得的信息用作替代文本。</p>
-<p>对于具有标题的图像，标记生成器应使用figure和 figcaption元素或title属性来提供图像的标题。</p>
-<p>作为最后的选择，实现者应在图像为纯装饰性图像下（第7条），将alt 属性设置为空字符串，或假设图像是内容的关键部分（第10条未知内容的图片）完全省略alt属性。</p>
-<p>标记生成器可以 在img元素上指定generator-unable-to-provide-required-alt 属性，这些元素他们无法为其获取替代文本，因此为其省略了该alt属性。</p>
-<p>14、规范检查工具指引</p>
-<p>规范检查工具必须把缺少 alt 属性报告为错误， 以下除外：上面第10条、12条、13条所举特殊情况。</p>
-<h1 id="Media"><a href="#Media" class="headerlink" title="Media"></a><strong>Media</strong></h1><p>audio和video元素，都可用于音频和视频。主要区别只是audio元素没有视觉内容（例如视频或字幕）的播放区域，而video元素却有 。</p>
-<h2 id="error-codes"><a href="#error-codes" class="headerlink" title="error codes"></a><strong>error codes</strong></h2><p>media.error  返回一个表示该元素当前错误状态的MediaError 对象。如无，返回null</p>
-<p>media.error.code   返回当错错误状态的代码</p>
-<p>media.error.message返回有关遇到的错误情况的特定信息诊断消息。消息和消息格式通常在不同的用户代理之间不一致。如果没有此类消息，则返回空字符串。</p>
-<ul>
-<li>1 = MEDIA_ERR_ABORTED - 取回过程被用户中止</li>
-<li>2 = MEDIA_ERR_NETWORK - 当下载时某种网络发生错误</li>
-<li>3 = MEDIA_ERR_DECODE - 当解码时发生错误</li>
-<li>4 = MEDIA_ERR_SRC_NOT_SUPPORTED - 不支持音频/视频<h2 id="媒体资源位置"><a href="#媒体资源位置" class="headerlink" title="媒体资源位置"></a><strong>媒体资源位置</strong></h2></li>
-</ul>
-<p>media . srcObject [ = source ]    允许为media元素分配一个media provider对象。</p>
-<p>media . currentSrc 返回当前媒体资源的URL。没有媒体资源或没有 URL时返回空字符串。</p>
-<p>有三种方法可以指定媒体资源（优先级从大到小）：srcObjectIDL属性，src内容属性和source元素。</p>
-<h2 id="MIME-types"><a href="#MIME-types" class="headerlink" title="MIME types"></a><strong>MIME types</strong></h2><p>只有不带参数的 application/octet-stream”MIME类型 “是特殊情况；如果出现任何参数，则将其与任何其他MIME type一样对待。</p>
-<p>media . canPlayType(type)    检测浏览器是否能播放指定的音频/视频类型</p>
-<p>返回值：</p>
-<ol>
-<li>“probably” - 浏览器最可能支持该音频/视频类型</li>
-<li>“maybe” - 浏览器也许支持该音频/视频类型</li>
-<li>“” - （空字符串）浏览器不支持该音频/视频类型</li>
-</ol>
-<p>source元素的type属性允许用户代理避免下载使用其无法呈现的格式的资源。</p>
-<h2 id="Network-states"><a href="#Network-states" class="headerlink" title="Network states"></a><strong>Network states</strong></h2><p>media . networkState  从下面的代码列表中，返回该元素网络活动的当前状态。</p>
-<ol>
-<li>0 = NETWORK_EMPTY - 音频/视频尚未初始化</li>
-<li>1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络</li>
-<li>2 = NETWORK_LOADING - 浏览器正在下载数据</li>
-<li>3 = NETWORK_NO_SOURCE - 未找到音频/视频来源<h2 id="Loading-the-media-resource"><a href="#Loading-the-media-resource" class="headerlink" title="Loading the media resource"></a><strong>Loading the media resource</strong></h2></li>
-</ol>
-<p>media . load()    重新加载音频/视频元素。</p>
-<p>media . buffered  属性返回 TimeRanges 对象，表示用户的音视频缓冲范围。</p>
-<p>TimeRanges 对象属性：</p>
-<ol>
-<li>length - 获得音视频中已缓冲范围的数量</li>
-<li>start(index) - 获得某个已缓冲范围的开始位置</li>
-<li>end(index) - 获得某个已缓冲范围的结束位置<h2 id="Offsets-into-the-media-resource"><a href="#Offsets-into-the-media-resource" class="headerlink" title="Offsets into the media resource"></a><strong>Offsets into the media resource</strong></h2></li>
-</ol>
-<p>media . duration  返回当前音频/视频的长度，以秒计。如果未设置音频/视频，则返回NaN，如果是无限流，返回 Infinity</p>
-<p>media . currentTime [ = value ]    设置或返回音频/视频播放的当前位置</p>
-<h2 id="Playing-the-media-resource"><a href="#Playing-the-media-resource" class="headerlink" title="Playing the media resource"></a><strong>Playing the media resource</strong></h2><p>media . paused   返回音频/视频是否已暂停。true 指示音频/视频已暂停。否则为 false。</p>
-<p>media . ended  返回音频/视频是否已结束。如果播放已结束，则返回 true。否则返回 false。</p>
-<p>media . defaultPlaybackRate [ = value ]  设置或返回音频/视频的默认播放速度。</p>
-<p>media . playbackRate [ = value ]   属性设置或返回音频/视频的当前播放速度。</p>
-<p>media . played   返回TimeRanges 对象。TimeRanges 对象表示用户已经播放或看到的音频/视频范围。</p>
-<p>media . play() 开始播放当前的音频或视频。</p>
-<p>media . pause()  暂停当前播放的音频/视频</p>
-<h2 id="Seeking"><a href="#Seeking" class="headerlink" title="Seeking"></a><strong>Seeking</strong></h2><p>media . seeking  返回用户目前是否在音频/视频中寻址，如果用户正在寻址，则为 true。否则为 false。</p>
-<p>media . seekable  返回TimeRanges对象。表示音频/视频中用户可寻址的范围。</p>
-<ol>
-<li>length - 获得音频/视频中可寻址范围的数量</li>
-<li>start(<em>index</em>) - 获得可寻址范围的开始位置</li>
-<li>end(<em>index</em>) - 获得可寻址范围的结束位置</li>
-</ol>
-<p>media . fastSeek( time )  寻求尽可能快地接近给定的时间，以精度换取速度。（要查找精确的时间，使用currentTime属性。）如果媒体资源尚未加载，则不执行任何操作。</p>
-<h2 id="Media-resources-with-multiple-media-tracks"><a href="#Media-resources-with-multiple-media-tracks" class="headerlink" title="Media resources with multiple media tracks"></a><strong>Media resources with multiple media tracks</strong></h2><p>media . audioTracks返回一个表示该媒体资源可用的音频轨的AudioTrackList对象(包含有audioTrack对象)</p>
-<p>media . videoTracks   返回一个表示该媒体资源可用的视频轨道的 videoTrackList对象。(包含有videoTrack对象)</p>
-<p>media . audioTracks . length           media . videoTracks . length</p>
-<p>返回可用音轨的数量</p>
-<p>audioTrack=media.audioTracks[index]       videoTrack=media.videoTracks[index]</p>
-<p>通过 index 来获得 AudioTrack或VideoTrack 对象</p>
-<p>audioTrack=media.audioTracks.getTrackById(id)</p>
-<p>videoTrack=media.videoTracks.getTrackById(id)</p>
-<p>通过 id 来获得AudioTrack或VideoTrack 对象</p>
-<p>audioTrack . id           videoTrack . id</p>
-<p>获得音轨、视频轨道的 id</p>
-<p>audioTrack . kind      videoTrack . kind</p>
-<p>获得音轨、视频轨道的类型</p>
-<p>audioTrack . label          videoTrack . label</p>
-<p>获得音轨、视频轨道的标签</p>
-<p>audioTrack . language          videoTrack . language</p>
-<p>获得音轨、视频轨道的语言</p>
-<p>audioTrack . enabled [ = value ]    获得或设置音轨是否是活动的 (true|false)</p>
-<p>videoTrack . selected [ = value ]    获得或设置视频轨道是否是活动的 (true|false)</p>
-<p>media . videoTracks . selectedIndex获得当前 VideoTrack 对象的下标，没有返回-1</p>
-<h2 id="AudioTrack和VideoTrack的kind-关键字"><a href="#AudioTrack和VideoTrack的kind-关键字" class="headerlink" title="AudioTrack和VideoTrack的kind 关键字"></a>AudioTrack和VideoTrack的kind 关键字</h2><p>|类别|定义|适用于|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|“ alternative”|主音轨的一种替代，例如不同的歌曲（音频）或不同的角度（视频）。|音频和视频。|<br>|“ captions”|带有字幕的主视频轨道的版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ descriptions”|视频轨道的音频描述。|仅音频。|<br>|“ main”|主要音频或视频轨道。|音频和视频。|<br>|“ main-desc”|主要音轨，混合有音频说明。|仅音频。|<br>|“ sign”|音轨的手语解释。|仅视频。|<br>|“ subtitles”|带有字幕的主视频轨道版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ translation”|主音轨的翻译版本。|仅音频。|<br>|“ commentary”|有关主要音频或视频轨道的评论，例如导演的评论。|音频和视频。|<br>|“ ”|用户代理无法识别任何明确的种类或轨道的元数据给出的种类。|音频和视频。<br>|</p>
-<h2 id="Text-track-API"><a href="#Text-track-API" class="headerlink" title="Text track API"></a><strong>Text track API</strong></h2><p>media . textTracks . length    获得音频/视频中可用的文本轨道的数量</p>
-<p>media . textTracks[ n ]    返回TextTrack对象，表示媒体元素的文本轨道列表中的第n个文本轨道。</p>
-<p>textTrack = media . textTracks . getTrackById( id )     返回给定id的TextTrack对象，如果没有，则返回null。</p>
-<p>textTrack = media . addTextTrack( kind [, label [, language ] ] )</p>
-<p>创建和返回新的文本轨道。新的TextTrack对象会被添加到视频/音频元素的文本轨道列表中。</p>
-<p>textTrack . kind    返回文本轨道的类型。</p>
-<p>textTrack . label   返回文本轨道的标签。</p>
-<p>textTrack . language    返回文本轨道的语言。</p>
-<p>textTrack . id    返回文本轨道的id</p>
-<p>textTrack.inBandMetadataTrackDispatchType     返回文本轨道 in-band metadata track dispatch type字符串。</p>
-<p>textTrack.mode [=value]</p>
-<p>获得或设置该轨道是否是活动的(“disabled”|”hidden”|”showing”)</p>
-<p>textTrack . cues        获得 TextTrackCueList 对象的 cues 列表</p>
-<p>textTrack . activeCues       获得 TextTrackCueList 对象形式的当前活动文本轨道 cues</p>
-<p>textTrack . addCue( cue )          向 cues 列表添加一个 cue</p>
-<p>textTrack . removeCue( cue )      向 cues 列表删除一个 cue</p>
-<p>cuelist . length    返回cuse列表的cue数量</p>
-<p>cuelist[index]        返回给定index的cue</p>
-<p>cuelist . getCueById( id )   返回给定id的cue</p>
-<p>cue . track    返回属于文本轨道cue的TextTract</p>
-<p>cue . id [ = value ]   返回或设置cue的id</p>
-<p>cue . startTime [ = value ]   返回或设置cue的开始时间的id</p>
-<p>cue . endTime [ = value ]    返回或设置cue的结束时间的id</p>
-<p>cue . pauseOnExit [ = value ]   是否设置暂停或退出标志，是则返回true,否则为false</p>
-<h2 id="User-interface"><a href="#User-interface" class="headerlink" title="User interface"></a><strong>User interface</strong></h2><p>media . volume [ = value ]</p>
-<p>设置或返回音频/视频的当前音量,必须是介于 0.0 与 1.0 之间的数字。0是静音，1最大</p>
-<p>media . muted [ = value ]</p>
-<p>设置或返回音频/视频是否应该被静音（true）。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTML standard</category>
-        <category>The elements of HTML（二）</category>
-      </categories>
-      <tags>
-        <tag>WHATWG</tag>
-        <tag>HTML</tag>
       </tags>
   </entry>
   <entry>
@@ -3206,6 +3023,189 @@
         <category>学习笔记</category>
         <category>HTML standard</category>
         <category>The elements of HTML（一）</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>The elements of HTML（二）</title>
+    <url>/2021/03/08/note/HTML%20Standard/The%20elements%20of%20HTML%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<h1 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p><strong>基于设备像素比。</strong>缩放级别和屏幕像素密度（上一点）都会影响单个CSS pixel 上的物理屏幕像素。适用当图片的于染大小固定的情况下，在 img 元素上用 src 和 srcset 属性， 使用 x 描述符来提供多个只有大小不同的图片（小图是大图的缩略版）。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/150-marie-lloyd.jpg 1.5x, /uploads/200-marie-lloyd.jpg 2x&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于视口的选择：</strong>作者可能要显示同一张图片，但渲染大小根据 viewport 宽度有所不同。 可以使用 srcset 和 sizes 属性，使用 w 描述符来提供多个只有大小不同的图片 （小图是大图的缩略版）。 用户代理将会根据指定的 w 描述符和 sizes 属性指定的渲染大小为每个图片计算等效像素密度。 然后它可以根据用户屏幕的像素密度、缩放级别和任何可能的其他因素（比如用户网络状态）选择任何一个资源。  通过使用 w 描述符和 sizes 属性， 不论用户设备有多大用户代理都可以选择下载正确的图片资源。 在新的用户代理中，当 srcset 属性使用 w 描述符时， src 属性会被忽略。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">sizes</span>=<span class="string">&quot;100vw&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;wolf-400.jpg 400w, wolf-800.jpg 800w, wolf-1600.jpg 1600w&quot;</span>   <span class="attr">src</span>=<span class="string">&quot;wolf-400.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The rad wolf&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于艺术选择：</strong>作者可能会根据图片的渲染大小显示不同的图片内容。可以用 picture 元素和 source 元素和 media 属性提供多张内容不同的图片 （例如小的图片是大图的裁剪版）。 用户代理会选择 media 属性中的媒体查询匹配的第一个 source 元素，然后从它的 srcset 属性中选择一个合适的 URL。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 45em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;large.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">source</span> <span class="attr">media</span>=<span class="string">&quot;(min-width: 32em)&quot;</span> <span class="attr">srcset</span>=<span class="string">&quot;med.jpg&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;small.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The wolf runs through the snow.&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>基于图片格式的选择：</strong>作者可能希望显示同样的图片内容但根据用户代理的支持情况使用不同的图片格式。 可以使用 source 元素上的 type 属性来提供多种格式的图片。在这个例子中，用户代理会选择第一个 type 属性为支持的 MIME 类型的源。 如果用户代理支持 WebP 就会选择第一个 source 元素。 如果不支持 WebP，但支持 JPEG XR 就会选择第二个 source 元素。 如果这两种都不支持，就会选择 img 元素。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">picture</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.webp&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/webp&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">source</span> <span class="attr">srcset</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jxr&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/vnd.ms-photo&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/uploads/100-marie-lloyd.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> <span class="attr">height</span>=<span class="string">&quot;150&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">picture</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a><strong>Decoding</strong></h2><table>
+<thead>
+<tr>
+<th align="left">Keyword</th>
+<th align="left">State</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sync</td>
+<td align="left">Sync</td>
+<td align="left">表示优先同步解码此图像，以便与其他内容进行原子表示。</td>
+</tr>
+<tr>
+<td align="left">async</td>
+<td align="left">Async</td>
+<td align="left">指示优先选择异步解码此图像，以避免延迟其他内容的呈现。</td>
+</tr>
+<tr>
+<td align="left">auto</td>
+<td align="left">Auto</td>
+<td align="left">表示默认值，用户代理可以自由选择任何解码行为。</td>
+</tr>
+</tbody></table>
+<p>可以使用该decode()方法来控制解码行为。由于该decode()方法独立于负责将内容呈现到屏幕的过程执行解码，因此它不受decoding属性的影响</p>
+<h2 id="alt使用"><a href="#alt使用" class="headerlink" title="alt使用"></a><strong>alt使用</strong></h2><p>除非另有说明，必须指定 alt 属性且它的值不能为空，且必须适合替代图片。 对 alt 属性具体的要求取决于它要表示什么图片.编写替代文本时要考虑的最一般规则如下：1、 alt 属性的文本替换每个图像不会改变页面的含义。2、 alt 属性的值不应该包含图片的 caption, title 或 legend 文本。3、 应该包含的替代文本是用于替代图片的，而不是图片的补充， 用 title 属性可以提供补充信息。5、 alt 属性的值不应该重复已经由后面的文字提供的信息。</p>
+<p><strong>使用情况：</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">1、当创建 超链接 的 a 元素或 button 元素没有文本内容只包含一个或更多图片时，alt 属性必须包含一些文字来传达链接或按钮的用途。</span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;green.html&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;green.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Green&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>2、具有替代图形表示形式的短语或段落：图表，图表，图形，地图，插图，文本必须在alt属性中给出，并且必须传达与src 属性中指定的图像相同的消息。重要的是要意识到替代文本是图像的替代品，而不是图像的描述。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;house.jpeg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;The house is white, with a boarded front door.&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3、一个文档可以包含图标信息，图标是为了帮助视觉浏览器的用户一目了然地识别功能。有些情况下，图标是文本标签的补充，它们传达同样的含义。 那些情况下，alt 属性必须存在且为空。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/help/&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/icons/help.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span> Help<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>另外一些情况下，图标旁边没有文字来描述它的含义；这样的图标就应该解释自己的含义。 那些情况下，同等的文本标签必须通过alt 属性给出。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;movies.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Movies&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>4、图像仅由文本组成，并且图像的目的是不是突出显示用于渲染文本的实际印刷效果，而是传达文本本身。在这种情况下，alt必须存在属性，但属性必须包含与图像本身相同的文本。在这种情况下，替代文本就是图像所代表的字符。（ps:如果由于作者的默认系统字体不支持给定字符而使他们倾向于使用图像，那么考虑Web字体。）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;initials/o.svg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;O&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5、图像实际上只是补充，它的存在只会增强周围的文本。在这些情况下，alt必须存在该属性，但其值必须为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>According to a study covering several billion pages,about 9% triggered the Standards mode.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;rendering-mode-pie-chart.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6、辅助图像。图像对内容并不重要，但它既不是纯粹的装饰，也不是文本的全部多余。在这些情况下，该alt属性必须存在，并且其值应为空字符串或图像传达的信息的文本表示形式。</p>
+<p>7、纯装饰性图像，这样的图像是装饰性的，但仍构成内容的一部分。alt必须存在该属性，但其值必须为空字符串。</p>
+<p>8、组成但个没有链接的大图的图片组，当一张图片被切分为若干个小图片文件，用来拼装成原来的大图时，这些图片中要有一个的 alt 属性按照相关规则设置为大图的替代文本。 然后其他所有剩余图片必须把 alt 属性设为空字符串。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo1.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;XYZ Corp&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;logo2.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>9、组成单个有链接的大图的图片组。通常带连接的图片应该使用 图片映射 而不是切分图片。但是，如果图片确实已经被切分了，而且切分后的部分是链接的唯一内容， 那么每个链接必须有一个图片必须把它的 alt 属性设置为表示链接用途的替代文本。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=left&quot;</span> &gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-left.png&quot;</span>  <span class="attr">alt</span>=<span class="string">&quot;Left side. &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-middle.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;?go=right&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;fsm-right.png&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;Right side.&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>10、内容的关键部分，图片是内容的关键部分。比如照片库页面中的图片，如何为内容关键的图片提供替代文本，取决于图片的出处。</p>
+<p>通常情况：通过 alt 属性给出替代图片的文字。</p>
+<p>难以提供完整描述的图片： alt 属性也必须包含一些适当的替代文本， 但可以比较简短。</p>
+<p>未知内容的图片：alt 属性可以忽略，但必须符合以下条件之一：（1）img 元素在 包含 figcaption 的 figure 元素中， 且这个 figcaption 元素包含除元素间空白的内容，而且忽略 figcaption 元素及其后代节点后， figure 元素没有其他 流式内容 后代， 元素间空白 和 img 元素除外。（2）title 属性存在且值非空。</p>
+<p>11、不是给用户看的图片，首先应该避免使用不用来显示的 img 元素。如果一个 img 元素不是用于显示的，比如用于计算页面浏览量的服务。 那么 alt 属性必须为空字符串。在这些场景下，width 和 height 属性必须设为 0。</p>
+<p>12、给特定的、已知一定可以查看图片的人的 e-mail 或私人文档中的图片，可以省略alt 属性。但是，即使在这种情况下，也强烈建议作者包括替代文本，如上所示。</p>
+<p>13、标记生成器指引</p>
+<p>标记生成器应尽可能从用户那里获取替代文本。但是在许多情况下这是不可能的。</p>
+<p>对于仅作为链接内容的图像，标记生成器应检查链接目标以确定目标标题或目标URL，并将以此方式获得的信息用作替代文本。</p>
+<p>对于具有标题的图像，标记生成器应使用figure和 figcaption元素或title属性来提供图像的标题。</p>
+<p>作为最后的选择，实现者应在图像为纯装饰性图像下（第7条），将alt 属性设置为空字符串，或假设图像是内容的关键部分（第10条未知内容的图片）完全省略alt属性。</p>
+<p>标记生成器可以 在img元素上指定generator-unable-to-provide-required-alt 属性，这些元素他们无法为其获取替代文本，因此为其省略了该alt属性。</p>
+<p>14、规范检查工具指引</p>
+<p>规范检查工具必须把缺少 alt 属性报告为错误， 以下除外：上面第10条、12条、13条所举特殊情况。</p>
+<h1 id="Media"><a href="#Media" class="headerlink" title="Media"></a><strong>Media</strong></h1><p>audio和video元素，都可用于音频和视频。主要区别只是audio元素没有视觉内容（例如视频或字幕）的播放区域，而video元素却有 。</p>
+<h2 id="error-codes"><a href="#error-codes" class="headerlink" title="error codes"></a><strong>error codes</strong></h2><p>media.error  返回一个表示该元素当前错误状态的MediaError 对象。如无，返回null</p>
+<p>media.error.code   返回当错错误状态的代码</p>
+<p>media.error.message返回有关遇到的错误情况的特定信息诊断消息。消息和消息格式通常在不同的用户代理之间不一致。如果没有此类消息，则返回空字符串。</p>
+<ul>
+<li>1 = MEDIA_ERR_ABORTED - 取回过程被用户中止</li>
+<li>2 = MEDIA_ERR_NETWORK - 当下载时某种网络发生错误</li>
+<li>3 = MEDIA_ERR_DECODE - 当解码时发生错误</li>
+<li>4 = MEDIA_ERR_SRC_NOT_SUPPORTED - 不支持音频/视频<h2 id="媒体资源位置"><a href="#媒体资源位置" class="headerlink" title="媒体资源位置"></a><strong>媒体资源位置</strong></h2></li>
+</ul>
+<p>media . srcObject [ = source ]    允许为media元素分配一个media provider对象。</p>
+<p>media . currentSrc 返回当前媒体资源的URL。没有媒体资源或没有 URL时返回空字符串。</p>
+<p>有三种方法可以指定媒体资源（优先级从大到小）：srcObjectIDL属性，src内容属性和source元素。</p>
+<h2 id="MIME-types"><a href="#MIME-types" class="headerlink" title="MIME types"></a><strong>MIME types</strong></h2><p>只有不带参数的 application/octet-stream”MIME类型 “是特殊情况；如果出现任何参数，则将其与任何其他MIME type一样对待。</p>
+<p>media . canPlayType(type)    检测浏览器是否能播放指定的音频/视频类型</p>
+<p>返回值：</p>
+<ol>
+<li>“probably” - 浏览器最可能支持该音频/视频类型</li>
+<li>“maybe” - 浏览器也许支持该音频/视频类型</li>
+<li>“” - （空字符串）浏览器不支持该音频/视频类型</li>
+</ol>
+<p>source元素的type属性允许用户代理避免下载使用其无法呈现的格式的资源。</p>
+<h2 id="Network-states"><a href="#Network-states" class="headerlink" title="Network states"></a><strong>Network states</strong></h2><p>media . networkState  从下面的代码列表中，返回该元素网络活动的当前状态。</p>
+<ol>
+<li>0 = NETWORK_EMPTY - 音频/视频尚未初始化</li>
+<li>1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络</li>
+<li>2 = NETWORK_LOADING - 浏览器正在下载数据</li>
+<li>3 = NETWORK_NO_SOURCE - 未找到音频/视频来源<h2 id="Loading-the-media-resource"><a href="#Loading-the-media-resource" class="headerlink" title="Loading the media resource"></a><strong>Loading the media resource</strong></h2></li>
+</ol>
+<p>media . load()    重新加载音频/视频元素。</p>
+<p>media . buffered  属性返回 TimeRanges 对象，表示用户的音视频缓冲范围。</p>
+<p>TimeRanges 对象属性：</p>
+<ol>
+<li>length - 获得音视频中已缓冲范围的数量</li>
+<li>start(index) - 获得某个已缓冲范围的开始位置</li>
+<li>end(index) - 获得某个已缓冲范围的结束位置<h2 id="Offsets-into-the-media-resource"><a href="#Offsets-into-the-media-resource" class="headerlink" title="Offsets into the media resource"></a><strong>Offsets into the media resource</strong></h2></li>
+</ol>
+<p>media . duration  返回当前音频/视频的长度，以秒计。如果未设置音频/视频，则返回NaN，如果是无限流，返回 Infinity</p>
+<p>media . currentTime [ = value ]    设置或返回音频/视频播放的当前位置</p>
+<h2 id="Playing-the-media-resource"><a href="#Playing-the-media-resource" class="headerlink" title="Playing the media resource"></a><strong>Playing the media resource</strong></h2><p>media . paused   返回音频/视频是否已暂停。true 指示音频/视频已暂停。否则为 false。</p>
+<p>media . ended  返回音频/视频是否已结束。如果播放已结束，则返回 true。否则返回 false。</p>
+<p>media . defaultPlaybackRate [ = value ]  设置或返回音频/视频的默认播放速度。</p>
+<p>media . playbackRate [ = value ]   属性设置或返回音频/视频的当前播放速度。</p>
+<p>media . played   返回TimeRanges 对象。TimeRanges 对象表示用户已经播放或看到的音频/视频范围。</p>
+<p>media . play() 开始播放当前的音频或视频。</p>
+<p>media . pause()  暂停当前播放的音频/视频</p>
+<h2 id="Seeking"><a href="#Seeking" class="headerlink" title="Seeking"></a><strong>Seeking</strong></h2><p>media . seeking  返回用户目前是否在音频/视频中寻址，如果用户正在寻址，则为 true。否则为 false。</p>
+<p>media . seekable  返回TimeRanges对象。表示音频/视频中用户可寻址的范围。</p>
+<ol>
+<li>length - 获得音频/视频中可寻址范围的数量</li>
+<li>start(<em>index</em>) - 获得可寻址范围的开始位置</li>
+<li>end(<em>index</em>) - 获得可寻址范围的结束位置</li>
+</ol>
+<p>media . fastSeek( time )  寻求尽可能快地接近给定的时间，以精度换取速度。（要查找精确的时间，使用currentTime属性。）如果媒体资源尚未加载，则不执行任何操作。</p>
+<h2 id="Media-resources-with-multiple-media-tracks"><a href="#Media-resources-with-multiple-media-tracks" class="headerlink" title="Media resources with multiple media tracks"></a><strong>Media resources with multiple media tracks</strong></h2><p>media . audioTracks返回一个表示该媒体资源可用的音频轨的AudioTrackList对象(包含有audioTrack对象)</p>
+<p>media . videoTracks   返回一个表示该媒体资源可用的视频轨道的 videoTrackList对象。(包含有videoTrack对象)</p>
+<p>media . audioTracks . length           media . videoTracks . length</p>
+<p>返回可用音轨的数量</p>
+<p>audioTrack=media.audioTracks[index]       videoTrack=media.videoTracks[index]</p>
+<p>通过 index 来获得 AudioTrack或VideoTrack 对象</p>
+<p>audioTrack=media.audioTracks.getTrackById(id)</p>
+<p>videoTrack=media.videoTracks.getTrackById(id)</p>
+<p>通过 id 来获得AudioTrack或VideoTrack 对象</p>
+<p>audioTrack . id           videoTrack . id</p>
+<p>获得音轨、视频轨道的 id</p>
+<p>audioTrack . kind      videoTrack . kind</p>
+<p>获得音轨、视频轨道的类型</p>
+<p>audioTrack . label          videoTrack . label</p>
+<p>获得音轨、视频轨道的标签</p>
+<p>audioTrack . language          videoTrack . language</p>
+<p>获得音轨、视频轨道的语言</p>
+<p>audioTrack . enabled [ = value ]    获得或设置音轨是否是活动的 (true|false)</p>
+<p>videoTrack . selected [ = value ]    获得或设置视频轨道是否是活动的 (true|false)</p>
+<p>media . videoTracks . selectedIndex获得当前 VideoTrack 对象的下标，没有返回-1</p>
+<h2 id="AudioTrack和VideoTrack的kind-关键字"><a href="#AudioTrack和VideoTrack的kind-关键字" class="headerlink" title="AudioTrack和VideoTrack的kind 关键字"></a>AudioTrack和VideoTrack的kind 关键字</h2><p>|类别|定义|适用于|<br>|:—-:|:—-|:—-:|:—-|:—-:|:—-|<br>|“ alternative”|主音轨的一种替代，例如不同的歌曲（音频）或不同的角度（视频）。|音频和视频。|<br>|“ captions”|带有字幕的主视频轨道的版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ descriptions”|视频轨道的音频描述。|仅音频。|<br>|“ main”|主要音频或视频轨道。|音频和视频。|<br>|“ main-desc”|主要音轨，混合有音频说明。|仅音频。|<br>|“ sign”|音轨的手语解释。|仅视频。|<br>|“ subtitles”|带有字幕的主视频轨道版本。（对于旧内容，新内容将使用文本轨道。）|仅视频。|<br>|“ translation”|主音轨的翻译版本。|仅音频。|<br>|“ commentary”|有关主要音频或视频轨道的评论，例如导演的评论。|音频和视频。|<br>|“ ”|用户代理无法识别任何明确的种类或轨道的元数据给出的种类。|音频和视频。<br>|</p>
+<h2 id="Text-track-API"><a href="#Text-track-API" class="headerlink" title="Text track API"></a><strong>Text track API</strong></h2><p>media . textTracks . length    获得音频/视频中可用的文本轨道的数量</p>
+<p>media . textTracks[ n ]    返回TextTrack对象，表示媒体元素的文本轨道列表中的第n个文本轨道。</p>
+<p>textTrack = media . textTracks . getTrackById( id )     返回给定id的TextTrack对象，如果没有，则返回null。</p>
+<p>textTrack = media . addTextTrack( kind [, label [, language ] ] )</p>
+<p>创建和返回新的文本轨道。新的TextTrack对象会被添加到视频/音频元素的文本轨道列表中。</p>
+<p>textTrack . kind    返回文本轨道的类型。</p>
+<p>textTrack . label   返回文本轨道的标签。</p>
+<p>textTrack . language    返回文本轨道的语言。</p>
+<p>textTrack . id    返回文本轨道的id</p>
+<p>textTrack.inBandMetadataTrackDispatchType     返回文本轨道 in-band metadata track dispatch type字符串。</p>
+<p>textTrack.mode [=value]</p>
+<p>获得或设置该轨道是否是活动的(“disabled”|”hidden”|”showing”)</p>
+<p>textTrack . cues        获得 TextTrackCueList 对象的 cues 列表</p>
+<p>textTrack . activeCues       获得 TextTrackCueList 对象形式的当前活动文本轨道 cues</p>
+<p>textTrack . addCue( cue )          向 cues 列表添加一个 cue</p>
+<p>textTrack . removeCue( cue )      向 cues 列表删除一个 cue</p>
+<p>cuelist . length    返回cuse列表的cue数量</p>
+<p>cuelist[index]        返回给定index的cue</p>
+<p>cuelist . getCueById( id )   返回给定id的cue</p>
+<p>cue . track    返回属于文本轨道cue的TextTract</p>
+<p>cue . id [ = value ]   返回或设置cue的id</p>
+<p>cue . startTime [ = value ]   返回或设置cue的开始时间的id</p>
+<p>cue . endTime [ = value ]    返回或设置cue的结束时间的id</p>
+<p>cue . pauseOnExit [ = value ]   是否设置暂停或退出标志，是则返回true,否则为false</p>
+<h2 id="User-interface"><a href="#User-interface" class="headerlink" title="User interface"></a><strong>User interface</strong></h2><p>media . volume [ = value ]</p>
+<p>设置或返回音频/视频的当前音量,必须是介于 0.0 与 1.0 之间的数字。0是静音，1最大</p>
+<p>media . muted [ = value ]</p>
+<p>设置或返回音频/视频是否应该被静音（true）。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>The elements of HTML（二）</category>
       </categories>
       <tags>
         <tag>WHATWG</tag>
@@ -4431,160 +4431,6 @@
       </tags>
   </entry>
   <entry>
-    <title>03-WebKit架构和模块</title>
-    <url>/2021/01/21/note/Webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/a3fWkhvNVFGbXUM.png"
-                      alt="3NEAHZuv3WuglE3I__thumbnail.png"
-                ></p>
-<p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
-<p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
-<p>在“操作系统”层之上的就是WebKit赖以工作的<strong>第三方库</strong>，这些库是WebKit运行的基础。通常来讲，它们包括<strong>图形库</strong>、<strong>网络库</strong>、<strong>视频库</strong>等。</p>
-<p>在它们二者之上的就是WebKit项目，图中把它细分为两层，每层包含很多模块，由于图的大小限制，略去了其中一些次要模块。这些模块支撑网页加载和渲染过程。</p>
-<p><strong>WebCore</strong>是加载和渲染网页的基础部分，包括<strong>HTML解释器</strong>、<strong>CSS解释器</strong>、<strong>SVG</strong>、<strong>DOM</strong>、<strong>渲染树</strong>（RenderObject树、RenderLayer树等），以及<strong>Inspector</strong>（Web Inspector、调试网页）。这些共享部分有些是基础框架，其背后的支持也需要各个平台的不同实现。WebCore这些部分主要被加载和渲染过程的第一、二阶段所使用。</p>
-<p><strong>JavaScriptCore引擎</strong>是WebKit中的默认JavaScript 引擎，WebKit 中对JavaScript 引擎的调用是独立于引擎的。</p>
-<p><strong>WebKit Ports</strong>指的是WebKit中的非共享部分，包括<strong>硬件加速架构</strong>、<strong>网络栈</strong>、<strong>视频解码</strong>、<strong>图片解码</strong>等。这些模块由于平台差异、依赖的第三方库和需求不同等方面原因，就产生了移植部分，导致众多WebKit版本的行为并非一致。</p>
-<p>在WebCore和WebKit Ports之上的层主要是提供嵌入式编程接口，是提供给浏览器调用的。图中左右两个部分分别是<strong>狭义WebKit的接口</strong>和<strong>WebKit2的接口</strong>。因为接口与具体的移植有关，所以有一个与浏览器相关的<strong>绑定层，</strong>绑定层上面就是WebKit项目对外暴露的接口层。接口层的定义也是与移植密切相关的。</p>
-<p>WebKit还有一个部分<strong>测试用例</strong>在图中没有展现出来，包括<strong>布局测试用例</strong>（Layout Tests）和<strong>性能测试用例</strong>（Performance Tests），这两类测试包含了大量的测试用例和期望结果。总体上来讲WebKit移植还是共享大量的用例。这些用例被用来验证渲染结果的正确性。每个浏览器所用的WebKit必须保证能够编译出来一个可执行程序，称为DumpRenderTree，它被用来运行测试用例并将渲染结果同期望结果对比。</p>
-<h2 id="3-2-基于Blink的Chromium浏览器结构"><a href="#3-2-基于Blink的Chromium浏览器结构" class="headerlink" title="3.2 基于Blink的Chromium浏览器结构"></a>3.2 基于Blink的Chromium浏览器结构</h2><h3 id="3-2-1-Chromium浏览器的架构及模块"><a href="#3-2-1-Chromium浏览器的架构及模块" class="headerlink" title="3.2.1 Chromium浏览器的架构及模块"></a>3.2.1 Chromium浏览器的架构及模块</h3><p>Chromium也是基于WebKit（Blink）的。</p>
-<h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/c1kLXiOthd6oas5.png"
-                      alt="IinKReweDux5nZou__thumbnail.png"
-                ></p>
-<p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
-<p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
-<p>Content模块和Content API将下面的渲染机制、安全机制和插件机制等隐藏起来，提供一个接口层。该接口目前被上层模块或者其他项目使用，内部调用者包括Chromium浏览器、Content Shell 等，外部包括<strong>CEF</strong>（Chromium Embedded Framework）、Opera 浏览器等。</p>
-<p><strong>Chromium浏览器</strong>和<strong>Content Shell</strong>是构建在Content API之上的两个“浏览器”，Chromium具有浏览器完整的功能，而Content Shell是使用Content API来包装的一层简单的“壳”，但也是一个简单的“浏览器”，用户可以使用Content模块来渲染和显示网页内容。Content Shell的作用，其一可以用来测试Content模块很多功能的正确性，例如渲染、硬件加速等；其二是一个参考，可以被很多外部的项目参考来开发基于Content API的浏览器或者各种类型的项目。</p>
-<p>在Android系统上，ContentShell的作用更大，这是因为同它并排的左侧的Chromium浏览器的代码没有开源，导致开发者只能依赖Content Shell。</p>
-<p><strong>Android WebView</strong>是为了满足Android系统上的WebView而设计的，其思想是利用Chromium的实现来替换原来Android系统默认的WebView。</p>
-<h4 id="3-2-1-2-多进程模型"><a href="#3-2-1-2-多进程模型" class="headerlink" title="3.2.1.2 多进程模型"></a>3.2.1.2 多进程模型</h4><p>多进程模型的好处：</p>
-<ol>
-<li>避免因单个页面的不响应或者崩溃而影响整个浏览器的稳定性，特别是对用户界面的影响；</li>
-<li>当第三方插件崩溃时不会影响页面或者浏览器的稳定性，因为第三方插件也被使用单独的进程来运行；</li>
-<li>方便了安全模型的实施，也就是沙箱模型是基于多进程架构的。这很大程度上也是WebKit2 产生的原因。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/Ijui9pOAPyVHFwU.png"
-                      alt="qT1uN6gND8xF5hwh__thumbnail.png"
-                ></p>
-<p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
-<p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
-<p><strong>Renderer进程</strong>：网页的渲染进程，负责页面的渲染工作，Blink/WebKit 的渲染工作主要在这个进程中完成，可能有多个，但是Renderer 进程的数量与用户打开的网页数量不一定一致。因为Chromium允许用户配置，此外在沙箱模型启动的情况下，该进程可能会发生一些改变。</p>
-<p><strong>NPAPI插件进程</strong>：该进程是为NPAPI 类型的插件而创建的。其创建的基本原则是每种类型的插件只会被创建一次，而且仅当使用时才被创建。当多个网页使用同一种类型的插件的时候，进程会为每个使用者创建一个实例，所以插件进程是被共享的。</p>
-<p><strong>GPU进程</strong>：最多只有一个，当且仅当GPU硬件加速打开的时候才会被创建，主要用于对3D图形加速调用的实现。</p>
-<p><strong>Pepper插件进程</strong>：同NPAPI插件进程，不同的是为Pepper 插件而创建的进程。</p>
-<p><strong>其他类型的进程</strong>：图中还有一些其他类型的进程在之后介绍。</p>
-<p>对于桌面系统（Windows、Linux、Mac OS）中的Chromium浏览器，它们的进程模型总结后包括以下一些特征：</p>
-<ol>
-<li>Browser进程和页面的渲染是分开的，页面渲染导致的崩溃不会导致浏览器主界面的崩溃。</li>
-<li>每个网页是独立的进程，这保证了页面之间相互不影响。</li>
-<li>插件进程也是独立的，插件本身的问题不会影响浏览器主界面和网页。</li>
-<li>GPU 硬件加速进程也是独立的。</li>
-</ol>
-<p>对于Chromium的Android版，主体进程模型大致相同，不同主要指：</p>
-<ol>
-<li><strong>GPU进程，</strong>GPU进程演变成Browser进程的一个线程，目的之一是节省资源。</li>
-<li><strong>Renderer进程，</strong>Android版不支持插件，所以没有插件进程，Renderer也是独立的进程，但是会演变成Android上的服务（service）进程。而且由于Android系统的局限性，Renderer进程的数目会被严格限制，这就涉及到了影子（Phantom）标签的议题。影子标签就是浏览器会将后台的网页所使用的渲染设施都清除，只是原来的一个影子，当用户再次切换的时候，网页需要重新加载和渲染。</li>
-</ol>
-<p>Chromium允许用户配置Renderer 进程被创建的方式，模型的类型有：</p>
-<ol>
-<li><strong>Process-per-site-instance</strong>：该类型的含义是为每一个页面都创建一个独立的Render进程，不管这些页面是否来自于同一域。好处是每个页面互不影响，坏处是资源的浪费。</li>
-<li><strong>Process-per-site</strong>：该类型的含义是属于同一个域的页面共享同一个进程，而不同属一个域的页面则分属不同的进程。好处是对于相同的域，进程可以共享，内存消耗相对较小，坏处是可能会有特别大的Renderer 进程。</li>
-<li><strong>Process-per-tab</strong>：该类型的含义是为每个标签页都创建一个独立的进程，而不管它们是否是不同域不同实例，这也是Chromium的默认行为，但会浪费资源。</li>
-<li><strong>Single process</strong>：该类型的含义是不为页面创建任何独立的进程，所有渲染工作都在Browser进程中进行，它们是Browser进程中的多个线程。这个类型在桌面系统上一般不推荐使用，只有在比较单进程和多进程时相对有用，但在Chromium的Android版本上，在Android WebView中，该模式被采用。<h4 id="3-2-1-3-Browser进程和Renderer进程"><a href="#3-2-1-3-Browser进程和Renderer进程" class="headerlink" title="3.2.1.3 Browser进程和Renderer进程"></a>3.2.1.3 Browser进程和Renderer进程</h4></li>
-</ol>
-<p>Browser进程和Renderer进程都是在WebKit的接口之外由Chromium引入的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/YLSJcDgjMZpdmOy.png"
-                      alt="CTnRBqgG4ElY7uhV__thumbnail.png"
-                ></p>
-<p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
-<p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
-<p><strong>Renderer</strong>，主要处理进程间通信，接受来自Browser进程的请求，并调用相应的WebKit接口层。同时将WebKit的处理结果发送回去。上面这些层都是在Renderer进程中工作的。</p>
-<p><strong>RendererHost</strong>，目的也是处理同Renderer进程之间的通信，不过RendererHost是给Renderer进程发送请求并接收来自Renderer进程的结果。</p>
-<p><strong>Web Contents</strong>表示的是网页的内容，它同时包括显示网页内容的子窗口，子窗口最后被嵌入浏览器的用户界面，作为它的一个标签页。</p>
-<h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/6WhXVSPUxQrOz9C.png"
-                      alt="vbkdMTBjTVYMog53__thumbnail.png"
-                ></p>
-<p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
-<ol>
-<li>Browser进程收到用户的请求，首先由UI线程处理，而且将相应的任务转给IO线程，它随即将该任务传递给Renderer进程。</li>
-<li>Renderer进程的IO线程经过解释后交给渲染线程。渲染线程接受请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染。最后Renderer进程将结果由IO线程传递给Browser进程。</li>
-<li>最后，Browser进程接收到结果并将结果绘制出来。</li>
-</ol>
-<p>Chromium为了保持线程间通信和同步，同时避免造成死锁或者资源的竞争冲突等问题，在绝大多数的场景，使用事件和一种Chromium新创建的任务传递机制，仅在非用不可的情况下才使用锁或者线程安全对象。</p>
-<h4 id="3-2-1-5-Content接口"><a href="#3-2-1-5-Content接口" class="headerlink" title="3.2.1.5 Content接口"></a>3.2.1.5 Content接口</h4><p>Content接口不仅提供了一层对多进程进行渲染的抽象接口，而且它支持所有的HTML5功能、GPU硬件加速功能和沙箱机制。Content接口按照功能分成六个部分，每个部分的接口一般也可以分成两类，第一类是嵌入者（可以是Chromium浏览器、CEF3和Content Shell）调用的接口，另一类是嵌入者应该实现的回调接口，被Content接口的内部实现所调用，用来参与具体实现的逻辑或者事件的监听等。</p>
-<ol>
-<li><strong>App</strong>。这部分主要与应用程序或者进程的创建和初始化相关，它被所有的进程使用，用来处理一些进程的公共操作。包括两种类型，第一类主要包括进程创建的初始化函数，也就是Content模块的初始化和关闭动作；第二类主要是各种回调函数，用来告诉嵌入者启动完成，进程启动、退出，沙盒模型初始化开始和结束等。</li>
-<li><strong>Browser</strong>。第一类包括对一些HTML5功能和其他高级功能实现的参与。第二类主要是实现部分的逻辑，被Browser进程调用，还有就是一些事件的函数回调。</li>
-<li><strong>Common</strong>。主要定义一些公共的接口，这些被Renderer和Browser共享，例如一些进程相关、参数、GPU相关等。</li>
-<li><strong>Plugin</strong>。仅有一个接口类，通知嵌入者Plugin进程何时被创建。</li>
-<li><strong>Renderer</strong>。第一类包含获取RenderThread的消息循环、注册V8Extension、计算JavaScript表达式等。第二类包括ContentRendererClient，主要是实现部分逻辑，被Browser端（或者进程）调用，还有就是一些事件的函数回调。</li>
-<li><strong>Utility</strong>。工具类接口，主要包括让嵌入者参与Content接口中的线程创建和消息的过滤。<h2 id="3-3-WebKit2"><a href="#3-3-WebKit2" class="headerlink" title="3.3 WebKit2"></a>3.3 WebKit2</h2></li>
-</ol>
-<h3 id="3-3-1-WebKit2架构及模块"><a href="#3-3-1-WebKit2架构及模块" class="headerlink" title="3.3.1 WebKit2架构及模块"></a>3.3.1 WebKit2架构及模块</h3><p>相比于狭义的WebKit，WebKit2是一套全新的结构和接口。它主要目的和思想同Chromium类似，就是将渲染过程放在单独的进程中来完成，独立于用户界面。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/BNDilROn5je1LJd.png"
-                      alt="DcFsDgQUQEzoXb3W__thumbnail.png"
-                ></p>
-<p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
-<h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
-<p>在WebKit项目中，狭义WebKit的接口主要思想是将网页的渲染结果作为用户界面中的一个窗口部件，它用来显示网页的内容。按功能大致可以把所有接口分成六种类型：</p>
-<ol>
-<li>设置加载网页、获取加载进度、停止加载、重新加载等；</li>
-<li>遍历前后浏览记录类，可以前进、后退等；</li>
-<li>网页的很多设置，例如缩放、主题、背景、模式、编码等；</li>
-<li>查找网页的内容、高亮等；</li>
-<li>触控事件、鼠标事件处理；</li>
-<li>查看网页源代码、显示调试窗口等与开发者相关的接口，是通常的嵌入式接口提供的功能。</li>
-</ol>
-<p>WebKit2接口不同于WebKit的接口，它们是不兼容的，但目的都是提供嵌入式的应用接口。WebKit2接口大致可以分为两个大的部分，</p>
-<ol>
-<li><strong>WebView相关的接口</strong>，表示渲染的设置、渲染过程、界面等，其中大多数跟各个移植紧密相关。有三个主要的类，它们被各个移植所共享。<ol>
-<li>WKView[Ref]：表示的是一个与平台相关的视图，例如在Windows上它表示的就是一个窗口的句柄。</li>
-<li>WKContextRef：所有页面的上下文，这些被共享的信息包括local storage、设置等。</li>
-<li>WKPageRef：表示网页，也就是浏览的基本单位。</li>
-</ol>
-</li>
-<li>上面<strong>接口依赖的基础类</strong>，它们被各个移植所共享，既包括容器、字符串等基础类，也包括跟网页相关的基础类，例如URL、请求、网页设置等。</li>
-</ol>
-<p>WebKit2还有WebBundle接口，在Web进程里，其目的是让某些移植访问DOM，目前还没有明确的需求。</p>
-<h3 id="3-3-3-比较WebKit2和Chromium的多进程模型以及接口"><a href="#3-3-3-比较WebKit2和Chromium的多进程模型以及接口" class="headerlink" title="3.3.3 比较WebKit2和Chromium的多进程模型以及接口"></a>3.3.3 比较WebKit2和Chromium的多进程模型以及接口</h3><p>下图详细描述了WebKit 接口和Chromium的多进程的关系，以及和Content接口的关系。前面笔者也介绍了一些，例如Renderer进程直接调用WebKit接口，以及和Content接口允许应用程序注入并参与Content之下各个进程的内部逻辑。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/ljF2cJTVagvwpei.png"
-                      alt="IZ9qB9RUHmSwUfSc__thumbnail.png"
-                ></p>
-<p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
-<p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
-<p>最后，Chromium中每个进程都是从相同的二进制可执行文件启动，而基于WebKit2的进程则未必如此。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>WebKit技术内幕</category>
-        <category>03-WebKit架构和模块</category>
-      </categories>
-      <tags>
-        <tag>WebKit</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Backgrounds and Borders Level 3</title>
     <url>/2021/03/07/note/W3C%20CSS/Backgrounds%20and%20Borders%20Level%203/</url>
     <content><![CDATA[<h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h2><p>每一个盒有一个背景层，可以是透明的（默认）也可以以某个颜色或一个以上的图像填满。背景属性可以用来指定背景使用的颜色（background-color）与图像（background-image）及图像如何伸缩、定位、铺设等等。背景属性不继承。</p>
@@ -5417,6 +5263,160 @@
       </tags>
   </entry>
   <entry>
+    <title>03-WebKit架构和模块</title>
+    <url>/2021/01/21/note/Webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/a3fWkhvNVFGbXUM.png"
+                      alt="3NEAHZuv3WuglE3I__thumbnail.png"
+                ></p>
+<p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
+<p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
+<p>在“操作系统”层之上的就是WebKit赖以工作的<strong>第三方库</strong>，这些库是WebKit运行的基础。通常来讲，它们包括<strong>图形库</strong>、<strong>网络库</strong>、<strong>视频库</strong>等。</p>
+<p>在它们二者之上的就是WebKit项目，图中把它细分为两层，每层包含很多模块，由于图的大小限制，略去了其中一些次要模块。这些模块支撑网页加载和渲染过程。</p>
+<p><strong>WebCore</strong>是加载和渲染网页的基础部分，包括<strong>HTML解释器</strong>、<strong>CSS解释器</strong>、<strong>SVG</strong>、<strong>DOM</strong>、<strong>渲染树</strong>（RenderObject树、RenderLayer树等），以及<strong>Inspector</strong>（Web Inspector、调试网页）。这些共享部分有些是基础框架，其背后的支持也需要各个平台的不同实现。WebCore这些部分主要被加载和渲染过程的第一、二阶段所使用。</p>
+<p><strong>JavaScriptCore引擎</strong>是WebKit中的默认JavaScript 引擎，WebKit 中对JavaScript 引擎的调用是独立于引擎的。</p>
+<p><strong>WebKit Ports</strong>指的是WebKit中的非共享部分，包括<strong>硬件加速架构</strong>、<strong>网络栈</strong>、<strong>视频解码</strong>、<strong>图片解码</strong>等。这些模块由于平台差异、依赖的第三方库和需求不同等方面原因，就产生了移植部分，导致众多WebKit版本的行为并非一致。</p>
+<p>在WebCore和WebKit Ports之上的层主要是提供嵌入式编程接口，是提供给浏览器调用的。图中左右两个部分分别是<strong>狭义WebKit的接口</strong>和<strong>WebKit2的接口</strong>。因为接口与具体的移植有关，所以有一个与浏览器相关的<strong>绑定层，</strong>绑定层上面就是WebKit项目对外暴露的接口层。接口层的定义也是与移植密切相关的。</p>
+<p>WebKit还有一个部分<strong>测试用例</strong>在图中没有展现出来，包括<strong>布局测试用例</strong>（Layout Tests）和<strong>性能测试用例</strong>（Performance Tests），这两类测试包含了大量的测试用例和期望结果。总体上来讲WebKit移植还是共享大量的用例。这些用例被用来验证渲染结果的正确性。每个浏览器所用的WebKit必须保证能够编译出来一个可执行程序，称为DumpRenderTree，它被用来运行测试用例并将渲染结果同期望结果对比。</p>
+<h2 id="3-2-基于Blink的Chromium浏览器结构"><a href="#3-2-基于Blink的Chromium浏览器结构" class="headerlink" title="3.2 基于Blink的Chromium浏览器结构"></a>3.2 基于Blink的Chromium浏览器结构</h2><h3 id="3-2-1-Chromium浏览器的架构及模块"><a href="#3-2-1-Chromium浏览器的架构及模块" class="headerlink" title="3.2.1 Chromium浏览器的架构及模块"></a>3.2.1 Chromium浏览器的架构及模块</h3><p>Chromium也是基于WebKit（Blink）的。</p>
+<h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/c1kLXiOthd6oas5.png"
+                      alt="IinKReweDux5nZou__thumbnail.png"
+                ></p>
+<p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
+<p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
+<p>Content模块和Content API将下面的渲染机制、安全机制和插件机制等隐藏起来，提供一个接口层。该接口目前被上层模块或者其他项目使用，内部调用者包括Chromium浏览器、Content Shell 等，外部包括<strong>CEF</strong>（Chromium Embedded Framework）、Opera 浏览器等。</p>
+<p><strong>Chromium浏览器</strong>和<strong>Content Shell</strong>是构建在Content API之上的两个“浏览器”，Chromium具有浏览器完整的功能，而Content Shell是使用Content API来包装的一层简单的“壳”，但也是一个简单的“浏览器”，用户可以使用Content模块来渲染和显示网页内容。Content Shell的作用，其一可以用来测试Content模块很多功能的正确性，例如渲染、硬件加速等；其二是一个参考，可以被很多外部的项目参考来开发基于Content API的浏览器或者各种类型的项目。</p>
+<p>在Android系统上，ContentShell的作用更大，这是因为同它并排的左侧的Chromium浏览器的代码没有开源，导致开发者只能依赖Content Shell。</p>
+<p><strong>Android WebView</strong>是为了满足Android系统上的WebView而设计的，其思想是利用Chromium的实现来替换原来Android系统默认的WebView。</p>
+<h4 id="3-2-1-2-多进程模型"><a href="#3-2-1-2-多进程模型" class="headerlink" title="3.2.1.2 多进程模型"></a>3.2.1.2 多进程模型</h4><p>多进程模型的好处：</p>
+<ol>
+<li>避免因单个页面的不响应或者崩溃而影响整个浏览器的稳定性，特别是对用户界面的影响；</li>
+<li>当第三方插件崩溃时不会影响页面或者浏览器的稳定性，因为第三方插件也被使用单独的进程来运行；</li>
+<li>方便了安全模型的实施，也就是沙箱模型是基于多进程架构的。这很大程度上也是WebKit2 产生的原因。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Ijui9pOAPyVHFwU.png"
+                      alt="qT1uN6gND8xF5hwh__thumbnail.png"
+                ></p>
+<p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
+<p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
+<p><strong>Renderer进程</strong>：网页的渲染进程，负责页面的渲染工作，Blink/WebKit 的渲染工作主要在这个进程中完成，可能有多个，但是Renderer 进程的数量与用户打开的网页数量不一定一致。因为Chromium允许用户配置，此外在沙箱模型启动的情况下，该进程可能会发生一些改变。</p>
+<p><strong>NPAPI插件进程</strong>：该进程是为NPAPI 类型的插件而创建的。其创建的基本原则是每种类型的插件只会被创建一次，而且仅当使用时才被创建。当多个网页使用同一种类型的插件的时候，进程会为每个使用者创建一个实例，所以插件进程是被共享的。</p>
+<p><strong>GPU进程</strong>：最多只有一个，当且仅当GPU硬件加速打开的时候才会被创建，主要用于对3D图形加速调用的实现。</p>
+<p><strong>Pepper插件进程</strong>：同NPAPI插件进程，不同的是为Pepper 插件而创建的进程。</p>
+<p><strong>其他类型的进程</strong>：图中还有一些其他类型的进程在之后介绍。</p>
+<p>对于桌面系统（Windows、Linux、Mac OS）中的Chromium浏览器，它们的进程模型总结后包括以下一些特征：</p>
+<ol>
+<li>Browser进程和页面的渲染是分开的，页面渲染导致的崩溃不会导致浏览器主界面的崩溃。</li>
+<li>每个网页是独立的进程，这保证了页面之间相互不影响。</li>
+<li>插件进程也是独立的，插件本身的问题不会影响浏览器主界面和网页。</li>
+<li>GPU 硬件加速进程也是独立的。</li>
+</ol>
+<p>对于Chromium的Android版，主体进程模型大致相同，不同主要指：</p>
+<ol>
+<li><strong>GPU进程，</strong>GPU进程演变成Browser进程的一个线程，目的之一是节省资源。</li>
+<li><strong>Renderer进程，</strong>Android版不支持插件，所以没有插件进程，Renderer也是独立的进程，但是会演变成Android上的服务（service）进程。而且由于Android系统的局限性，Renderer进程的数目会被严格限制，这就涉及到了影子（Phantom）标签的议题。影子标签就是浏览器会将后台的网页所使用的渲染设施都清除，只是原来的一个影子，当用户再次切换的时候，网页需要重新加载和渲染。</li>
+</ol>
+<p>Chromium允许用户配置Renderer 进程被创建的方式，模型的类型有：</p>
+<ol>
+<li><strong>Process-per-site-instance</strong>：该类型的含义是为每一个页面都创建一个独立的Render进程，不管这些页面是否来自于同一域。好处是每个页面互不影响，坏处是资源的浪费。</li>
+<li><strong>Process-per-site</strong>：该类型的含义是属于同一个域的页面共享同一个进程，而不同属一个域的页面则分属不同的进程。好处是对于相同的域，进程可以共享，内存消耗相对较小，坏处是可能会有特别大的Renderer 进程。</li>
+<li><strong>Process-per-tab</strong>：该类型的含义是为每个标签页都创建一个独立的进程，而不管它们是否是不同域不同实例，这也是Chromium的默认行为，但会浪费资源。</li>
+<li><strong>Single process</strong>：该类型的含义是不为页面创建任何独立的进程，所有渲染工作都在Browser进程中进行，它们是Browser进程中的多个线程。这个类型在桌面系统上一般不推荐使用，只有在比较单进程和多进程时相对有用，但在Chromium的Android版本上，在Android WebView中，该模式被采用。<h4 id="3-2-1-3-Browser进程和Renderer进程"><a href="#3-2-1-3-Browser进程和Renderer进程" class="headerlink" title="3.2.1.3 Browser进程和Renderer进程"></a>3.2.1.3 Browser进程和Renderer进程</h4></li>
+</ol>
+<p>Browser进程和Renderer进程都是在WebKit的接口之外由Chromium引入的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/YLSJcDgjMZpdmOy.png"
+                      alt="CTnRBqgG4ElY7uhV__thumbnail.png"
+                ></p>
+<p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
+<p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
+<p><strong>Renderer</strong>，主要处理进程间通信，接受来自Browser进程的请求，并调用相应的WebKit接口层。同时将WebKit的处理结果发送回去。上面这些层都是在Renderer进程中工作的。</p>
+<p><strong>RendererHost</strong>，目的也是处理同Renderer进程之间的通信，不过RendererHost是给Renderer进程发送请求并接收来自Renderer进程的结果。</p>
+<p><strong>Web Contents</strong>表示的是网页的内容，它同时包括显示网页内容的子窗口，子窗口最后被嵌入浏览器的用户界面，作为它的一个标签页。</p>
+<h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/6WhXVSPUxQrOz9C.png"
+                      alt="vbkdMTBjTVYMog53__thumbnail.png"
+                ></p>
+<p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
+<ol>
+<li>Browser进程收到用户的请求，首先由UI线程处理，而且将相应的任务转给IO线程，它随即将该任务传递给Renderer进程。</li>
+<li>Renderer进程的IO线程经过解释后交给渲染线程。渲染线程接受请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染。最后Renderer进程将结果由IO线程传递给Browser进程。</li>
+<li>最后，Browser进程接收到结果并将结果绘制出来。</li>
+</ol>
+<p>Chromium为了保持线程间通信和同步，同时避免造成死锁或者资源的竞争冲突等问题，在绝大多数的场景，使用事件和一种Chromium新创建的任务传递机制，仅在非用不可的情况下才使用锁或者线程安全对象。</p>
+<h4 id="3-2-1-5-Content接口"><a href="#3-2-1-5-Content接口" class="headerlink" title="3.2.1.5 Content接口"></a>3.2.1.5 Content接口</h4><p>Content接口不仅提供了一层对多进程进行渲染的抽象接口，而且它支持所有的HTML5功能、GPU硬件加速功能和沙箱机制。Content接口按照功能分成六个部分，每个部分的接口一般也可以分成两类，第一类是嵌入者（可以是Chromium浏览器、CEF3和Content Shell）调用的接口，另一类是嵌入者应该实现的回调接口，被Content接口的内部实现所调用，用来参与具体实现的逻辑或者事件的监听等。</p>
+<ol>
+<li><strong>App</strong>。这部分主要与应用程序或者进程的创建和初始化相关，它被所有的进程使用，用来处理一些进程的公共操作。包括两种类型，第一类主要包括进程创建的初始化函数，也就是Content模块的初始化和关闭动作；第二类主要是各种回调函数，用来告诉嵌入者启动完成，进程启动、退出，沙盒模型初始化开始和结束等。</li>
+<li><strong>Browser</strong>。第一类包括对一些HTML5功能和其他高级功能实现的参与。第二类主要是实现部分的逻辑，被Browser进程调用，还有就是一些事件的函数回调。</li>
+<li><strong>Common</strong>。主要定义一些公共的接口，这些被Renderer和Browser共享，例如一些进程相关、参数、GPU相关等。</li>
+<li><strong>Plugin</strong>。仅有一个接口类，通知嵌入者Plugin进程何时被创建。</li>
+<li><strong>Renderer</strong>。第一类包含获取RenderThread的消息循环、注册V8Extension、计算JavaScript表达式等。第二类包括ContentRendererClient，主要是实现部分逻辑，被Browser端（或者进程）调用，还有就是一些事件的函数回调。</li>
+<li><strong>Utility</strong>。工具类接口，主要包括让嵌入者参与Content接口中的线程创建和消息的过滤。<h2 id="3-3-WebKit2"><a href="#3-3-WebKit2" class="headerlink" title="3.3 WebKit2"></a>3.3 WebKit2</h2></li>
+</ol>
+<h3 id="3-3-1-WebKit2架构及模块"><a href="#3-3-1-WebKit2架构及模块" class="headerlink" title="3.3.1 WebKit2架构及模块"></a>3.3.1 WebKit2架构及模块</h3><p>相比于狭义的WebKit，WebKit2是一套全新的结构和接口。它主要目的和思想同Chromium类似，就是将渲染过程放在单独的进程中来完成，独立于用户界面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/BNDilROn5je1LJd.png"
+                      alt="DcFsDgQUQEzoXb3W__thumbnail.png"
+                ></p>
+<p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
+<h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
+<p>在WebKit项目中，狭义WebKit的接口主要思想是将网页的渲染结果作为用户界面中的一个窗口部件，它用来显示网页的内容。按功能大致可以把所有接口分成六种类型：</p>
+<ol>
+<li>设置加载网页、获取加载进度、停止加载、重新加载等；</li>
+<li>遍历前后浏览记录类，可以前进、后退等；</li>
+<li>网页的很多设置，例如缩放、主题、背景、模式、编码等；</li>
+<li>查找网页的内容、高亮等；</li>
+<li>触控事件、鼠标事件处理；</li>
+<li>查看网页源代码、显示调试窗口等与开发者相关的接口，是通常的嵌入式接口提供的功能。</li>
+</ol>
+<p>WebKit2接口不同于WebKit的接口，它们是不兼容的，但目的都是提供嵌入式的应用接口。WebKit2接口大致可以分为两个大的部分，</p>
+<ol>
+<li><strong>WebView相关的接口</strong>，表示渲染的设置、渲染过程、界面等，其中大多数跟各个移植紧密相关。有三个主要的类，它们被各个移植所共享。<ol>
+<li>WKView[Ref]：表示的是一个与平台相关的视图，例如在Windows上它表示的就是一个窗口的句柄。</li>
+<li>WKContextRef：所有页面的上下文，这些被共享的信息包括local storage、设置等。</li>
+<li>WKPageRef：表示网页，也就是浏览的基本单位。</li>
+</ol>
+</li>
+<li>上面<strong>接口依赖的基础类</strong>，它们被各个移植所共享，既包括容器、字符串等基础类，也包括跟网页相关的基础类，例如URL、请求、网页设置等。</li>
+</ol>
+<p>WebKit2还有WebBundle接口，在Web进程里，其目的是让某些移植访问DOM，目前还没有明确的需求。</p>
+<h3 id="3-3-3-比较WebKit2和Chromium的多进程模型以及接口"><a href="#3-3-3-比较WebKit2和Chromium的多进程模型以及接口" class="headerlink" title="3.3.3 比较WebKit2和Chromium的多进程模型以及接口"></a>3.3.3 比较WebKit2和Chromium的多进程模型以及接口</h3><p>下图详细描述了WebKit 接口和Chromium的多进程的关系，以及和Content接口的关系。前面笔者也介绍了一些，例如Renderer进程直接调用WebKit接口，以及和Content接口允许应用程序注入并参与Content之下各个进程的内部逻辑。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/ljF2cJTVagvwpei.png"
+                      alt="IZ9qB9RUHmSwUfSc__thumbnail.png"
+                ></p>
+<p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
+<p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
+<p>最后，Chromium中每个进程都是从相同的二进制可执行文件启动，而基于WebKit2的进程则未必如此。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>WebKit技术内幕</category>
+        <category>03-WebKit架构和模块</category>
+      </categories>
+      <tags>
+        <tag>WebKit</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>04-变量、作用域与内存</title>
     <url>/2021/01/23/note/JavaScript/04-%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/</url>
     <content><![CDATA[<h2 id="4-1-原始值与引用值"><a href="#4-1-原始值与引用值" class="headerlink" title="4.1　原始值与引用值"></a>4.1　原始值与引用值</h2><p>ECMAScript变量可以包含两种不同类型的数据：原始值和引用值。<strong>原始值</strong>（primitive value）就是最简单的数据，<strong>引用值</strong>（reference value）则是由多个值构成的对象。</p>
@@ -5747,7 +5747,7 @@
 <p><code>RegExp</code>构造函数的两个参数都是字符串。因为<code>RegExp</code>的模式参数是字符串，所以在某些情况下需要二次转义。所有元字符都必须二次转义，包括转义字符序列，如<code>\n</code>（<code>\</code>转义后的字符串是<code>\\</code>，在正则表达式字符串中则要写成<code>\\\\</code>）。<br>|字面量模式|对应的字符串|<br>|:—-|:—-|<br>|/[bc]at/|”\[bc\]at”|<br>|/.at/|”\.at”|<br>|/name/age/|”name\/age”|<br>|/\w\hello\123/|”\w\\hello\\123”|</p>
 <p>此外，使用<code>RegExp</code>也可以基于已有的正则表达式实例，并可选择性地修改它们的标记：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> re1 = <span class="regexp">/cat/g</span>;</span><br><span class="line"><span class="built_in">console</span>.log(re1);  <span class="comment">// &quot;/cat/g&quot;</span></span><br><span class="line"><span class="keyword">const</span> re3 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(re1, <span class="string">&quot;i&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(re3);  <span class="comment">// &quot;/cat/i&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-2-1RegExp实例属性"><a href="#5-2-1RegExp实例属性" class="headerlink" title="5.2.1RegExp实例属性"></a>5.2.1<code>RegExp</code>实例属性</h3><p>每个<code>RegExp</code>实例都有下列属性，提供有关模式的各方面信息。</p>
+<h3 id="5-2-1-RegExp实例属性"><a href="#5-2-1-RegExp实例属性" class="headerlink" title="5.2.1   RegExp实例属性"></a>5.2.1   <code>RegExp</code>实例属性</h3><p>每个<code>RegExp</code>实例都有下列属性，提供有关模式的各方面信息。</p>
 <ul>
 <li><code>global</code>：布尔值，表示是否设置了<code>g</code>标记。</li>
 <li><code>ignoreCase</code>：布尔值，表示是否设置了<code>i</code>标记。</li>
@@ -5758,7 +5758,7 @@
 <li><code>dotAll</code>：布尔值，表示是否设置了<code>s</code>标记。</li>
 <li><code>source</code>：正则表达式的字面量字符串（不是传给构造函数的模式字符串），没有开头和结尾的斜杠。</li>
 <li><code>flags</code>：正则表达式的标记字符串。始终以字面量而非传入构造函数的字符串模式形式返回（没有前后斜杠）。<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern2 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;\\[bc\\]at&quot;</span>, <span class="string">&quot;i&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(pattern2.global);      <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern2.ignoreCase);  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern2.multiline);   <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern2.lastIndex);   <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern2.source);      <span class="comment">// &quot;\[bc\]at&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern2.flags);       <span class="comment">// &quot;i&quot;</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-2-2RegExp实例方法"><a href="#5-2-2RegExp实例方法" class="headerlink" title="5.2.2RegExp实例方法"></a>5.2.2<code>RegExp</code>实例方法</h3></li>
+<h3 id="5-2-2-RegExp实例方法"><a href="#5-2-2-RegExp实例方法" class="headerlink" title="5.2.2   RegExp实例方法"></a>5.2.2   <code>RegExp</code>实例方法</h3></li>
 </ul>
 <p><code>RegExp</code>实例的主要方法是<code>exec()</code>，主要用于配合捕获组使用。这个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，则返回包含第一个匹配信息的数组；如果没找到匹配项，则返回<code>null</code>。返回的数组虽然是<code>Array</code>的实例，但包含两个额外的属性：<code>index</code>和<code>input</code>。<code>index</code>是字符串中匹配模式的起始位置，<code>input</code>是要查找的字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个元素。来看下面的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;mom and dad and baby&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/mom( and dad( and baby)?)?/gi</span>;</span><br><span class="line"><span class="keyword">let</span> matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);   <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches.input);   <span class="comment">// &quot;mom and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);      <span class="comment">// &quot;mom and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">1</span>]);      <span class="comment">// &quot; and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">2</span>]);      <span class="comment">// &quot; and baby&quot;</span></span><br></pre></td></tr></table></figure>
@@ -5776,7 +5776,7 @@
 <blockquote>
 <p><strong>注意</strong>正则表达式的<code>valueOf()</code>方法返回正则表达式本身。</p>
 </blockquote>
-<h3 id="5-2-3RegExp构造函数属性"><a href="#5-2-3RegExp构造函数属性" class="headerlink" title="5.2.3RegExp构造函数属性"></a>5.2.3<code>RegExp</code>构造函数属性</h3><p><code>RegExp</code>构造函数本身也有几个属性。（在其他语言中，这种属性被称为静态属性。）这些属性适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写。下表列出了<code>RegExp</code>构造函数的属性。</p>
+<h3 id="5-2-3-RegExp构造函数属性"><a href="#5-2-3-RegExp构造函数属性" class="headerlink" title="5.2.3   RegExp构造函数属性"></a>5.2.3   <code>RegExp</code>构造函数属性</h3><p><code>RegExp</code>构造函数本身也有几个属性。（在其他语言中，这种属性被称为静态属性。）这些属性适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写。下表列出了<code>RegExp</code>构造函数的属性。</p>
 <table>
 <thead>
 <tr>
@@ -5821,7 +5821,7 @@
 <blockquote>
 <p><strong>注意</strong><code>RegExp</code>构造函数的所有属性没有任何Web标准出处，因此不要在生产环境中使用它们。</p>
 </blockquote>
-<h3 id="5-2-4模式局限"><a href="#5-2-4模式局限" class="headerlink" title="5.2.4模式局限"></a>5.2.4模式局限</h3><p>正则表达式的下列特性目前还没有得到ECMAScript的支持：</p>
+<h3 id="5-2-4-模式局限"><a href="#5-2-4-模式局限" class="headerlink" title="5.2.4   模式局限"></a>5.2.4   模式局限</h3><p>正则表达式的下列特性目前还没有得到ECMAScript的支持：</p>
 <ul>
 <li><code>\A</code>和<code>\Z</code>锚（分别匹配字符串的开始和末尾）</li>
 <li>联合及交叉类</li>
@@ -5879,12 +5879,12 @@
 <td align="left">/(foo) (bar) \1 \2/ 中的 ‘(foo)’ 和 ‘(bar)’ 匹配并记住”foo bar foo bar” 中的前两个单词’foo’和’bar’。模式中的\1和\2表示第一个和第二个被捕获括号匹配的子字符串，即foo和bar，匹配原字符串中的后两个单词。注意\1、\2、…、\n是用在正则表达式的匹配环节。而在正则表达式的替换环节，则要使用像$1、$2、…、$n这样的语法，例如，’bar foo’.replace(/(…) (…)/, ‘$2 $1’)。</td>
 </tr>
 <tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">\n</td>
+<td align="left">返回最后的第n个子捕获匹配的子字符串(捕获的数目以左括号计数)，这里的n是数字。</td>
+<td align="left">/apple(,)\sorange\1/匹配”apple, orange, cherry, peach.”中的’apple, orange,’ 。</td>
 </tr>
 <tr>
-<td align="left">\n返回最后的第n个子捕获匹配的子字符串(捕获的数目以左括号计数)，这里的n是数字。/apple(,)\sorange\1/匹配”apple, orange, cherry, peach.”中的’apple, orange,’ 。(?:x)</td>
+<td align="left">(?:x)</td>
 <td align="left">匹配 ‘x’ 但是不记住匹配项。这种括号叫作<em>非捕获括号</em>，使得定义与正则表达式运算符一起使用的子表达式。</td>
 <td align="left">/foo{1,2}/只应用于 ‘foo’ 的最后一个字符 ‘o’。如果使用非捕获括号，/(?:foo){1,2}/，则会应用于整个 ‘foo’ 单词。</td>
 </tr>
