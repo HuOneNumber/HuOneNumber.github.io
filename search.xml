@@ -1586,6 +1586,53 @@
       </tags>
   </entry>
   <entry>
+    <title>17-内容协商与转码</title>
+    <url>/2021/03/05/note/HTTP/17-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E4%B8%8E%E8%BD%AC%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="17-1-内容协商技术"><a href="#17-1-内容协商技术" class="headerlink" title="17.1 内容协商技术"></a>17.1 内容协商技术</h2><p>有3种方法可以决定服务器上哪个页面最适合客户端：让客户端来选择、服务器自动判定，或让中间代理来选。这3种技术分别称为客户端驱动的协商、服务器驱动的协商以及透明协商。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
+                      alt="image.png"
+                ></p>
+<h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
+<p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
+<h2 id="17-3-服务器驱动的协商"><a href="#17-3-服务器驱动的协商" class="headerlink" title="17.3 服务器驱动的协商"></a>17.3 服务器驱动的协商</h2><p>有两种机制可供HTTP服务器评估发送什么响应给客户端比较合适。</p>
+<ol>
+<li><strong>检查内容协商首部集</strong>。服务器察看客户端发送的Accept首部集，设法用相应的响应首部与之匹配。</li>
+<li><strong>根据其他（非内容协商）首部进行变通</strong>。例如，服务器根据客户端发送的User-Agent首部来发送响应。<h3 id="17-3-1-内容协商首部集"><a href="#17-3-1-内容协商首部集" class="headerlink" title="17.3.1 内容协商首部集"></a>17.3.1 内容协商首部集</h3></li>
+</ol>
+<p>服务器用表17-3中列出的实体首部集来匹配客户端的Accept首部集。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
+                      alt="image _1_.png"
+                ></p>
+<p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
+<h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>
+<h3 id="17-3-3-随其他首部集而变化"><a href="#17-3-3-随其他首部集而变化" class="headerlink" title="17.3.3 随其他首部集而变化"></a>17.3.3 随其他首部集而变化</h3><p>比如User-Agent首部。侈如，服务器知道老版本的浏览器不支持JavaScript语言，这样就可以向其发送不含有JavaScript的页面版本。</p>
+<p>由于缓存需要尽力提供所缓存文档中正确的“最佳”版本，HTTP协议定义了服务器在响应中发送的Vary首部。这个首部告知缓存（还有客户端和所有下游的代理）服务器根据哪些首部来决定发送响应的最佳版本。</p>
+<h2 id="17-4-透明协商"><a href="#17-4-透明协商" class="headerlink" title="17.4 透明协商"></a>17.4 透明协商</h2><p>HTTP/1.1规范中没有定义任何透明协商机制，但定义了vary首部。服务器在响应中发送了vary首部，以告知中间节点需要使用哪些请求首部进行内容协商。</p>
+<p>代理缓存可以为通过单个URL访问的文档保存不同的副本。如果服务器把它们的决策过程传给缓存，这些代理就能代表服务器与客户端进行协商。同时缓存也是进行内容转码的地方，因为部署在缓存里的通用转码器能对任意服务器，而不仅仅是一台服务器传来的内容进行转码。</p>
+<h3 id="17-4-1-进行缓存与备用候选"><a href="#17-4-1-进行缓存与备用候选" class="headerlink" title="17.4.1 进行缓存与备用候选"></a>17.4.1 进行缓存与备用候选</h3><p>服务器使用的与这些首部集匹配的相应实体首部集。缓存也必须使用相同的首部集来决定回送哪个版本的已缓存的响应，从而确保对客户端请求回送的是正确的已缓存响应。</p>
+<p>若缓存保存了同一个URL的两份不同的文档，与服务器一样。这些不同的版本称为<strong>变体</strong>（variant）或<strong>备用候选</strong>（alternate）。</p>
+<p>当新的请求到达时，缓存会根据内容协商首部集来寻找最佳匹配。但在把文档提供给客户端之前，须检查在已缓存响应中有无发送vary首部。如果有，那么新请求中那些首部的值必须与旧的已缓存请求里相应的首部相同，如果无法匹配，缓存就从原始服务器获取文档。因此为实现透明协商，缓存必须为每个已缓存变体保存客户端请求首部和相应的服务器响应首部。</p>
+<h2 id="17-5-转码"><a href="#17-5-转码" class="headerlink" title="17.5 转码"></a>17.5 转码</h2><p>如果服务器没有能满足客户端需求的文档，可以给出一个错误响应。但理论上，服务器可以把现存的文档转换成某种客户端可用的文档。这种选项称为<strong>转码</strong>。有3种类别的转码：<strong>格式转换</strong>、<strong>信息综合</strong>以及<strong>内容注入</strong>。</p>
+<h3 id="17-5-1-格式转换"><a href="#17-5-1-格式转换" class="headerlink" title="17.5.1 格式转换"></a>17.5.1 格式转换</h3><p>格式转换是指将数据从一种格式转换成另一种格式，使之可以被客户端查看。注意，内容转换或转码与内容编码或传输编码不同，后两者一般用于更高效或安全地传输内容，而前两者则为访问设备能够查看内容。</p>
+<h3 id="17-5-2-信息综合"><a href="#17-5-2-信息综合" class="headerlink" title="17.5.2 信息综合"></a>17.5.2 信息综合</h3><p>从文档中提取关键的信息片段称为信息综合（information synthesis）。这种操作的例子包括根据小节标题生成文档的大纲，或者从页面中删除广告和商标。</p>
+<h3 id="17-5-3-内容注入"><a href="#17-5-3-内容注入" class="headerlink" title="17.5.3 内容注入"></a>17.5.3 内容注入</h3><p>前面描述的两类转码通常会减少Web文档的内容，而内容注入转码会增加文档的内容。例子有自动广告生成器和用户追踪系统。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>17-内容协商与转码</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>16-国际化</title>
     <url>/2021/03/05/note/HTTP/16-%E5%9B%BD%E9%99%85%E5%8C%96/</url>
     <content><![CDATA[<p>HTTP应用程序使用字符集编码请求和显示不同字母表中的文本，它们使用语言标记根据用户所理解的语言来说明并限制内容。</p>
@@ -1641,53 +1688,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>16-国际化</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>17-内容协商与转码</title>
-    <url>/2021/03/05/note/HTTP/17-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E4%B8%8E%E8%BD%AC%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="17-1-内容协商技术"><a href="#17-1-内容协商技术" class="headerlink" title="17.1 内容协商技术"></a>17.1 内容协商技术</h2><p>有3种方法可以决定服务器上哪个页面最适合客户端：让客户端来选择、服务器自动判定，或让中间代理来选。这3种技术分别称为客户端驱动的协商、服务器驱动的协商以及透明协商。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
-                      alt="image.png"
-                ></p>
-<h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
-<p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
-<h2 id="17-3-服务器驱动的协商"><a href="#17-3-服务器驱动的协商" class="headerlink" title="17.3 服务器驱动的协商"></a>17.3 服务器驱动的协商</h2><p>有两种机制可供HTTP服务器评估发送什么响应给客户端比较合适。</p>
-<ol>
-<li><strong>检查内容协商首部集</strong>。服务器察看客户端发送的Accept首部集，设法用相应的响应首部与之匹配。</li>
-<li><strong>根据其他（非内容协商）首部进行变通</strong>。例如，服务器根据客户端发送的User-Agent首部来发送响应。<h3 id="17-3-1-内容协商首部集"><a href="#17-3-1-内容协商首部集" class="headerlink" title="17.3.1 内容协商首部集"></a>17.3.1 内容协商首部集</h3></li>
-</ol>
-<p>服务器用表17-3中列出的实体首部集来匹配客户端的Accept首部集。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
-                      alt="image _1_.png"
-                ></p>
-<p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
-<h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>
-<h3 id="17-3-3-随其他首部集而变化"><a href="#17-3-3-随其他首部集而变化" class="headerlink" title="17.3.3 随其他首部集而变化"></a>17.3.3 随其他首部集而变化</h3><p>比如User-Agent首部。侈如，服务器知道老版本的浏览器不支持JavaScript语言，这样就可以向其发送不含有JavaScript的页面版本。</p>
-<p>由于缓存需要尽力提供所缓存文档中正确的“最佳”版本，HTTP协议定义了服务器在响应中发送的Vary首部。这个首部告知缓存（还有客户端和所有下游的代理）服务器根据哪些首部来决定发送响应的最佳版本。</p>
-<h2 id="17-4-透明协商"><a href="#17-4-透明协商" class="headerlink" title="17.4 透明协商"></a>17.4 透明协商</h2><p>HTTP/1.1规范中没有定义任何透明协商机制，但定义了vary首部。服务器在响应中发送了vary首部，以告知中间节点需要使用哪些请求首部进行内容协商。</p>
-<p>代理缓存可以为通过单个URL访问的文档保存不同的副本。如果服务器把它们的决策过程传给缓存，这些代理就能代表服务器与客户端进行协商。同时缓存也是进行内容转码的地方，因为部署在缓存里的通用转码器能对任意服务器，而不仅仅是一台服务器传来的内容进行转码。</p>
-<h3 id="17-4-1-进行缓存与备用候选"><a href="#17-4-1-进行缓存与备用候选" class="headerlink" title="17.4.1 进行缓存与备用候选"></a>17.4.1 进行缓存与备用候选</h3><p>服务器使用的与这些首部集匹配的相应实体首部集。缓存也必须使用相同的首部集来决定回送哪个版本的已缓存的响应，从而确保对客户端请求回送的是正确的已缓存响应。</p>
-<p>若缓存保存了同一个URL的两份不同的文档，与服务器一样。这些不同的版本称为<strong>变体</strong>（variant）或<strong>备用候选</strong>（alternate）。</p>
-<p>当新的请求到达时，缓存会根据内容协商首部集来寻找最佳匹配。但在把文档提供给客户端之前，须检查在已缓存响应中有无发送vary首部。如果有，那么新请求中那些首部的值必须与旧的已缓存请求里相应的首部相同，如果无法匹配，缓存就从原始服务器获取文档。因此为实现透明协商，缓存必须为每个已缓存变体保存客户端请求首部和相应的服务器响应首部。</p>
-<h2 id="17-5-转码"><a href="#17-5-转码" class="headerlink" title="17.5 转码"></a>17.5 转码</h2><p>如果服务器没有能满足客户端需求的文档，可以给出一个错误响应。但理论上，服务器可以把现存的文档转换成某种客户端可用的文档。这种选项称为<strong>转码</strong>。有3种类别的转码：<strong>格式转换</strong>、<strong>信息综合</strong>以及<strong>内容注入</strong>。</p>
-<h3 id="17-5-1-格式转换"><a href="#17-5-1-格式转换" class="headerlink" title="17.5.1 格式转换"></a>17.5.1 格式转换</h3><p>格式转换是指将数据从一种格式转换成另一种格式，使之可以被客户端查看。注意，内容转换或转码与内容编码或传输编码不同，后两者一般用于更高效或安全地传输内容，而前两者则为访问设备能够查看内容。</p>
-<h3 id="17-5-2-信息综合"><a href="#17-5-2-信息综合" class="headerlink" title="17.5.2 信息综合"></a>17.5.2 信息综合</h3><p>从文档中提取关键的信息片段称为信息综合（information synthesis）。这种操作的例子包括根据小节标题生成文档的大纲，或者从页面中删除广告和商标。</p>
-<h3 id="17-5-3-内容注入"><a href="#17-5-3-内容注入" class="headerlink" title="17.5.3 内容注入"></a>17.5.3 内容注入</h3><p>前面描述的两类转码通常会减少Web文档的内容，而内容注入转码会增加文档的内容。例子有自动广告生成器和用户追踪系统。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>17-内容协商与转码</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1942,6 +1942,33 @@
       </tags>
   </entry>
   <entry>
+    <title>Positioned Layout Module Level 3</title>
+    <url>/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/</url>
+    <content><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>|name|postion|<br>|:—-:|:—-|:—-:|:—-|<br>|Value:|static<a class="link"   href="https://www.w3.org/TR/css-values-4/#comb-one" >|<i class="fas fa-external-link-alt"></i></a>relative | absolute | sticky | fixed|<br>|Initial:|static|<br>|Applies to:|除了table-column-group 和table-column以外的所有元素|<br>|Inherited:|不继承|</p>
+<h1 id="2-static-定位"><a href="#2-static-定位" class="headerlink" title="2 static 定位"></a>2 static 定位</h1><p>HTML 元素的默认值，即没有定位，遵循正常的文档流对象。</p>
+<p>静态定位的元素不会受到 top, bottom, left, right影响。</p>
+<h1 id="3-relative-定位"><a href="#3-relative-定位" class="headerlink" title="3 relative 定位"></a>3 relative 定位</h1><p>相对定位元素的定位是相对其正常位置。</p>
+<h1 id="4-absolute-定位"><a href="#4-absolute-定位" class="headerlink" title="4 absolute 定位"></a>4 absolute 定位</h1><p>绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:</p>
+<h1 id="5-sticky-定位"><a href="#5-sticky-定位" class="headerlink" title="5 sticky 定位"></a>5 sticky 定位</h1><p>sticky 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。</p>
+<p>position: sticky; 基于用户的滚动位置来定位。</p>
+<p>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。</p>
+<p>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</p>
+<p>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
+<p>这个特定阈值指的是 top, right, bottom 或 left 之一，换言之，指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
+<h1 id="6-fixed-定位"><a href="#6-fixed-定位" class="headerlink" title="6 fixed 定位"></a>6 fixed 定位</h1><p>元素的位置相对于浏览器窗口是固定位置。</p>
+<p>即使窗口是滚动的它也不会移动：</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>W3C CSS</category>
+        <category>Positioned Layout Module Level 3</category>
+      </categories>
+      <tags>
+        <tag>W3C</tag>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>02-HTML网页和结构</title>
     <url>/2021/01/21/note/Webkit/02-HTML%E7%BD%91%E9%A1%B5%E5%92%8C%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<p>HTML网页是利用HTML语言编写的文档，它是一种半结构化的数据表现方式。它的结构特征可以归纳为三种：树状结构、层次结构和框结构。</p>
@@ -2172,33 +2199,6 @@
       </categories>
       <tags>
         <tag>WebKit</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Positioned Layout Module Level 3</title>
-    <url>/2021/03/07/note/W3C%20CSS/Positioned%20Layout%20Module%20Level%203/</url>
-    <content><![CDATA[<h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1 Introduction"></a>1 Introduction</h1><p>|name|postion|<br>|:—-:|:—-|:—-:|:—-|<br>|Value:|static<a class="link"   href="https://www.w3.org/TR/css-values-4/#comb-one" >|<i class="fas fa-external-link-alt"></i></a>relative | absolute | sticky | fixed|<br>|Initial:|static|<br>|Applies to:|除了table-column-group 和table-column以外的所有元素|<br>|Inherited:|不继承|</p>
-<h1 id="2-static-定位"><a href="#2-static-定位" class="headerlink" title="2 static 定位"></a>2 static 定位</h1><p>HTML 元素的默认值，即没有定位，遵循正常的文档流对象。</p>
-<p>静态定位的元素不会受到 top, bottom, left, right影响。</p>
-<h1 id="3-relative-定位"><a href="#3-relative-定位" class="headerlink" title="3 relative 定位"></a>3 relative 定位</h1><p>相对定位元素的定位是相对其正常位置。</p>
-<h1 id="4-absolute-定位"><a href="#4-absolute-定位" class="headerlink" title="4 absolute 定位"></a>4 absolute 定位</h1><p>绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于<html>:</p>
-<h1 id="5-sticky-定位"><a href="#5-sticky-定位" class="headerlink" title="5 sticky 定位"></a>5 sticky 定位</h1><p>sticky 英文字面意思是粘，粘贴，所以可以把它称之为粘性定位。</p>
-<p>position: sticky; 基于用户的滚动位置来定位。</p>
-<p>粘性定位的元素是依赖于用户的滚动，在 position:relative 与 position:fixed 定位之间切换。</p>
-<p>它的行为就像 position:relative; 而当页面滚动超出目标区域时，它的表现就像 position:fixed;，它会固定在目标位置。</p>
-<p>元素定位表现为在跨越特定阈值前为相对定位，之后为固定定位。</p>
-<p>这个特定阈值指的是 top, right, bottom 或 left 之一，换言之，指定 top, right, bottom 或 left 四个阈值其中之一，才可使粘性定位生效。否则其行为与相对定位相同。</p>
-<h1 id="6-fixed-定位"><a href="#6-fixed-定位" class="headerlink" title="6 fixed 定位"></a>6 fixed 定位</h1><p>元素的位置相对于浏览器窗口是固定位置。</p>
-<p>即使窗口是滚动的它也不会移动：</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>W3C CSS</category>
-        <category>Positioned Layout Module Level 3</category>
-      </categories>
-      <tags>
-        <tag>W3C</tag>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -3213,6 +3213,196 @@
       </tags>
   </entry>
   <entry>
+    <title>05-Web服务器</title>
+    <url>/2021/01/23/note/HTTP/05-Web%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
+    <content><![CDATA[<p>Web服务器会对HTTP请求进行处理并提供响应。“<strong>Web服务器</strong>”可以用来表示Web服务器的软件，也可以用来表示提供Web页面的特定设备或计算机。</p>
+<p>Web服务器有着不同的风格、形状和尺寸。有普通的10行Perl脚本的Web服务器、50MB的安全商用引擎以及极小的卡上服务器。</p>
+<h1 id="5-1-Web服务器的实现"><a href="#5-1-Web服务器的实现" class="headerlink" title="5.1 Web服务器的实现"></a>5.1 Web服务器的实现</h1><p>Web服务器逻辑实现了HTTP协议、管理着Web资源，并负责提供Web服务器的管理功能。Web服务器逻辑和操作系统共同负责管理TCP连接。底层操作系统负责管理底层计算机系统的硬件细节，并提供了TCP/IP网络支持、负责装载Web资源的文件系统以及控制当前计算活动的进程管理功能。</p>
+<p>Web服务器的不同的形式：通用软件Web服务器；Web服务器设备；嵌入式Web服务器。</p>
+<h1 id="5-2-通用软件Web服务器"><a href="#5-2-通用软件Web服务器" class="headerlink" title="5.2 通用软件Web服务器"></a>5.2 通用软件Web服务器</h1><p>通用软件Web服务器都运行在标准的、有网络功能的计算机系统上。可以选择开源软件（比如Apache或W3C的Jigsaw）或者商业软件（比如微软和iPlanet的Web服务器）。基本上所有的计算机和操作系统中都有可用的Web服务器软件。</p>
+<h1 id="5-3-Web服务器设备"><a href="#5-3-Web服务器设备" class="headerlink" title="5.3 Web服务器设备"></a>5.3 Web服务器设备</h1><p>Web服务器设备（Web server appliance）是预先打包好的软硬件解决方案。厂商会在他们选择的计算机平台上预先安装好软件服务器，并将软件配置好。</p>
+<p>这样不再需要安装及配置软件，可以极大地简化管理工作。但Web服务器通常不太灵活，特性不太丰富，而且服务器硬件也不太容易重用或升级。</p>
+<h1 id="5-4-嵌入式Web服务器"><a href="#5-4-嵌入式Web服务器" class="headerlink" title="5.4 嵌入式Web服务器"></a>5.4 嵌入式Web服务器</h1><p>嵌入式服务器（embededserver）是嵌入到消费类产品（比如打印机或家用设备中去的小型Web服务器。嵌入式Web服务器允许用户通过便捷的Web浏览器接口来管理其消费者设备。嵌入式Web服务器通常只能提供最小特性功能集。</p>
+<h1 id="5-5-Web服务器操作"><a href="#5-5-Web服务器操作" class="headerlink" title="5.5 Web服务器操作"></a>5.5 Web服务器操作</h1><p>（1）建立连接——接受一个客户端连接，如果不希望与这个客户端建立连接，就将其关闭。</p>
+<p>（2）接收请求——从网络中读取一条HTTP请求报文。</p>
+<p>（3）处理请求——对请求报文进行解释，并采取行动。</p>
+<p>（4）访问资源——访问报文中指定的资源。</p>
+<p>（5）构建响应——创建带有正确首部的HTTP响应报文。</p>
+<p>（6）发送响应——将响应回送给客户端。</p>
+<p>（7）记录事务处理过程——将与已完成事务有关的内容记录在一个日志文件中。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/zrlwpHmco57i2PW.png"
+                      alt="pzJLam8z7mPDhlLa__original.png"
+                ></p>
+<h2 id="5-5-1-第一步——接受客户端连接"><a href="#5-5-1-第一步——接受客户端连接" class="headerlink" title="5.5.1 第一步——接受客户端连接"></a>5.5.1 第一步——接受客户端连接</h2><p>如果客户端已经打开了一条到服务器的持久连接，可以使用那条连接来发送它的请求。否则，客户端需要打开一条新的到服务器的连接。</p>
+<h3 id="5-5-1-1-处理新连接"><a href="#5-5-1-1-处理新连接" class="headerlink" title="5.5.1.1 处理新连接"></a>5.5.1.1 处理新连接</h3><p>客户端请求一条到Web服务器的TCP连接时，Web服务器会建立连接，判断连接的另一端是哪个客户端，从TCP连接中将IP地址解析出来。一旦新连接建立起来并被接受，服务器就会将新连接添加到其现存Web服务器连接列表中，做好监视连接上数据传输的准备。</p>
+<p>Web服务器可以随意拒绝或立即关闭任意一条连接。有些Web服务器会因为客户端IP地址或主机名是未认证的，或者因为它是已知的恶意客户端而关闭连接。</p>
+<h3 id="5-5-1-2-客户端主机名识别"><a href="#5-5-1-2-客户端主机名识别" class="headerlink" title="5.5.1.2 客户端主机名识别"></a>5.5.1.2 客户端主机名识别</h3><p>可以用“反向DNS”对大部分Web服务器进行配置，以便将客户端IP地址转换成客户端主机名。Web服务器可以将客户端主机名用于详细的访问控制和日志记录。但主机名查找会花费很长时间，降低Web事务处理的速度。大容量Web服务器要么会禁止主机名解析，要么只允许对特定内容进行解析。</p>
+<h3 id="5-5-1-3-通过ident确定客户端用户"><a href="#5-5-1-3-通过ident确定客户端用户" class="headerlink" title="5.5.1.3 通过ident确定客户端用户"></a>5.5.1.3 通过ident确定客户端用户</h3><p>有些Web服务器支持IETF的ident协议，通过ident协议找到发起HTTP连接的用户名。<strong>通用日志格式</strong>（Common Log Format）的第二个字段中就包含了每条HTTP请求的ident用户名。如果客户端支持ident协议，就在TCP端口113上监听ident请求。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/BSiXQd2bOTuN53a.png"
+                      alt="HnlHkh82fRKut68j__original.png"
+                ></p>
+<p>ident在公共因特网上并不能很好地工作，原因包括：</p>
+<pre><code>1. 很多客户端PC没有运行ident识别协议守护进程软件；
+2. ident协议会使HTTP事务处理产生严重的时延；
+3. 很多防火墙不允许ident流量进入；
+4. ident协议不安全，容易被伪造；
+5. ident协议不支持虚拟IP地址；
+6. 暴露客户端的用户名涉及隐私问题。</code></pre>
+<p>告知ApacheWeb服务器通过<strong>IdentityCheck  on</strong>指令使用ident查找功能。如果没有ident信息，用连字符（-）来填充ident日志字段。由于通常没有ident信息，在使用通用日志格式的日志文件中，第二个字段通常都是连字符。</p>
+<h2 id="5-5-2-第二步——接收请求报文"><a href="#5-5-2-第二步——接收请求报文" class="headerlink" title="5.5.2 第二步——接收请求报文"></a>5.5.2 第二步——接收请求报文</h2><p>连接上有数据到达时，Web服务器会从网络连接中读取数据，并将请求报文中的内容解析出来。</p>
+<p>解析请求报文时，Web服务器操作：</p>
+<pre><code>1. 解析请求行，查找请求方法、指定的资源标识符（URI）以及版本号，各项之间由一个空格分隔，并以CRLF作为行的结束；
+2. 读取以CRLF结尾的报文首部；
+3. 检测到以CRLF结尾的、标识首部结束的空行（如果有的话）；
+4. 如果有的话（长度由Content-Length首部指定），读取请求主体。</code></pre>
+<p>解析请求报文时，Web服务器会不定期地从网络上接收输入数据。网络连接可能出现延迟，所以将部分报文数据临时存储在内存中，直到收到足以进行解析的数据并理解其意义为止。</p>
+<h3 id="5-5-2-1-报文的内部表示法"><a href="#5-5-2-1-报文的内部表示法" class="headerlink" title="5.5.2.1 报文的内部表示法"></a>5.5.2.1 报文的内部表示法</h3><p>有些Web服务器会用，便于进行报文操作的内部数据结构来存储请求报文。比如，数据结构中可能包含有指向请求报文中各个片段的指针及其长度，将这些首部存放在一个快速查询表中，以便快速访问特定首部的具体值了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/JL5lRyhHMOqg4xd.png"
+                      alt="6J2aJFF37Qfi51H7.png"
+                ></p>
+<h3 id="5-5-2-2-连接的输入-输出处理结构"><a href="#5-5-2-2-连接的输入-输出处理结构" class="headerlink" title="5.5.2.2 连接的输入/输出处理结构"></a>5.5.2.2 连接的输入/输出处理结构</h3><p>高性能的Web服务器能够同时支持数千条连接。连接可能在快速地或者慢速向Web服务器发送请求甚至空闲着。因为请求可能会在任意时刻到达，所以Web服务器会不停地观察有无新的Web请求。不同的Web服务器结构会以不同的方式为请求服务。</p>
+<ol>
+<li>单线程Web服务器（参见a）</li>
+</ol>
+<p>一次只处理一个请求，直到完成为止。这种结构易于实现，但所有其他连接都会被忽略。这样会造成严重的性能问题，只适用于低负荷的服务器，以及type-o-serve这样的诊断工具。</p>
+<ol start="2">
+<li>多进程及多线程Web服务器（参见b）</li>
+</ol>
+<p>用多个进程，或更高效的线程同时对请求进行处理。可以根据需要或预先创建线程/进程。有些服务器会为每条连接分配一个线程/进程，但当同时处理过多连接时，会消耗太多的内存或系统资源，因此通常都会对线程/进程的最大数量进行限制。</p>
+<ol start="3">
+<li>复用I/O的服务器（参见c）</li>
+</ol>
+<p>在复用结构中，同时监视所有连接上的活动。当连接的状态发生变化时（有数据可用，或出现错误时），就对那条连接进行少量的处理；处理结束之后，将连接返回到开放连接列表中，等待下一次状态变化。</p>
+<ol start="4">
+<li>复用的多线程Web服务器（参见d）</li>
+</ol>
+<p>多个线程中的每一个都在观察打开的连接，并对每条连接执行少量的任务。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/QzpRsmfEyFrSeuM.png"
+                      alt="2mA4SsoOK7nSD7FP.png"
+                ></p>
+<h2 id="5-5-3-第三步——处理请求"><a href="#5-5-3-第三步——处理请求" class="headerlink" title="5.5.3 第三步——处理请求"></a>5.5.3 第三步——处理请求</h2><p>一旦Web服务器收到了请求，就可以根据方法、资源、首部和可选的主体部分来对请求进行处理了。比如POST要求请求报文中必须带有实体主体部分的数据；比如OPTIONS允许有也可以没有请求的主体部分。比如GET禁止在请求报文中包含实体的主体数据。</p>
+<h2 id="5-5-4-第四步——对资源的映射及访问"><a href="#5-5-4-第四步——对资源的映射及访问" class="headerlink" title="5.5.4 第四步——对资源的映射及访问"></a>5.5.4 第四步——对资源的映射及访问</h2><p>Web服务器是资源服务器。它们负责发送预先创建好的内容，比如HTML页面或图片，以及运行在服务器上的资源生成程序所产生的动态内容。将内容传送给客户端之前，要将请求报文中的URI映射为Web服务器上适当的内容或内容生成器，以识别出内容的源头。</p>
+<h3 id="5-5-4-1-docroot"><a href="#5-5-4-1-docroot" class="headerlink" title="5.5.4.1 docroot"></a>5.5.4.1 docroot</h3><p>Web服务器支持各种不同类型的资源映射，最简单的形式就是用请求URI作为名字来访问Web服务器文件系统中的文件。通常，Web服务器的文件系统中会有特殊的文件夹专门用于存放Web内容。这个文件夹被称为文档的根目录（documentroot或docroot）。Web服务器从请求报文中获取URI，并将其附加在文档根目录的后面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NfA8CvY7cpJeb9Z.png"
+                      alt="YjRu2XQ3AOUZMPxL.png"
+                ></p>
+<p>在配置文件httpd.conf中添加<strong>DocumentRoot行</strong>为Apache Web服务器设置文档的根目录：DocumentRoot/usr/local/httpd/files</p>
+<p>服务器不能让相对URL退到docroot之外，将文件系统的其余部分暴露出来。</p>
+<h4 id="5-5-4-1-1-虚拟托管的docroot"><a href="#5-5-4-1-1-虚拟托管的docroot" class="headerlink" title="5.5.4.1.1 虚拟托管的docroot"></a>5.5.4.1.1 虚拟托管的docroot</h4><p>虚拟托管的Web服务器会在同一台Web服务器上提供多个Web站点，每个站点都有自己独有的文档根目录。虚拟托管Web服务器会根据URI或Host首部的IP地址或主机名来识别要使用的正确文档根目录。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/ohlBFpvjKqM5RVD.png"
+                      alt="h2lrUmLfCt6WWhJe__thumbnail.png"
+                ></p>
+<p>对ApacheWeb服务器来说，为每个虛拟Web站点配置一个VirtualHost块，每个虚拟服务器都要包含DocumentRoot。</p>
+<h4 id="5-5-4-1-2-用户的主目录docroot"><a href="#5-5-4-1-2-用户的主目录docroot" class="headerlink" title="5.5.4.1.2 用户的主目录docroot"></a>5.5.4.1.2 用户的主目录docroot</h4><p>Docroot的另一种常见应用是在Web服务器上为人们提供私有的Web站点。通常把以斜杠和波浪号（/~）开始，后面跟着用户名的URI映射为此用户的私有文档根目录。私有docroot通常是用户主目录下那个名为public_html 的目录，也可将其配置为其他值。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/XRS34sTM8odOjJc.png"
+                      alt="mzxmQqltivIgO2q9__thumbnail.png"
+                ></p>
+<h3 id="5-5-4-2-目录列表"><a href="#5-5-4-2-目录列表" class="headerlink" title="5.5.4.2 目录列表"></a>5.5.4.2 目录列表</h3><p>Web服务器可以接收对目录URL的请求，其路径可以解析为一个目录，而不是文件。对大多数Web服务器对目录URL的请求采取不同的动作：</p>
+<ol>
+<li>返回一个错误。</li>
+<li>不返回目录，返回一个特殊的默认‘索引文件”。多数Web服务器会去查找目录中名为index.html或index.htm的文件来代表此目录，并返回这个文件的内容。在Apache Web服务器上，可以用配置指令<strong>DirectoryIndex</strong>配置要作为默认目录文件使用的文件名集合，指令按照优先顺序列出所有可以作为目录索引文件使用的文件名。</li>
+</ol>
+<p>例如：    DirectoryIndex  index.html  index.htm  home.html  home.htm  index.cgi</p>
+<ol>
+<li>扫描目录，返回一个包含目录内容的HTML页面。如果用户请求目录URI时，没有提供默认的索引文件，且没有禁止使用目录索引，很多Web服务器都会自动返回一个HTML文件，文件中会列出目录里的文件名和每个文件的大小和修改日期，还包括到每个文件的URI链接。</li>
+</ol>
+<p>可以通过以下Apache指令禁止自动生成目录索引文件：Options-Indexes</p>
+<h3 id="5-5-4-3-动态内容资源的映射"><a href="#5-5-4-3-动态内容资源的映射" class="headerlink" title="5.5.4.3 动态内容资源的映射"></a>5.5.4.3 动态内容资源的映射</h3><p>Web服务器可以将URI映射为动态资源，也就是映射到按需动态生成内容的程序上。多数Web服务器都提供了一些机制以识别和映射动态资源，能够分辨资源什么时候是动态的，动态内容生成程序位于何处，以及如何运行那个程序。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/AfQbyTgORts29kv.png"
+                      alt="QX5bpDmH8lbf0JpV__thumbnail.png"
+                ></p>
+<p>Apache允许用户将URI路径名组件映射为可执行文件目录，服务器会试着去执行目录中的程序。</p>
+<p>Apache允许用户用一个特殊的文件扩展名来标识可执行文件。这种方式就可以将可执行脚本放在任意目录中了。e.g.  AddHandler cgi-script.cgi （执行所有以.cgi结尾的Web资源）。</p>
+<h3 id="5-5-4-4-服务器端包含项"><a href="#5-5-4-4-服务器端包含项" class="headerlink" title="5.5.4.4 服务器端包含项"></a>5.5.4.4 服务器端包含项</h3><p>很多Web服务器提供了对<strong>服务器端包含项</strong>（SSI）的支持，这是创建动态内容的一种方式。如果资源被标识为存在服务器端包含项，服务器就会发送前对资源内容进行扫描，以查找特定的模板（可以是变量名或嵌入式脚本）。可以用变量的值或可执行脚本的输出来取代特定的模板。</p>
+<h3 id="5-5-4-5-访问控制"><a href="#5-5-4-5-访问控制" class="headerlink" title="5.5.4.5 访问控制"></a>5.5.4.5 访问控制</h3><p>Web服务器还可以为特定资源进行访问控制。Web服务器可以根据客户端的IP地址进行访问控制，也可以要求输入密码来访问资源。</p>
+<h2 id="5-5-5-第五步——构建响应"><a href="#5-5-5-第五步——构建响应" class="headerlink" title="5.5.5 第五步——构建响应"></a>5.5.5 第五步——构建响应</h2><p>Web服务器识别出了资源，就执行请求方法中描述的动作，并返回响应报文，包含有响应状态码、响应首部，如果生成了响应主体的话，还包括响应主体。</p>
+<h3 id="5-5-5-1-响应实体"><a href="#5-5-5-1-响应实体" class="headerlink" title="5.5.5.1 响应实体"></a>5.5.5.1 响应实体</h3><p>如果事务处理产生了响应主体，就将内容放在响应报文中回送过去。如果有响应主体的话，响应报文中通常包括：</p>
+<ol>
+<li>描述响应主体MIME类型的Content-Type首部；</li>
+<li>描述响应主体长度的Content-Length首部；</li>
+<li>实际报文的主体内容。<h3 id="5-5-5-2-MIME类型"><a href="#5-5-5-2-MIME类型" class="headerlink" title="5.5.5.2 MIME类型"></a>5.5.5.2 MIME类型</h3></li>
+</ol>
+<p>Web服务器要确定响应主体的MIME类型。</p>
+<ol>
+<li><strong>MIME 类型</strong>（mime.types）</li>
+</ol>
+<p>Web服务器可用文件的扩展名来说明MIME类型。Web服务器会为每个资源扫描一个包含了所有扩展名的MIME类型的文件，以确定其MIME类型。这种最常见。</p>
+<ol start="2">
+<li><strong>魔法分类</strong>（Magic typing）</li>
+</ol>
+<p>ApacheWeb服务器可以扫描每个资源的内容，并将其与一个已知模式表（魔法文件）进行匹配，以决定每个文件的MIME类型。适用于文件没有标准扩展名的时候。</p>
+<ol start="3">
+<li><strong>显式分类</strong>（Explicit typing）</li>
+</ol>
+<p>可对Web服务器进行配置，不考虑文件的扩展名或内容，强制特定文件或目录内容拥有某个MIME类型。</p>
+<ol start="4">
+<li><strong>类型协商</strong></li>
+</ol>
+<p>有些Web服务器经过配置，可以以多种文档格式来存储资源。在这种情况下，配置Web服务器，使其可以通过与用户的协商来决定使用哪种格式（及相关的MIME类型）“最好”。</p>
+<p>还可以通过配置Web服务器，将特定的文件与MIME类型相关联。</p>
+<h3 id="5-5-5-3-重定向"><a href="#5-5-5-3-重定向" class="headerlink" title="5.5.5.3 重定向"></a>5.5.5.3 重定向</h3><p>Web服务器有时会返回重定向响应而不是成功的报文，将浏览器重定向到其他地方来执行请求。Location响应首部包含了内容的新地址或优选地址的URI。重定向可用于下列情况：</p>
+<ol>
+<li><strong>永久删除的资源</strong></li>
+</ol>
+<p>资源被移动到了新的位置，或被重新命名，有了新的URL。Web服务器可以告诉客户端资源已经被重命名了，让其可以在从新地址获取资源之前，更新书签之类的信息。状态码301 Moved Permanently就用于此类重定向。</p>
+<ol start="2">
+<li><strong>临时删除的资源</strong></li>
+</ol>
+<p>如果资源被临时移走或重命名了，服务器将客户端重定向到新的位置上去。由于重命名是临时的，所以服务器希望客户端不必对书签进行更新。状态码303 See Other以及状态码307 Temporary Redirect用于此类重定向。</p>
+<ol start="3">
+<li><strong>URL增强</strong></li>
+</ol>
+<p>服务器通常用重定向来重写URL，常用于嵌入上下文。服务器会生成一个新的包含了嵌入式状态信息的URL，并将用户重定向到这个新的URL上。客户端会跟随这个重定向信息，重新发起请求。状态码303 See Other和307 Temporary Redirect用于此类重定向。</p>
+<ol start="4">
+<li><strong>负载均衡</strong></li>
+</ol>
+<p>如果一个超载的服务器收到一条请求，可以将客户端重定向到一个负载不重的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
+<ol start="5">
+<li><strong>服务器关联</strong></li>
+</ol>
+<p>Web服务器上可能有某些用户的本地信息，可以将客户端重定向到包含了那个客户端信息的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
+<ol start="6">
+<li><strong>规范目录名称</strong></li>
+</ol>
+<p>客户端请求的URI是一个不带尾部斜线的目录名时，多数Web服务器都会将客户端重定向到一个加了斜线的URI上，这样相对链接就可以正常工作。</p>
+<h2 id="5-5-6-第六步——发送响应"><a href="#5-5-6-第六步——发送响应" class="headerlink" title="5.5.6 第六步——发送响应"></a>5.5.6 第六步——发送响应</h2><p>服务器可能有很多条到各个客户端的连接，有空闲的，有向服务器发送数据，还有正在向客户端回送响应数据。</p>
+<p>服务器要记录连接的状态，<strong>对非持久连接而言</strong>，服务器应该在发送了整条报文之后，关闭自己这一端的连接；<strong>对持久连接来说</strong>，连接可能仍保持打开状态，服务器要正确地计算Content-Length首部，客户端才会知道响应什么时候结束。</p>
+<h2 id="5-5-7-第七步——记录日志"><a href="#5-5-7-第七步——记录日志" class="headerlink" title="5.5.7 第七步——记录日志"></a>5.5.7 第七步——记录日志</h2><p>最后，当事务结束时，Web服务器会在日志文件中添加一个条目，来描述已执行的事务。大多数Web服务器都提供了几种日志配置格式。更多细节请参见第21章。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>05-Web服务器</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>04-链接管理</title>
     <url>/2021/01/23/note/HTTP/04-%E9%93%BE%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h2 id="4-1-TCP链接"><a href="#4-1-TCP链接" class="headerlink" title="4.1 TCP链接"></a>4.1 TCP链接</h2><h3 id="4-1-1-TCP的可靠数据管道"><a href="#4-1-1-TCP的可靠数据管道" class="headerlink" title="4.1.1 TCP的可靠数据管道"></a>4.1.1 TCP的可靠数据管道</h3><p>HTTP连接实际，上就是TCP连接和一些使用连接的规则，TCP为HTTP提供了一条可靠的比特传输管道。</p>
@@ -3408,190 +3598,183 @@
       </tags>
   </entry>
   <entry>
-    <title>05-Web服务器</title>
-    <url>/2021/01/23/note/HTTP/05-Web%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
-    <content><![CDATA[<p>Web服务器会对HTTP请求进行处理并提供响应。“<strong>Web服务器</strong>”可以用来表示Web服务器的软件，也可以用来表示提供Web页面的特定设备或计算机。</p>
-<p>Web服务器有着不同的风格、形状和尺寸。有普通的10行Perl脚本的Web服务器、50MB的安全商用引擎以及极小的卡上服务器。</p>
-<h1 id="5-1-Web服务器的实现"><a href="#5-1-Web服务器的实现" class="headerlink" title="5.1 Web服务器的实现"></a>5.1 Web服务器的实现</h1><p>Web服务器逻辑实现了HTTP协议、管理着Web资源，并负责提供Web服务器的管理功能。Web服务器逻辑和操作系统共同负责管理TCP连接。底层操作系统负责管理底层计算机系统的硬件细节，并提供了TCP/IP网络支持、负责装载Web资源的文件系统以及控制当前计算活动的进程管理功能。</p>
-<p>Web服务器的不同的形式：通用软件Web服务器；Web服务器设备；嵌入式Web服务器。</p>
-<h1 id="5-2-通用软件Web服务器"><a href="#5-2-通用软件Web服务器" class="headerlink" title="5.2 通用软件Web服务器"></a>5.2 通用软件Web服务器</h1><p>通用软件Web服务器都运行在标准的、有网络功能的计算机系统上。可以选择开源软件（比如Apache或W3C的Jigsaw）或者商业软件（比如微软和iPlanet的Web服务器）。基本上所有的计算机和操作系统中都有可用的Web服务器软件。</p>
-<h1 id="5-3-Web服务器设备"><a href="#5-3-Web服务器设备" class="headerlink" title="5.3 Web服务器设备"></a>5.3 Web服务器设备</h1><p>Web服务器设备（Web server appliance）是预先打包好的软硬件解决方案。厂商会在他们选择的计算机平台上预先安装好软件服务器，并将软件配置好。</p>
-<p>这样不再需要安装及配置软件，可以极大地简化管理工作。但Web服务器通常不太灵活，特性不太丰富，而且服务器硬件也不太容易重用或升级。</p>
-<h1 id="5-4-嵌入式Web服务器"><a href="#5-4-嵌入式Web服务器" class="headerlink" title="5.4 嵌入式Web服务器"></a>5.4 嵌入式Web服务器</h1><p>嵌入式服务器（embededserver）是嵌入到消费类产品（比如打印机或家用设备中去的小型Web服务器。嵌入式Web服务器允许用户通过便捷的Web浏览器接口来管理其消费者设备。嵌入式Web服务器通常只能提供最小特性功能集。</p>
-<h1 id="5-5-Web服务器操作"><a href="#5-5-Web服务器操作" class="headerlink" title="5.5 Web服务器操作"></a>5.5 Web服务器操作</h1><p>（1）建立连接——接受一个客户端连接，如果不希望与这个客户端建立连接，就将其关闭。</p>
-<p>（2）接收请求——从网络中读取一条HTTP请求报文。</p>
-<p>（3）处理请求——对请求报文进行解释，并采取行动。</p>
-<p>（4）访问资源——访问报文中指定的资源。</p>
-<p>（5）构建响应——创建带有正确首部的HTTP响应报文。</p>
-<p>（6）发送响应——将响应回送给客户端。</p>
-<p>（7）记录事务处理过程——将与已完成事务有关的内容记录在一个日志文件中。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/zrlwpHmco57i2PW.png"
-                      alt="pzJLam8z7mPDhlLa__original.png"
-                ></p>
-<h2 id="5-5-1-第一步——接受客户端连接"><a href="#5-5-1-第一步——接受客户端连接" class="headerlink" title="5.5.1 第一步——接受客户端连接"></a>5.5.1 第一步——接受客户端连接</h2><p>如果客户端已经打开了一条到服务器的持久连接，可以使用那条连接来发送它的请求。否则，客户端需要打开一条新的到服务器的连接。</p>
-<h3 id="5-5-1-1-处理新连接"><a href="#5-5-1-1-处理新连接" class="headerlink" title="5.5.1.1 处理新连接"></a>5.5.1.1 处理新连接</h3><p>客户端请求一条到Web服务器的TCP连接时，Web服务器会建立连接，判断连接的另一端是哪个客户端，从TCP连接中将IP地址解析出来。一旦新连接建立起来并被接受，服务器就会将新连接添加到其现存Web服务器连接列表中，做好监视连接上数据传输的准备。</p>
-<p>Web服务器可以随意拒绝或立即关闭任意一条连接。有些Web服务器会因为客户端IP地址或主机名是未认证的，或者因为它是已知的恶意客户端而关闭连接。</p>
-<h3 id="5-5-1-2-客户端主机名识别"><a href="#5-5-1-2-客户端主机名识别" class="headerlink" title="5.5.1.2 客户端主机名识别"></a>5.5.1.2 客户端主机名识别</h3><p>可以用“反向DNS”对大部分Web服务器进行配置，以便将客户端IP地址转换成客户端主机名。Web服务器可以将客户端主机名用于详细的访问控制和日志记录。但主机名查找会花费很长时间，降低Web事务处理的速度。大容量Web服务器要么会禁止主机名解析，要么只允许对特定内容进行解析。</p>
-<h3 id="5-5-1-3-通过ident确定客户端用户"><a href="#5-5-1-3-通过ident确定客户端用户" class="headerlink" title="5.5.1.3 通过ident确定客户端用户"></a>5.5.1.3 通过ident确定客户端用户</h3><p>有些Web服务器支持IETF的ident协议，通过ident协议找到发起HTTP连接的用户名。<strong>通用日志格式</strong>（Common Log Format）的第二个字段中就包含了每条HTTP请求的ident用户名。如果客户端支持ident协议，就在TCP端口113上监听ident请求。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/BSiXQd2bOTuN53a.png"
-                      alt="HnlHkh82fRKut68j__original.png"
-                ></p>
-<p>ident在公共因特网上并不能很好地工作，原因包括：</p>
-<pre><code>1. 很多客户端PC没有运行ident识别协议守护进程软件；
-2. ident协议会使HTTP事务处理产生严重的时延；
-3. 很多防火墙不允许ident流量进入；
-4. ident协议不安全，容易被伪造；
-5. ident协议不支持虚拟IP地址；
-6. 暴露客户端的用户名涉及隐私问题。</code></pre>
-<p>告知ApacheWeb服务器通过<strong>IdentityCheck  on</strong>指令使用ident查找功能。如果没有ident信息，用连字符（-）来填充ident日志字段。由于通常没有ident信息，在使用通用日志格式的日志文件中，第二个字段通常都是连字符。</p>
-<h2 id="5-5-2-第二步——接收请求报文"><a href="#5-5-2-第二步——接收请求报文" class="headerlink" title="5.5.2 第二步——接收请求报文"></a>5.5.2 第二步——接收请求报文</h2><p>连接上有数据到达时，Web服务器会从网络连接中读取数据，并将请求报文中的内容解析出来。</p>
-<p>解析请求报文时，Web服务器操作：</p>
-<pre><code>1. 解析请求行，查找请求方法、指定的资源标识符（URI）以及版本号，各项之间由一个空格分隔，并以CRLF作为行的结束；
-2. 读取以CRLF结尾的报文首部；
-3. 检测到以CRLF结尾的、标识首部结束的空行（如果有的话）；
-4. 如果有的话（长度由Content-Length首部指定），读取请求主体。</code></pre>
-<p>解析请求报文时，Web服务器会不定期地从网络上接收输入数据。网络连接可能出现延迟，所以将部分报文数据临时存储在内存中，直到收到足以进行解析的数据并理解其意义为止。</p>
-<h3 id="5-5-2-1-报文的内部表示法"><a href="#5-5-2-1-报文的内部表示法" class="headerlink" title="5.5.2.1 报文的内部表示法"></a>5.5.2.1 报文的内部表示法</h3><p>有些Web服务器会用，便于进行报文操作的内部数据结构来存储请求报文。比如，数据结构中可能包含有指向请求报文中各个片段的指针及其长度，将这些首部存放在一个快速查询表中，以便快速访问特定首部的具体值了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/JL5lRyhHMOqg4xd.png"
-                      alt="6J2aJFF37Qfi51H7.png"
-                ></p>
-<h3 id="5-5-2-2-连接的输入-输出处理结构"><a href="#5-5-2-2-连接的输入-输出处理结构" class="headerlink" title="5.5.2.2 连接的输入/输出处理结构"></a>5.5.2.2 连接的输入/输出处理结构</h3><p>高性能的Web服务器能够同时支持数千条连接。连接可能在快速地或者慢速向Web服务器发送请求甚至空闲着。因为请求可能会在任意时刻到达，所以Web服务器会不停地观察有无新的Web请求。不同的Web服务器结构会以不同的方式为请求服务。</p>
+    <title>07-缓存</title>
+    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
 <ol>
-<li>单线程Web服务器（参见a）</li>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
 </ol>
-<p>一次只处理一个请求，直到完成为止。这种结构易于实现，但所有其他连接都会被忽略。这样会造成严重的性能问题，只适用于低负荷的服务器，以及type-o-serve这样的诊断工具。</p>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
+                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
+                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
+                ></p>
 <ol start="2">
-<li>多进程及多线程Web服务器（参见b）</li>
+<li><strong>再验证未命中</strong></li>
 </ol>
-<p>用多个进程，或更高效的线程同时对请求进行处理。可以根据需要或预先创建线程/进程。有些服务器会为每条连接分配一个线程/进程，但当同时处理过多连接时，会消耗太多的内存或系统资源，因此通常都会对线程/进程的最大数量进行限制。</p>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
+                      alt="yIucryfnFQtd0k4c__thumbnail.png"
+                ></p>
 <ol start="3">
-<li>复用I/O的服务器（参见c）</li>
+<li><strong>对象被删除</strong></li>
 </ol>
-<p>在复用结构中，同时监视所有连接上的活动。当连接的状态发生变化时（有数据可用，或出现错误时），就对那条连接进行少量的处理；处理结束之后，将连接返回到开放连接列表中，等待下一次状态变化。</p>
-<ol start="4">
-<li>复用的多线程Web服务器（参见d）</li>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
 </ol>
-<p>多个线程中的每一个都在观察打开的连接，并对每条连接执行少量的任务。</p>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/QzpRsmfEyFrSeuM.png"
-                      alt="2mA4SsoOK7nSD7FP.png"
+                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
+                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
                 ></p>
-<h2 id="5-5-3-第三步——处理请求"><a href="#5-5-3-第三步——处理请求" class="headerlink" title="5.5.3 第三步——处理请求"></a>5.5.3 第三步——处理请求</h2><p>一旦Web服务器收到了请求，就可以根据方法、资源、首部和可选的主体部分来对请求进行处理了。比如POST要求请求报文中必须带有实体主体部分的数据；比如OPTIONS允许有也可以没有请求的主体部分。比如GET禁止在请求报文中包含实体的主体数据。</p>
-<h2 id="5-5-4-第四步——对资源的映射及访问"><a href="#5-5-4-第四步——对资源的映射及访问" class="headerlink" title="5.5.4 第四步——对资源的映射及访问"></a>5.5.4 第四步——对资源的映射及访问</h2><p>Web服务器是资源服务器。它们负责发送预先创建好的内容，比如HTML页面或图片，以及运行在服务器上的资源生成程序所产生的动态内容。将内容传送给客户端之前，要将请求报文中的URI映射为Web服务器上适当的内容或内容生成器，以识别出内容的源头。</p>
-<h3 id="5-5-4-1-docroot"><a href="#5-5-4-1-docroot" class="headerlink" title="5.5.4.1 docroot"></a>5.5.4.1 docroot</h3><p>Web服务器支持各种不同类型的资源映射，最简单的形式就是用请求URI作为名字来访问Web服务器文件系统中的文件。通常，Web服务器的文件系统中会有特殊的文件夹专门用于存放Web内容。这个文件夹被称为文档的根目录（documentroot或docroot）。Web服务器从请求报文中获取URI，并将其附加在文档根目录的后面。</p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NfA8CvY7cpJeb9Z.png"
-                      alt="YjRu2XQ3AOUZMPxL.png"
+                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
+                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
                 ></p>
-<p>在配置文件httpd.conf中添加<strong>DocumentRoot行</strong>为Apache Web服务器设置文档的根目录：DocumentRoot/usr/local/httpd/files</p>
-<p>服务器不能让相对URL退到docroot之外，将文件系统的其余部分暴露出来。</p>
-<h4 id="5-5-4-1-1-虚拟托管的docroot"><a href="#5-5-4-1-1-虚拟托管的docroot" class="headerlink" title="5.5.4.1.1 虚拟托管的docroot"></a>5.5.4.1.1 虚拟托管的docroot</h4><p>虚拟托管的Web服务器会在同一台Web服务器上提供多个Web站点，每个站点都有自己独有的文档根目录。虚拟托管Web服务器会根据URI或Host首部的IP地址或主机名来识别要使用的正确文档根目录。</p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/ohlBFpvjKqM5RVD.png"
-                      alt="h2lrUmLfCt6WWhJe__thumbnail.png"
+                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
+                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
                 ></p>
-<p>对ApacheWeb服务器来说，为每个虛拟Web站点配置一个VirtualHost块，每个虚拟服务器都要包含DocumentRoot。</p>
-<h4 id="5-5-4-1-2-用户的主目录docroot"><a href="#5-5-4-1-2-用户的主目录docroot" class="headerlink" title="5.5.4.1.2 用户的主目录docroot"></a>5.5.4.1.2 用户的主目录docroot</h4><p>Docroot的另一种常见应用是在Web服务器上为人们提供私有的Web站点。通常把以斜杠和波浪号（/~）开始，后面跟着用户名的URI映射为此用户的私有文档根目录。私有docroot通常是用户主目录下那个名为public_html 的目录，也可将其配置为其他值。</p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/XRS34sTM8odOjJc.png"
-                      alt="mzxmQqltivIgO2q9__thumbnail.png"
+                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
+                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
                 ></p>
-<h3 id="5-5-4-2-目录列表"><a href="#5-5-4-2-目录列表" class="headerlink" title="5.5.4.2 目录列表"></a>5.5.4.2 目录列表</h3><p>Web服务器可以接收对目录URL的请求，其路径可以解析为一个目录，而不是文件。对大多数Web服务器对目录URL的请求采取不同的动作：</p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
 <ol>
-<li>返回一个错误。</li>
-<li>不返回目录，返回一个特殊的默认‘索引文件”。多数Web服务器会去查找目录中名为index.html或index.htm的文件来代表此目录，并返回这个文件的内容。在Apache Web服务器上，可以用配置指令<strong>DirectoryIndex</strong>配置要作为默认目录文件使用的文件名集合，指令按照优先顺序列出所有可以作为目录索引文件使用的文件名。</li>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
 </ol>
-<p>例如：    DirectoryIndex  index.html  index.htm  home.html  home.htm  index.cgi</p>
+<p>缓存返回的内容有以下几种情况：</p>
 <ol>
-<li>扫描目录，返回一个包含目录内容的HTML页面。如果用户请求目录URI时，没有提供默认的索引文件，且没有禁止使用目录索引，很多Web服务器都会自动返回一个HTML文件，文件中会列出目录里的文件名和每个文件的大小和修改日期，还包括到每个文件的URI链接。</li>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
 </ol>
-<p>可以通过以下Apache指令禁止自动生成目录索引文件：Options-Indexes</p>
-<h3 id="5-5-4-3-动态内容资源的映射"><a href="#5-5-4-3-动态内容资源的映射" class="headerlink" title="5.5.4.3 动态内容资源的映射"></a>5.5.4.3 动态内容资源的映射</h3><p>Web服务器可以将URI映射为动态资源，也就是映射到按需动态生成内容的程序上。多数Web服务器都提供了一些机制以识别和映射动态资源，能够分辨资源什么时候是动态的，动态内容生成程序位于何处，以及如何运行那个程序。</p>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/AfQbyTgORts29kv.png"
-                      alt="QX5bpDmH8lbf0JpV__thumbnail.png"
+                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
+                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
                 ></p>
-<p>Apache允许用户将URI路径名组件映射为可执行文件目录，服务器会试着去执行目录中的程序。</p>
-<p>Apache允许用户用一个特殊的文件扩展名来标识可执行文件。这种方式就可以将可执行脚本放在任意目录中了。e.g.  AddHandler cgi-script.cgi （执行所有以.cgi结尾的Web资源）。</p>
-<h3 id="5-5-4-4-服务器端包含项"><a href="#5-5-4-4-服务器端包含项" class="headerlink" title="5.5.4.4 服务器端包含项"></a>5.5.4.4 服务器端包含项</h3><p>很多Web服务器提供了对<strong>服务器端包含项</strong>（SSI）的支持，这是创建动态内容的一种方式。如果资源被标识为存在服务器端包含项，服务器就会发送前对资源内容进行扫描，以查找特定的模板（可以是变量名或嵌入式脚本）。可以用变量的值或可执行脚本的输出来取代特定的模板。</p>
-<h3 id="5-5-4-5-访问控制"><a href="#5-5-4-5-访问控制" class="headerlink" title="5.5.4.5 访问控制"></a>5.5.4.5 访问控制</h3><p>Web服务器还可以为特定资源进行访问控制。Web服务器可以根据客户端的IP地址进行访问控制，也可以要求输入密码来访问资源。</p>
-<h2 id="5-5-5-第五步——构建响应"><a href="#5-5-5-第五步——构建响应" class="headerlink" title="5.5.5 第五步——构建响应"></a>5.5.5 第五步——构建响应</h2><p>Web服务器识别出了资源，就执行请求方法中描述的动作，并返回响应报文，包含有响应状态码、响应首部，如果生成了响应主体的话，还包括响应主体。</p>
-<h3 id="5-5-5-1-响应实体"><a href="#5-5-5-1-响应实体" class="headerlink" title="5.5.5.1 响应实体"></a>5.5.5.1 响应实体</h3><p>如果事务处理产生了响应主体，就将内容放在响应报文中回送过去。如果有响应主体的话，响应报文中通常包括：</p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
 <ol>
-<li>描述响应主体MIME类型的Content-Type首部；</li>
-<li>描述响应主体长度的Content-Length首部；</li>
-<li>实际报文的主体内容。<h3 id="5-5-5-2-MIME类型"><a href="#5-5-5-2-MIME类型" class="headerlink" title="5.5.5.2 MIME类型"></a>5.5.5.2 MIME类型</h3></li>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
 </ol>
-<p>Web服务器要确定响应主体的MIME类型。</p>
-<ol>
-<li><strong>MIME 类型</strong>（mime.types）</li>
-</ol>
-<p>Web服务器可用文件的扩展名来说明MIME类型。Web服务器会为每个资源扫描一个包含了所有扩展名的MIME类型的文件，以确定其MIME类型。这种最常见。</p>
-<ol start="2">
-<li><strong>魔法分类</strong>（Magic typing）</li>
-</ol>
-<p>ApacheWeb服务器可以扫描每个资源的内容，并将其与一个已知模式表（魔法文件）进行匹配，以决定每个文件的MIME类型。适用于文件没有标准扩展名的时候。</p>
-<ol start="3">
-<li><strong>显式分类</strong>（Explicit typing）</li>
-</ol>
-<p>可对Web服务器进行配置，不考虑文件的扩展名或内容，强制特定文件或目录内容拥有某个MIME类型。</p>
-<ol start="4">
-<li><strong>类型协商</strong></li>
-</ol>
-<p>有些Web服务器经过配置，可以以多种文档格式来存储资源。在这种情况下，配置Web服务器，使其可以通过与用户的协商来决定使用哪种格式（及相关的MIME类型）“最好”。</p>
-<p>还可以通过配置Web服务器，将特定的文件与MIME类型相关联。</p>
-<h3 id="5-5-5-3-重定向"><a href="#5-5-5-3-重定向" class="headerlink" title="5.5.5.3 重定向"></a>5.5.5.3 重定向</h3><p>Web服务器有时会返回重定向响应而不是成功的报文，将浏览器重定向到其他地方来执行请求。Location响应首部包含了内容的新地址或优选地址的URI。重定向可用于下列情况：</p>
-<ol>
-<li><strong>永久删除的资源</strong></li>
-</ol>
-<p>资源被移动到了新的位置，或被重新命名，有了新的URL。Web服务器可以告诉客户端资源已经被重命名了，让其可以在从新地址获取资源之前，更新书签之类的信息。状态码301 Moved Permanently就用于此类重定向。</p>
-<ol start="2">
-<li><strong>临时删除的资源</strong></li>
-</ol>
-<p>如果资源被临时移走或重命名了，服务器将客户端重定向到新的位置上去。由于重命名是临时的，所以服务器希望客户端不必对书签进行更新。状态码303 See Other以及状态码307 Temporary Redirect用于此类重定向。</p>
-<ol start="3">
-<li><strong>URL增强</strong></li>
-</ol>
-<p>服务器通常用重定向来重写URL，常用于嵌入上下文。服务器会生成一个新的包含了嵌入式状态信息的URL，并将用户重定向到这个新的URL上。客户端会跟随这个重定向信息，重新发起请求。状态码303 See Other和307 Temporary Redirect用于此类重定向。</p>
-<ol start="4">
-<li><strong>负载均衡</strong></li>
-</ol>
-<p>如果一个超载的服务器收到一条请求，可以将客户端重定向到一个负载不重的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
-<ol start="5">
-<li><strong>服务器关联</strong></li>
-</ol>
-<p>Web服务器上可能有某些用户的本地信息，可以将客户端重定向到包含了那个客户端信息的服务器上去。状态码303 See Other和307 Temporary Redirect可用于此类重定向。</p>
-<ol start="6">
-<li><strong>规范目录名称</strong></li>
-</ol>
-<p>客户端请求的URI是一个不带尾部斜线的目录名时，多数Web服务器都会将客户端重定向到一个加了斜线的URI上，这样相对链接就可以正常工作。</p>
-<h2 id="5-5-6-第六步——发送响应"><a href="#5-5-6-第六步——发送响应" class="headerlink" title="5.5.6 第六步——发送响应"></a>5.5.6 第六步——发送响应</h2><p>服务器可能有很多条到各个客户端的连接，有空闲的，有向服务器发送数据，还有正在向客户端回送响应数据。</p>
-<p>服务器要记录连接的状态，<strong>对非持久连接而言</strong>，服务器应该在发送了整条报文之后，关闭自己这一端的连接；<strong>对持久连接来说</strong>，连接可能仍保持打开状态，服务器要正确地计算Content-Length首部，客户端才会知道响应什么时候结束。</p>
-<h2 id="5-5-7-第七步——记录日志"><a href="#5-5-7-第七步——记录日志" class="headerlink" title="5.5.7 第七步——记录日志"></a>5.5.7 第七步——记录日志</h2><p>最后，当事务结束时，Web服务器会在日志文件中添加一个条目，来描述已执行的事务。大多数Web服务器都提供了几种日志配置格式。更多细节请参见第21章。</p>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
+                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
+                      alt="c66vSOYHG3viCCN0__thumbnail.png"
+                ></p>
 ]]></content>
       <categories>
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
-        <category>05-Web服务器</category>
+        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -3878,189 +4061,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>06-代理</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>07-缓存</title>
-    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
-<ol>
-<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
-<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
-<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
-<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
-</ol>
-<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
-<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
-                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
-                ></p>
-<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
-<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
-<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
-<ol>
-<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
-                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
-                ></p>
-<ol start="2">
-<li><strong>再验证未命中</strong></li>
-</ol>
-<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
-                      alt="yIucryfnFQtd0k4c__thumbnail.png"
-                ></p>
-<ol start="3">
-<li><strong>对象被删除</strong></li>
-</ol>
-<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
-<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
-<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
-<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
-<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
-<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
-<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
-<ol>
-<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
-<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
-<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
-</ol>
-<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
-<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
-<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
-<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
-<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
-                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
-                ></p>
-<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
-<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
-<ol>
-<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
-<li>根据URL动态地选择一个特定的父缓存。</li>
-<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
-<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
-</ol>
-<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
-                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
-                ></p>
-<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
-<ol>
-<li>接收——缓存从网络中读取抵达的请求报文。</li>
-<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
-<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
-<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
-<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
-<li>发送——缓存通过网络将响应发回给客户端。</li>
-<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
-                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
-                ></p>
-<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
-<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
-<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
-<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
-<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
-                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
-                ></p>
-<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
-<ol>
-<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
-<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
-</ol>
-<p>缓存返回的内容有以下几种情况：</p>
-<ol>
-<li>“足够新鲜”的已缓存副本；</li>
-<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
-<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
-<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
-</ol>
-<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
-<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
-<ol>
-<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
-<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
-</ol>
-<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
-<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
-<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
-<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
-<ol>
-<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
-<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
-<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
-<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
-</ol>
-<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
-<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
-<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
-                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
-                ></p>
-<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
-<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
-<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
-<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
-<ol>
-<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
-<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
-<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
-<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
-<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
-<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
-</ol>
-<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
-<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
-                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
-                ></p>
-<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
-<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
-<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
-                      alt="c66vSOYHG3viCCN0__thumbnail.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -4428,160 +4428,6 @@
       </categories>
       <tags>
         <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>03-WebKit架构和模块</title>
-    <url>/2021/01/21/note/Webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
-    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/a3fWkhvNVFGbXUM.png"
-                      alt="3NEAHZuv3WuglE3I__thumbnail.png"
-                ></p>
-<p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
-<p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
-<p>在“操作系统”层之上的就是WebKit赖以工作的<strong>第三方库</strong>，这些库是WebKit运行的基础。通常来讲，它们包括<strong>图形库</strong>、<strong>网络库</strong>、<strong>视频库</strong>等。</p>
-<p>在它们二者之上的就是WebKit项目，图中把它细分为两层，每层包含很多模块，由于图的大小限制，略去了其中一些次要模块。这些模块支撑网页加载和渲染过程。</p>
-<p><strong>WebCore</strong>是加载和渲染网页的基础部分，包括<strong>HTML解释器</strong>、<strong>CSS解释器</strong>、<strong>SVG</strong>、<strong>DOM</strong>、<strong>渲染树</strong>（RenderObject树、RenderLayer树等），以及<strong>Inspector</strong>（Web Inspector、调试网页）。这些共享部分有些是基础框架，其背后的支持也需要各个平台的不同实现。WebCore这些部分主要被加载和渲染过程的第一、二阶段所使用。</p>
-<p><strong>JavaScriptCore引擎</strong>是WebKit中的默认JavaScript 引擎，WebKit 中对JavaScript 引擎的调用是独立于引擎的。</p>
-<p><strong>WebKit Ports</strong>指的是WebKit中的非共享部分，包括<strong>硬件加速架构</strong>、<strong>网络栈</strong>、<strong>视频解码</strong>、<strong>图片解码</strong>等。这些模块由于平台差异、依赖的第三方库和需求不同等方面原因，就产生了移植部分，导致众多WebKit版本的行为并非一致。</p>
-<p>在WebCore和WebKit Ports之上的层主要是提供嵌入式编程接口，是提供给浏览器调用的。图中左右两个部分分别是<strong>狭义WebKit的接口</strong>和<strong>WebKit2的接口</strong>。因为接口与具体的移植有关，所以有一个与浏览器相关的<strong>绑定层，</strong>绑定层上面就是WebKit项目对外暴露的接口层。接口层的定义也是与移植密切相关的。</p>
-<p>WebKit还有一个部分<strong>测试用例</strong>在图中没有展现出来，包括<strong>布局测试用例</strong>（Layout Tests）和<strong>性能测试用例</strong>（Performance Tests），这两类测试包含了大量的测试用例和期望结果。总体上来讲WebKit移植还是共享大量的用例。这些用例被用来验证渲染结果的正确性。每个浏览器所用的WebKit必须保证能够编译出来一个可执行程序，称为DumpRenderTree，它被用来运行测试用例并将渲染结果同期望结果对比。</p>
-<h2 id="3-2-基于Blink的Chromium浏览器结构"><a href="#3-2-基于Blink的Chromium浏览器结构" class="headerlink" title="3.2 基于Blink的Chromium浏览器结构"></a>3.2 基于Blink的Chromium浏览器结构</h2><h3 id="3-2-1-Chromium浏览器的架构及模块"><a href="#3-2-1-Chromium浏览器的架构及模块" class="headerlink" title="3.2.1 Chromium浏览器的架构及模块"></a>3.2.1 Chromium浏览器的架构及模块</h3><p>Chromium也是基于WebKit（Blink）的。</p>
-<h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/c1kLXiOthd6oas5.png"
-                      alt="IinKReweDux5nZou__thumbnail.png"
-                ></p>
-<p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
-<p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
-<p>Content模块和Content API将下面的渲染机制、安全机制和插件机制等隐藏起来，提供一个接口层。该接口目前被上层模块或者其他项目使用，内部调用者包括Chromium浏览器、Content Shell 等，外部包括<strong>CEF</strong>（Chromium Embedded Framework）、Opera 浏览器等。</p>
-<p><strong>Chromium浏览器</strong>和<strong>Content Shell</strong>是构建在Content API之上的两个“浏览器”，Chromium具有浏览器完整的功能，而Content Shell是使用Content API来包装的一层简单的“壳”，但也是一个简单的“浏览器”，用户可以使用Content模块来渲染和显示网页内容。Content Shell的作用，其一可以用来测试Content模块很多功能的正确性，例如渲染、硬件加速等；其二是一个参考，可以被很多外部的项目参考来开发基于Content API的浏览器或者各种类型的项目。</p>
-<p>在Android系统上，ContentShell的作用更大，这是因为同它并排的左侧的Chromium浏览器的代码没有开源，导致开发者只能依赖Content Shell。</p>
-<p><strong>Android WebView</strong>是为了满足Android系统上的WebView而设计的，其思想是利用Chromium的实现来替换原来Android系统默认的WebView。</p>
-<h4 id="3-2-1-2-多进程模型"><a href="#3-2-1-2-多进程模型" class="headerlink" title="3.2.1.2 多进程模型"></a>3.2.1.2 多进程模型</h4><p>多进程模型的好处：</p>
-<ol>
-<li>避免因单个页面的不响应或者崩溃而影响整个浏览器的稳定性，特别是对用户界面的影响；</li>
-<li>当第三方插件崩溃时不会影响页面或者浏览器的稳定性，因为第三方插件也被使用单独的进程来运行；</li>
-<li>方便了安全模型的实施，也就是沙箱模型是基于多进程架构的。这很大程度上也是WebKit2 产生的原因。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/Ijui9pOAPyVHFwU.png"
-                      alt="qT1uN6gND8xF5hwh__thumbnail.png"
-                ></p>
-<p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
-<p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
-<p><strong>Renderer进程</strong>：网页的渲染进程，负责页面的渲染工作，Blink/WebKit 的渲染工作主要在这个进程中完成，可能有多个，但是Renderer 进程的数量与用户打开的网页数量不一定一致。因为Chromium允许用户配置，此外在沙箱模型启动的情况下，该进程可能会发生一些改变。</p>
-<p><strong>NPAPI插件进程</strong>：该进程是为NPAPI 类型的插件而创建的。其创建的基本原则是每种类型的插件只会被创建一次，而且仅当使用时才被创建。当多个网页使用同一种类型的插件的时候，进程会为每个使用者创建一个实例，所以插件进程是被共享的。</p>
-<p><strong>GPU进程</strong>：最多只有一个，当且仅当GPU硬件加速打开的时候才会被创建，主要用于对3D图形加速调用的实现。</p>
-<p><strong>Pepper插件进程</strong>：同NPAPI插件进程，不同的是为Pepper 插件而创建的进程。</p>
-<p><strong>其他类型的进程</strong>：图中还有一些其他类型的进程在之后介绍。</p>
-<p>对于桌面系统（Windows、Linux、Mac OS）中的Chromium浏览器，它们的进程模型总结后包括以下一些特征：</p>
-<ol>
-<li>Browser进程和页面的渲染是分开的，页面渲染导致的崩溃不会导致浏览器主界面的崩溃。</li>
-<li>每个网页是独立的进程，这保证了页面之间相互不影响。</li>
-<li>插件进程也是独立的，插件本身的问题不会影响浏览器主界面和网页。</li>
-<li>GPU 硬件加速进程也是独立的。</li>
-</ol>
-<p>对于Chromium的Android版，主体进程模型大致相同，不同主要指：</p>
-<ol>
-<li><strong>GPU进程，</strong>GPU进程演变成Browser进程的一个线程，目的之一是节省资源。</li>
-<li><strong>Renderer进程，</strong>Android版不支持插件，所以没有插件进程，Renderer也是独立的进程，但是会演变成Android上的服务（service）进程。而且由于Android系统的局限性，Renderer进程的数目会被严格限制，这就涉及到了影子（Phantom）标签的议题。影子标签就是浏览器会将后台的网页所使用的渲染设施都清除，只是原来的一个影子，当用户再次切换的时候，网页需要重新加载和渲染。</li>
-</ol>
-<p>Chromium允许用户配置Renderer 进程被创建的方式，模型的类型有：</p>
-<ol>
-<li><strong>Process-per-site-instance</strong>：该类型的含义是为每一个页面都创建一个独立的Render进程，不管这些页面是否来自于同一域。好处是每个页面互不影响，坏处是资源的浪费。</li>
-<li><strong>Process-per-site</strong>：该类型的含义是属于同一个域的页面共享同一个进程，而不同属一个域的页面则分属不同的进程。好处是对于相同的域，进程可以共享，内存消耗相对较小，坏处是可能会有特别大的Renderer 进程。</li>
-<li><strong>Process-per-tab</strong>：该类型的含义是为每个标签页都创建一个独立的进程，而不管它们是否是不同域不同实例，这也是Chromium的默认行为，但会浪费资源。</li>
-<li><strong>Single process</strong>：该类型的含义是不为页面创建任何独立的进程，所有渲染工作都在Browser进程中进行，它们是Browser进程中的多个线程。这个类型在桌面系统上一般不推荐使用，只有在比较单进程和多进程时相对有用，但在Chromium的Android版本上，在Android WebView中，该模式被采用。<h4 id="3-2-1-3-Browser进程和Renderer进程"><a href="#3-2-1-3-Browser进程和Renderer进程" class="headerlink" title="3.2.1.3 Browser进程和Renderer进程"></a>3.2.1.3 Browser进程和Renderer进程</h4></li>
-</ol>
-<p>Browser进程和Renderer进程都是在WebKit的接口之外由Chromium引入的。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/YLSJcDgjMZpdmOy.png"
-                      alt="CTnRBqgG4ElY7uhV__thumbnail.png"
-                ></p>
-<p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
-<p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
-<p><strong>Renderer</strong>，主要处理进程间通信，接受来自Browser进程的请求，并调用相应的WebKit接口层。同时将WebKit的处理结果发送回去。上面这些层都是在Renderer进程中工作的。</p>
-<p><strong>RendererHost</strong>，目的也是处理同Renderer进程之间的通信，不过RendererHost是给Renderer进程发送请求并接收来自Renderer进程的结果。</p>
-<p><strong>Web Contents</strong>表示的是网页的内容，它同时包括显示网页内容的子窗口，子窗口最后被嵌入浏览器的用户界面，作为它的一个标签页。</p>
-<h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/6WhXVSPUxQrOz9C.png"
-                      alt="vbkdMTBjTVYMog53__thumbnail.png"
-                ></p>
-<p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
-<ol>
-<li>Browser进程收到用户的请求，首先由UI线程处理，而且将相应的任务转给IO线程，它随即将该任务传递给Renderer进程。</li>
-<li>Renderer进程的IO线程经过解释后交给渲染线程。渲染线程接受请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染。最后Renderer进程将结果由IO线程传递给Browser进程。</li>
-<li>最后，Browser进程接收到结果并将结果绘制出来。</li>
-</ol>
-<p>Chromium为了保持线程间通信和同步，同时避免造成死锁或者资源的竞争冲突等问题，在绝大多数的场景，使用事件和一种Chromium新创建的任务传递机制，仅在非用不可的情况下才使用锁或者线程安全对象。</p>
-<h4 id="3-2-1-5-Content接口"><a href="#3-2-1-5-Content接口" class="headerlink" title="3.2.1.5 Content接口"></a>3.2.1.5 Content接口</h4><p>Content接口不仅提供了一层对多进程进行渲染的抽象接口，而且它支持所有的HTML5功能、GPU硬件加速功能和沙箱机制。Content接口按照功能分成六个部分，每个部分的接口一般也可以分成两类，第一类是嵌入者（可以是Chromium浏览器、CEF3和Content Shell）调用的接口，另一类是嵌入者应该实现的回调接口，被Content接口的内部实现所调用，用来参与具体实现的逻辑或者事件的监听等。</p>
-<ol>
-<li><strong>App</strong>。这部分主要与应用程序或者进程的创建和初始化相关，它被所有的进程使用，用来处理一些进程的公共操作。包括两种类型，第一类主要包括进程创建的初始化函数，也就是Content模块的初始化和关闭动作；第二类主要是各种回调函数，用来告诉嵌入者启动完成，进程启动、退出，沙盒模型初始化开始和结束等。</li>
-<li><strong>Browser</strong>。第一类包括对一些HTML5功能和其他高级功能实现的参与。第二类主要是实现部分的逻辑，被Browser进程调用，还有就是一些事件的函数回调。</li>
-<li><strong>Common</strong>。主要定义一些公共的接口，这些被Renderer和Browser共享，例如一些进程相关、参数、GPU相关等。</li>
-<li><strong>Plugin</strong>。仅有一个接口类，通知嵌入者Plugin进程何时被创建。</li>
-<li><strong>Renderer</strong>。第一类包含获取RenderThread的消息循环、注册V8Extension、计算JavaScript表达式等。第二类包括ContentRendererClient，主要是实现部分逻辑，被Browser端（或者进程）调用，还有就是一些事件的函数回调。</li>
-<li><strong>Utility</strong>。工具类接口，主要包括让嵌入者参与Content接口中的线程创建和消息的过滤。<h2 id="3-3-WebKit2"><a href="#3-3-WebKit2" class="headerlink" title="3.3 WebKit2"></a>3.3 WebKit2</h2></li>
-</ol>
-<h3 id="3-3-1-WebKit2架构及模块"><a href="#3-3-1-WebKit2架构及模块" class="headerlink" title="3.3.1 WebKit2架构及模块"></a>3.3.1 WebKit2架构及模块</h3><p>相比于狭义的WebKit，WebKit2是一套全新的结构和接口。它主要目的和思想同Chromium类似，就是将渲染过程放在单独的进程中来完成，独立于用户界面。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/BNDilROn5je1LJd.png"
-                      alt="DcFsDgQUQEzoXb3W__thumbnail.png"
-                ></p>
-<p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
-<h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
-<p>在WebKit项目中，狭义WebKit的接口主要思想是将网页的渲染结果作为用户界面中的一个窗口部件，它用来显示网页的内容。按功能大致可以把所有接口分成六种类型：</p>
-<ol>
-<li>设置加载网页、获取加载进度、停止加载、重新加载等；</li>
-<li>遍历前后浏览记录类，可以前进、后退等；</li>
-<li>网页的很多设置，例如缩放、主题、背景、模式、编码等；</li>
-<li>查找网页的内容、高亮等；</li>
-<li>触控事件、鼠标事件处理；</li>
-<li>查看网页源代码、显示调试窗口等与开发者相关的接口，是通常的嵌入式接口提供的功能。</li>
-</ol>
-<p>WebKit2接口不同于WebKit的接口，它们是不兼容的，但目的都是提供嵌入式的应用接口。WebKit2接口大致可以分为两个大的部分，</p>
-<ol>
-<li><strong>WebView相关的接口</strong>，表示渲染的设置、渲染过程、界面等，其中大多数跟各个移植紧密相关。有三个主要的类，它们被各个移植所共享。<ol>
-<li>WKView[Ref]：表示的是一个与平台相关的视图，例如在Windows上它表示的就是一个窗口的句柄。</li>
-<li>WKContextRef：所有页面的上下文，这些被共享的信息包括local storage、设置等。</li>
-<li>WKPageRef：表示网页，也就是浏览的基本单位。</li>
-</ol>
-</li>
-<li>上面<strong>接口依赖的基础类</strong>，它们被各个移植所共享，既包括容器、字符串等基础类，也包括跟网页相关的基础类，例如URL、请求、网页设置等。</li>
-</ol>
-<p>WebKit2还有WebBundle接口，在Web进程里，其目的是让某些移植访问DOM，目前还没有明确的需求。</p>
-<h3 id="3-3-3-比较WebKit2和Chromium的多进程模型以及接口"><a href="#3-3-3-比较WebKit2和Chromium的多进程模型以及接口" class="headerlink" title="3.3.3 比较WebKit2和Chromium的多进程模型以及接口"></a>3.3.3 比较WebKit2和Chromium的多进程模型以及接口</h3><p>下图详细描述了WebKit 接口和Chromium的多进程的关系，以及和Content接口的关系。前面笔者也介绍了一些，例如Renderer进程直接调用WebKit接口，以及和Content接口允许应用程序注入并参与Content之下各个进程的内部逻辑。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/ljF2cJTVagvwpei.png"
-                      alt="IZ9qB9RUHmSwUfSc__thumbnail.png"
-                ></p>
-<p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
-<p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
-<p>最后，Chromium中每个进程都是从相同的二进制可执行文件启动，而基于WebKit2的进程则未必如此。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>WebKit技术内幕</category>
-        <category>03-WebKit架构和模块</category>
-      </categories>
-      <tags>
-        <tag>WebKit</tag>
       </tags>
   </entry>
   <entry>
@@ -5414,6 +5260,160 @@
       <tags>
         <tag>W3C</tag>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>03-WebKit架构和模块</title>
+    <url>/2021/01/21/note/Webkit/03-WebKit%E6%9E%B6%E6%9E%84%E5%92%8C%E6%A8%A1%E5%9D%97/</url>
+    <content><![CDATA[<h2 id="3-1-WebKit-架构及模块"><a href="#3-1-WebKit-架构及模块" class="headerlink" title="3.1 WebKit 架构及模块"></a>3.1 WebKit 架构及模块</h2><h3 id="3-1-1-获取WebKit"><a href="#3-1-1-获取WebKit" class="headerlink" title="3.1.1 获取WebKit"></a>3.1.1 获取WebKit</h3><p>WebKit是一个开源项目，可以从<a class="link"   href="http://www.webkit.org官方网站下载源代码./" >www.webkit.org官方网站下载源代码。<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="3-1-2-WebKit-架构"><a href="#3-1-2-WebKit-架构" class="headerlink" title="3.1.2 WebKit 架构"></a>3.1.2 WebKit 架构</h3><p>WebKit支持不同的浏览器，因为不同浏览器的需求不同，所以在WebKit中，一些代码可以共享，另外一部分不同的被称为WebKit的移植（Ports）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/a3fWkhvNVFGbXUM.png"
+                      alt="3NEAHZuv3WuglE3I__thumbnail.png"
+                ></p>
+<p>图中的WebKit架构，虚线框表示该部分模块在不同浏览器使用的WebKit内核中的实现不是普遍共享的，实线框标记的模块表示它们基本上是共享的，但是否共享可以通过不同的编译配置改变它们的行为。</p>
+<p>图中最下面的是“<strong>操作系统</strong>”，WebKit可以在不同的操作系统上工作。不同浏览器可能会依赖不同的操作系统，同一个浏览器使用的WebKit也可能依赖不同的操作系统。</p>
+<p>在“操作系统”层之上的就是WebKit赖以工作的<strong>第三方库</strong>，这些库是WebKit运行的基础。通常来讲，它们包括<strong>图形库</strong>、<strong>网络库</strong>、<strong>视频库</strong>等。</p>
+<p>在它们二者之上的就是WebKit项目，图中把它细分为两层，每层包含很多模块，由于图的大小限制，略去了其中一些次要模块。这些模块支撑网页加载和渲染过程。</p>
+<p><strong>WebCore</strong>是加载和渲染网页的基础部分，包括<strong>HTML解释器</strong>、<strong>CSS解释器</strong>、<strong>SVG</strong>、<strong>DOM</strong>、<strong>渲染树</strong>（RenderObject树、RenderLayer树等），以及<strong>Inspector</strong>（Web Inspector、调试网页）。这些共享部分有些是基础框架，其背后的支持也需要各个平台的不同实现。WebCore这些部分主要被加载和渲染过程的第一、二阶段所使用。</p>
+<p><strong>JavaScriptCore引擎</strong>是WebKit中的默认JavaScript 引擎，WebKit 中对JavaScript 引擎的调用是独立于引擎的。</p>
+<p><strong>WebKit Ports</strong>指的是WebKit中的非共享部分，包括<strong>硬件加速架构</strong>、<strong>网络栈</strong>、<strong>视频解码</strong>、<strong>图片解码</strong>等。这些模块由于平台差异、依赖的第三方库和需求不同等方面原因，就产生了移植部分，导致众多WebKit版本的行为并非一致。</p>
+<p>在WebCore和WebKit Ports之上的层主要是提供嵌入式编程接口，是提供给浏览器调用的。图中左右两个部分分别是<strong>狭义WebKit的接口</strong>和<strong>WebKit2的接口</strong>。因为接口与具体的移植有关，所以有一个与浏览器相关的<strong>绑定层，</strong>绑定层上面就是WebKit项目对外暴露的接口层。接口层的定义也是与移植密切相关的。</p>
+<p>WebKit还有一个部分<strong>测试用例</strong>在图中没有展现出来，包括<strong>布局测试用例</strong>（Layout Tests）和<strong>性能测试用例</strong>（Performance Tests），这两类测试包含了大量的测试用例和期望结果。总体上来讲WebKit移植还是共享大量的用例。这些用例被用来验证渲染结果的正确性。每个浏览器所用的WebKit必须保证能够编译出来一个可执行程序，称为DumpRenderTree，它被用来运行测试用例并将渲染结果同期望结果对比。</p>
+<h2 id="3-2-基于Blink的Chromium浏览器结构"><a href="#3-2-基于Blink的Chromium浏览器结构" class="headerlink" title="3.2 基于Blink的Chromium浏览器结构"></a>3.2 基于Blink的Chromium浏览器结构</h2><h3 id="3-2-1-Chromium浏览器的架构及模块"><a href="#3-2-1-Chromium浏览器的架构及模块" class="headerlink" title="3.2.1 Chromium浏览器的架构及模块"></a>3.2.1 Chromium浏览器的架构及模块</h3><p>Chromium也是基于WebKit（Blink）的。</p>
+<h4 id="3-2-1-1-架构和模块"><a href="#3-2-1-1-架构和模块" class="headerlink" title="3.2.1.1 架构和模块"></a>3.2.1.1 架构和模块</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/c1kLXiOthd6oas5.png"
+                      alt="IinKReweDux5nZou__thumbnail.png"
+                ></p>
+<p>Chromium的架构和主要的模块中，Blink 只是其中的一块，和它并列的还有众多的Chromium模块，包括<strong>GPU/CommandBuffer</strong>（硬件加速架构）、<strong>V8 JavaScript引擎</strong>、<strong>沙箱模型</strong>、<strong>CC</strong>（Chromium Compositor）、<strong>IPC</strong>、<strong>UI</strong>等。</p>
+<p><strong>Content 模块</strong>和<strong>Content API</strong>（接口）是Chromium对渲染网页功能的抽象。Content这里是指用来渲染网页内容的模块，没有Content模块，浏览器的开发者也可以在WebKit的Chromium移植上渲染网页内容，但是却没有办法获得沙箱模型、跨进程的GPU硬件加速机制、众多的HTML5功能，因为这些功能很多是在Content层里实现的。</p>
+<p>Content模块和Content API将下面的渲染机制、安全机制和插件机制等隐藏起来，提供一个接口层。该接口目前被上层模块或者其他项目使用，内部调用者包括Chromium浏览器、Content Shell 等，外部包括<strong>CEF</strong>（Chromium Embedded Framework）、Opera 浏览器等。</p>
+<p><strong>Chromium浏览器</strong>和<strong>Content Shell</strong>是构建在Content API之上的两个“浏览器”，Chromium具有浏览器完整的功能，而Content Shell是使用Content API来包装的一层简单的“壳”，但也是一个简单的“浏览器”，用户可以使用Content模块来渲染和显示网页内容。Content Shell的作用，其一可以用来测试Content模块很多功能的正确性，例如渲染、硬件加速等；其二是一个参考，可以被很多外部的项目参考来开发基于Content API的浏览器或者各种类型的项目。</p>
+<p>在Android系统上，ContentShell的作用更大，这是因为同它并排的左侧的Chromium浏览器的代码没有开源，导致开发者只能依赖Content Shell。</p>
+<p><strong>Android WebView</strong>是为了满足Android系统上的WebView而设计的，其思想是利用Chromium的实现来替换原来Android系统默认的WebView。</p>
+<h4 id="3-2-1-2-多进程模型"><a href="#3-2-1-2-多进程模型" class="headerlink" title="3.2.1.2 多进程模型"></a>3.2.1.2 多进程模型</h4><p>多进程模型的好处：</p>
+<ol>
+<li>避免因单个页面的不响应或者崩溃而影响整个浏览器的稳定性，特别是对用户界面的影响；</li>
+<li>当第三方插件崩溃时不会影响页面或者浏览器的稳定性，因为第三方插件也被使用单独的进程来运行；</li>
+<li>方便了安全模型的实施，也就是沙箱模型是基于多进程架构的。这很大程度上也是WebKit2 产生的原因。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/Ijui9pOAPyVHFwU.png"
+                      alt="qT1uN6gND8xF5hwh__thumbnail.png"
+                ></p>
+<p>Chromium架构设计的灵活性，使用者还可以通过设置来改变它的进程模型方式。图中方框代表进程，连接线代表IPC进程间通信。</p>
+<p><strong>Browser进程</strong>：浏览器的主进程，负责浏览器界面的显示、各个页面的管理，是所有其他类型进程的祖先，负责它们的创建和销毁等工作，它有且仅有一个。</p>
+<p><strong>Renderer进程</strong>：网页的渲染进程，负责页面的渲染工作，Blink/WebKit 的渲染工作主要在这个进程中完成，可能有多个，但是Renderer 进程的数量与用户打开的网页数量不一定一致。因为Chromium允许用户配置，此外在沙箱模型启动的情况下，该进程可能会发生一些改变。</p>
+<p><strong>NPAPI插件进程</strong>：该进程是为NPAPI 类型的插件而创建的。其创建的基本原则是每种类型的插件只会被创建一次，而且仅当使用时才被创建。当多个网页使用同一种类型的插件的时候，进程会为每个使用者创建一个实例，所以插件进程是被共享的。</p>
+<p><strong>GPU进程</strong>：最多只有一个，当且仅当GPU硬件加速打开的时候才会被创建，主要用于对3D图形加速调用的实现。</p>
+<p><strong>Pepper插件进程</strong>：同NPAPI插件进程，不同的是为Pepper 插件而创建的进程。</p>
+<p><strong>其他类型的进程</strong>：图中还有一些其他类型的进程在之后介绍。</p>
+<p>对于桌面系统（Windows、Linux、Mac OS）中的Chromium浏览器，它们的进程模型总结后包括以下一些特征：</p>
+<ol>
+<li>Browser进程和页面的渲染是分开的，页面渲染导致的崩溃不会导致浏览器主界面的崩溃。</li>
+<li>每个网页是独立的进程，这保证了页面之间相互不影响。</li>
+<li>插件进程也是独立的，插件本身的问题不会影响浏览器主界面和网页。</li>
+<li>GPU 硬件加速进程也是独立的。</li>
+</ol>
+<p>对于Chromium的Android版，主体进程模型大致相同，不同主要指：</p>
+<ol>
+<li><strong>GPU进程，</strong>GPU进程演变成Browser进程的一个线程，目的之一是节省资源。</li>
+<li><strong>Renderer进程，</strong>Android版不支持插件，所以没有插件进程，Renderer也是独立的进程，但是会演变成Android上的服务（service）进程。而且由于Android系统的局限性，Renderer进程的数目会被严格限制，这就涉及到了影子（Phantom）标签的议题。影子标签就是浏览器会将后台的网页所使用的渲染设施都清除，只是原来的一个影子，当用户再次切换的时候，网页需要重新加载和渲染。</li>
+</ol>
+<p>Chromium允许用户配置Renderer 进程被创建的方式，模型的类型有：</p>
+<ol>
+<li><strong>Process-per-site-instance</strong>：该类型的含义是为每一个页面都创建一个独立的Render进程，不管这些页面是否来自于同一域。好处是每个页面互不影响，坏处是资源的浪费。</li>
+<li><strong>Process-per-site</strong>：该类型的含义是属于同一个域的页面共享同一个进程，而不同属一个域的页面则分属不同的进程。好处是对于相同的域，进程可以共享，内存消耗相对较小，坏处是可能会有特别大的Renderer 进程。</li>
+<li><strong>Process-per-tab</strong>：该类型的含义是为每个标签页都创建一个独立的进程，而不管它们是否是不同域不同实例，这也是Chromium的默认行为，但会浪费资源。</li>
+<li><strong>Single process</strong>：该类型的含义是不为页面创建任何独立的进程，所有渲染工作都在Browser进程中进行，它们是Browser进程中的多个线程。这个类型在桌面系统上一般不推荐使用，只有在比较单进程和多进程时相对有用，但在Chromium的Android版本上，在Android WebView中，该模式被采用。<h4 id="3-2-1-3-Browser进程和Renderer进程"><a href="#3-2-1-3-Browser进程和Renderer进程" class="headerlink" title="3.2.1.3 Browser进程和Renderer进程"></a>3.2.1.3 Browser进程和Renderer进程</h4></li>
+</ol>
+<p>Browser进程和Renderer进程都是在WebKit的接口之外由Chromium引入的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/YLSJcDgjMZpdmOy.png"
+                      alt="CTnRBqgG4ElY7uhV__thumbnail.png"
+                ></p>
+<p><strong>WebKit接口层</strong>，一般基于WebKit接口层的浏览器直接在上面构建，而没有引入复杂的多进程架构。</p>
+<p><strong>WebKit黏附层</strong>，因为Chromium中一些类型和WebKit内部不一致，所以需要一个桥接层。</p>
+<p><strong>Renderer</strong>，主要处理进程间通信，接受来自Browser进程的请求，并调用相应的WebKit接口层。同时将WebKit的处理结果发送回去。上面这些层都是在Renderer进程中工作的。</p>
+<p><strong>RendererHost</strong>，目的也是处理同Renderer进程之间的通信，不过RendererHost是给Renderer进程发送请求并接收来自Renderer进程的结果。</p>
+<p><strong>Web Contents</strong>表示的是网页的内容，它同时包括显示网页内容的子窗口，子窗口最后被嵌入浏览器的用户界面，作为它的一个标签页。</p>
+<h4 id="3-2-1-4-多线程模型"><a href="#3-2-1-4-多线程模型" class="headerlink" title="3.2.1.4 多线程模型"></a>3.2.1.4 多线程模型</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/6WhXVSPUxQrOz9C.png"
+                      alt="vbkdMTBjTVYMog53__thumbnail.png"
+                ></p>
+<p>网页的加载和渲染过程在图中模型下的基本工作方式如以下步骤：</p>
+<ol>
+<li>Browser进程收到用户的请求，首先由UI线程处理，而且将相应的任务转给IO线程，它随即将该任务传递给Renderer进程。</li>
+<li>Renderer进程的IO线程经过解释后交给渲染线程。渲染线程接受请求，加载网页并渲染网页，这其中可能需要Browser进程获取资源和需要GPU进程来帮助渲染。最后Renderer进程将结果由IO线程传递给Browser进程。</li>
+<li>最后，Browser进程接收到结果并将结果绘制出来。</li>
+</ol>
+<p>Chromium为了保持线程间通信和同步，同时避免造成死锁或者资源的竞争冲突等问题，在绝大多数的场景，使用事件和一种Chromium新创建的任务传递机制，仅在非用不可的情况下才使用锁或者线程安全对象。</p>
+<h4 id="3-2-1-5-Content接口"><a href="#3-2-1-5-Content接口" class="headerlink" title="3.2.1.5 Content接口"></a>3.2.1.5 Content接口</h4><p>Content接口不仅提供了一层对多进程进行渲染的抽象接口，而且它支持所有的HTML5功能、GPU硬件加速功能和沙箱机制。Content接口按照功能分成六个部分，每个部分的接口一般也可以分成两类，第一类是嵌入者（可以是Chromium浏览器、CEF3和Content Shell）调用的接口，另一类是嵌入者应该实现的回调接口，被Content接口的内部实现所调用，用来参与具体实现的逻辑或者事件的监听等。</p>
+<ol>
+<li><strong>App</strong>。这部分主要与应用程序或者进程的创建和初始化相关，它被所有的进程使用，用来处理一些进程的公共操作。包括两种类型，第一类主要包括进程创建的初始化函数，也就是Content模块的初始化和关闭动作；第二类主要是各种回调函数，用来告诉嵌入者启动完成，进程启动、退出，沙盒模型初始化开始和结束等。</li>
+<li><strong>Browser</strong>。第一类包括对一些HTML5功能和其他高级功能实现的参与。第二类主要是实现部分的逻辑，被Browser进程调用，还有就是一些事件的函数回调。</li>
+<li><strong>Common</strong>。主要定义一些公共的接口，这些被Renderer和Browser共享，例如一些进程相关、参数、GPU相关等。</li>
+<li><strong>Plugin</strong>。仅有一个接口类，通知嵌入者Plugin进程何时被创建。</li>
+<li><strong>Renderer</strong>。第一类包含获取RenderThread的消息循环、注册V8Extension、计算JavaScript表达式等。第二类包括ContentRendererClient，主要是实现部分逻辑，被Browser端（或者进程）调用，还有就是一些事件的函数回调。</li>
+<li><strong>Utility</strong>。工具类接口，主要包括让嵌入者参与Content接口中的线程创建和消息的过滤。<h2 id="3-3-WebKit2"><a href="#3-3-WebKit2" class="headerlink" title="3.3 WebKit2"></a>3.3 WebKit2</h2></li>
+</ol>
+<h3 id="3-3-1-WebKit2架构及模块"><a href="#3-3-1-WebKit2架构及模块" class="headerlink" title="3.3.1 WebKit2架构及模块"></a>3.3.1 WebKit2架构及模块</h3><p>相比于狭义的WebKit，WebKit2是一套全新的结构和接口。它主要目的和思想同Chromium类似，就是将渲染过程放在单独的进程中来完成，独立于用户界面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/BNDilROn5je1LJd.png"
+                      alt="DcFsDgQUQEzoXb3W__thumbnail.png"
+                ></p>
+<p>WebKit2中也引入了插件进程和网络进程。Web进程对应于Chromium中的Renderer进程，主要是渲染网页。UI进程对应于Chromium中的Browser进程。接口就暴露在该进程中，应用程序只需调用该接口即可。应用程序指的是浏览器或者任何使用该接口的程序。</p>
+<h3 id="3-3-2-WebKit-和WebKit2嵌入式接口"><a href="#3-3-2-WebKit-和WebKit2嵌入式接口" class="headerlink" title="3.3.2 WebKit 和WebKit2嵌入式接口"></a>3.3.2 WebKit 和WebKit2嵌入式接口</h3><p>WebKit提供嵌入式接口，该接口表示其他程序可以将网页渲染嵌入在程序中作为其中的一部分，或用户界面的一部分。对于WebKit的Chromium移植来说，它的接口主要用于Chromium浏览器，而不是嵌入式的使用方式。</p>
+<p>在WebKit项目中，狭义WebKit的接口主要思想是将网页的渲染结果作为用户界面中的一个窗口部件，它用来显示网页的内容。按功能大致可以把所有接口分成六种类型：</p>
+<ol>
+<li>设置加载网页、获取加载进度、停止加载、重新加载等；</li>
+<li>遍历前后浏览记录类，可以前进、后退等；</li>
+<li>网页的很多设置，例如缩放、主题、背景、模式、编码等；</li>
+<li>查找网页的内容、高亮等；</li>
+<li>触控事件、鼠标事件处理；</li>
+<li>查看网页源代码、显示调试窗口等与开发者相关的接口，是通常的嵌入式接口提供的功能。</li>
+</ol>
+<p>WebKit2接口不同于WebKit的接口，它们是不兼容的，但目的都是提供嵌入式的应用接口。WebKit2接口大致可以分为两个大的部分，</p>
+<ol>
+<li><strong>WebView相关的接口</strong>，表示渲染的设置、渲染过程、界面等，其中大多数跟各个移植紧密相关。有三个主要的类，它们被各个移植所共享。<ol>
+<li>WKView[Ref]：表示的是一个与平台相关的视图，例如在Windows上它表示的就是一个窗口的句柄。</li>
+<li>WKContextRef：所有页面的上下文，这些被共享的信息包括local storage、设置等。</li>
+<li>WKPageRef：表示网页，也就是浏览的基本单位。</li>
+</ol>
+</li>
+<li>上面<strong>接口依赖的基础类</strong>，它们被各个移植所共享，既包括容器、字符串等基础类，也包括跟网页相关的基础类，例如URL、请求、网页设置等。</li>
+</ol>
+<p>WebKit2还有WebBundle接口，在Web进程里，其目的是让某些移植访问DOM，目前还没有明确的需求。</p>
+<h3 id="3-3-3-比较WebKit2和Chromium的多进程模型以及接口"><a href="#3-3-3-比较WebKit2和Chromium的多进程模型以及接口" class="headerlink" title="3.3.3 比较WebKit2和Chromium的多进程模型以及接口"></a>3.3.3 比较WebKit2和Chromium的多进程模型以及接口</h3><p>下图详细描述了WebKit 接口和Chromium的多进程的关系，以及和Content接口的关系。前面笔者也介绍了一些，例如Renderer进程直接调用WebKit接口，以及和Content接口允许应用程序注入并参与Content之下各个进程的内部逻辑。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/ljF2cJTVagvwpei.png"
+                      alt="IZ9qB9RUHmSwUfSc__thumbnail.png"
+                ></p>
+<p>首先，Chromium使用的仍然是WebKit接口，而不是WebKit2接口，也就是说Chromium是在WebKit接口之上构建的多进程架构。</p>
+<p>其次，WebKit2 的接口希望尽量将多进程结构隐藏起来，但对Chromium来说，它的主要目的是给Chromium提供Content接口以便构建浏览器，其本身目标不是提供嵌入式接口，虽然有CEF项目基于它构建了嵌入式接口。</p>
+<p>最后，Chromium中每个进程都是从相同的二进制可执行文件启动，而基于WebKit2的进程则未必如此。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>WebKit技术内幕</category>
+        <category>03-WebKit架构和模块</category>
+      </categories>
+      <tags>
+        <tag>WebKit</tag>
       </tags>
   </entry>
   <entry>
