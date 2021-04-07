@@ -12,24 +12,6 @@
       </categories>
   </entry>
   <entry>
-    <title>HTML Standard阅读初体验</title>
-    <url>/2021/03/09/tech/HTML%20Standard/</url>
-    <content><![CDATA[<h1 id="Abstract："><a href="#Abstract：" class="headerlink" title="Abstract："></a>Abstract：</h1><p>通过背景、针对人群、发展历程等几个方面说明了HTML规范的意义和适用范围，同时对规范中的表单序列化、对其他规范的兼容性、可扩展性三个设计目标进行详细说明。其次引入元素、节点、DOM树等概念简单介绍了HTML，最后举例来说明Web可能存在的安全问题并提供了易行的解决方法。</p>
-<h1 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h1><p>通览目录和前言的介绍，对近期所要学习的内容即HTM规范及其重要性有了一个初步的了解，比如对一些基础知识，譬如元素和节点两个概念的区别、DOM树的概念理解更加清晰。</p>
-<p>另一方面，在之前的前端学习中，只考虑到兼容性，至于安全性，除了post、HTTPS比get和HTTP安全以外就不甚了解，有些攻击甚至能威胁到服务器中的数据。</p>
-<p>如同规范里所说，“对于完整理解本规范的某些技术性部分，必须熟悉DOM的基础”，同时，在阅读途中也能了解到不仅限于所阅读的内容，比如1.10.2中所举的例子，也顺带去了解一下事件的捕获和冒泡机制，这些都要求我需要花更多的时间精力，但我想也才能更好的理解HTML规范，同时全英文的规范阅读对我的英语水平也将有极大的提升，相信不久，目前较为吃力的我也能逐渐以英语来记录我的笔记，</p>
-<p>总而言之，我目前的认知，阅读并理解HTML规范，就如同使用产品之前看说明书一样，能有助于安全、有效的开发的同时，也减少了后期的维护成本。</p>
-]]></content>
-      <categories>
-        <category>日记随笔</category>
-        <category>HTML Standard阅读初体验</category>
-      </categories>
-      <tags>
-        <tag>WHATWG</tag>
-        <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>W3C阅读初体验</title>
     <url>/2021/03/07/tech/W3C/</url>
     <content><![CDATA[<p>对于technical report，一旦评审表明工作组满足了新标准的要求，进入Candidate Recommendation 阶段。W3C成员可以就规范是否适合作为W3C建议提供反馈，而工作组收集经验，以证明规范在实践中可行。下一阶段是Proposed Recommendation，以最终完成对W3C成员的评审。如果主管确定W3C成员评审支持其成为标准的规范，则将其发布为W3C Recommendation 。</p>
@@ -56,24 +38,17 @@
       </tags>
   </entry>
   <entry>
-    <title>Common infrastructure</title>
-    <url>/2021/03/08/note/HTML%20Standard/Common%20infrastructure/</url>
-    <content><![CDATA[<p><strong>Parallelism</strong>并行性，指不同的进程可以同时进行，同时为了避免对相同的数据进行不同的操作，这里使用队列(先进先出)来解决。但所举的例子，没怎么懂。。</p>
-<p><strong>Resources</strong>资源，资源能否被支持，取决于资源的格式，是否为critical资源由资源格式的规范来定义，对于CSS样式表，关键子资源是通过@import 规则导入的样式表及其间接导入的样式表。</p>
-<p><strong>element type 元素类型，</strong>有local name 和 namespace命名空间，如果属性名称与XML中Name定义的生产匹配，且不包含：，则该属性名称能与XML兼容。</p>
-<p><strong>DOM trees</strong>，当有些element和 attribute没有指定值时，会有默认值，比如div标签的display属性默认值就是block，有时呢格局需要我们又会设置为none。当一个node作为插入时的参数时，将连接 browsing-context，remove时，断开 browsing-context连接。<strong>browsing context</strong>是指呈现给用户的document对象内的一个环境。shadowroot 这个概念目前没怎么能理解到，查询得知是 DOM 子树的根节点</p>
-<p><strong>Scripting</strong>，foo 更为精确的说应该是interface object</p>
-<p><strong>Plugins</strong>，是content handlers 的 implementation-defined set</p>
-<p><strong>Character encodings</strong>，字符编码， 是 byte streams 和 Unicode strings之间转换的方式，其中utf-16不兼容ASCII.</p>
-<p><strong>Conformance classes</strong>，<strong>Conforming documents</strong>是指遵守 conformance criteria的文档，user agent 无权处理不符合标准的文档。用户代理可以分为Web browsers and other interactive 用户代理、Non-interactive presentation 用户代理、support the suggested default rendering 的Visual 用户代理、不支持 scripting 的用户代理，<strong>UA</strong>使得服务器能够识别客户使用的操作系统及版本、CPU 类型、浏览器及版本、浏览器渲染引擎、浏览器语言、浏览器插件等</p>
-<p><strong>Conformance checkers，</strong>在进行检查时，没有 browsing context和脚本的运行，<strong>conformance criteria</strong>分为三种：通过DTD，通过machine，通过人检查，conformance checker必须满足检查前两种。</p>
-<p><strong>Data mining tools，</strong>处理HTML和XML文档的工具和程序<strong>，</strong>除了渲染文档和检查其符合性以外，还要根据其处理的文档语义进行处理。</p>
-<p><strong>Authoring tools and markup generators，</strong>Authoring tools 分为两类。一种是 tools that work from structure or semantic data，还有一种tools that work on a WYSIWYG（所见即所得） media-specific editing basis，创作工具 应该能让用户能够创建结构良好，语义丰富，独立于媒体的内容， 规范描述了两种 authoring formats，一种基于XML,另一种， custom format inspired by SGML(标准通用标记语言)，也就是HTML。一些 conformance requirements是对元素、属性、方法、对象的要求，分为两类，一种是内容模型限制的要求（ documents and authoring tools），一种是实现行为的要求（UA） 。</p>
+    <title>HTML Standard阅读初体验</title>
+    <url>/2021/03/09/tech/HTML%20Standard/</url>
+    <content><![CDATA[<h1 id="Abstract："><a href="#Abstract：" class="headerlink" title="Abstract："></a>Abstract：</h1><p>通过背景、针对人群、发展历程等几个方面说明了HTML规范的意义和适用范围，同时对规范中的表单序列化、对其他规范的兼容性、可扩展性三个设计目标进行详细说明。其次引入元素、节点、DOM树等概念简单介绍了HTML，最后举例来说明Web可能存在的安全问题并提供了易行的解决方法。</p>
+<h1 id="Note："><a href="#Note：" class="headerlink" title="Note："></a>Note：</h1><p>通览目录和前言的介绍，对近期所要学习的内容即HTM规范及其重要性有了一个初步的了解，比如对一些基础知识，譬如元素和节点两个概念的区别、DOM树的概念理解更加清晰。</p>
+<p>另一方面，在之前的前端学习中，只考虑到兼容性，至于安全性，除了post、HTTPS比get和HTTP安全以外就不甚了解，有些攻击甚至能威胁到服务器中的数据。</p>
+<p>如同规范里所说，“对于完整理解本规范的某些技术性部分，必须熟悉DOM的基础”，同时，在阅读途中也能了解到不仅限于所阅读的内容，比如1.10.2中所举的例子，也顺带去了解一下事件的捕获和冒泡机制，这些都要求我需要花更多的时间精力，但我想也才能更好的理解HTML规范，同时全英文的规范阅读对我的英语水平也将有极大的提升，相信不久，目前较为吃力的我也能逐渐以英语来记录我的笔记，</p>
+<p>总而言之，我目前的认知，阅读并理解HTML规范，就如同使用产品之前看说明书一样，能有助于安全、有效的开发的同时，也减少了后期的维护成本。</p>
 ]]></content>
       <categories>
-        <category>学习笔记</category>
-        <category>HTML standard</category>
-        <category>Common infrastructure</category>
+        <category>日记随笔</category>
+        <category>HTML Standard阅读初体验</category>
       </categories>
       <tags>
         <tag>WHATWG</tag>
@@ -105,6 +80,31 @@
         <category>学习笔记</category>
         <category>HTML standard</category>
         <category>Semantics, structure, and APIs of HTML documents</category>
+      </categories>
+      <tags>
+        <tag>WHATWG</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Common infrastructure</title>
+    <url>/2021/03/08/note/HTML%20Standard/Common%20infrastructure/</url>
+    <content><![CDATA[<p><strong>Parallelism</strong>并行性，指不同的进程可以同时进行，同时为了避免对相同的数据进行不同的操作，这里使用队列(先进先出)来解决。但所举的例子，没怎么懂。。</p>
+<p><strong>Resources</strong>资源，资源能否被支持，取决于资源的格式，是否为critical资源由资源格式的规范来定义，对于CSS样式表，关键子资源是通过@import 规则导入的样式表及其间接导入的样式表。</p>
+<p><strong>element type 元素类型，</strong>有local name 和 namespace命名空间，如果属性名称与XML中Name定义的生产匹配，且不包含：，则该属性名称能与XML兼容。</p>
+<p><strong>DOM trees</strong>，当有些element和 attribute没有指定值时，会有默认值，比如div标签的display属性默认值就是block，有时呢格局需要我们又会设置为none。当一个node作为插入时的参数时，将连接 browsing-context，remove时，断开 browsing-context连接。<strong>browsing context</strong>是指呈现给用户的document对象内的一个环境。shadowroot 这个概念目前没怎么能理解到，查询得知是 DOM 子树的根节点</p>
+<p><strong>Scripting</strong>，foo 更为精确的说应该是interface object</p>
+<p><strong>Plugins</strong>，是content handlers 的 implementation-defined set</p>
+<p><strong>Character encodings</strong>，字符编码， 是 byte streams 和 Unicode strings之间转换的方式，其中utf-16不兼容ASCII.</p>
+<p><strong>Conformance classes</strong>，<strong>Conforming documents</strong>是指遵守 conformance criteria的文档，user agent 无权处理不符合标准的文档。用户代理可以分为Web browsers and other interactive 用户代理、Non-interactive presentation 用户代理、support the suggested default rendering 的Visual 用户代理、不支持 scripting 的用户代理，<strong>UA</strong>使得服务器能够识别客户使用的操作系统及版本、CPU 类型、浏览器及版本、浏览器渲染引擎、浏览器语言、浏览器插件等</p>
+<p><strong>Conformance checkers，</strong>在进行检查时，没有 browsing context和脚本的运行，<strong>conformance criteria</strong>分为三种：通过DTD，通过machine，通过人检查，conformance checker必须满足检查前两种。</p>
+<p><strong>Data mining tools，</strong>处理HTML和XML文档的工具和程序<strong>，</strong>除了渲染文档和检查其符合性以外，还要根据其处理的文档语义进行处理。</p>
+<p><strong>Authoring tools and markup generators，</strong>Authoring tools 分为两类。一种是 tools that work from structure or semantic data，还有一种tools that work on a WYSIWYG（所见即所得） media-specific editing basis，创作工具 应该能让用户能够创建结构良好，语义丰富，独立于媒体的内容， 规范描述了两种 authoring formats，一种基于XML,另一种， custom format inspired by SGML(标准通用标记语言)，也就是HTML。一些 conformance requirements是对元素、属性、方法、对象的要求，分为两类，一种是内容模型限制的要求（ documents and authoring tools），一种是实现行为的要求（UA） 。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTML standard</category>
+        <category>Common infrastructure</category>
       </categories>
       <tags>
         <tag>WHATWG</tag>
@@ -943,118 +943,6 @@
       </tags>
   </entry>
   <entry>
-    <title>08-集成点：网关、隧道及中继</title>
-    <url>/2021/01/23/note/HTTP/08-%E9%9B%86%E6%88%90%E7%82%B9%EF%BC%9A%E7%BD%91%E5%85%B3%E3%80%81%E9%9A%A7%E9%81%93%E5%8F%8A%E4%B8%AD%E7%BB%A7/</url>
-    <content><![CDATA[<h2 id="8-1-网关"><a href="#8-1-网关" class="headerlink" title="8.1 网关"></a>8.1 网关</h2><p>HTTP扩展和接口的发展是由用户需求驱动的。单个应用程序无法处理复杂资源的需求。网关（gateway）抽象出一种能够到达资源的方法，网关是资源和应用程序之间的粘合剂。应用程序可以（通过HTTP或其他已定义的接口）请求网关来处理某条请求，网关可以提供响应。</p>
-<p>常见网关类型：服务器协议转换器、服务器端安全网关、客户端安全网关、应用程序服务器。</p>
-<h2 id="8-2-协议网关"><a href="#8-2-协议网关" class="headerlink" title="8.2 协议网关"></a>8.2 协议网关</h2><p><strong>客户端和服务器端网关</strong>：Web网关在一侧使用HTTP协议，在另一侧使用另一种协议。用一个斜杠来分隔客户端和服务器端协议，并以此对网关进行描述：&lt;客户端协议&gt;/&lt;服务器端协议&gt;</p>
-<p>将HTTP流量导向网关时所使用的方式与将流量导向代理的方式相同。最常见的方式是，显式地配置浏览器使用网关，对流量进行透明的拦截，或者将网关配置为替代者（反向代理）。</p>
-<h3 id="8-2-1-HTTP-：服务器端Web网关"><a href="#8-2-1-HTTP-：服务器端Web网关" class="headerlink" title="8.2.1 HTTP/*：服务器端Web网关"></a>8.2.1 HTTP/*：服务器端Web网关</h3><p>请求流入原始服务器时，服务器端Web网关会将客户端HTTP请求转换为其他协议。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/dR1Lzwym7V2TJQj.png"
-                      alt="h5rMSRFnKAI0fo2a.png"
-                ></p>
-<h3 id="8-2-2-HTTP-HTTPS：服务器端安全网关"><a href="#8-2-2-HTTP-HTTPS：服务器端安全网关" class="headerlink" title="8.2.2 HTTP/HTTPS：服务器端安全网关"></a>8.2.2 HTTP/HTTPS：服务器端安全网关</h3><p>可以通过网关对所有的输入Web请求加密，以提供额外的隐私和安全性保护。客户端可以用普通的HTTP浏览Web内容，但网关会自动加密用户的对话。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/7xU9GV2eOCZDTS8.png"
-                      alt="XsHGngySl0b7vnU1__thumbnail.png"
-                ></p>
-<h3 id="8-2-3-HTTPS-HTTP客户端安全加速器网关"><a href="#8-2-3-HTTPS-HTTP客户端安全加速器网关" class="headerlink" title="8.2.3 HTTPS/HTTP客户端安全加速器网关"></a>8.2.3 HTTPS/HTTP客户端安全加速器网关</h3><p>HTTPS/HTTP网关位于Web服务器之前，通常作为不可见的拦截网关或反向代理使用。它们接收安全的HTTPS流量，对安全流量进行解密，并向Web服务器发送普通的HTTP请求。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/eJQEum4ya71WjHX.png"
-                      alt="wt2ibTUjzYWa44Kf__thumbnail.png"
-                ></p>
-<h2 id="8-3-资源网关"><a href="#8-3-资源网关" class="headerlink" title="8.3 资源网关"></a>8.3 资源网关</h2><p>最常见的网关是<strong>应用程序服务器</strong>，它会将目标服务器与网关结合在一个服务器中实现，它是服务器端网关，与服务器端的应用程序相连，并与客户端通过HTTP进行通信。</p>
-<p>客户端通过HTTP连接到应用程序服务器，应用程序服务器将请求通过网关<strong>应用程序编程接口</strong>（Application Programming Interface，API）发送给运行在服务器上的应用程序，然后它向服务器返回响应或响应数据，服务器将其转发给客户端。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/c7Zw3JOpstbk8Hx.png"
-                      alt="SW60nADbd4fHQVhN__thumbnail.png"
-                ></p>
-<h3 id="8-3-1-CGI"><a href="#8-3-1-CGI" class="headerlink" title="8.3.1 CGI"></a>8.3.1 CGI</h3><p>第一个流行的应用程序网关API就是<strong>通用网关接口</strong>（Common Gateway Interface，CGI）。CGI是一个标准接口集，Web服务器可以用它来装载程序以响应对特定URL的HTTP请求，并收集程序的输出数据，将其放在HTTP响应中回送。</p>
-<p>CGI的处理对用户来说是不可见的，但可见的是URL中出现字符cgi和可能出现的“？”。</p>
-<p>CGI广泛用于动态HTML、信用卡处理、数据库查询等。CGI应用程序是独立于服务器的，所以几乎可以用任意语言来实现。它能很好地保护服务器，防止糟糕的扩展对服务器造成破坏。</p>
-<p>但是这种分离会造成性能的耗费。为每条CGI请求引发一个新进程的开销很高，会限制使用CGI的服务器的性能，并且会加重服务端机器资源的负担。</p>
-<p>一种新型CGI（快速CGI）解决了这个问题。这个接口模拟了CGI，但它是作为持久守护进程运行的，消除了为每个请求建立或拆除新进程所带来的性能损耗。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/XAQ51W2SCxuTVJl.png"
-                      alt="lMjXhzVkWBBSUTH4__original.png"
-                ></p>
-<h3 id="8-3-2-服务器扩展API"><a href="#8-3-2-服务器扩展API" class="headerlink" title="8.3.2 服务器扩展API"></a>8.3.2 服务器扩展API</h3><p>多数服务器都会为开发者提供一个或多个扩展API，这些扩展通常都会绑定在服务器自身的结构上，为Web开发者提供了强大的接口，以便将自己的模块与HTTP服务器直接相连，它允许程序员将自己的代码嫁接到服务器上，或者用自己的代码将服务器的一个组件完整地替换出来。</p>
-<h2 id="8-4-应用程序接口和Web服务"><a href="#8-4-应用程序接口和Web服务" class="headerlink" title="8.4 应用程序接口和Web服务"></a>8.4 应用程序接口和Web服务</h2><p>HTTP可以作为连接应用程序的基础软件来使用，在将应用程序连接起来的过程中，通过web服务标准解决两个应用程序之间进行协议接口的协商，以便应用程序可以进行数据的交换。</p>
-<p>Web服务是构建在标准的Web技术（比如HTTP）之上的。Web服务可以用XML通过SOAP来交换信息。XML提供了一种创建数据对象的定制信息，并对其进行解释的方法<strong>SOAP</strong>（Simple Object Access Protocol，简单对象访问协议）是向HTTP报文中添加XML信息的标准方式。</p>
-<h2 id="8-5-隧道"><a href="#8-5-隧道" class="headerlink" title="8.5 隧道"></a>8.5 隧道</h2><p>通过<strong>Web 隧道</strong>（Web tunnel）可以通过HTTP应用程序访问使用非HTTP协议的应用程序。使用Web隧道最常见的原因就是要在HTTP连接中嵌入非HTTP流量，这样这类流量就可以穿过只允许Web流量通过的防火墙了。</p>
-<h3 id="8-5-1-用CONNECT建立HTTP隧道"><a href="#8-5-1-用CONNECT建立HTTP隧道" class="headerlink" title="8.5.1 用CONNECT建立HTTP隧道"></a>8.5.1 用CONNECT建立HTTP隧道</h3><p>Web隧道是用HTTP的CONNECT方法建立起来的。CONNECT方法请求隧道网关创建一条到达任意目的服务器和端口的TCP连接，并对客户端和服务器之间的后继数据进行盲转发。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/a9AcYRv3lokKyni.png"
-                      alt="eW9jkF1kxuU5siZD__thumbnail.png"
-                ></p>
-<ol>
-<li><strong>CONNECT请求</strong></li>
-</ol>
-<p>除了起始行之外，CONNECT的语法与其他HTTP方法类似。一个后面跟着冒号和端口号的主机名取代了请求URI。主机和端口都必须指定。</p>
-<ol start="2">
-<li><strong>CONNECT响应</strong></li>
-</ol>
-<p>发送请求之后，客户端会等待来自网关的响应。响应码200表示成功。通常响应中的原因短语通常被设置为“Conection Established”，这个响应并不需要包含Content-Type 首部。此时连接只是对原始字节进行转接，不再是报文的承载者，所以不需要使用内容类型了。</p>
-<h3 id="8-5-2-数据隧道、定时及连接管理"><a href="#8-5-2-数据隧道、定时及连接管理" class="headerlink" title="8.5.2 数据隧道、定时及连接管理"></a>8.5.2 数据隧道、定时及连接管理</h3><p>管道化数据对网关是不透明的，所以网关不能改变分组的顺序和分组流。一旦隧道建立起来了，数据就可以在任意时间流向任意方向了。</p>
-<p>客户端可以在发送了CONNECT请求之后，接收响应之前，发送隧道数据，这样可以更快地将数据发送给服务器。但网关必须能够正确处理跟在请求之后的数据，尤其是网关不能假设网络I/O请求只会返回首部数据，网关必须确保在连接准备就绪时，将与首部一同读进来的数据发送给服务器。如果客户端发现回送的响应是认证请求，或其他非200但不致命的错误状态，就必须做好重发请求数据的准备。</p>
-<p>如果隧道的任意一个端点断开了连接，那个端点发出的所有未传输数据都会被传送给另一个端点，之后到另一个端点的连接也会被代理终止。如果还有数据要传输给关闭连接的端点，数据会被丢弃。</p>
-<h3 id="8-5-3-SSL隧道"><a href="#8-5-3-SSL隧道" class="headerlink" title="8.5.3 SSL隧道"></a>8.5.3 SSL隧道</h3><p>最初Web隧道是为了通过防火墙来传输加密的SSL流量。将所有流量通过分组过滤路由器和代理服务器以隧道方式传输，以提升安全性。但有些协议如加密SSL，其信息是加密的，无法通过传统的代理服务器转发。</p>
-<p>HTTP中添加一项隧道特性，可以将原始的加密数据放在HTTP报文中，通过普通的HTTP信道传送。但是，这项特性可能会被滥用，使得恶意协议通过HTTP隧道流入某个组织内部。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/LG2Qj3xtDazou1H.png"
-                      alt="SdlL3tBsyFZEL7Vt__thumbnail.png"
-                ></p>
-<h3 id="8-5-4SSL隧道与HTTP-HTTPS网关的对比"><a href="#8-5-4SSL隧道与HTTP-HTTPS网关的对比" class="headerlink" title="8.5.4SSL隧道与HTTP/HTTPS网关的对比"></a>8.5.4SSL隧道与HTTP/HTTPS网关的对比</h3><p>HTTPS协议（SSL上的HTTP）进行网关的操作：由网关（而不是客户端）初始化与远端HTTPS服务器的SSL会话，然后代表客户端执行HTTPS事务。响应会由代理接收并解密，然后通过（不安全的）HTTP传送给客户端。这种方式有几个缺点：</p>
-<ol>
-<li>客户端到网关之间的连接是普通的非安全HTTP；</li>
-<li>虽然代理是已认证主体，但客户端无法对远端服务器执行SSL客户端认证；</li>
-<li>网关要支持完整的SSL实现。</li>
-</ol>
-<p>对于SSL隧道机制来说，无需在代理中实现SSL。SSL 会话是建立在产生请求的客户端和目的（安全的）Web服务器之间的，中间的代理服务器只是将加密数据经过隧道传输，并不会在安全事务中扮演其他的角色。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/mXFkvVxJdzy9qY5.png"
-                      alt="cITItirpNAmBAC8F__thumbnail.png"
-                ></p>
-<h3 id="8-5-5-隧道认证"><a href="#8-5-5-隧道认证" class="headerlink" title="8.5.5 隧道认证"></a>8.5.5 隧道认证</h3><p>在适当的情况下，可以将HTTP的其他特性与隧道配合使用。比如将代理的认证支持与隧道配合使用，对客户端使用隧道的权利进行认证。</p>
-<h3 id="8-5-6-隧道的安全性考虑"><a href="#8-5-6-隧道的安全性考虑" class="headerlink" title="8.5.6 隧道的安全性考虑"></a>8.5.6 隧道的安全性考虑</h3><p>隧道网关无法验证目前使用的协议是否是它原本打算经过隧道传输的协议。因此一些用户可能会通过本打算用于SSL的隧道，越过公司防火墙传递因特网游戏流量，甚至恶意用户可能会用隧道打开Telnet会话，或用隧道绕过公司的E-mail扫描器来发送E-mail。</p>
-<p>为了降低对隧道的滥用，网关应该只为特定的知名端口，如HTTPS的端口443，打开隧道。</p>
-<h2 id="8-6-中继"><a href="#8-6-中继" class="headerlink" title="8.6 中继"></a>8.6 中继</h2><p><strong>HTTP中继</strong>（relay）是没有完全遵循HTTP规范的简单HTTP代理，它负责处理HTTP中建立连接的部分，然后对字节进行盲转发。</p>
-<p>盲中继不执行任何首部和方法逻辑，有时是很有用的，有时会提供简单的过滤、诊断或内容转换功能。但这种方式可能潜在严重的互操作问题。</p>
-<p>某些简单盲中继实现中存在的问题是，由于它们无法正确处理Connection首部，所以有潜在的挂起keep-alive连接的可能。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/ENAhCpFIZGrD645.png"
-                      alt="IULgh1VsZyxKgPpy__thumbnail.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>08-集成点：网关、隧道及中继</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>09-Web机器人</title>
     <url>/2021/03/02/note/HTTP/09-Web%E6%9C%BA%E5%99%A8%E4%BA%BA/</url>
     <content><![CDATA[<p>Web机器人是能够在无需人类干预的情况下自动进行一系列Web事务处理的软件程序。</p>
@@ -1195,6 +1083,118 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>09-Web机器人</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>08-集成点：网关、隧道及中继</title>
+    <url>/2021/01/23/note/HTTP/08-%E9%9B%86%E6%88%90%E7%82%B9%EF%BC%9A%E7%BD%91%E5%85%B3%E3%80%81%E9%9A%A7%E9%81%93%E5%8F%8A%E4%B8%AD%E7%BB%A7/</url>
+    <content><![CDATA[<h2 id="8-1-网关"><a href="#8-1-网关" class="headerlink" title="8.1 网关"></a>8.1 网关</h2><p>HTTP扩展和接口的发展是由用户需求驱动的。单个应用程序无法处理复杂资源的需求。网关（gateway）抽象出一种能够到达资源的方法，网关是资源和应用程序之间的粘合剂。应用程序可以（通过HTTP或其他已定义的接口）请求网关来处理某条请求，网关可以提供响应。</p>
+<p>常见网关类型：服务器协议转换器、服务器端安全网关、客户端安全网关、应用程序服务器。</p>
+<h2 id="8-2-协议网关"><a href="#8-2-协议网关" class="headerlink" title="8.2 协议网关"></a>8.2 协议网关</h2><p><strong>客户端和服务器端网关</strong>：Web网关在一侧使用HTTP协议，在另一侧使用另一种协议。用一个斜杠来分隔客户端和服务器端协议，并以此对网关进行描述：&lt;客户端协议&gt;/&lt;服务器端协议&gt;</p>
+<p>将HTTP流量导向网关时所使用的方式与将流量导向代理的方式相同。最常见的方式是，显式地配置浏览器使用网关，对流量进行透明的拦截，或者将网关配置为替代者（反向代理）。</p>
+<h3 id="8-2-1-HTTP-：服务器端Web网关"><a href="#8-2-1-HTTP-：服务器端Web网关" class="headerlink" title="8.2.1 HTTP/*：服务器端Web网关"></a>8.2.1 HTTP/*：服务器端Web网关</h3><p>请求流入原始服务器时，服务器端Web网关会将客户端HTTP请求转换为其他协议。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/dR1Lzwym7V2TJQj.png"
+                      alt="h5rMSRFnKAI0fo2a.png"
+                ></p>
+<h3 id="8-2-2-HTTP-HTTPS：服务器端安全网关"><a href="#8-2-2-HTTP-HTTPS：服务器端安全网关" class="headerlink" title="8.2.2 HTTP/HTTPS：服务器端安全网关"></a>8.2.2 HTTP/HTTPS：服务器端安全网关</h3><p>可以通过网关对所有的输入Web请求加密，以提供额外的隐私和安全性保护。客户端可以用普通的HTTP浏览Web内容，但网关会自动加密用户的对话。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/7xU9GV2eOCZDTS8.png"
+                      alt="XsHGngySl0b7vnU1__thumbnail.png"
+                ></p>
+<h3 id="8-2-3-HTTPS-HTTP客户端安全加速器网关"><a href="#8-2-3-HTTPS-HTTP客户端安全加速器网关" class="headerlink" title="8.2.3 HTTPS/HTTP客户端安全加速器网关"></a>8.2.3 HTTPS/HTTP客户端安全加速器网关</h3><p>HTTPS/HTTP网关位于Web服务器之前，通常作为不可见的拦截网关或反向代理使用。它们接收安全的HTTPS流量，对安全流量进行解密，并向Web服务器发送普通的HTTP请求。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/eJQEum4ya71WjHX.png"
+                      alt="wt2ibTUjzYWa44Kf__thumbnail.png"
+                ></p>
+<h2 id="8-3-资源网关"><a href="#8-3-资源网关" class="headerlink" title="8.3 资源网关"></a>8.3 资源网关</h2><p>最常见的网关是<strong>应用程序服务器</strong>，它会将目标服务器与网关结合在一个服务器中实现，它是服务器端网关，与服务器端的应用程序相连，并与客户端通过HTTP进行通信。</p>
+<p>客户端通过HTTP连接到应用程序服务器，应用程序服务器将请求通过网关<strong>应用程序编程接口</strong>（Application Programming Interface，API）发送给运行在服务器上的应用程序，然后它向服务器返回响应或响应数据，服务器将其转发给客户端。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/c7Zw3JOpstbk8Hx.png"
+                      alt="SW60nADbd4fHQVhN__thumbnail.png"
+                ></p>
+<h3 id="8-3-1-CGI"><a href="#8-3-1-CGI" class="headerlink" title="8.3.1 CGI"></a>8.3.1 CGI</h3><p>第一个流行的应用程序网关API就是<strong>通用网关接口</strong>（Common Gateway Interface，CGI）。CGI是一个标准接口集，Web服务器可以用它来装载程序以响应对特定URL的HTTP请求，并收集程序的输出数据，将其放在HTTP响应中回送。</p>
+<p>CGI的处理对用户来说是不可见的，但可见的是URL中出现字符cgi和可能出现的“？”。</p>
+<p>CGI广泛用于动态HTML、信用卡处理、数据库查询等。CGI应用程序是独立于服务器的，所以几乎可以用任意语言来实现。它能很好地保护服务器，防止糟糕的扩展对服务器造成破坏。</p>
+<p>但是这种分离会造成性能的耗费。为每条CGI请求引发一个新进程的开销很高，会限制使用CGI的服务器的性能，并且会加重服务端机器资源的负担。</p>
+<p>一种新型CGI（快速CGI）解决了这个问题。这个接口模拟了CGI，但它是作为持久守护进程运行的，消除了为每个请求建立或拆除新进程所带来的性能损耗。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/XAQ51W2SCxuTVJl.png"
+                      alt="lMjXhzVkWBBSUTH4__original.png"
+                ></p>
+<h3 id="8-3-2-服务器扩展API"><a href="#8-3-2-服务器扩展API" class="headerlink" title="8.3.2 服务器扩展API"></a>8.3.2 服务器扩展API</h3><p>多数服务器都会为开发者提供一个或多个扩展API，这些扩展通常都会绑定在服务器自身的结构上，为Web开发者提供了强大的接口，以便将自己的模块与HTTP服务器直接相连，它允许程序员将自己的代码嫁接到服务器上，或者用自己的代码将服务器的一个组件完整地替换出来。</p>
+<h2 id="8-4-应用程序接口和Web服务"><a href="#8-4-应用程序接口和Web服务" class="headerlink" title="8.4 应用程序接口和Web服务"></a>8.4 应用程序接口和Web服务</h2><p>HTTP可以作为连接应用程序的基础软件来使用，在将应用程序连接起来的过程中，通过web服务标准解决两个应用程序之间进行协议接口的协商，以便应用程序可以进行数据的交换。</p>
+<p>Web服务是构建在标准的Web技术（比如HTTP）之上的。Web服务可以用XML通过SOAP来交换信息。XML提供了一种创建数据对象的定制信息，并对其进行解释的方法<strong>SOAP</strong>（Simple Object Access Protocol，简单对象访问协议）是向HTTP报文中添加XML信息的标准方式。</p>
+<h2 id="8-5-隧道"><a href="#8-5-隧道" class="headerlink" title="8.5 隧道"></a>8.5 隧道</h2><p>通过<strong>Web 隧道</strong>（Web tunnel）可以通过HTTP应用程序访问使用非HTTP协议的应用程序。使用Web隧道最常见的原因就是要在HTTP连接中嵌入非HTTP流量，这样这类流量就可以穿过只允许Web流量通过的防火墙了。</p>
+<h3 id="8-5-1-用CONNECT建立HTTP隧道"><a href="#8-5-1-用CONNECT建立HTTP隧道" class="headerlink" title="8.5.1 用CONNECT建立HTTP隧道"></a>8.5.1 用CONNECT建立HTTP隧道</h3><p>Web隧道是用HTTP的CONNECT方法建立起来的。CONNECT方法请求隧道网关创建一条到达任意目的服务器和端口的TCP连接，并对客户端和服务器之间的后继数据进行盲转发。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/a9AcYRv3lokKyni.png"
+                      alt="eW9jkF1kxuU5siZD__thumbnail.png"
+                ></p>
+<ol>
+<li><strong>CONNECT请求</strong></li>
+</ol>
+<p>除了起始行之外，CONNECT的语法与其他HTTP方法类似。一个后面跟着冒号和端口号的主机名取代了请求URI。主机和端口都必须指定。</p>
+<ol start="2">
+<li><strong>CONNECT响应</strong></li>
+</ol>
+<p>发送请求之后，客户端会等待来自网关的响应。响应码200表示成功。通常响应中的原因短语通常被设置为“Conection Established”，这个响应并不需要包含Content-Type 首部。此时连接只是对原始字节进行转接，不再是报文的承载者，所以不需要使用内容类型了。</p>
+<h3 id="8-5-2-数据隧道、定时及连接管理"><a href="#8-5-2-数据隧道、定时及连接管理" class="headerlink" title="8.5.2 数据隧道、定时及连接管理"></a>8.5.2 数据隧道、定时及连接管理</h3><p>管道化数据对网关是不透明的，所以网关不能改变分组的顺序和分组流。一旦隧道建立起来了，数据就可以在任意时间流向任意方向了。</p>
+<p>客户端可以在发送了CONNECT请求之后，接收响应之前，发送隧道数据，这样可以更快地将数据发送给服务器。但网关必须能够正确处理跟在请求之后的数据，尤其是网关不能假设网络I/O请求只会返回首部数据，网关必须确保在连接准备就绪时，将与首部一同读进来的数据发送给服务器。如果客户端发现回送的响应是认证请求，或其他非200但不致命的错误状态，就必须做好重发请求数据的准备。</p>
+<p>如果隧道的任意一个端点断开了连接，那个端点发出的所有未传输数据都会被传送给另一个端点，之后到另一个端点的连接也会被代理终止。如果还有数据要传输给关闭连接的端点，数据会被丢弃。</p>
+<h3 id="8-5-3-SSL隧道"><a href="#8-5-3-SSL隧道" class="headerlink" title="8.5.3 SSL隧道"></a>8.5.3 SSL隧道</h3><p>最初Web隧道是为了通过防火墙来传输加密的SSL流量。将所有流量通过分组过滤路由器和代理服务器以隧道方式传输，以提升安全性。但有些协议如加密SSL，其信息是加密的，无法通过传统的代理服务器转发。</p>
+<p>HTTP中添加一项隧道特性，可以将原始的加密数据放在HTTP报文中，通过普通的HTTP信道传送。但是，这项特性可能会被滥用，使得恶意协议通过HTTP隧道流入某个组织内部。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/LG2Qj3xtDazou1H.png"
+                      alt="SdlL3tBsyFZEL7Vt__thumbnail.png"
+                ></p>
+<h3 id="8-5-4SSL隧道与HTTP-HTTPS网关的对比"><a href="#8-5-4SSL隧道与HTTP-HTTPS网关的对比" class="headerlink" title="8.5.4SSL隧道与HTTP/HTTPS网关的对比"></a>8.5.4SSL隧道与HTTP/HTTPS网关的对比</h3><p>HTTPS协议（SSL上的HTTP）进行网关的操作：由网关（而不是客户端）初始化与远端HTTPS服务器的SSL会话，然后代表客户端执行HTTPS事务。响应会由代理接收并解密，然后通过（不安全的）HTTP传送给客户端。这种方式有几个缺点：</p>
+<ol>
+<li>客户端到网关之间的连接是普通的非安全HTTP；</li>
+<li>虽然代理是已认证主体，但客户端无法对远端服务器执行SSL客户端认证；</li>
+<li>网关要支持完整的SSL实现。</li>
+</ol>
+<p>对于SSL隧道机制来说，无需在代理中实现SSL。SSL 会话是建立在产生请求的客户端和目的（安全的）Web服务器之间的，中间的代理服务器只是将加密数据经过隧道传输，并不会在安全事务中扮演其他的角色。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/mXFkvVxJdzy9qY5.png"
+                      alt="cITItirpNAmBAC8F__thumbnail.png"
+                ></p>
+<h3 id="8-5-5-隧道认证"><a href="#8-5-5-隧道认证" class="headerlink" title="8.5.5 隧道认证"></a>8.5.5 隧道认证</h3><p>在适当的情况下，可以将HTTP的其他特性与隧道配合使用。比如将代理的认证支持与隧道配合使用，对客户端使用隧道的权利进行认证。</p>
+<h3 id="8-5-6-隧道的安全性考虑"><a href="#8-5-6-隧道的安全性考虑" class="headerlink" title="8.5.6 隧道的安全性考虑"></a>8.5.6 隧道的安全性考虑</h3><p>隧道网关无法验证目前使用的协议是否是它原本打算经过隧道传输的协议。因此一些用户可能会通过本打算用于SSL的隧道，越过公司防火墙传递因特网游戏流量，甚至恶意用户可能会用隧道打开Telnet会话，或用隧道绕过公司的E-mail扫描器来发送E-mail。</p>
+<p>为了降低对隧道的滥用，网关应该只为特定的知名端口，如HTTPS的端口443，打开隧道。</p>
+<h2 id="8-6-中继"><a href="#8-6-中继" class="headerlink" title="8.6 中继"></a>8.6 中继</h2><p><strong>HTTP中继</strong>（relay）是没有完全遵循HTTP规范的简单HTTP代理，它负责处理HTTP中建立连接的部分，然后对字节进行盲转发。</p>
+<p>盲中继不执行任何首部和方法逻辑，有时是很有用的，有时会提供简单的过滤、诊断或内容转换功能。但这种方式可能潜在严重的互操作问题。</p>
+<p>某些简单盲中继实现中存在的问题是，由于它们无法正确处理Connection首部，所以有潜在的挂起keep-alive连接的可能。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/ENAhCpFIZGrD645.png"
+                      alt="IULgh1VsZyxKgPpy__thumbnail.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>08-集成点：网关、隧道及中继</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -1586,53 +1586,6 @@
       </tags>
   </entry>
   <entry>
-    <title>17-内容协商与转码</title>
-    <url>/2021/03/05/note/HTTP/17-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E4%B8%8E%E8%BD%AC%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="17-1-内容协商技术"><a href="#17-1-内容协商技术" class="headerlink" title="17.1 内容协商技术"></a>17.1 内容协商技术</h2><p>有3种方法可以决定服务器上哪个页面最适合客户端：让客户端来选择、服务器自动判定，或让中间代理来选。这3种技术分别称为客户端驱动的协商、服务器驱动的协商以及透明协商。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
-                      alt="image.png"
-                ></p>
-<h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
-<p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
-<h2 id="17-3-服务器驱动的协商"><a href="#17-3-服务器驱动的协商" class="headerlink" title="17.3 服务器驱动的协商"></a>17.3 服务器驱动的协商</h2><p>有两种机制可供HTTP服务器评估发送什么响应给客户端比较合适。</p>
-<ol>
-<li><strong>检查内容协商首部集</strong>。服务器察看客户端发送的Accept首部集，设法用相应的响应首部与之匹配。</li>
-<li><strong>根据其他（非内容协商）首部进行变通</strong>。例如，服务器根据客户端发送的User-Agent首部来发送响应。<h3 id="17-3-1-内容协商首部集"><a href="#17-3-1-内容协商首部集" class="headerlink" title="17.3.1 内容协商首部集"></a>17.3.1 内容协商首部集</h3></li>
-</ol>
-<p>服务器用表17-3中列出的实体首部集来匹配客户端的Accept首部集。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
-                      alt="image _1_.png"
-                ></p>
-<p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
-<h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>
-<h3 id="17-3-3-随其他首部集而变化"><a href="#17-3-3-随其他首部集而变化" class="headerlink" title="17.3.3 随其他首部集而变化"></a>17.3.3 随其他首部集而变化</h3><p>比如User-Agent首部。侈如，服务器知道老版本的浏览器不支持JavaScript语言，这样就可以向其发送不含有JavaScript的页面版本。</p>
-<p>由于缓存需要尽力提供所缓存文档中正确的“最佳”版本，HTTP协议定义了服务器在响应中发送的Vary首部。这个首部告知缓存（还有客户端和所有下游的代理）服务器根据哪些首部来决定发送响应的最佳版本。</p>
-<h2 id="17-4-透明协商"><a href="#17-4-透明协商" class="headerlink" title="17.4 透明协商"></a>17.4 透明协商</h2><p>HTTP/1.1规范中没有定义任何透明协商机制，但定义了vary首部。服务器在响应中发送了vary首部，以告知中间节点需要使用哪些请求首部进行内容协商。</p>
-<p>代理缓存可以为通过单个URL访问的文档保存不同的副本。如果服务器把它们的决策过程传给缓存，这些代理就能代表服务器与客户端进行协商。同时缓存也是进行内容转码的地方，因为部署在缓存里的通用转码器能对任意服务器，而不仅仅是一台服务器传来的内容进行转码。</p>
-<h3 id="17-4-1-进行缓存与备用候选"><a href="#17-4-1-进行缓存与备用候选" class="headerlink" title="17.4.1 进行缓存与备用候选"></a>17.4.1 进行缓存与备用候选</h3><p>服务器使用的与这些首部集匹配的相应实体首部集。缓存也必须使用相同的首部集来决定回送哪个版本的已缓存的响应，从而确保对客户端请求回送的是正确的已缓存响应。</p>
-<p>若缓存保存了同一个URL的两份不同的文档，与服务器一样。这些不同的版本称为<strong>变体</strong>（variant）或<strong>备用候选</strong>（alternate）。</p>
-<p>当新的请求到达时，缓存会根据内容协商首部集来寻找最佳匹配。但在把文档提供给客户端之前，须检查在已缓存响应中有无发送vary首部。如果有，那么新请求中那些首部的值必须与旧的已缓存请求里相应的首部相同，如果无法匹配，缓存就从原始服务器获取文档。因此为实现透明协商，缓存必须为每个已缓存变体保存客户端请求首部和相应的服务器响应首部。</p>
-<h2 id="17-5-转码"><a href="#17-5-转码" class="headerlink" title="17.5 转码"></a>17.5 转码</h2><p>如果服务器没有能满足客户端需求的文档，可以给出一个错误响应。但理论上，服务器可以把现存的文档转换成某种客户端可用的文档。这种选项称为<strong>转码</strong>。有3种类别的转码：<strong>格式转换</strong>、<strong>信息综合</strong>以及<strong>内容注入</strong>。</p>
-<h3 id="17-5-1-格式转换"><a href="#17-5-1-格式转换" class="headerlink" title="17.5.1 格式转换"></a>17.5.1 格式转换</h3><p>格式转换是指将数据从一种格式转换成另一种格式，使之可以被客户端查看。注意，内容转换或转码与内容编码或传输编码不同，后两者一般用于更高效或安全地传输内容，而前两者则为访问设备能够查看内容。</p>
-<h3 id="17-5-2-信息综合"><a href="#17-5-2-信息综合" class="headerlink" title="17.5.2 信息综合"></a>17.5.2 信息综合</h3><p>从文档中提取关键的信息片段称为信息综合（information synthesis）。这种操作的例子包括根据小节标题生成文档的大纲，或者从页面中删除广告和商标。</p>
-<h3 id="17-5-3-内容注入"><a href="#17-5-3-内容注入" class="headerlink" title="17.5.3 内容注入"></a>17.5.3 内容注入</h3><p>前面描述的两类转码通常会减少Web文档的内容，而内容注入转码会增加文档的内容。例子有自动广告生成器和用户追踪系统。</p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>17-内容协商与转码</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>16-国际化</title>
     <url>/2021/03/05/note/HTTP/16-%E5%9B%BD%E9%99%85%E5%8C%96/</url>
     <content><![CDATA[<p>HTTP应用程序使用字符集编码请求和显示不同字母表中的文本，它们使用语言标记根据用户所理解的语言来说明并限制内容。</p>
@@ -1751,6 +1704,53 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>18-Web主机托管</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>17-内容协商与转码</title>
+    <url>/2021/03/05/note/HTTP/17-%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E4%B8%8E%E8%BD%AC%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="17-1-内容协商技术"><a href="#17-1-内容协商技术" class="headerlink" title="17.1 内容协商技术"></a>17.1 内容协商技术</h2><p>有3种方法可以决定服务器上哪个页面最适合客户端：让客户端来选择、服务器自动判定，或让中间代理来选。这3种技术分别称为客户端驱动的协商、服务器驱动的协商以及透明协商。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/5zJXLQxF7H2j8Em.png"
+                      alt="image.png"
+                ></p>
+<h2 id="17-2-客户端驱动的协商"><a href="#17-2-客户端驱动的协商" class="headerlink" title="17.2 客户端驱动的协商"></a>17.2 客户端驱动的协商</h2><p>从实现原理上来说，服务器实际上有两种方法为客户端提供选项：一是发送回一个HTML文档，里面有到该页面的各种版本的链接和每个版本的描述信息，另一种方法是发送回HTTP/1.1响应时，使用300 Multiple Choices响应代码。</p>
+<p>除了增加时延且对每个页面都要进行繁琐的多次请求之外，这种方法还有一个缺点：它需要多个URL：公共页面要一个，其他每种特殊页面也都要一个。</p>
+<h2 id="17-3-服务器驱动的协商"><a href="#17-3-服务器驱动的协商" class="headerlink" title="17.3 服务器驱动的协商"></a>17.3 服务器驱动的协商</h2><p>有两种机制可供HTTP服务器评估发送什么响应给客户端比较合适。</p>
+<ol>
+<li><strong>检查内容协商首部集</strong>。服务器察看客户端发送的Accept首部集，设法用相应的响应首部与之匹配。</li>
+<li><strong>根据其他（非内容协商）首部进行变通</strong>。例如，服务器根据客户端发送的User-Agent首部来发送响应。<h3 id="17-3-1-内容协商首部集"><a href="#17-3-1-内容协商首部集" class="headerlink" title="17.3.1 内容协商首部集"></a>17.3.1 内容协商首部集</h3></li>
+</ol>
+<p>服务器用表17-3中列出的实体首部集来匹配客户端的Accept首部集。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/wDq85RTpac23ZUE.png"
+                      alt="image _1_.png"
+                ></p>
+<p>注意，由于HTTP是无状态的协议（表示服务器不会在不同的请求之间追踪客户端的偏好），所以客户端必须在每个请求中都发送其偏好信息。</p>
+<h3 id="17-3-2-内容协商首部中的质量值"><a href="#17-3-2-内容协商首部中的质量值" class="headerlink" title="17.3.2 内容协商首部中的质量值"></a>17.3.2 内容协商首部中的质量值</h3><p>HTTP协议中定义了质量值q，允许客户端为每种偏好类别列出多种选项，并为每种偏好选项关联一个优先次序。如果服务器依旧匹配客户端的任何偏好的情况下，服务器可以修改文档，也就是对文档进行转码，以匹配客户端的偏好。</p>
+<h3 id="17-3-3-随其他首部集而变化"><a href="#17-3-3-随其他首部集而变化" class="headerlink" title="17.3.3 随其他首部集而变化"></a>17.3.3 随其他首部集而变化</h3><p>比如User-Agent首部。侈如，服务器知道老版本的浏览器不支持JavaScript语言，这样就可以向其发送不含有JavaScript的页面版本。</p>
+<p>由于缓存需要尽力提供所缓存文档中正确的“最佳”版本，HTTP协议定义了服务器在响应中发送的Vary首部。这个首部告知缓存（还有客户端和所有下游的代理）服务器根据哪些首部来决定发送响应的最佳版本。</p>
+<h2 id="17-4-透明协商"><a href="#17-4-透明协商" class="headerlink" title="17.4 透明协商"></a>17.4 透明协商</h2><p>HTTP/1.1规范中没有定义任何透明协商机制，但定义了vary首部。服务器在响应中发送了vary首部，以告知中间节点需要使用哪些请求首部进行内容协商。</p>
+<p>代理缓存可以为通过单个URL访问的文档保存不同的副本。如果服务器把它们的决策过程传给缓存，这些代理就能代表服务器与客户端进行协商。同时缓存也是进行内容转码的地方，因为部署在缓存里的通用转码器能对任意服务器，而不仅仅是一台服务器传来的内容进行转码。</p>
+<h3 id="17-4-1-进行缓存与备用候选"><a href="#17-4-1-进行缓存与备用候选" class="headerlink" title="17.4.1 进行缓存与备用候选"></a>17.4.1 进行缓存与备用候选</h3><p>服务器使用的与这些首部集匹配的相应实体首部集。缓存也必须使用相同的首部集来决定回送哪个版本的已缓存的响应，从而确保对客户端请求回送的是正确的已缓存响应。</p>
+<p>若缓存保存了同一个URL的两份不同的文档，与服务器一样。这些不同的版本称为<strong>变体</strong>（variant）或<strong>备用候选</strong>（alternate）。</p>
+<p>当新的请求到达时，缓存会根据内容协商首部集来寻找最佳匹配。但在把文档提供给客户端之前，须检查在已缓存响应中有无发送vary首部。如果有，那么新请求中那些首部的值必须与旧的已缓存请求里相应的首部相同，如果无法匹配，缓存就从原始服务器获取文档。因此为实现透明协商，缓存必须为每个已缓存变体保存客户端请求首部和相应的服务器响应首部。</p>
+<h2 id="17-5-转码"><a href="#17-5-转码" class="headerlink" title="17.5 转码"></a>17.5 转码</h2><p>如果服务器没有能满足客户端需求的文档，可以给出一个错误响应。但理论上，服务器可以把现存的文档转换成某种客户端可用的文档。这种选项称为<strong>转码</strong>。有3种类别的转码：<strong>格式转换</strong>、<strong>信息综合</strong>以及<strong>内容注入</strong>。</p>
+<h3 id="17-5-1-格式转换"><a href="#17-5-1-格式转换" class="headerlink" title="17.5.1 格式转换"></a>17.5.1 格式转换</h3><p>格式转换是指将数据从一种格式转换成另一种格式，使之可以被客户端查看。注意，内容转换或转码与内容编码或传输编码不同，后两者一般用于更高效或安全地传输内容，而前两者则为访问设备能够查看内容。</p>
+<h3 id="17-5-2-信息综合"><a href="#17-5-2-信息综合" class="headerlink" title="17.5.2 信息综合"></a>17.5.2 信息综合</h3><p>从文档中提取关键的信息片段称为信息综合（information synthesis）。这种操作的例子包括根据小节标题生成文档的大纲，或者从页面中删除广告和商标。</p>
+<h3 id="17-5-3-内容注入"><a href="#17-5-3-内容注入" class="headerlink" title="17.5.3 内容注入"></a>17.5.3 内容注入</h3><p>前面描述的两类转码通常会减少Web文档的内容，而内容注入转码会增加文档的内容。例子有自动广告生成器和用户追踪系统。</p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>17-内容协商与转码</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
