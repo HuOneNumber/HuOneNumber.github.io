@@ -245,7 +245,7 @@
         
 
         <div class="article-content markdown-body">
-            <p>ECMA-262将对象定义为一组属性的无序集合。严格来说，这意味着对象就是一组没有特定顺序的值。对象的每个属性或方法都由一个名称来标识，这个名称映射到一个值。</p>
+            <p>ECMA-262将对象定义为一组属性的无序集合。这意味着对象就是一组没有特定顺序的值。对象的每个属性或方法都由一个名称来标识，这个名称映射到一个值。</p>
 <h2 id="8-1-理解对象"><a href="#8-1-理解对象" class="headerlink" title="8.1　理解对象"></a>8.1　理解对象</h2><p>创建自定义对象的通常方式是创建<code>Object</code>的一个新实例，然后再给它添加属性和方法，如下例所示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">person.name = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line">person.age = <span class="number">29</span>;</span><br><span class="line">person.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>早期JavaScript开发者频繁使用这种方式创建新对象。现在对象字面量创建更流行。</p>
