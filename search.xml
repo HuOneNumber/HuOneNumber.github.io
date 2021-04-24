@@ -1757,6 +1757,49 @@
       </tags>
   </entry>
   <entry>
+    <title>21-日志记录与使用情况跟踪</title>
+    <url>/2021/03/08/note/HTTP/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/</url>
+    <content><![CDATA[<h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
+<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
+                      alt="image.png"
+                ></p>
+<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
+<ol>
+<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
+<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
+</ol>
+<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
+<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
+<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
+<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
+<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
+                      alt="image _1_.png"
+                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
+<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
+                      alt="image _2_.png"
+                ></h2>]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>21-日志记录与使用情况跟踪</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>20-重定向与负载均衡</title>
     <url>/2021/03/05/note/HTTP/20-%E9%87%8D%E5%AE%9A%E5%90%91%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</url>
     <content><![CDATA[<h2 id="20-1-为什么要重定向"><a href="#20-1-为什么要重定向" class="headerlink" title="20.1 为什么要重定向"></a>20.1 为什么要重定向</h2><p>由于HTTP应用程序需要可靠地执行HTTP事务、最小化时延、节约网络带宽，Web内容通常分布在很多地方。可以将重定向当作一组有助于找到“最佳”分布式内容的技术。</p>
@@ -1893,49 +1936,6 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>20-重定向与负载均衡</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>21-日志记录与使用情况跟踪</title>
-    <url>/2021/03/08/note/HTTP/21-%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E8%B7%9F%E8%B8%AA/</url>
-    <content><![CDATA[<h2 id="21-1-记录内容"><a href="#21-1-记录内容" class="headerlink" title="21.1 记录内容"></a>21.1 记录内容</h2><p>日志的记录出于两种原因：查找服务器或代理中存在的问题，生成Web站点访问方式的统计信息,统计数据用于市场营销、计费和容量规划等。</p>
-<h2 id="21-2-日志格式"><a href="#21-2-日志格式" class="headerlink" title="21.2 日志格式"></a>21.2 日志格式</h2><h3 id="21-2-1-常见日志格式"><a href="#21-2-1-常见日志格式" class="headerlink" title="21.2.1 常见日志格式"></a>21.2.1 常见日志格式</h3><p>很多服务器在默认情况下都会使用这种日志格式。表21-1按序列出了常用日志格式中的字段。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/xukbWo6RMaAL3fg.png"
-                      alt="image.png"
-                ></p>
-<h3 id="21-2-2-组合日志格式"><a href="#21-2-2-组合日志格式" class="headerlink" title="21.2.2 组合日志格式"></a>21.2.2 组合日志格式</h3><p>另一种常用日志格式为组合日志格式（Combined Log Format）。实际上，它就是常用日志格式的基础上添加了两个字段。</p>
-<ol>
-<li><strong>User-Agent字段</strong>，用于说明是哪个HTTP客户端应用程序在发起已被记录的请求。</li>
-<li><strong>Referer字段</strong>，则提供了更多与请求端在何处找到这个URL的有关信息。<h2 id="21-3-命中率测量"><a href="#21-3-命中率测量" class="headerlink" title="21.3 命中率测量"></a>21.3 命中率测量</h2></li>
-</ol>
-<p>由于缓存服务器的存在，在不访问原始服务器的情况下就能满足客户端的请求，服务器中没有客户端访问其内容的记录，导致日志文件中出现遗漏。</p>
-<p>因此，内容提供者会对其最重要的页面进行缓存清除（cache bust），将某些内容设置为无法缓存，这样所有对此内容的请求都会被导向原始服务器。</p>
-<p>由于代理缓存（以及一些客户端）都会保留自己的日志，所以如果服务器能够访问这些日志，就可以避免使用缓存清除。命中率测量协议是对HTTP的一种扩展，命中率测量协议要求缓存周期性地向原始服务器汇报缓存访问的统计数据。</p>
-<h3 id="21-3-2-Meter首部"><a href="#21-3-2-Meter首部" class="headerlink" title="21.3.2 Meter首部"></a>21.3.2 Meter首部</h3><p>命中率测量扩展建议使用新增加的首部Meter，缓存和服务器可以通过它在相互间传输与用法和报告有关的指令，这与用来进行缓存指令交换的Cache-Control首部很类似。</p>
-<p>表21-10列出了定义的各种指令和谁可以在Meter首部传输这些指令。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/aj7EQXtpW3odUwf.png"
-                      alt="image _1_.png"
-                ></h2><p>事务的第一部分就是客户端和代理缓存之间一个普通的HTTP事务，但在代理请求中，要注意有插入的Meter首部和来自服务器的响应。这里，代理正在通知服务器它可以进行命中率测量，作为回应，服务器则请求代理报告它的命中次数。</p>
-<p>从客户端的角度看，请求正常结束了，代理开始代表服务器跟踪该请求资源的命中次数。稍后代理尝试与服务器再次验证资源，代理会在发送给服务器的条件请求中嵌入它跟踪记录的计量信息。</p>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/TV3AS9Gt5NdgCkD.png"
-                      alt="image _2_.png"
-                ></h2>]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>21-日志记录与使用情况跟踪</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -3598,189 +3598,6 @@
       </tags>
   </entry>
   <entry>
-    <title>07-缓存</title>
-    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
-<ol>
-<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
-<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
-<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
-<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
-</ol>
-<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
-<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
-                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
-                ></p>
-<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
-<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
-<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
-<ol>
-<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
-                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
-                ></p>
-<ol start="2">
-<li><strong>再验证未命中</strong></li>
-</ol>
-<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
-                      alt="yIucryfnFQtd0k4c__thumbnail.png"
-                ></p>
-<ol start="3">
-<li><strong>对象被删除</strong></li>
-</ol>
-<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
-<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
-<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
-<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
-<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
-<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
-<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
-<ol>
-<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
-<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
-<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
-</ol>
-<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
-<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
-<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
-<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
-<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
-                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
-                ></p>
-<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
-<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
-<ol>
-<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
-<li>根据URL动态地选择一个特定的父缓存。</li>
-<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
-<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
-</ol>
-<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
-                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
-                ></p>
-<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
-<ol>
-<li>接收——缓存从网络中读取抵达的请求报文。</li>
-<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
-<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
-<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
-<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
-<li>发送——缓存通过网络将响应发回给客户端。</li>
-<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
-</ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
-                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
-                ></p>
-<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
-<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
-<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
-<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
-<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
-                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
-                ></p>
-<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
-<ol>
-<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
-<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
-</ol>
-<p>缓存返回的内容有以下几种情况：</p>
-<ol>
-<li>“足够新鲜”的已缓存副本；</li>
-<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
-<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
-<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
-</ol>
-<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
-<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
-<ol>
-<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
-<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
-</ol>
-<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
-<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
-<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
-<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
-<ol>
-<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
-<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
-<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
-<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
-</ol>
-<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
-<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
-<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
-                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
-                ></p>
-<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
-<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
-<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
-<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
-<ol>
-<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
-<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
-<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
-<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
-<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
-<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
-</ol>
-<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
-<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
-                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
-                ></p>
-<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
-<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
-<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
-                      alt="c66vSOYHG3viCCN0__thumbnail.png"
-                ></p>
-]]></content>
-      <categories>
-        <category>学习笔记</category>
-        <category>HTTP权威指南</category>
-        <category>07-缓存</category>
-      </categories>
-      <tags>
-        <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>06-代理</title>
     <url>/2021/01/23/note/HTTP/06-%E4%BB%A3%E7%90%86/</url>
     <content><![CDATA[<h1 id="6-1-Web的-中间实体"><a href="#6-1-Web的-中间实体" class="headerlink" title="6.1 Web的 中间实体"></a>6.1 Web的 中间实体</h1><p>Web上的代理服务器是代表客户端完成事务处理的中间人。HTTP的代理服务器既是Web服务器又是Web客户端。</p>
@@ -4061,6 +3878,189 @@
         <category>学习笔记</category>
         <category>HTTP权威指南</category>
         <category>06-代理</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>07-缓存</title>
+    <url>/2021/01/23/note/HTTP/07-%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<p>Web缓存是可以自动保存常见文档副本的HTTP设备。优点如下：</p>
+<ol>
+<li><strong>减少冗余的数据传输，节省网络费用。</strong></li>
+<li><strong>缓解网络瓶颈问题。</strong>很多网络为本地网络客户端提供的带宽比远程服务器提供的带宽要宽。</li>
+<li><strong>降低对原始服务器的要求。</strong>服务器可以更快地响应，避免过载的出现。</li>
+<li><strong>减少距离时延</strong>。<h2 id="7-1-命中和未命中的"><a href="#7-1-命中和未命中的" class="headerlink" title="7.1 命中和未命中的"></a>7.1 命中和未命中的</h2></li>
+</ol>
+<p><strong>缓存命中</strong>（cache hit）：已有的副本为某些到达缓存的请求提供服务。</p>
+<p><strong>缓存未命中</strong>（cache miss）：到达缓存的请求由于没有副本可用，被转发给原始服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/RV3X8revzWNhbOu.png"
+                      alt="JqEmbyfnLqujDvh3__thumbnail.png"
+                ></p>
+<h3 id="7-1-1-再验证"><a href="#7-1-1-再验证" class="headerlink" title="7.1.1 再验证"></a>7.1.1 再验证</h3><p><strong>HTTP再验证</strong>（revalidation）：原始服务器的内容可能会发生变化，缓存要对其进行检测，查看保存的副本是否仍是服务器上最新的副本。</p>
+<p>大部分缓存只有在客户端发起请求，并且副本旧得足以需要检测的时候，才会对副本进行再验证。常用的<strong>If-Modified-since</strong>首部来对已缓存对象进行再验证。将其添加到GET请求中去，服务器就会只有在缓存了对象的副本之后，又对其进行了修改的情况下，才发送此对象。</p>
+<p>服务器收到GET If-Modified-Since请求时会发生的情况：</p>
+<ol>
+<li><strong>再验证命中</strong>（revalidate hit）或<strong>缓慢命中</strong>（slow hit）：缓存对副本进行再验证时，会向原始服务器发送再验证请求。如果内容没有变化，服务器会以304 NotModified进行响应，只要缓存知道副本仍然有效，就会再次将副本标识为暂时新鲜的，并将副本提供给客户端。这种方式比缓存命中要慢，但比缓存未命中快，因为它没有从服务器中获取对象数据。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/NYMHsQIoBiq94Cg.png"
+                      alt="cY8dGPCXn8wtoLKV__thumbnail.png"
+                ></p>
+<ol start="2">
+<li><strong>再验证未命中</strong></li>
+</ol>
+<p>如果服务器对象与已缓存副本不同，服务器向客户端发送一条普通的、带有完整内容的HTTP 200 OK响应。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/4dlYMFLh5HIjAqR.png"
+                      alt="yIucryfnFQtd0k4c__thumbnail.png"
+                ></p>
+<ol start="3">
+<li><strong>对象被删除</strong></li>
+</ol>
+<p>如果服务器对象已经被删除了，服务器就回送404 Not Found响应，缓存也会将其副本删除。</p>
+<h3 id="7-1-2-命中率"><a href="#7-1-2-命中率" class="headerlink" title="7.1.2 命中率"></a>7.1.2 命中率</h3><p><strong>缓存命中率</strong>（cache hit rate，或<strong>缓存命中比例</strong>），或<strong>文档命中率</strong>（document hit rate）：由缓存提供服务的请求所占的比例被称为。</p>
+<p>实际的命中率与缓存的大小、缓存用户兴趣点的相似性、缓存数据的变化或个性化频率，以及如何配置缓存有关。对中等规模的Web缓存来说，40%的命中率是合理的。</p>
+<h3 id="7-1-3-字节命中率"><a href="#7-1-3-字节命中率" class="headerlink" title="7.1.3 字节命中率"></a>7.1.3 字节命中率</h3><p><strong>字节命中率</strong>（byte hit rate）：缓存提供的字节在传输的所有字节中所占的比例。通过这种度量方式，可以得知节省流量的程度。</p>
+<p>文档命中率说明阻止了多少通往外部网络的Web事务。事务有一一个通常都很大的固定时间成分，提高文档命中率利于降低整体时延。</p>
+<p>字节命中率说明阻止了多少字节传向因特网。提高字节命中率利于节省带宽。</p>
+<h3 id="7-1-4-区分命中和未命中的情况"><a href="#7-1-4-区分命中和未命中的情况" class="headerlink" title="7.1.4 区分命中和未命中的情况"></a>7.1.4 区分命中和未命中的情况</h3><p>缓存命中和访问原始服务器得到的响应，响应码都是200 OK，说明响应有主体部分。区分方法：</p>
+<ol>
+<li>有些商业代理缓存会在Via首部附加一些额外信息，以描述缓存中发生的情况。</li>
+<li>客户端使用Date首部。将响应中Date首部的值与当前时间进行比较，如果响应中的日期值比较早，就可以认为这是一条缓存的响应。</li>
+<li>客户端通过Age首部可以分辨出这条响应的使用期。<h2 id="7-2-缓存的拓扑结构"><a href="#7-2-缓存的拓扑结构" class="headerlink" title="7.2 缓存的拓扑结构"></a>7.2 缓存的拓扑结构</h2></li>
+</ol>
+<p><strong>私有缓存</strong>（private cache）：个人的缓存，包含了单个用户最常用的页面。</p>
+<p><strong>公有缓存</strong>（public cache）：共享的缓存，包含了某个用户团体的常用页面。</p>
+<h3 id="7-2-1-私有缓存"><a href="#7-2-1-私有缓存" class="headerlink" title="7.2.1 私有缓存"></a>7.2.1 私有缓存</h3><p>私有缓存不需要很大的动力或存储空间，这样就可以将其做的很小，很便宜。多数浏览器都会将常用文档缓存在你个人电脑的磁盘和内存中，并且允许用户去配置缓存的大小和各种设置，还可以去看看浏览器的缓存中有些什么内容。</p>
+<h3 id="7-2-2-公有缓存"><a href="#7-2-2-公有缓存" class="headerlink" title="7.2.2 公有缓存"></a>7.2.2 公有缓存</h3><p>公有缓存是特殊的共享代理服务器，被称为<strong>缓存代理服务器</strong>（caching proxy server）或者<strong>代理缓存</strong>（proxy cache）。代理缓存可以通过指定手工代理，或者通过代理自动配置文件，将浏览器配置为使用代理缓存，还可以在不配置浏览器的情况下，通过使用拦截代理，强制HTTP请求经过缓存传输。</p>
+<h3 id="7-2-3-代理缓存的层次结构"><a href="#7-2-3-代理缓存的层次结构" class="headerlink" title="7.2.3 代理缓存的层次结构"></a>7.2.3 代理缓存的层次结构</h3><h4 id="7-2-3-1-层次化缓存结构"><a href="#7-2-3-1-层次化缓存结构" class="headerlink" title="7.2.3.1 层次化缓存结构"></a>7.2.3.1 层次化缓存结构</h4><p>较小缓存中未命中的请求会被导向较大的<strong>父缓存</strong>（parent cache），由它来为剩下的那些流量提供服务。其基本思想是在靠近客户端的地方使用小型廉价缓存，而更高层次中，则逐步采用更大、功能更强的缓存来装载多用户共享的文档。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/2Fvtnc8ADEpigaO.png"
+                      alt="Co7dnjntrFDvuHrm__thumbnail.png"
+                ></p>
+<h4 id="7-2-3-2-网状缓存结构"><a href="#7-2-3-2-网状缓存结构" class="headerlink" title="7.2.3.2 网状缓存结构"></a>7.2.3.2 网状缓存结构</h4><p>网状缓存中的代理缓存之间会以更加复杂的方式进行对话，做出动态的缓存通信决策，决定与哪个父缓存进行对话，或者决定彻底绕开缓存，直接连接原始服务器。这种代理缓存会决定选择何种路由对内容进行访问、管理和传送，因此可将其称为<strong>内容路由器</strong>（content router）。</p>
+<p>网状缓存中为内容路由设计的缓存要完成的功能：</p>
+<ol>
+<li>根据URL在父缓存或原始服务器之间进行动态选择。</li>
+<li>根据URL动态地选择一个特定的父缓存。</li>
+<li>前往父缓存之前，在本地缓存中搜索已缓存的副本。</li>
+<li>允许其他缓存对其缓存的部分内容进行访问，但不允许因特网流量通过它们的缓存。</li>
+</ol>
+<p>缓存之间更为复杂的关系允许不同的组织互为对等（peer）实体，将它们的缓存连接起来以实现共赢。提供可选的对等支持的缓存被称为兄弟缓存（sibling cache）。HTTP并不支持兄弟缓存，所以通过一些协议对HTTP进行了扩展，比如<strong>因特网缓存协议</strong>（Internet Cache Protocol，ICP）和<strong>超文本缓存协议</strong>（HyperText Caching Protocol，HTCP）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/rsigfvB136ZuEYM.png"
+                      alt="iKZZ0KjuHsCngdjY__thumbnail.png"
+                ></p>
+<h2 id="7-3-缓存的处理步骤"><a href="#7-3-缓存的处理步骤" class="headerlink" title="7.3 缓存的处理步骤"></a>7.3 缓存的处理步骤</h2><p>对一条HTTP GET报文的基本缓存处理过程包括7个步骤。</p>
+<ol>
+<li>接收——缓存从网络中读取抵达的请求报文。</li>
+<li>解析——缓存对报文进行解析，提取出URL和各种首部。</li>
+<li>查询——缓存查看是否有本地副本可用，如果没有，就获取一份副本并将其保存在本地。专业级的缓存会使用快速算法来确定本地缓存中是否有某个对象。已缓存对象中包含了服务器响应主体和原始服务器响应首部，这样就会在缓存命中时返回正确的服务器首部。已缓存对象中还包含了一些元数据（metadata）。</li>
+<li>新鲜度检测——缓存查看已缓存副本是否新鲜，如果不是，就询问服务器是否有任何更新。</li>
+<li>创建响应——缓存会用新的首部和已缓存的主体来构建一条响应报文。缓存负责对这些首部进行改造，以便与客户端的要求相匹配。缓存会插入新鲜度信息（Cache-Control、Age以及Expires首部），通常会包含一个Via首部。缓存不应该调整Date首部。Date首部表示的是原始服务器最初产生这个对象的日期。.</li>
+<li>发送——缓存通过网络将响应发回给客户端。</li>
+<li>日志——缓存可选地创建一个日志文件条目来描述这个事务。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/sVqzw9j2HmtbMpN.png"
+                      alt="sPL9fez6Q5GM0Kew__thumbnail.png"
+                ></p>
+<h2 id="7-4-保持副本的新鲜"><a href="#7-4-保持副本的新鲜" class="headerlink" title="7.4 保持副本的新鲜"></a>7.4 保持副本的新鲜</h2><p>HTTP有一些机制可以在不要求服务器记住有哪些缓存拥有其文档副本的情况下，保持已缓存数据与服务器数据之间充分一致。HTTP将这些机制称为<strong>文档过期</strong>（document expiration）和<strong>服务器再验证</strong>（server revalidation）。</p>
+<h3 id="7-4-1-文档过期"><a href="#7-4-1-文档过期" class="headerlink" title="7.4.1 文档过期"></a>7.4.1 文档过期</h3><p>通过HTTP Cache-Control和Expires首部，让原始服务器向每个文档附加了一个“过期日期”，这些首部说明了在多长时间内可以将这些内容视为新鲜的。</p>
+<p>在过期之前，缓存可以任意使用这些副本，无需与服务器联系，除非客户端请求中包含有阻止提供已缓存或未验证资源的首部。</p>
+<p>一旦文档过期，缓存就必须与服务器进行核对，询问文档是否被修改过，如果被修改过，就要获取一份新鲜（带有新的过期日期）的副本。</p>
+<p>很多发布者都不会使用很长的过期日期。而且，很多发布者甚至都不使用过期日期，这样缓存就很难确定文档会在多长时间内保持新鲜了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/yHViZqd6JFonrt1.png"
+                      alt="mvA0UnLjL6rYmQLQ__thumbnail.png"
+                ></p>
+<h3 id="7-4-2-服务器再验证"><a href="#7-4-2-服务器再验证" class="headerlink" title="7.4.2 服务器再验证"></a>7.4.2 服务器再验证</h3><p>缓存并不一定要为每条请求验证文档的有效性，只有在文档过期时才需要与服务器进行再验证。缓存文档过期了并不一定和原始服务器上的文档有实际的区别：只是意味着到了要进行核对的时间。这种情况被称为“<strong>服务器再验证</strong>”，说明缓存需要询问原始服务器文档是否发生了变化。</p>
+<ol>
+<li>如果再验证显示内容发生了变化，缓存会获取一份新的文档副本，并将其存储在旧文档的位置上，然后将文档发送给客户端。</li>
+<li>如果再验证显示内容没有发生变化，缓存只需要获取新的首部，包括一个新的过期日期，并对缓存中的首部进行更新。</li>
+</ol>
+<p>缓存返回的内容有以下几种情况：</p>
+<ol>
+<li>“足够新鲜”的已缓存副本；</li>
+<li>与服务器进行过再验证，确认其仍然新鲜的已缓存副本；</li>
+<li>如果需要与之进行再验证的原始服务器出故障了，就返回一条错误报文；</li>
+<li>附有警告信息说明内容可能不正确的已缓存副本。<h3 id="7-4-3-用条件方法进行再验证"><a href="#7-4-3-用条件方法进行再验证" class="headerlink" title="7.4.3 用条件方法进行再验证"></a>7.4.3 用条件方法进行再验证</h3></li>
+</ol>
+<p>缓存向原始服务器发送一个“条件GET”，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。对缓存再验证来说最有用是<strong>If-Modi fied-Since</strong>和<strong>If-None-Match</strong>首部<strong>。</strong></p>
+<h4 id="7-4-3-1-If-Modified-Since-Date再验证"><a href="#7-4-3-1-If-Modified-Since-Date再验证" class="headerlink" title="7.4.3.1 If-Modified-Since:Date再验证"></a>7.4.3.1 If-Modified-Since:Date再验证</h4><p>If-Modified-since再验证请求通常被称为<strong>IMS请求</strong>。只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求：</p>
+<ol>
+<li>如果自指定日期后，文档被修改了，通常GET就会成功执行。携带新首部的新文档会被返回给缓存，新首部除了其他信息之外，还包含了一个新的过期日期。</li>
+<li>如果自指定日期后，文档没被修改过，会向客户端返回一个小的304 Not Modified响应报文，不会返回文档的主体。这些首部是放在响应中返回的，但只会返回那些需要在源端更新的首部。一般会发送一个新的过期日期。</li>
+</ol>
+<p>If-Modified-Since首部可以与Last-Modified服务器响应首部配合工作。原始服务器会将最后的修改日期附加到所提供的文档上去。当缓存要对已缓存文档进行再验证时，就会包含一个If-Modified-Since首部，其中携带有最后修改已缓存副本的日期：</p>
+<p>If-Modified-Since：&lt;cached last-modified date&gt;</p>
+<p>如果在此期间内容被修改了，最后的修改日期就会有所不同，原始服务器就会回送新的文档。否则，最后修改日期相符，会返回一个304 Not Modified响应。</p>
+<h4 id="7-4-3-2-If-None-Match：实体标签再验证"><a href="#7-4-3-2-If-None-Match：实体标签再验证" class="headerlink" title="7.4.3.2 If-None-Match：实体标签再验证"></a>7.4.3.2 If-None-Match：实体标签再验证</h4><p>有些情况下仅使用最后修改日期进行再验证是不够的。比如：</p>
+<ol>
+<li>有些文档被周期性地重写，但数据是一样的。即便内容没有变化，但修改日期会发生变化。</li>
+<li>有些文档被修改了，但所做修改并不重要，不需要让缓存都重装数据。</li>
+<li>有些服务器无法准确地判定其页面的最后修改日期。</li>
+<li>有些服务器提供的文档会在亚秒间隙发生变化（比如实时监视器），以一秒为粒度的修改日期就不够用。</li>
+</ol>
+<p>因此HTTP允许用户对被称为<strong>实体标签</strong>（ETag）的“版本标识符”进行比较。实体标签是附加到文档上的任意标签（引用字符串）。它们可能包含了文档的序列号或版本名，或者是文档内容的校验和及其他指纹信息。</p>
+<p>当发布者对文档进行修改时，可以修改文档的实体标签来说明这个新的版本。如果服务器上的实体标签已经发生了变化，服务器会在一个200 OK响应中返回新的内容以及相应的新Etag.</p>
+<p>可以在If-None-Match首部包含几个实体标签，告诉服务器，带有这些实体标签的对象副本在缓存上都有。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/gWolIJmiQEnwkXM.png"
+                      alt="erfxAVVZ74Xb8xhr__thumbnail.png"
+                ></p>
+<h3 id="7-4-4-强弱验证器"><a href="#7-4-4-强弱验证器" class="headerlink" title="7.4.4 强弱验证器"></a>7.4.4 强弱验证器</h3><p>实体标签和最近修改日期都是<strong>缓存验证器</strong>（cache validator）。有时，服务器希望在对文档进行不重要的修改时，不使所有的已缓存副本都失效。HTTP/1.1 支持“<strong>弱验证器</strong>”，如果只对内容进行了少量修改，就允许服务器声明那是“足够好”的等价体。</p>
+<p>有些操作不能用弱验证器来实现（比如有条件地获取部分内容），所以服务器用前缀“WI”来标识弱验证器。ETag: W/“v2.6”    If- None-Match: W/ “v2.6”</p>
+<p>原始服务器不能为两个不同的实体重用一个强实体标签值，或为两个语义不同的实体重用一个弱实体标签值。</p>
+<h2 id="7-5-控制缓存的能力"><a href="#7-5-控制缓存的能力" class="headerlink" title="7.5 控制缓存的能力"></a>7.5 控制缓存的能力</h2><p>服务器可以指定在文档过期之前可以将其缓存多长时间。按照优先级递减的顺序：</p>
+<ol>
+<li>附加<strong>Cache-Control：no-store</strong>首部到响应中，禁止缓存对响应进行复制，缓存通常会向客户端转发一条no-store响应，然后删除对象。</li>
+<li>附加<strong>Cache-Control：no-cache</strong>首部到响应中。可以存储在本地缓存区，只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>附加<strong>Cache-Control：must-revalidate</strong>首部到响应中。缓存可以通过配置，提供一些过期的对象，以提高性能，因此通过Cache-Control：must-revalidate首部让缓存严格遵守过期信息，在没有进行再验证的情况下，不能提供这个对象的陈旧副本。如果缓存在进行must-revalidate新鲜度检查时，服务器不可用，缓存就返回一条504 Gateway Timeout错误。</li>
+<li>附加<strong>Cache-Control：max-age</strong>首部到响应中。还有一个s-maxage首部仅适用公有缓存。</li>
+<li>附加<strong>Expires</strong>日期首部到响应中。不推荐使用Expires首部，因为服务器的时钟可能不同步，或不正确。其中Expires:0响应首部，试图将文档置于永远过期的状态，但这种语法是非法的，可能给某些软件带来问题。</li>
+<li>不附加过期信息，让缓存确定自己的过期日期。<h3 id="7-5-1-试探性过期"><a href="#7-5-1-试探性过期" class="headerlink" title="7.5.1 试探性过期"></a>7.5.1 试探性过期</h3></li>
+</ol>
+<p>缓存通过算法计算出一个试探性最大使用期。但如果最大使用期大于24小时，就向响应首部添加Heuristic Expiration Warning（试探性过期警告，警告13）首部，但很少有浏览器提供。</p>
+<p>如果文档中包含了最后修改日期，就可以使用LM-Factor算法，通过计算缓存与服务器对话的时间跟服务器声明文档最后被修改的时间之间的差值，取这个间隔时间的一部分，将其作为缓存中的新鲜度持续时间。通常会为试探性新鲜周期设置上限，一般设置为一周。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/08/rQ3UBMxVOJvqwaP.png"
+                      alt="bT1QqO3hyhVyT1Rm__thumbnail.png"
+                ></p>
+<p>如果最后修改日期也没有，缓存通常会为文档分配一个默认的新鲜周期（通常是一个小时或一天）。</p>
+<h3 id="7-5-2-客户端的新鲜度限制"><a href="#7-5-2-客户端的新鲜度限制" class="headerlink" title="7.5.2 客户端的新鲜度限制"></a>7.5.2 客户端的新鲜度限制</h3><p>Web浏览器都有Refresh（刷新）或Reload（重载）按钮，可以强制对浏览器或代理缓存中可能过期的内容进行刷新。</p>
+<p>Refresh按钮会发布附加了Cache-Control请求首部的GET请求，这个请求会强制进行再验证，或者无条件地从服务器获取文档。Refresh 的确切行为取决于特定的浏览器、文档以及拦截缓存的配置。客户端可以用Cache-Control请求首部来强化或放松对过期时间的限制。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/03/07/67RPxWeDKVmUBL3.png"
+                      alt="c66vSOYHG3viCCN0__thumbnail.png"
+                ></p>
+]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>HTTP权威指南</category>
+        <category>07-缓存</category>
       </categories>
       <tags>
         <tag>HTTP</tag>
@@ -4428,6 +4428,87 @@
       </categories>
       <tags>
         <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>02-HTML中的JavaScript</title>
+    <url>/2021/01/23/note/JavaScript/02-HTML%E4%B8%AD%E7%9A%84JavaScript/</url>
+    <content><![CDATA[<h2 id="2-1-lt-script-gt-元素"><a href="#2-1-lt-script-gt-元素" class="headerlink" title="2.1　&lt;script&gt;元素"></a>2.1　<code>&lt;script&gt;</code>元素</h2><p>将JavaScript插入HTML的主要方法是使用<code>&lt;script&gt;</code>元素。<code>&lt;script&gt;</code>元素有下列8个属性。</p>
+<ul>
+<li><code>async</code>：可选。只对外部脚本文件有效。详见2.13。</li>
+<li><code>charset</code>：可选。使用<code>src</code>属性指定的代码字符集。这个属性很少使用，因为大多数浏览器不在乎它的值。</li>
+<li><code>crossorigin</code>：可选。配置相关请求的CORS（跨源资源共享）设置。默认不使用CORS。<code>crossorigin=&quot;anonymous&quot;</code>配置文件请求不必设置凭据标志。<code>crossorigin=&quot;use-credentials&quot;</code>设置凭据标志，意味着出站请求会包含凭据。</li>
+<li><code>defer</code>：可选。只对外部脚本文件有效。详见2.12</li>
+<li><code>integrity</code>：可选。允许比对接收到的资源的加密签名和指定的加密签名，以验证子资源完整性（SRI，Subresource Integrity）。如果不匹配，则页面会报错，脚本不会执行。这个属性可以用于确保内容分发网络（CDN，Content Delivery Network）不会提供恶意内容。</li>
+<li><code>language</code>：废弃。</li>
+<li><code>src</code>：可选。表示包含要执行的代码的外部文件。</li>
+<li><code>type</code>：可选。代替<code>language</code>，表示代码块中脚本语言的内容类型（也称MIME类型）。按照惯例，这个值始终都是<code>&quot;text/javascript&quot;</code>。JavaScript文件的MIME类型通常是<code>&quot;application/x-javascript&quot;</code>，不过给type属性这个值有可能导致脚本被忽略。如果这个值是<code>module</code>，则代码会被当成ES6模块，而且只有这时候代码中才能出现<code>import</code>和<code>export</code>关键字。</li>
+</ul>
+<p>使用<code>&lt;script&gt;</code>的方式有两种：通过它直接在网页中嵌入JavaScript代码，以及通过它在网页中包含外部JavaScript文件。</p>
+<p>要嵌入行内JavaScript代码，直接把代码放在<code>&lt;script&gt;</code>元素中就行，包含在<code>&lt;script&gt;</code>内的代码会被从上到下解释。在在<code>&lt;script&gt;</code>元素中的代码被计算完成之前，页面的其余内容不会被加载，也不会被显示。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;Hi!&quot;</span>);</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在使用行内JavaScript代码时，要注意代码中不能出现字符串<code>&lt;/script&gt;</code>。因为浏览器解析行内脚本的方式决定了它会将其当成结束的<code>&lt;/script&gt;</code>标签。想避免这个问题，只需要转义字符“\”即可。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">sayScript</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>&quot;); // console.log(&quot;&lt;\/script&gt;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>要包含外部文件中的JavaScript，就必须使用<code>src</code>属性。这个属性的值是一个URL，指向包含JavaScript代码的文件，与解释行内JavaScript一样，在解释外部JavaScript文件时，页面也会阻塞。阻塞时间也包含下载文件的时间。在XHTML文档中，可以忽略结束标签。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example.js&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>　按照惯例，外部JavaScript文件的扩展名是.js。但不是必需的，因为浏览器不会检查所包含JavaScript文件的扩展名。这就为使用服务器端脚本语言动态生成JavaScript代码，或者在浏览器中将JavaScript扩展语言（如TypeScript、React的JSX）转译为JavaScript提供了可能性。不过服务器经常会根据文件扩展来确定响应的正确MIME类型。如果不使用.js扩展名，一定要确保服务器能返回正确的MIME类型。</p>
+</blockquote>
+<p>使用了<code>src</code>属性的<code>&lt;script&gt;</code>元素不应该再在<code>&lt;script&gt;</code>和<code>&lt;/script&gt;</code>标签中再包含其他JavaScript代码。如果两者都提供的话，则浏览器只会下载并执行脚本文件，从而忽略行内代码。</p>
+<p><code>&lt;script&gt;</code>元素的一个强大也备受争议的特性是，可以包含来自外部域的JavaScript文件。跟<code>&lt;img&gt;</code>元素很像，<code>&lt;script&gt;</code>元素的src属性可以是一个完整的URL，而且这个URL指向的资源可以跟包含它的HTML页面不在同一个域中。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://www.somewhere.com/afile.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>浏览器在解析这个资源时，会向<code>src</code>属性指定的路径发送一个<code>GET</code>请求，以取得相应资源，这个初始的请求不受浏览器同源策略限制，但返回并被执行的JavaScript则受限制。</p>
+<p>来自外部域的代码会被当成加载它的页面的一部分来加载和解释。这个能力可以让我们通过不同的域分发JavaScript。在包含外部域的JavaScript文件时，要确保该域是自己所有的，或者该域是一个可信的来源。<code>&lt;script&gt;</code>标签的<code>integrity</code>属性可以防范这种问题。</p>
+<p>浏览器会按照<code>&lt;script&gt;</code>在页面中出现的顺序依次解释它们，前提是它们没有使用<code>defer</code>和<code>async</code>属性。第二个<code>&lt;script&gt;</code>元素必须在第一个<code>&lt;script&gt;</code>元素的代码解释完毕才能开始解释。</p>
+<h3 id="2-1-1-标签占位符"><a href="#2-1-1-标签占位符" class="headerlink" title="2.1.1　标签占位符"></a>2.1.1　标签占位符</h3><p>过去，所有<code>&lt;script&gt;</code>元素都被放在页面的<code>&lt;head&gt;</code>标签内，这种做法的主要目的是把外部的CSS和JavaScript文件都集中放到一起。不过，这也就意味着必须把所有JavaScript代码都下载、解析和解释完成后，才能开始渲染页面（页面在浏览器解析到<code>&lt;body&gt;</code>的起始标签时开始渲染）。</p>
+<p>现代Web应用程序通常将所有JavaScript引用放在<code>&lt;body&gt;</code>元素中的页面内容后面，页面会在处理JavaScript代码之前完全渲染页面。用户会感觉页面加载更快了，因为浏览器显示空白页面的时间短了。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 这里是页面内容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-1-2-推迟执行脚本"><a href="#2-1-2-推迟执行脚本" class="headerlink" title="2.1.2　推迟执行脚本"></a>2.1.2　推迟执行脚本</h3><p><code>defer</code>属性表示脚本在执行的时候不会改变页面的结构。也就是脚本会被延迟到整个页面都解析完毕后再运行。相当于告诉浏览器立即下载，但延迟执行。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 这里是页面内容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>虽然这个例子中的<code>&lt;script&gt;</code>元素包含在页面的<code>&lt;head&gt;</code>中，但它们会在浏览器解析到结束的<code>&lt;/html&gt;</code>标签后才会执行。HTML5规范要求脚本应该按照它们出现的顺序执行，因此第一个推迟的脚本会在第二个推迟的脚本之前执行，而且两者都会在<code>DOMContentLoaded</code>事件之前执行。不过在实际当中，这都不一定。因此最好只包含一个这样的脚本。</p>
+<p><code>defer</code>属性只对外部脚本文件才有效，因此支持HTML5的浏览器会忽略行内脚本的<code>defer</code>属性。有些浏览器则会忽略<code>defer</code>，按照通常的做法来处理脚本。因此把要推迟执行的脚本放在页面底部比较好。</p>
+<h3 id="2-1-3-异步执行脚本"><a href="#2-1-3-异步执行脚本" class="headerlink" title="2.1.3　异步执行脚本"></a>2.1.3　异步执行脚本</h3><p><code>async</code>属性与<code>defer</code>都会告诉浏览器立即开始下载。不不同的是，标记为<code>async</code>的脚本并不保证能按照它们出现的次序执行。给脚本添加<code>async</code>属性的目的是告诉浏览器，该异步脚本下载和执行，可以同时加载页面和加载其他脚本。因此，异步脚本不应该在加载期间修改DOM。</p>
+<p>异步脚本保证会在页面的<code>load</code>事件前执行，但可能会在<code>DOMContentLoaded</code>。不推荐使用这个方法。</p>
+<h3 id="2-1-4-动态加载脚本"><a href="#2-1-4-动态加载脚本" class="headerlink" title="2.1.4　动态加载脚本"></a>2.1.4　动态加载脚本</h3><p>除了<code>&lt;script&gt;</code>标签，JavaScript可以使用DOM API，向DOM中动态添加<code>script</code>元素同样可以加载指定的脚本。默认情况下，以这种方式创建的<code>&lt;script&gt;</code>元素是以异步方式加载的，相当于添加了<code>async</code>属性。不过不是所有浏览器都支持<code>async</code>属性。因此，如果要统一动态脚本的加载行为，可以明确将其设置为同步加载：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">script.src = <span class="string">&#x27;gibberish.js&#x27;</span>;</span><br><span class="line"><span class="comment">// 添加script.async = false;可以统一加载行为</span></span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br></pre></td></tr></table></figure>
+<p>但以这种方式获取的资源对浏览器预加载器是不可见的。会严重影响它们在资源获取队列中的优先级。可以在文档头部显式声明它们，让预加载器知道这些动态请求文件的存在。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;gibberish.js&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-行内代码与外部文件"><a href="#2-2-行内代码与外部文件" class="headerlink" title="2.2　行内代码与外部文件"></a>2.2　行内代码与外部文件</h2><p>通常认为最佳实践是尽可能将JavaScript代码放在外部文件中。理由如下。</p>
+<ul>
+<li><strong>可维护性</strong>。JavaScript代码如果分散到很多HTML页面，会导致维护困难。而用一个目录保存所有JavaScript文件，则更容易维护，这样开发者就可以独立于使用它们的HTML页面来编辑代码。</li>
+<li><strong>缓存</strong>。浏览器会根据特定的设置缓存所有外部链接的JavaScript文件，这意味着如果两个页面都用到同一个文件，则该文件只需下载一次。这意味着页面加载更快。</li>
+<li><strong>适应未来</strong>。</li>
+</ul>
+<p>如果浏览器支持SPDY/HTTP2，在配置浏览器请求外部文件时，以轻量、独立JavaScript组件形式向客户端送达脚本更具优势。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;mainA.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component3.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-文档模式"><a href="#2-3-文档模式" class="headerlink" title="2.3　文档模式"></a>2.3　文档模式</h2><p>IE5.5发明了文档模式的概念，使用<code>doctype</code>切换文档模式。文档模式有三种：</p>
+<ol>
+<li><strong>混杂模式</strong>（quirks mode），支持一些非标准的特性。</li>
+<li><strong>标准模式</strong>（standards mode）。具有兼容标准的行为。</li>
+<li><strong>准标准模式</strong>（almost standards mode）。支持很多标准的特性，但是又没有规定得那么严格。主要区别在于如何对待图片元素周围的空白（在表格中使用图片时最明显）。</li>
+</ol>
+<p>虽然这模式的主要区别只体现在通过CSS渲染的内容方面，但对JavaScript也有一些关联影响。</p>
+<p>混杂模式在所有浏览器中都以省略文档开头的<code>doctype</code>声明作为开关。这种约定并不合理，因为混杂模式在不同浏览器中的差异非常大。</p>
+<p>标准模式通过下列几种文档类型声明开启：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HTML 4.01 Strict --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//W3C//DTD HTML 4.01//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/strict.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- XHTML 1.0 Strict --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- HTML5 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>准标准模式与标准模式非常接近，很少需要区分。它通过过渡性文档类型（<code>Transitional</code>）和框架集文档类型（<code>Frameset</code>）来触发：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HTML 4.01 Transitional --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- HTML 4.01 Frameset --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD HTML 4.01 Frameset//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/frameset.dtd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-4-lt-noscript-gt-元素"><a href="#2-4-lt-noscript-gt-元素" class="headerlink" title="2.4　&lt;noscript&gt;元素"></a>2.4　<code>&lt;noscript&gt;</code>元素</h2><p><code>&lt;noscript&gt;</code>元素用于给不支持JavaScript的浏览器提供替代内容。可以包含任何可以出现在<code>&lt;body&gt;</code>中的HTML元素，<code>&lt;script&gt;</code>除外。在下列两种情况下，浏览器将显示包含在<code>&lt;noscript&gt;</code>中的内容：</p>
+<ul>
+<li>浏览器不支持脚本；</li>
+<li>浏览器对脚本的支持被关闭。</li>
+</ul>
+<p>任何一个条件被满足，包含在<code>&lt;noscript&gt;</code>中的内容就会被渲染。否则，浏览器不会渲染<code>&lt;noscript&gt;</code>中的内容。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span>=<span class="string">&quot;defer&quot;</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span>=<span class="string">&quot;defer&quot;</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This page requires a JavaScript-enabled browser.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>学习笔记</category>
+        <category>JavaScript高级程序设计(第四版)</category>
+        <category>02-HTML中的JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -8581,7 +8662,7 @@
     <content><![CDATA[<h2 id="3-1-语法"><a href="#3-1-语法" class="headerlink" title="3.1　语法"></a>3.1　语法</h2><h3 id="3-1-1-区分大小写"><a href="#3-1-1-区分大小写" class="headerlink" title="3.1.1　区分大小写"></a>3.1.1　区分大小写</h3><p>ECMAScript中一切都区分大小写。无论是变量、函数名还是操作符。</p>
 <h3 id="3-1-2-标识符"><a href="#3-1-2-标识符" class="headerlink" title="3.1.2　标识符"></a>3.1.2　标识符</h3><p><strong>标识符</strong>，就是变量、函数、属性或函数参数的名称。标识符可以由一或多个下列字符组成：</p>
 <ol>
-<li>第一个字符必须是一个字母、下划线_或美元符号$；</li>
+<li>第一个字符必须是一个字母或下划线或$；</li>
 <li>剩下的其他字符可以是字母、下划线、美元符号或数字。</li>
 </ol>
 <p>标识符中的字母可以是扩展ASCII（Extended ASCII）中的字母，也可以是Unicode的字母字符，如À和Æ（但不推荐使用）。</p>
@@ -8591,82 +8672,63 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br></pre></td></tr></table></figure>
 <p>块注释以一个斜杠和一个星号（<code>/*</code>）开头，以它们的反向组合（<code>*/</code>）结尾，如：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 这是多行</span></span><br><span class="line"><span class="comment">注释 */</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-1-4-严格模式"><a href="#3-1-4-严格模式" class="headerlink" title="3.1.4　严格模式"></a>3.1.4　严格模式</h3><p>严格模式是一种不同的JavaScript解析和执行模型，要对整个脚本启用严格模式，在脚本开头加上：”use strict”;，它其实是一个预处理指令。任何支持的JavaScript引擎看到它都会切换到严格模式。也可以单独指定一个函数在严格模式下执行，把这个预处理指令放到函数体开头即可：</p>
+<h3 id="3-1-4-严格模式"><a href="#3-1-4-严格模式" class="headerlink" title="3.1.4　严格模式"></a>3.1.4　严格模式</h3><p>严格模式是一种不同的JavaScript解析和执行模型，要对整个脚本启用严格模式，在脚本开头加上：”use strict”;，它其实是一个预处理指令也可以单独指定一个函数在严格模式下执行，</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  &quot;use strict&quot;</span>;</span><br><span class="line">  <span class="comment">// 函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-1-5-语句"><a href="#3-1-5-语句" class="headerlink" title="3.1.5　语句"></a>3.1.5　语句</h3><p>ECMAScript中的语句以分号结尾。省略分号意味着由解析器确定语句在哪里结尾。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sum &#x3D; a + b      &#x2F;&#x2F; 没有分号也有效，但不推荐</span><br></pre></td></tr></table></figure>
-<p>加分号有助于防止省略造成的问题，比如避免输入内容不完整，也便于开发者通过删除空行来压缩代码（如果没有结尾的分号，只删除空行，则会导致语法错误），也有助于在某些情况下提升性能，因为解析器会尝试在合适的位置补上分号以纠正语法错误。<br>多条语句可以合并到一个C语言风格的代码块中。代码块由一个左花括号（<code>&#123;</code>）标识开始，一个右花括号（<code>&#125;</code>）标识结束：</p>
+<h3 id="3-1-5-语句"><a href="#3-1-5-语句" class="headerlink" title="3.1.5　语句"></a>3.1.5　语句</h3><p>ECMAScript中的语句以分号结尾。省略分号则由解析器确定语句在哪里结尾(不推荐)。</p>
+<p>加分号有助于防止省略造成的问题，比如避免输入内容不完整，也便于开发者通过删除空行来压缩代码，也有助于在某些情况下提升性能，因为解析器会尝试在合适的位置补上分号以纠正语法错误。</p>
+<p>多条语句可以合并到一个C语言风格的代码块中。代码块由一个左花括号（<code>&#123;</code>）标识开始，一个右花括号（<code>&#125;</code>）标识结束.</p>
 <p>if之类的控制语句只在执行多条语句时要求必须有代码块。最好始终在控制语句中使用代码块，即使要执行的只有一条语句。</p>
-<p>在控制语句中使用代码块可以让内容更清晰，在需要修改代码时也可以减少出错的可能性。</p>
-<h2 id="3-2-关键字与保留字"><a href="#3-2-关键字与保留字" class="headerlink" title="3.2　关键字与保留字"></a>3.2　关键字与保留字</h2><p>保留的关键字不能用作标识符或属性名。ECMA-262第6版规定的所有关键字如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">break       do          in            typeof</span><br><span class="line">case        else        instanceof    var</span><br><span class="line">catch       export      new           void</span><br><span class="line">class       extends     return        while</span><br><span class="line">const       finally     super         with</span><br><span class="line">continue    for         switch        yield</span><br><span class="line">debugger    function    this</span><br><span class="line">default     if          throw</span><br><span class="line">delete      import      try</span><br></pre></td></tr></table></figure>
-<p>规范中也描述了一组<strong>未来的保留字</strong>，同样不能用作标识符或属性名。虽然保留字在语言中没有特定用途，但它们是保留给将来做关键字用的。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">始终保留:</span><br><span class="line">enum</span><br><span class="line">严格模式下保留:</span><br><span class="line">implements  package     public</span><br><span class="line">interface   protected   static</span><br><span class="line">let         private</span><br><span class="line">模块代码中保留:</span><br><span class="line">await</span><br></pre></td></tr></table></figure>
-<p>这些词汇不能用作标识符，但现在还可以用作对象的属性名。但最好还是不要使用关键字和保留字作为标识符和属性名，以确保兼容过去和未来的ECMAScript版本。</p>
-<h2 id="3-3-变量"><a href="#3-3-变量" class="headerlink" title="3.3　变量"></a>3.3　变量</h2><p>ECMAScript变量是松散类型的，变量可以用于保存任何类型的数据。每个变量只不过是一个用于保存任意值的命名占位符。有3个关键字可以声明变量：<code>var</code>、<code>const</code>和<code>let</code>。其中，<code>var</code>在ECMAScript的所有版本中都可以使用，而<code>const</code>和<code>let</code>只能在ECMAScript 6及更晚的版本中使用。</p>
-<h3 id="3-3-1var关键字"><a href="#3-3-1var关键字" class="headerlink" title="3.3.1var关键字"></a>3.3.1<code>var</code>关键字</h3><p>要定义变量，可以使用<code>var</code>操作符（注意<code>var</code>是一个关键字），后跟变量名（即标识符）：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var message;</span><br></pre></td></tr></table></figure>
-<p>（不初始化的情况下，变量会保存一个特殊值<code>undefined</code>）</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>;</span><br></pre></td></tr></table></figure>
-<p>初始化变量不会将它标识为字符串类型，只是一个简单的赋值而已。随后不仅可以改变保存的值，也可以改变值的类型：</p>
+<h2 id="3-2-关键字与保留字"><a href="#3-2-关键字与保留字" class="headerlink" title="3.2　关键字与保留字"></a>3.2　关键字与保留字</h2><p>保留的关键字不能用作标识符或属性名。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">break</span>       <span class="keyword">do</span>          <span class="keyword">in</span>            <span class="keyword">typeof</span></span><br><span class="line"><span class="keyword">case</span>        <span class="keyword">else</span>        <span class="keyword">instanceof</span>    <span class="keyword">var</span></span><br><span class="line"><span class="keyword">catch</span>       <span class="keyword">export</span>      <span class="keyword">new</span>           <span class="keyword">void</span></span><br><span class="line"><span class="class"><span class="keyword">class</span>       <span class="keyword">extends</span>     <span class="title">return</span>        <span class="title">while</span></span></span><br><span class="line"><span class="class"><span class="title">const</span>       <span class="title">finally</span>     <span class="title">super</span>         <span class="title">with</span></span></span><br><span class="line"><span class="class"><span class="title">continue</span>    <span class="title">for</span>         <span class="title">switch</span>        <span class="title">yield</span></span></span><br><span class="line"><span class="class"><span class="title">debugger</span>    <span class="title">function</span>    <span class="title">this</span></span></span><br><span class="line"><span class="class"><span class="title">default</span>     <span class="title">if</span>          <span class="title">throw</span></span></span><br><span class="line"><span class="class"><span class="title">delete</span>      <span class="title">import</span>      <span class="title">try</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>未来的保留字</strong>，同样不能用作标识符或属性名。但现在还可以用作对象的属性名（不推荐）。它们是保留给将来做关键字用的。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//始终保留:</span></span><br><span class="line">enum</span><br><span class="line"><span class="comment">//严格模式下保留:</span></span><br><span class="line">implements  package     public</span><br><span class="line">interface   protected   <span class="keyword">static</span></span><br><span class="line"><span class="keyword">let</span>         private</span><br><span class="line"><span class="comment">//模块代码中保留:</span></span><br><span class="line"><span class="keyword">await</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-3-变量"><a href="#3-3-变量" class="headerlink" title="3.3　变量"></a>3.3　变量</h2><p>ECMAScript变量是松散类型的，变量可以用于保存任何类型的数据。有3个关键字可以声明变量：<code>var</code>、<code>const</code>和<code>let</code>。</p>
+<h3 id="3-3-1-var关键字"><a href="#3-3-1-var关键字" class="headerlink" title="3.3.1   var关键字"></a>3.3.1   <code>var</code>关键字</h3><p>要定义变量，可以使用<code>var</code>操作符，后跟变量名（即标识符）：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> message; <span class="comment">//不初始化的情况下，变量会保存一个特殊值`undefined`</span></span><br></pre></td></tr></table></figure>
+<p>初始化变量不会将它标识为字符串类型，随后不仅可以改变保存的值，也可以改变值的类型：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>;</span><br><span class="line">message = <span class="number">100</span>;  <span class="comment">// 合法，但不推荐</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-3-1-1var声明作用域"><a href="#3-3-1-1var声明作用域" class="headerlink" title="3.3.1.1var声明作用域"></a>3.3.1.1<code>var</code>声明作用域</h4><p><code>var</code>声明作用域关键的问题在于，使用<code>var</code>操作符定义的变量会成为包含它的函数的局部变量。使用<code>var</code>在一个函数内部定义一个变量，该变量将在函数退出时被销毁：</p>
+<h4 id="3-3-1-1-var声明作用域"><a href="#3-3-1-1-var声明作用域" class="headerlink" title="3.3.1.1   var声明作用域"></a>3.3.1.1   <code>var</code>声明作用域</h4><p><code>var</code>声明作用域关键的问题在于，使用<code>var</code>操作符定义的变量会成为包含它的函数的局部变量。使用<code>var</code>在一个函数内部定义一个变量，该变量将在函数退出时被销毁：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>; <span class="comment">// 局部变量</span></span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// 出错！</span></span><br></pre></td></tr></table></figure>
 <p>在函数内定义变量时省略<code>var</code>操作符，可以创建一个全局变量：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   message = <span class="string">&quot;hi&quot;</span>;     <span class="comment">// 全局变量</span></span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// &quot;hi&quot;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意</strong>虽然可以通过省略<code>var</code>操作符定义全局变量，但不推荐这么做。在局部作用域中定义的全局变量很难维护，也会造成困惑。在严格模式下，如果像这样给未声明的变量赋值，则会导致抛出<code>ReferenceError</code>。</p>
-</blockquote>
-<p>如果需要定义多个变量，可以在一条语句中用逗号分隔每个变量（及可选的初始化）：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>,</span><br><span class="line">    found = <span class="literal">false</span>,</span><br><span class="line">    age = <span class="number">29</span>;</span><br></pre></td></tr></table></figure>
-<p>使用不同数据类型初始化的变量可以用一条语句来声明。插入换行和空格缩进并不是必需的，但这样有利于阅读理解。<br>在严格模式下，不能定义名为<code>eval</code>和<code>arguments</code>的变量，否则会导致语法错误。</p>
-<h4 id="3-3-1-2var声明提升"><a href="#3-3-1-2var声明提升" class="headerlink" title="3.3.1.2var声明提升"></a>3.3.1.2<code>var</code>声明提升</h4><p>使用<code>var</code>时，声明的变量会自动提升到函数作用域顶部：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(age);</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">26</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo();  <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<p>反复多次使用<code>var</code>声明同一个变量也没有问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">36</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(age);</span><br><span class="line">&#125;</span><br><span class="line">foo();  <span class="comment">// 36</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-3-2let声明"><a href="#3-3-2let声明" class="headerlink" title="3.3.2let声明"></a>3.3.2<code>let</code>声明</h3><p><code>let</code>跟<code>var</code>最明显的区别是<code>let</code>声明的范围是块作用域，而<code>var</code>声明的范围是函数作用域。它的作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于<code>var</code>的作用域限制同样也适用于<code>let</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(name); <span class="comment">// Matt</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name);   <span class="comment">// Matt</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(age);   <span class="comment">// 26</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(age);     <span class="comment">// ReferenceError: age没有定义</span></span><br></pre></td></tr></table></figure>
-<p><code>let</code>也不允许同一个块作用域中出现冗余声明。这样会导致报错：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name;</span><br><span class="line"><span class="keyword">var</span> name;</span><br><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">let</span> age;  <span class="comment">// SyntaxError；标识符age已经声明过了</span></span><br></pre></td></tr></table></figure>
-<p>JavaScript引擎会记录用于变量声明的标识符及其所在的块作用域，因此嵌套使用相同的标识符不会报错，而这是因为同一个块中没有重复声明：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(name);    <span class="comment">// &#x27;Nicholas&#x27;</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(name);  <span class="comment">// &#x27;Matt&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> age = <span class="number">30</span>;</span><br><span class="line"><span class="built_in">console</span>.log(age);    <span class="comment">// 30</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(age); <span class="comment">// 26</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   message = <span class="string">&quot;hi&quot;</span>;     <span class="comment">// 全局变量,不推荐，严格模式会报错</span></span><br><span class="line">&#125;</span><br><span class="line">test();</span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// &quot;hi&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果需要定义多个变量，可以在一条语句中用逗号分隔每个变量及可选的初始化：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> message = <span class="string">&quot;hi&quot;</span>,</span><br><span class="line">    found = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>在严格模式下，不能定义名为<code>eval</code>和<code>arguments</code>的变量，否则会导致语法错误。</p>
+<h4 id="3-3-1-2-var声明提升"><a href="#3-3-1-2-var声明提升" class="headerlink" title="3.3.1.2   var声明提升"></a>3.3.1.2   <code>var</code>声明提升</h4><p>使用<code>var</code>时，声明的变量会自动提升到函数作用域顶部，反复多次使用<code>var</code>声明同一个变量也没有问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(age);</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">36</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo();  <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-2-let声明"><a href="#3-3-2-let声明" class="headerlink" title="3.3.2   let声明"></a>3.3.2   <code>let</code>声明</h3><p><code>var</code>声明的范围是函数作用域，而<code>let</code>声明的范围是块作用域，作用域仅限于该块内部。块作用域是函数作用域的子集，因此适用于<code>var</code>的作用域限制同样也适用于<code>let</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(name); <span class="comment">// Matt</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name);   <span class="comment">// Matt</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(age);   <span class="comment">// 26</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(age);     <span class="comment">// ReferenceError: age没有定义</span></span><br></pre></td></tr></table></figure>
+<p><code>let</code>不允许同一个块作用域中出现冗余声明。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">let</span> age;  <span class="comment">// SyntaxError；标识符age已经声明过了</span></span><br></pre></td></tr></table></figure>
+<p>JavaScript引擎会记录用于变量声明的标识符及其所在的块作用域，因此嵌套使用相同的标识符不会报错，这是因为同一个块中没有重复声明：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(name);    <span class="comment">// &#x27;Nicholas&#x27;</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(name);  <span class="comment">// &#x27;Matt&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">30</span>;</span><br><span class="line"><span class="built_in">console</span>.log(age);    <span class="comment">// 30</span></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(age); <span class="comment">// 26</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>混用<code>let</code>和<code>var</code>同样可能会到冗余声明。这两个关键字声明的并不是不同类型的变量，它们只是指出变量在相关作用域如何存在。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name;</span><br><span class="line"><span class="keyword">let</span> name; <span class="comment">// SyntaxError</span></span><br><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">var</span> age; <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-3-2-1-暂时性死区"><a href="#3-3-2-1-暂时性死区" class="headerlink" title="3.3.2.1**暂时性死区**"></a><strong>3.3.2.1**</strong>暂时性死区**</h4><p><code>let</code>与<code>var</code>的另一个重要的区别，就是<code>let</code>声明的变量不会在作用域中被提升。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// name会被提升</span></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// undefined</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line"><span class="comment">// age不会被提升</span></span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// ReferenceError：age没有定义</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">26</span>;</span><br></pre></td></tr></table></figure>
-<p>在解析代码时，JavaScript引擎也会注意出现在块后面的<code>let</code>声明，只不过在此之前不能以任何方式来引用未声明的变量。在<code>let</code>声明之前的执行瞬间被称为“暂时性死区”（temporal dead zone），在此阶段引用任何后面才声明的变量都会抛出<code>ReferenceError</code>。</p>
-<h4 id="3-3-2-2-全局声明"><a href="#3-3-2-2-全局声明" class="headerlink" title="3.3.2.2**全局声明**"></a><strong>3.3.2.2**</strong>全局声明**</h4><p>使用<code>let</code>在全局作用域中声明的变量不会成为<code>window</code>对象的属性（<code>var</code>声明的变量会）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> age;</span><br><span class="line"><span class="keyword">var</span> age; <span class="comment">// SyntaxError</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-3-2-1-暂时性死区"><a href="#3-3-2-1-暂时性死区" class="headerlink" title="**3.3.2.1 **  暂时性死区"></a>**3.3.2.1 **  暂时性死区</h4><p><code>let</code>声明的变量不会在作用域中被提升。在<code>let</code>声明之前的执行瞬间被称为“暂时性死区”（temporal dead zone）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// ReferenceError：age没有定义</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">26</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-2-2-全局声明"><a href="#3-3-2-2-全局声明" class="headerlink" title="3.3.2.2   全局声明"></a><strong>3.3.2.2</strong>   全局声明</h4><p>使用<code>let</code>在全局作用域中声明的变量不会成为<code>window</code>对象的属性（<code>var</code>声明的变量会）。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.name); <span class="comment">// &#x27;Matt&#x27;</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.age);  <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-<p>但<code>let</code>声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续。因此，为了避免<code>SyntaxError</code>，必须确保页面不会重复声明同一个变量。</p>
-<h4 id="3-3-2-3-条件声明（review）"><a href="#3-3-2-3-条件声明（review）" class="headerlink" title="3.3.2.3**条件声明（review）**"></a><strong>3.3.2.3**</strong>条件声明（review）**</h4><p>在使用<code>var</code>声明变量时，由于声明会被提升，JavaScript引擎会自动将多余的声明在作用域顶部合并为一个声明。因为<code>let</code>的作用域是块，所以不可能检查前面是否已经使用<code>let</code>声明过同名变量，同时也就不可能在没有声明的情况下声明它。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">26</span>;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 假设脚本不确定页面中是否已经声明了同名变量</span></span><br><span class="line">  <span class="comment">// 那它可以假设还没有声明过</span></span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="comment">// 这里没问题，因为可以被作为一个提升声明来处理</span></span><br><span class="line">  <span class="comment">// 不需要检查之前是否声明过同名变量</span></span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">36</span>;</span><br><span class="line">  <span class="comment">// 如果age之前声明过，这里会报错</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>但<code>let</code>声明仍然是在全局作用域中发生的，相应变量会在页面的生命周期内存续。因此，为避免<code>SyntaxError</code>，必须确保页面不会重复声明同一个变量。</p>
+<h4 id="3-3-2-3-条件声明"><a href="#3-3-2-3-条件声明" class="headerlink" title="3.3.2.3   条件声明"></a>3.3.2.3   条件声明</h4><p>在使用<code>var</code>声明变量时，由于声明会被提升，JavaScript引擎会自动将多余的声明在作用域顶部合并为一个声明。因为<code>let</code>的作用域是块，所以不可能检查前面是否已经使用<code>let</code>声明过同名变量，同时也就不可能在没有声明的情况下声明它。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> age = <span class="number">26</span>;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 假设脚本不确定页面中是否已经声明了同名变量,那它可以假设还没有声明过</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 这里没问题，因为可以被作为一个提升声明来处理</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 不需要检查之前是否声明过同名变量，但这里之前声明过，会报错</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> age = <span class="number">36</span>; </span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>使用<code>try</code>/<code>catch</code>语句或<code>typeof</code>操作符也不能解决，因为<code>let</code>声明的作用域仅限于该条件块。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">let</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span><br><span class="line">  <span class="keyword">let</span> age = <span class="number">36</span>;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 假设脚本不确定页面中是否已经声明了同名变量</span></span><br><span class="line">  <span class="comment">// 那它可以假设还没有声明过</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> name === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// name被限制在if &#123;&#125; 块的作用域内</span></span><br><span class="line">  <span class="comment">// 因此这个赋值形同全局赋值</span></span><br><span class="line">  name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line">  <span class="keyword">try</span> (age) &#123;</span><br><span class="line">    <span class="comment">// 如果age没有声明过，则会报错</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">catch</span>(error) &#123;</span><br><span class="line">    <span class="keyword">let</span> age;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// age被限制在catch &#123;&#125;块的作用域内</span></span><br><span class="line">  <span class="comment">// 因此这个赋值形同全局赋值</span></span><br><span class="line">  age = <span class="number">26</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>为此，对于<code>let</code>声明关键字，不能依赖条件声明模式。</p>
-<blockquote>
-<p><strong>注意</strong>条件声明是一种反模式，它让程序变得更难理解。</p>
-</blockquote>
-<h4 id="3-3-2-4for循环中的let声明"><a href="#3-3-2-4for循环中的let声明" class="headerlink" title="3.3.2.4for循环中的let声明"></a>3.3.2.4<code>for</code>循环中的<code>let</code>声明</h4><p>在<code>let</code>出现之前，<code>for</code>循环定义的迭代变量会渗透到循环体外部：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">  <span class="comment">// 循环逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
-<p>改成使用<code>let</code>之后，这个问题就消失了，因为迭代变量的作用域仅限于<code>for</code>循环块内部：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">let</span> age = <span class="number">36</span>;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="comment">// 假设脚本不确定页面中是否已经声明了同名变量</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 那它可以假设还没有声明过</span></span></span><br><span class="line"><span class="javascript">  <span class="keyword">if</span> (<span class="keyword">typeof</span> name === <span class="string">&#x27;undefined&#x27;</span>) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> name;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="javascript">  <span class="comment">// name被限制在if &#123;&#125; 块的作用域内</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 因此这个赋值形同全局赋值</span></span></span><br><span class="line"><span class="javascript">  name = <span class="string">&#x27;Matt&#x27;</span>;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">try</span> (age) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// 如果age没有声明过，则会报错</span></span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="javascript">  <span class="keyword">catch</span>(error) &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> age;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="javascript">  <span class="comment">// age被限制在catch &#123;&#125;块的作用域内</span></span></span><br><span class="line"><span class="javascript">  <span class="comment">// 因此这个赋值形同全局赋值</span></span></span><br><span class="line">  age = 26;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>为此，对于<code>let</code>声明关键字，不能依赖条件声明模式，这是一种反模式，它让程序变得更难理解。</p>
+<h4 id="3-3-2-4-for循环中的let声明"><a href="#3-3-2-4-for循环中的let声明" class="headerlink" title="3.3.2.4   for循环中的let声明"></a>3.3.2.4   <code>for</code>循环中的<code>let</code>声明</h4><p>在<code>let</code>出现之前，<code>for</code>循环定义的迭代变量会渗透到循环体外部：改成使用<code>let</code>之后，这个问题就消失了，因为迭代变量的作用域仅限于<code>for</code>循环块内部。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">  <span class="comment">// 循环逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">// ReferenceError: i没有定义</span></span><br></pre></td></tr></table></figure>
-<p>在使用<code>var</code>的时候，最常见的问题是对迭代变量的奇特声明和修改：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 你可能以为会输出0、1、2、3、4</span></span><br><span class="line"><span class="comment">// 实际上会输出5、5、5、5、5</span></span><br></pre></td></tr></table></figure>
-<p>在退出循环时，迭代变量保存的是导致循环退出的值：5。在之后执行超时逻辑时，所有的<code>i</code>都是同一个变量，因而输出的都是同一个最终值。<br>而在使用<code>let</code>声明迭代变量时，JavaScript引擎在后台会为每个迭代循环声明一个新的迭代变量。每个<code>setTimeout</code>引用的都是不同的变量实例，所以<code>console.log</code>输出的是循环执行过程中每个迭代变量的值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 会输出0、1、2、3、4</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-3-3const声明"><a href="#3-3-3const声明" class="headerlink" title="3.3.3const声明"></a>3.3.3<code>const</code>声明</h3><p><code>const</code>的行为与<code>let</code>基本相同，唯一区别是用它声明变量时必须同时初始化变量，且修改<code>const</code>声明的变量会导致运行时错误。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> age = <span class="number">26</span>;</span><br><span class="line">age = <span class="number">36</span>; <span class="comment">// TypeError: 给常量赋值</span></span><br><span class="line"><span class="comment">// const也不允许重复声明</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;Nicholas&#x27;</span>; <span class="comment">// SyntaxError</span></span><br><span class="line"><span class="comment">// const声明的作用域也是块</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;Matt&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> name = <span class="string">&#x27;Nicholas&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// Matt</span></span><br></pre></td></tr></table></figure>
+<p>在使用<code>var</code>的时候，最常见的问题是对迭代变量的奇特声明和修改，而在使用<code>let</code>声明迭代变量时，JavaScript引擎在后台会为每个迭代循环声明一个新的迭代变量。每个<code>setTimeout</code>引用的都是不同的变量实例。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 5、5、5、5、5</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">console</span>.log(i), <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 0、1、2、3、4</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-3-const声明"><a href="#3-3-3-const声明" class="headerlink" title="3.3.3   const声明"></a>3.3.3   <code>const</code>声明</h3><p><code>const</code>的行为与<code>let</code>基本相同，区别是用它声明变量时必须同时初始化变量，且修改<code>const</code>声明的变量会导致运行时错误。</p>
 <p><code>const</code>声明的限制只适用于它指向的变量的引用。如果<code>const</code>变量引用的是一个对象，那么修改这个对象内部的属性并不违反<code>const</code>的限制。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;&#125;;</span><br><span class="line">person.name = <span class="string">&#x27;Matt&#x27;</span>;  <span class="comment">// ok</span></span><br></pre></td></tr></table></figure>
-<p>不能用<code>const</code>来声明迭代变量（因为迭代变量会自增）：</p>
+<p>不能用<code>const</code>来声明迭代变量：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i) &#123;&#125; <span class="comment">// TypeError：给常量赋值</span></span><br></pre></td></tr></table></figure>
-<p>可以用<code>const</code>声明一个不会被修改的<code>for</code>循环变量。因为和<code>let</code>声明一样JavaScript引擎会为<code>for</code>循环中的<code>const</code>声明分别创建独立的变量实例。这对<code>for-of</code>和<code>for-in</code>循环特别有意义：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> j = <span class="number">7</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(j);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 7, 7, 7, 7, 7</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a, b</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1, 2, 3, 4, 5</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-3-4-声明风格及最佳实践"><a href="#3-3-4-声明风格及最佳实践" class="headerlink" title="3.3.4　声明风格及最佳实践"></a>3.3.4　声明风格及最佳实践</h3><p>ECMAScript 6增加<code>let</code>和<code>const</code>从客观上为这门语言更精确地声明作用域和语义提供了更好的支持。行为怪异的<code>var</code>所造成的各种问题，已经让JavaScript社区为之苦恼了很多年。随着这两个新关键字的出现，新的有助于提升代码质量的最佳实践也逐渐显现。</p>
-<h4 id="3-3-4-1-不使用var"><a href="#3-3-4-1-不使用var" class="headerlink" title="3.3.4.1   不使用var"></a><strong>3.3.4.1   不使用</strong><code>var</code></h4><p>限制自己只使用<code>let</code>和<code>const</code>有助于提升代码质量，因为变量有了明确的作用域、声明位置，以及不变的值。</p>
-<h4 id="3-3-4-2const优先，let次之"><a href="#3-3-4-2const优先，let次之" class="headerlink" title="3.3.4.2const优先，let次之"></a>3.3.4.2<code>const</code>优先，<code>let</code>次之</h4><p>使用<code>const</code>声明可以让浏览器运行时强制保持变量不变，也可以让静态代码分析工具提前发现不合法的赋值操作。只在提前知道未来会有修改时，再使用<code>let</code>。这样可以让开发者更有信心地推断某些变量的值永远不会变，同时也能迅速发现因意外赋值导致的非预期行为。</p>
-<h2 id="3-4-数据类型"><a href="#3-4-数据类型" class="headerlink" title="3.4　数据类型"></a>3.4　数据类型</h2><p>ECMAScript有6种简单数据类型（也称为<strong>原始类型</strong>）：<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code>、<code>String</code>和<code>Symbol</code>。还有一种复杂数据类型叫<code>Object</code>（对象）。<code>Object</code>是一种无序名值对的集合。因为在ECMAScript中不能定义自己的数据类型，所有值都可以用上述7种数据类型之一来表示。一种数据类型可以当作多种数据类型来使用。</p>
-<h3 id="3-4-1typeof操作符"><a href="#3-4-1typeof操作符" class="headerlink" title="3.4.1typeof操作符"></a>3.4.1<code>typeof</code>操作符</h3><p>因为ECMAScript的类型系统是松散的，所以需要一种手段来确定任意变量的数据类型。<code>typeof</code>操作符就是为此而生的。对一个值使用<code>typeof</code>操作符会返回下列字符串之一：</p>
+<p>可以用<code>const</code>声明一个不会被修改的<code>for</code>循环变量。这对<code>for-of</code>和<code>for-in</code>循环特别有意义：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> &#123;<span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>&#125;) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a, b</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1, 2, 3, 4, 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-4-声明风格及最佳实践"><a href="#3-3-4-声明风格及最佳实践" class="headerlink" title="3.3.4　声明风格及最佳实践"></a>3.3.4　声明风格及最佳实践</h3><h4 id="3-3-4-1-不使用var"><a href="#3-3-4-1-不使用var" class="headerlink" title="3.3.4.1   不使用var"></a><strong>3.3.4.1   不使用</strong><code>var</code></h4><p>限制自己只使用<code>let</code>和<code>const</code>有助于提升代码质量，因为变量有了明确的作用域、声明位置，以及不变的值。</p>
+<h4 id="3-3-4-2const优先，let次之"><a href="#3-3-4-2const优先，let次之" class="headerlink" title="3.3.4.2const优先，let次之"></a>3.3.4.2<code>const</code>优先，<code>let</code>次之</h4><p>使用<code>const</code>声明可以让浏览器运行时强制保持变量不变，也可以让静态代码分析工具提前发现不合法的赋值操作。只在提前知道未来会有修改时，再使用<code>let</code>。这样可以让开发者发现因意外赋值导致的非预期行为。</p>
+<h2 id="3-4-数据类型"><a href="#3-4-数据类型" class="headerlink" title="3.4　数据类型"></a>3.4　数据类型</h2><p>ECMAScript有6种简单数据类型，也称为<strong>原始类型</strong>：<code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code>、<code>String</code>和<code>Symbol</code>。还有一种复杂数据类型叫<code>Object</code>（对象）。</p>
+<h3 id="3-4-1typeof操作符"><a href="#3-4-1typeof操作符" class="headerlink" title="3.4.1typeof操作符"></a>3.4.1<code>typeof</code>操作符</h3><p><code>typeof</code>操作符用来确定任意变量的数据类型。对一个值使用<code>typeof</code>操作符会返回下列字符串之一：</p>
 <ul>
 <li><code>&quot;undefined&quot;</code>表示值未定义；</li>
 <li><code>&quot;boolean&quot;</code>表示值为布尔值；</li>
@@ -8676,119 +8738,133 @@
 <li><code>&quot;function&quot;</code>表示值为函数；</li>
 <li><code>&quot;symbol&quot;</code>表示值为符号。</li>
 </ul>
-<p>下面是使用<code>typeof</code>操作符的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;some string&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> message);    <span class="comment">// &quot;string&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(message));   <span class="comment">// &quot;string&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">95</span>);         <span class="comment">// &quot;number&quot;</span></span><br></pre></td></tr></table></figure>
-<p>因为<code>typeof</code>是一个操作符而不是函数，所以不需要参数（但可以使用参数）。<br><code>typeof</code>在某些情况下返回的结果可能会让人费解，但技术上讲还是正确的。比如，调用<code>typeof   null</code>返回的是<code>&quot;object&quot;</code>。这是因为特殊值<code>null</code>被认为是一个对空对象的引用。</p>
+<p><code>typeof</code>是一个操作符而不是函数，所以不需要参数，但也可以使用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;some string&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> message);    <span class="comment">// &quot;string&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span>(message));   <span class="comment">// &quot;string&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="number">95</span>);         <span class="comment">// &quot;number&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">NaN</span>);        <span class="comment">// &quot;number&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> <span class="literal">null</span>);       <span class="comment">// &quot;object&quot;,因为特殊值`null`被认为是一个对空对象的引用</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>注意</strong>严格来讲，函数在ECMAScript中被认为是对象，并不代表一种数据类型。可是，函数也有自己特殊的属性。为此通过<code>typeof</code>操作符来区分函数和其他对象。</p>
+<p>**注意 **严格来讲，函数在ECMAScript中被认为是对象，并不代表一种数据类型。可是函数也有自己特殊的属性。为此通过<code>typeof</code>操作符来区分函数和其他对象。</p>
 </blockquote>
-<h3 id="3-4-2Undefined类型"><a href="#3-4-2Undefined类型" class="headerlink" title="3.4.2Undefined类型"></a>3.4.2<code>Undefined</code>类型</h3><p><code>Undefined</code>类型只有一个值，就是特殊值<code>undefined</code>。当使用<code>var</code>或<code>let</code>声明了变量但没有初始化时，就相当于给变量赋予了<code>undefined</code>值：</p>
+<h3 id="3-4-2-Undefined类型"><a href="#3-4-2-Undefined类型" class="headerlink" title="3.4.2   Undefined类型"></a>3.4.2   <code>Undefined</code>类型</h3><p><code>Undefined</code>类型只有一个值，就是特殊值<code>undefined</code>。当使用<code>var</code>或<code>let</code>声明了变量但没有初始化时，就相当于给变量赋予了<code>undefined</code>值。</p>
+<p>变量显式地以<code>undefined</code>来初始化是不必要的，<code>undefined</code>主要用于比较，目的是为了明确空对象指针<code>null</code>和未初始化变量的区别。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message;</span><br><span class="line"><span class="built_in">console</span>.log(message == <span class="literal">undefined</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>变量<code>message</code>和<code>undefined</code>的字面值是相等的。但变量<code>message</code>显式地以<code>undefined</code>来初始化是不必要的，因为默认情况下，任何未经初始化的变量都会取得<code>undefined</code>值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="literal">undefined</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message == <span class="literal">undefined</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意</strong>永远不要显式地给某个变量设置<code>undefined</code>值。字面值<code>undefined</code>主要用于比较。增加这个特殊值的目的就是为了正式明确空对象指针（<code>null</code>）和未初始化变量的区别。</p>
-</blockquote>
 <p>包含<code>undefined</code>值的变量跟未定义变量是有区别的。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message;    <span class="comment">// 这个变量被声明了，只是值为undefined</span></span><br><span class="line"><span class="comment">// let age</span></span><br><span class="line"><span class="built_in">console</span>.log(message); <span class="comment">// &quot;undefined&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(age);     <span class="comment">// 报错</span></span><br></pre></td></tr></table></figure>
-<p>对未声明的变量，只能对它调用<code>typeof</code>。（对未声明的变量调用<code>delete</code>也不会报错，但这个操作没什么用，且在严格模式下会抛出错误。）<br>在对未初始化的变量和对未声明的变量调用<code>typeof</code>时，返回的结果都是<code>&quot;undefined&quot;</code></p>
+<p>在对未初始化的变量和对未声明的变量调用<code>typeof</code>时，返回的结果都是<code>&quot;undefined&quot;</code>。对未声明的变量调用<code>delete</code>也不会报错，但这个操作没什么用，且在严格模式下会抛出错误。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message; <span class="comment">// 这个变量被声明了，只是值为undefined</span></span><br><span class="line"><span class="comment">// let age</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> message); <span class="comment">// &quot;undefined&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> age);     <span class="comment">// &quot;undefined&quot;</span></span><br></pre></td></tr></table></figure>
-<p>从逻辑上讲，虽然严格来讲这两个变量存在根本性差异，但它对任何一个变量都不可能执行什么真正的操作。</p>
 <blockquote>
-<p><strong>注意</strong>即使未初始化的变量会被自动赋予<code>undefined</code>值，但建议在声明变量的同时进行初始化。这样，当<code>typeof</code>返回<code>&quot;undefined&quot;</code>时，会知道那是因为给定的变量尚未声明，而不是声明了但未初始化。</p>
+<p><strong>注意</strong>  建议在声明变量的同时进行初始化。当<code>typeof</code>返回<code>&quot;undefined&quot;</code>时，会知道那是因为给定的变量尚未声明，而不是声明了但未初始化。</p>
 </blockquote>
 <p><code>undefined</code>是一个假值。但也有很多其他可能的值同样是假值，所以一定要明确自己想检测的就是<code>undefined</code>这个字面值，而不仅仅是把它当假值使用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message; <span class="comment">// 这个变量被声明了，只是值为undefined</span></span><br><span class="line"><span class="comment">// age没有声明</span></span><br><span class="line"><span class="keyword">if</span> (message) &#123;</span><br><span class="line">  <span class="comment">// 这个块不会执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (!message) &#123;</span><br><span class="line">  <span class="comment">// 这个块会执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (age) &#123;</span><br><span class="line">  <span class="comment">// 这里会报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-4-3Null类型"><a href="#3-4-3Null类型" class="headerlink" title="3.4.3Null类型"></a>3.4.3<code>Null</code>类型</h3><p><code>Null</code>类型同样只有一个值，即特殊值<code>null</code>。逻辑上讲，<code>null</code>值表示一个空对象指针，这也是给<code>typeof</code>传一个<code>null</code>会返回<code>&quot;object&quot;</code>的原因：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> car = <span class="literal">null</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> car);  <span class="comment">// &quot;object&quot;</span></span><br></pre></td></tr></table></figure>
-<p>在定义将来要保存对象值的变量时，建议使用<code>null</code>来初始化，不要使用其他值。这样，只要检查这个变量的值是不是<code>null</code>就可以知道这个变量是否在后来被重新赋予了一个对象的引用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (car != <span class="literal">null</span>) &#123;</span><br><span class="line">  <span class="comment">// car是一个对象的引用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>undefined</code>值是由<code>null</code>值派生而来的，因此ECMA-262将它们定义为表面上相等。用等于操作符（<code>==</code>）会为了比较而转换它的操作数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> == <span class="literal">undefined</span>);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<p>即使<code>null</code>和<code>undefined</code>有关系，它们的用途也是完全不一样的。只要变量要保存对象，而当时又没有那个对象可保存，就要用<code>null</code>来填充该变量。这样就可以保持<code>null</code>是空对象指针的语义，并进一步将其与<code>undefined</code>区分开来。<br><code>null</code>是一个假值。但也有很多其他可能的值同样是假值，所以一定要明确自己想检测的就是<code>undefined</code>这个字面值，而不仅仅是把它当假值使用。例子也如前面所示。</p>
-<h3 id="3-4-4Boolean类型"><a href="#3-4-4Boolean类型" class="headerlink" title="3.4.4Boolean类型"></a>3.4.4<code>Boolean</code>类型</h3><p><code>Boolean</code>（布尔值）类型有两个字面值：<code>true</code>和<code>false</code>。这两个布尔值不同于数值，<code>true</code>不等于1，<code>false</code>不等于0。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> found = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> lost = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
-<p>布尔值字面量<code>true</code>和<code>false</code>是区分大小写的，因此<code>True</code>和<code>False</code>（及其他大小混写形式）是有效的标识符，但不是布尔值。<br>虽然布尔值只有两个，但所有其他ECMAScript类型的值都有相应布尔值的等价形式。可以调用特定的<code>Boolean()</code>转型函数，将一个其他类型的值转换为布尔值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message; <span class="comment">// 这个变量被声明了，只是值为undefined</span></span><br><span class="line"><span class="comment">// age没有声明</span></span><br><span class="line"><span class="keyword">if</span> (message) &#123;</span><br><span class="line">  <span class="comment">// 这个块不会执行</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (age) &#123;</span><br><span class="line">  <span class="comment">// 这里会报错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-3-Null类型"><a href="#3-4-3-Null类型" class="headerlink" title="3.4.3   Null类型"></a>3.4.3   <code>Null</code>类型</h3><p><code>Null</code>类型同样只有一个值，即特殊值<code>null</code>。逻辑上讲，<code>null</code>值表示一个空对象指针。</p>
+<p>在定义将来要保存对象值的变量时，建议使用<code>null</code>来初始化。这样，只要检查这个变量的值是不是<code>null</code>就可以知道这个变量是否在后来被重新赋予了一个对象的引用。</p>
+<p><code>undefined</code>值是由<code>null</code>值派生而来的，用等于操作符（<code>==</code>）会为了比较而转换它的操作数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> == <span class="literal">undefined</span>);  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">null</span> === <span class="literal">undefined</span>);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>即使<code>null</code>和<code>undefined</code>有关系，但用途完全不一样的。只要变量要保存对象，而当时又没有那个对象可保存，就要用<code>null</code>来填充该变量。这样就可以保持<code>null</code>是空对象指针的语义，并进一步将其与<code>undefined</code>区分开来。</p>
+<p><code>null</code>是一个假值。但也有很多其他可能的值同样是假值，所以一定要明确自己想检测的就是<code>undefined</code>这个字面值，而不仅仅是把它当假值使用。</p>
+<h3 id="3-4-4-Boolean类型"><a href="#3-4-4-Boolean类型" class="headerlink" title="3.4.4   Boolean类型"></a>3.4.4   <code>Boolean</code>类型</h3><p><code>Boolean</code>（布尔值）类型有两个字面值：<code>true</code>和<code>false</code>。这两个布尔值不同于数值，<code>true</code>不等于1，<code>false</code>不等于0。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> == <span class="number">1</span>);   <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> === <span class="number">1</span>);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p>布尔值字面量<code>true</code>和<code>false</code>是区分大小写的，因此<code>True</code>和<code>False</code>是有效的标识符，但不是布尔值。<br>虽然布尔值只有两个，但所有其他ECMAScript类型的值都有相应布尔值的等价形式。可以调用特定的<code>Boolean()</code>转型函数，将一个其他类型的值转换为布尔值，转换为<code>true</code>或<code>false</code>的规则取决于数据类型和实际的值。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello world!&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> messageAsBoolean = <span class="built_in">Boolean</span>(message);</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，字符串<code>message</code>会被转换为布尔值并保存在变量<code>messageAsBoolean</code>中。<code>Boolean()</code>转型函数可以在任意类型的数据上调用，而且始终返回一个布尔值。什么值能转换为<code>true</code>或<code>false</code>的规则取决于数据类型和实际的值。<br>|数据类型|转换为true的值|转换为false的值|<br>|:—-|:—-|:—-|<br>|Boolean|true|false|<br>|String|非空字符串|””（空字符串）|<br>|Number|非零数值（包括无穷值）|0、NaN|<br>|Object|任意对象|null|<br>|Undefined|N/A（不存在）|undefined|</p>
+<table>
+<thead>
+<tr>
+<th align="left">数据类型</th>
+<th align="left">转换为true的值</th>
+<th align="left">转换为false的值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">String</td>
+<td align="left">非空字符串</td>
+<td align="left">“”（空字符串）</td>
+</tr>
+<tr>
+<td align="left">Number</td>
+<td align="left">非零数值（包括无穷值）</td>
+<td align="left">0、NaN</td>
+</tr>
+<tr>
+<td align="left">Object</td>
+<td align="left">任意对象</td>
+<td align="left">null</td>
+</tr>
+<tr>
+<td align="left">Undefined</td>
+<td align="left">N/A（不存在）</td>
+<td align="left">undefined</td>
+</tr>
+</tbody></table>
 <p><code>if</code>等流控制语句会自动执行其他类型值到布尔值的转换：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello world!&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (message) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;Value is true&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于存在这种自动转换，理解流控制语句中使用的是什么变量就非常重要。</p>
-<h3 id="3-4-5Number类型"><a href="#3-4-5Number类型" class="headerlink" title="3.4.5Number类型"></a>3.4.5<code>Number</code>类型</h3><p><code>Number</code>类型使用IEEE 754格式表示整数和浮点值（在某些语言中也叫双精度值）。不同的数值类型相应地也有不同的数值字面量格式。</p>
+<h3 id="3-4-5-Number类型"><a href="#3-4-5-Number类型" class="headerlink" title="3.4.5   Number类型"></a>3.4.5   <code>Number</code>类型</h3><p><code>Number</code>类型使用IEEE 754格式表示整数和浮点值（也叫双精度值）。不同的数值类型相应地也有不同的数值字面量格式。</p>
 <p>最基本的数值字面量格式是十进制整数，直接写出来即可。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> intNum = <span class="number">55</span>;  <span class="comment">// 整数</span></span><br></pre></td></tr></table></figure>
 <p>用八进制（以8为基数）字面量表示，第一个数字必须是零（0），然后是相应的八进制数字（数值0~7）。如果字面量中包含的数字超出了应有的范围，就会忽略前缀的零，后面的数字序列会被当成十进制数。<br>八进制字面量在严格模式下是无效的，会导致JavaScript引擎抛出语法错误。ECMAScript 2015或ES6中的八进制值通过前缀<code>0o</code>来表示。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> octalNum1 = <span class="number">070</span>;  <span class="comment">// 八进制的56</span></span><br><span class="line"><span class="keyword">let</span> octalNum2 = <span class="number">079</span>;  <span class="comment">// 无效的八进制值，当成79处理</span></span><br><span class="line"><span class="keyword">let</span> octalNum3 = <span class="number">08</span>;   <span class="comment">// 无效的八进制值，当成8处理</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> octalNum1 = <span class="number">070</span>;  <span class="comment">// 八进制的56</span></span><br><span class="line"><span class="keyword">let</span> octalNum2 = <span class="number">079</span>;  <span class="comment">// 无效的八进制值，当成79处理</span></span><br></pre></td></tr></table></figure>
 <p>整数也可以或十六进制（以16为基数）字面量表示。必须让真正的数值前缀<code>0x</code>（区分大小写），然后是十六进制数字（0<del>9以及A</del>F）。十六进制数字中的字母大小写均可。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> hexNum1 = <span class="number">0xA</span>;   <span class="comment">// 十六进制10</span></span><br><span class="line"><span class="keyword">let</span> hexNum2 = <span class="number">0x1f</span>;  <span class="comment">// 十六进制31</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> hexNum1 = <span class="number">0xA</span>;   <span class="comment">// 十六进制10</span></span><br></pre></td></tr></table></figure>
 <p>使用八进制和十六进制格式创建的数值在所有数学操作中都被视为十进制数值。</p>
 <blockquote>
-<p><strong>注意</strong>由于JavaScript保存数值的方式，实际中可能存在正零（+0）和负零（-0）。正零和负零在所有情况下都被认为是等同的。</p>
-<h4 id="3-4-5-1-浮点值"><a href="#3-4-5-1-浮点值" class="headerlink" title="3.4.5.1   浮点值"></a><strong>3.4.5.1   浮点值</strong></h4></blockquote>
-<p>要定义浮点值，数值中必须包含小数点，而且小数点后面必须至少有一个数字。虽然小数点前面不是必须有整数，但推荐加上。</p>
+<p><strong>注意</strong>   由于JavaScript保存数值的方式，实际中可能存在正零（+0）和负零（-0）。正零和负零在所有情况下都被认为是等同的。</p>
+</blockquote>
+<h4 id="3-4-5-1-浮点值"><a href="#3-4-5-1-浮点值" class="headerlink" title="3.4.5.1   浮点值"></a>3.4.5.1   浮点值</h4><p>要定义浮点值，数值中必须包含小数点，而且小数点后面必须至少有一个数字。推荐小数点前面加上整数。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> floatNum1 = <span class="number">1.1</span>;</span><br><span class="line"><span class="keyword">let</span> floatNum2 = <span class="number">.1</span>;   <span class="comment">// 有效，但不推荐</span></span><br></pre></td></tr></table></figure>
 <p>因为存储浮点值使用的内存空间是存储整数值的两倍，所以ECMAScript总是想方设法把值转换为整数。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> floatNum1 = <span class="number">1.</span>;   <span class="comment">// 小数点后面没有数字，当成整数1处理</span></span><br><span class="line"><span class="keyword">let</span> floatNum2 = <span class="number">10.0</span>; <span class="comment">// 小数点后面是零，当成整数10处理</span></span><br></pre></td></tr></table></figure>
-<p>对于非常大或非常小的数值，浮点值可以用科学记数法来表示。科学记数法用于表示一个应该乘以10的给定次幂的数值。ECMAScript中科学记数法的格式要求是一个数值（整数或浮点数）后跟一个大写或小写的字母e，再加上一个要乘的10的多少次幂。</p>
+<p>对于非常大或非常小的数值，浮点值可以用科学记数法来表示。ECMAScript中科学记数法的格式要求是一个数值（整数或浮点数）后跟一个大写或小写的字母e，再加上一个要乘的10的多少次幂。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> floatNum = <span class="number">3.125e7</span>; <span class="comment">// 等于31250000</span></span><br></pre></td></tr></table></figure>
-<p>科学记数法也可以用于表示非常小的数值。默认情况下，ECMAScript会将小数点后至少包含6个零的浮点值转换为科学记数法（例如，0.000 000 3会被转换为3e-7）。<br>浮点值的精确度最高可达17位小数，但在算术计算中不如整数精确。例如，0.1加0.2得到的不是0.3，而是0.300 000 000 000 000 04。由于这种微小的舍入错误，导致很难测试特定的浮点值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (a + b == <span class="number">0.3</span>) &#123;      <span class="comment">// 别这么干！</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;You got 0.3.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果两个数值分别是0.05和0.25，或者0.15和0.15，没问题。但如果是0.1和0.2，如前所述，测试将失败。因此永远不要测试某个特定的浮点值。</p>
+<p>科学记数法也可以用于表示非常小的数值。默认情况下，ECMAScript会将小数点后至少包含6个零的浮点值转换为科学记数法（例如，0.000 000 3会被转换为3e-7）。</p>
 <blockquote>
-<p><strong>注意</strong>之所以存在这种舍入错误，是因为使用了IEEE 754数值。其他使用相同格式的语言也有这个问题。</p>
-<h4 id="3-4-5-2-值的范围"><a href="#3-4-5-2-值的范围" class="headerlink" title="3.4.5.2   值的范围"></a><strong>3.4.5.2   值的范围</strong></h4></blockquote>
-<p>由于内存的限制，ECMAScript可以表示的最小数值保存在<code>Number.MIN_VALUE</code>中，这个值在多数浏览器中是5e-324；可以表示的最大数值保存在<code>Number.MAX_VALUE</code>中，这个值在多数浏览器中是1.797 693 134 862 315 7e+308。</p>
-<p>如果某个计算得到的数值结果超出了JavaScript可以表示的范围，那么这个数值会被自动转换为一个特殊的<code>Infinity</code>（无穷）值。任何无法表示的负数以<code>-Infinity</code>（负无穷大）表示，任何无法表示的正数以<code>Infinity</code>（正无穷大）表示。</p>
-<p>如果计算返回正<code>Infinity</code>或负<code>Infinity</code>，则该值将不能再进一步用于任何计算。这是因为<code>Infinity</code>没有可用于计算的数值表示形式。要确定一个值是不是有限大（即介于JavaScript能表示的最小值和最大值之间），可以使用<code>isFinite()</code>函数。</p>
+<p><strong>注意</strong>   浮点值的精确度最高可达17位小数，但在算术计算中不如整数精确。例如，0.1加0.2得到的不是0.3，之所以存在这种舍入错误，是因为使用了IEEE 754数值。</p>
+</blockquote>
+<h4 id="3-4-5-2-值的范围"><a href="#3-4-5-2-值的范围" class="headerlink" title="3.4.5.2   值的范围"></a>3.4.5.2   值的范围</h4><p>由于内存的限制，ECMAScript可以表示的最小数值保存在<code>Number.MIN_VALUE</code>中，这个值在多数浏览器中是5e-324；可以表示的最大数值保存在<code>Number.MAX_VALUE</code>中，这个值在多数浏览器中是1.797 693 134 862 315 7e+308。</p>
+<p>如果某个计算得到的数值结果超出了JavaScript可以表示的范围，那么这个数值会被自动转换为任何无法表示的负数以<code>-Infinity</code>（负无穷大），或者任何无法表示的正数以<code>Infinity</code>（正无穷大），而且该值不能再进一步用于任何计算。因为没有可用于计算的数值表示形式。</p>
+<p>要确定一个值是不是有限大（即介于JavaScript能表示的最小值和最大值之间），可以使用<code>isFinite()</code>函数。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> result = <span class="built_in">Number</span>.MAX_VALUE + <span class="built_in">Number</span>.MAX_VALUE;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isFinite</span>(result));  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>注意</strong>使用<code>Number.NEGATIVE_INFINITY</code>和<code>Number.POSITIVE_INFINITY</code>也可以获取正、负<code>Infinity</code>。这两个属性包含的值分别就是<code>-Infinity</code>和<code>Infinity</code>。</p>
+<p><strong>注意</strong> 使用<code>Number.NEGATIVE_INFINITY</code>和<code>Number.POSITIVE_INFINITY</code>也可以获取正、负<code>Infinity</code>。这两个属性包含的值分别就是<code>-Infinity</code>和<code>Infinity</code>。</p>
 </blockquote>
-<h4 id="3-4-5-3NaN"><a href="#3-4-5-3NaN" class="headerlink" title="3.4.5.3NaN"></a>3.4.5.3<code>NaN</code></h4><p>有一个特殊的数值叫<code>NaN</code>，意思是“不是数值”（Not a Number），用于表示本来要返回数值的操作失败了（而不是抛出错误）。比如，用0除任意数值在其他语言中通常都会导致错误，从而中止代码执行。但在ECMAScript中，0、+0或-0相除会返回<code>NaN</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>/<span class="number">0</span>);    <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(-<span class="number">0</span>/+<span class="number">0</span>);  <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
-<p>如果分子是非0值，分母是有符号0或无符号0，则会返回<code>Infinity</code>或<code>-Infinity</code>：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>/<span class="number">0</span>);   <span class="comment">// Infinity</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>/-<span class="number">0</span>);  <span class="comment">// -Infinity</span></span><br></pre></td></tr></table></figure>
-<p><code>NaN</code>有几个独特的属性。首先，任何涉及<code>NaN</code>的操作始终返回<code>NaN</code>（如<code>NaN/10</code>），在连续多步计算时这可能是个问题。其次，<code>NaN</code>不等于包括<code>NaN</code>在内的任何值。</p>
+<h4 id="3-4-5-3-NaN"><a href="#3-4-5-3-NaN" class="headerlink" title="3.4.5.3   NaN"></a>3.4.5.3   <code>NaN</code></h4><p>有一个特殊的数值叫<code>NaN</code>，意思是“不是数值”（Not a Number），用于表示本来要返回数值的操作失败了，而不是抛出错误。在ECMAScript中，0、+0或-0相除会返回<code>NaN</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">0</span>/<span class="number">0</span>);    <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(-<span class="number">0</span>/+<span class="number">0</span>);  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>/<span class="number">0</span>);   <span class="comment">// Infinity</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>/-<span class="number">0</span>);  <span class="comment">// -Infinity</span></span><br></pre></td></tr></table></figure>
+<p>任何涉及<code>NaN</code>的操作始终返回<code>NaN</code>（如<code>NaN/10</code>），在连续多步计算时这可能是个问题。其次，<code>NaN</code>不等于包括<code>NaN</code>在内的任何值。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="literal">NaN</span> == <span class="literal">NaN</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>ECMAScript提供了<code>isNaN()</code>函数。该函数接收一个参数，可以是任意数据类型，然后判断这个参数是否“不是数值”。把一个值传给<code>isNaN()</code>后，该函数会尝试把它转换为数值。某些非数值的值可以直接转换成数值。任何不能转换为数值的值都会导致这个函数返回<code>true</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">NaN</span>));     <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="number">10</span>));      <span class="comment">// false，10是数值</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;10&quot;</span>));    <span class="comment">// false，可以转换为数值10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;blue&quot;</span>));  <span class="comment">// true，不可以转换为数值</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">true</span>));    <span class="comment">// false，可以转换为数值1</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>注意</strong>虽然不常见，但<code>isNaN()</code>可以用于测试对象。首先会调用对象的<code>valueOf()</code>方法，然后再确定返回的值是否可以转换为数值。如果不能，再调用<code>toString()</code>方法，并测试其返回值。这通常是ECMAScript内置函数和操作符的工作方式。</p>
-<h4 id="3-4-5-4-数值转换"><a href="#3-4-5-4-数值转换" class="headerlink" title="3.4.5.4   数值转换"></a><strong>3.4.5.4   数值转换</strong></h4></blockquote>
-<p>有3个函数可以将非数值转换为数值：<code>Number()</code>、<code>parseInt()</code>和<code>parseFloat()</code>。<code>Number()</code>是转型函数，可用于任何数据类型。后两个函数主要用于将字符串转换为数值。对于同样的参数，这3个函数执行的操作也不同。</p>
+<p>ECMAScript提供了<code>isNaN()</code>函数。该函数接收一个参数，可以是任意数据类型，任何不能转换为数值的值都会导致这个函数返回<code>true</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">NaN</span>));     <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;10&quot;</span>));    <span class="comment">// false，可以转换为数值10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="string">&quot;blue&quot;</span>));  <span class="comment">// true，不可以转换为数值</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">isNaN</span>(<span class="literal">true</span>));    <span class="comment">// false，可以转换为数值1</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-4-5-4-数值转换"><a href="#3-4-5-4-数值转换" class="headerlink" title="3.4.5.4   数值转换"></a>3.4.5.4   数值转换</h4><p>有3个函数可以将非数值转换为数值：<code>Number()</code>、<code>parseInt()</code>和<code>parseFloat()</code>。<code>Number()</code>是转型函数，可用于任何数据类型。后两个函数主要用于将字符串转换为数值。对于同样的参数，这3个函数执行的操作也不同。</p>
 <p><code>Number()</code>函数基于如下规则执行转换。</p>
-<pre><code>1. 布尔值，`true`转换为1，`false`转换为0。
-2. 数值，直接返回。
-3. `null`，返回0。
-4. `undefined`，返回`NaN`。
-5. 字符串，应用以下规则。
-    1. 如果字符串包含数值字符，包括数值字符前面带加、减号的情况，则转换为一个十进制数值。因此，`Number(&quot;1&quot;)`返回1，`Number(&quot;123&quot;)`返回123，`Number(&quot;011&quot;)`返回11（忽略前面的零）。
-    2. 如果字符串包含有效的浮点值格式如`&quot;1.1&quot;`，则会转换为相应的浮点值（同样，忽略前面的零）。
-    3. 如果字符串包含有效的十六进制格式如`&quot;0xf&quot;`，则会转换为与该十六进制值对应的十进制整数值。
-    4. 如果是空字符串（不包含字符），则返回0。
-    5. 如果字符串包含除上述情况之外的其他字符，则返回`NaN`。
-6. 对象，调用`valueOf()`方法，并按照上述规则转换返回的值。如果转换结果是`NaN`，则调用`toString()`方法，再按照转换字符串的规则转换。</code></pre>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">Number</span>(<span class="string">&quot;Hello world!&quot;</span>);  <span class="comment">// NaN</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">Number</span>(<span class="string">&quot;&quot;</span>);              <span class="comment">// 0</span></span><br><span class="line"><span class="keyword">let</span> num3 = <span class="built_in">Number</span>(<span class="string">&quot;000011&quot;</span>);        <span class="comment">// 11</span></span><br><span class="line"><span class="keyword">let</span> num4 = <span class="built_in">Number</span>(<span class="literal">true</span>);            <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>布尔值，<code>true</code>转换为1，<code>false</code>转换为0。</li>
+<li>数值，直接返回。</li>
+<li><code>null</code>，返回0。</li>
+<li><code>undefined</code>，返回<code>NaN</code>。</li>
+<li>字符串，应用以下规则。<ul>
+<li>如果字符串包含数值字符，包括数值字符前面带加、减号的情况，则转换为一个十进制数值。因此，<code>Number(&quot;-1&quot;)</code>返回-1，<code>Number(&quot;123&quot;)</code>返回123，<code>Number(&quot;011&quot;)</code>返回11（忽略前面的零）。</li>
+<li>如果字符串包含有效的浮点值格式如<code>&quot;1.1&quot;</code>，则会转换为相应的浮点值（同样，忽略前面的零）。</li>
+<li>如果字符串包含有效的十六进制格式如<code>&quot;0xf&quot;</code>，则会转换为与该十六进制值对应的十进制整数值。</li>
+<li>如果是空字符串（不包含字符），则返回0。</li>
+<li>如果字符串包含除上述情况之外的其他字符，则返回<code>NaN</code>。</li>
+</ul>
+</li>
+<li>对象，调用<code>valueOf()</code>方法，并按照上述规则转换返回的值。如果转换结果是<code>NaN</code>，则调用<code>toString()</code>方法，再按照转换字符串的规则转换。</li>
+</ul>
 <blockquote>
-<p><strong>注意</strong>一元加操作符与<code>Number()</code>函数遵循相同的转换规则。</p>
+<p><strong>注意</strong> 一元加操作符与<code>Number()</code>函数遵循相同的转换规则。</p>
 </blockquote>
-<p><code>Number()</code>函数转换字符串时相对复杂且有点反常规，通常在需要得到整数时可以优先使用<code>parseInt()</code>函数。<code>parseInt()</code>函数更专注于字符串是否包含数值模式。字符串最前面的空格会被忽略，从第一个非空格字符开始转换。如果第一个字符不是数值字符、加号或减号，<code>parseInt()</code>立即返回<code>NaN</code>。这意味着空字符串也会返回<code>NaN</code>。如果第一个字符是数值字符、加号或减号，则继续依次检测每个字符，直到字符串末尾，或碰到非数值字符。</p>
-<p>假设字符串中的第一个字符是数值字符，<code>parseInt()</code>函数也能识别不同的整数格式（十进制、八进制、十六进制）。换句话说，如果字符串以<code>&quot;0x&quot;</code>开头，就会被解释为十六进制整数。如果字符串以<code>&quot;0&quot;</code>开头，且紧跟着数值字符，就会被解释为八进制整数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseInt</span>(<span class="string">&quot;1234blue&quot;</span>);  <span class="comment">// 1234</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseInt</span>(<span class="string">&quot;&quot;</span>);          <span class="comment">// NaN</span></span><br><span class="line"><span class="keyword">let</span> num3 = <span class="built_in">parseInt</span>(<span class="string">&quot;0xA&quot;</span>);       <span class="comment">// 10，解释为十六进制整数</span></span><br><span class="line"><span class="keyword">let</span> num4 = <span class="built_in">parseInt</span>(<span class="number">22.5</span>);        <span class="comment">// 22 因为小数点不是有效的整数字符</span></span><br><span class="line"><span class="keyword">let</span> num5 = <span class="built_in">parseInt</span>(<span class="string">&quot;70&quot;</span>);        <span class="comment">// 70，解释为十进制值</span></span><br><span class="line"><span class="keyword">let</span> num6 = <span class="built_in">parseInt</span>(<span class="string">&quot;0xf&quot;</span>);       <span class="comment">// 15，解释为十六进制整数</span></span><br></pre></td></tr></table></figure>
-<p>不同的数值格式很容易混淆，因此<code>parseInt()</code>也接收第二个参数，用于指定底数（进制数）。如果知道要解析的值是十六进制，那么可以传入16作为第二个参数，以便正确解析：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="built_in">parseInt</span>(<span class="string">&quot;0xAF&quot;</span>, <span class="number">16</span>); <span class="comment">// 175</span></span><br></pre></td></tr></table></figure>
-<p>事实上，如果提供了十六进制参数，那么字符串前面的<code>&quot;0x&quot;</code>可以省掉：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>, <span class="number">16</span>);  <span class="comment">// 175</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>);      <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
-<p>通过第二个参数，可以极大扩展转换后获得的结果类型。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>, <span class="number">2</span>);   <span class="comment">// 2，按二进制解析</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>, <span class="number">8</span>);   <span class="comment">// 8，按八进制解析</span></span><br><span class="line"><span class="keyword">let</span> num3 = <span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>, <span class="number">10</span>);  <span class="comment">// 10，按十进制解析</span></span><br><span class="line"><span class="keyword">let</span> num4 = <span class="built_in">parseInt</span>(<span class="string">&quot;10&quot;</span>, <span class="number">16</span>);  <span class="comment">// 16，按十六进制解析</span></span><br></pre></td></tr></table></figure>
-<p>因为不传底数参数相当于让<code>parseInt()</code>自己决定如何解析，所以为避免解析出错，建议始终传给它第二个参数。</p>
-<blockquote>
-<p><strong>注意</strong>多数情况下解析的应该都是十进制数，此时第二个参数就要传入10。</p>
-</blockquote>
-<p><code>parseFloat()</code>函数的工作方式跟<code>parseInt()</code>函数类似，都是从位置0开始检测每个字符。同样，它也是解析到字符串末尾或者解析到一个无效的浮点数值字符为止。这意味着第一次出现的小数点是有效的，但第二次出现的小数点就无效了，此时字符串的剩余字符都会被忽略。</p>
+<p>通常在需要得到整数时可以优先使用<code>parseInt()</code>函数。<code>parseInt()</code>函数更专注于字符串是否包含数值模式。字符串最前面的空格会被忽略，从第一个非空格字符开始转换。如果第一个字符不是数值字符、加号或减号，<code>parseInt()</code>立即返回<code>NaN</code>。空字符串也会返回<code>NaN</code>。如果第一个字符是数值字符、加号或减号，则继续依次检测每个字符，直到字符串末尾，或碰到非数值字符。</p>
+<p>假设字符串中的第一个字符是数值字符，<code>parseInt()</code>函数也能识别不同的整数格式（十进制、八进制、十六进制）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseInt</span>(<span class="string">&quot;1234blue&quot;</span>);  <span class="comment">// 1234</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseInt</span>(<span class="string">&quot;&quot;</span>);          <span class="comment">// NaN</span></span><br><span class="line"><span class="keyword">let</span> num3 = <span class="built_in">parseInt</span>(<span class="string">&quot;0xA&quot;</span>);       <span class="comment">// 10，解释为十六进制整数</span></span><br><span class="line"><span class="keyword">let</span> num4 = <span class="built_in">parseInt</span>(<span class="number">22.5</span>);        <span class="comment">// 22 因为小数点不是有效的整数字符</span></span><br><span class="line"><span class="keyword">let</span> num5 = <span class="built_in">parseInt</span>(<span class="string">&quot;70&quot;</span>);        <span class="comment">// 70，解释为十进制值</span></span><br></pre></td></tr></table></figure>
+<p>不同的数值格式很容易混淆，因此<code>parseInt()</code>也接收第二个参数，用于指定底数（进制数）。事实上，如果提供了十六进制参数，那么字符串前面的<code>&quot;0x&quot;</code>可以省掉。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="built_in">parseInt</span>(<span class="string">&quot;0xAF&quot;</span>, <span class="number">16</span>); <span class="comment">// 175</span></span><br><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>, <span class="number">16</span>);  <span class="comment">// 175</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseInt</span>(<span class="string">&quot;AF&quot;</span>);      <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<p>，议始终传给第二个参数，因为不传底数参数相当于让<code>parseInt()</code>自己决定如何解析。</p>
+<p><code>parseFloat()</code>函数的工作方式跟<code>parseInt()</code>函数类似，都是从位置0开始检测每个字符。不同在于第一次出现的小数点是有效的，但第二次出现的小数点就无效了，此时字符串的剩余字符都会被忽略。</p>
 <p><code>parseFloat()</code>函数的另一个不同之处在于，它始终忽略字符串开头的零。这个函数能识别前面讨论的所有浮点格式，以及十进制格式（开头的零始终被忽略）。十六进制数值始终会返回0。因为<code>parseFloat()</code>只解析十进制值，因此不能指定底数。最后，如果字符串表示整数（没有小数点或者小数点后面只有一个零），则<code>parseFloat()</code>返回整数。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> num1 = <span class="built_in">parseFloat</span>(<span class="string">&quot;1234blue&quot;</span>);  <span class="comment">// 1234，按整数解析</span></span><br><span class="line"><span class="keyword">let</span> num2 = <span class="built_in">parseFloat</span>(<span class="string">&quot;0xA&quot;</span>);       <span class="comment">// 0</span></span><br><span class="line"><span class="keyword">let</span> num3 = <span class="built_in">parseFloat</span>(<span class="string">&quot;22.5&quot;</span>);      <span class="comment">// 22.5</span></span><br><span class="line"><span class="keyword">let</span> num4 = <span class="built_in">parseFloat</span>(<span class="string">&quot;22.34.5&quot;</span>);   <span class="comment">// 22.34</span></span><br><span class="line"><span class="keyword">let</span> num5 = <span class="built_in">parseFloat</span>(<span class="string">&quot;0908.5&quot;</span>);    <span class="comment">// 908.5</span></span><br><span class="line"><span class="keyword">let</span> num6 = <span class="built_in">parseFloat</span>(<span class="string">&quot;3.125e7&quot;</span>);   <span class="comment">// 31250000</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-4-6String类型"><a href="#3-4-6String类型" class="headerlink" title="3.4.6String类型"></a>3.4.6<code>String</code>类型</h3><p><code>String</code>（字符串）数据类型表示零或多个16位Unicode字符序列。字符串可以使用双引号（”）、单引号（’）或反引号（`）标示。</p>
+<h3 id="3-4-6-String类型"><a href="#3-4-6-String类型" class="headerlink" title="3.4.6   String类型"></a>3.4.6   <code>String</code>类型</h3><p><code>String</code>（字符串）数据类型表示零或多个16位Unicode字符序列。字符串可以使用双引号（”）、单引号（’）或反引号（`）标示。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="string">&quot;John&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> lastName = <span class="string">&#x27;Jacob&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> lastName = <span class="string">`Jingleheimerschmidt`</span></span><br></pre></td></tr></table></figure>
 <p>跟某些语言中使用不同的引号会改变对字符串的解释方式不同，ECMAScript语法中表示字符串的引号没有区别。并且以某种引号作为字符串开头，必须仍然以该种引号作为字符串结尾。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> firstName = <span class="string">&#x27;Nicholas&quot;; // 语法错误：开头和结尾的引号必须是同一种</span></span><br></pre></td></tr></table></figure>
@@ -8850,7 +8926,7 @@
 <p>即使包含6个字符长的转义序列，变量<code>text</code>仍然是28个字符长。因为转义序列表示一个字符。<br>字符串的长度可以通过其<code>length</code>属性获取：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(text.length); <span class="comment">// 28</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>注意</strong>如果字符串中包含双字节字符，那么<code>length</code>属性返回的值可能不是准确的字符数。</p>
+<p><strong>注意</strong> 如果字符串中包含双字节字符，那么<code>length</code>属性返回的值可能不是准确的字符数。</p>
 </blockquote>
 <h4 id="3-4-6-2字符串的特点"><a href="#3-4-6-2字符串的特点" class="headerlink" title="3.4.6.2字符串的特点"></a>3.4.6.2<strong>字符串的特点</strong></h4><p>ECMAScript中的字符串是不可变的（immutable），意思是一旦创建，它们的值就不能变了。要修改某个变量中的字符串值，必须先销毁原始的字符串，然后将包含新值的另一个字符串保存到该变量，如下所示：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> lang = <span class="string">&quot;Java&quot;</span>;</span><br><span class="line">lang = lang + <span class="string">&quot;Script&quot;</span>;</span><br></pre></td></tr></table></figure>
@@ -8861,13 +8937,13 @@
 <p>如果不确定一个值是不是<code>null</code>或<code>undefined</code>，可以使用<code>String()</code>转型函数，它始终会返回表示相应类型值的字符串。<code>String()</code>函数遵循如下规则。<br>    1. 如果值有<code>toString()</code>方法，则调用该方法（不传参数）并返回结果。<br>    2. 如果值是<code>null</code>，返回<code>&quot;null&quot;</code>。<br>    3. 如果值是<code>undefined</code>，返回<code>&quot;undefined&quot;</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> value1 = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> value2 = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> value3 = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> value4;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(value1));  <span class="comment">// &quot;10&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(value2));  <span class="comment">// &quot;true&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(value3));  <span class="comment">// &quot;null&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(value4));  <span class="comment">// &quot;undefined&quot;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>注意</strong>用加号操作符给一个值加上一个空字符串<code>&quot;&quot;</code>也可以将其转换为字符串。</p>
+<p>**注意 ** 用加号操作符给一个值加上一个空字符串<code>&quot;&quot;</code>也可以将其转换为字符串。</p>
 <h4 id="3-4-6-4-模板字面量（review）"><a href="#3-4-6-4-模板字面量（review）" class="headerlink" title="3.4.6.4   模板字面量（review）"></a><strong>3.4.6.4   模板字面量（review）</strong></h4></blockquote>
 <p>ECMAScript 6新增了使用模板字面量定义字符串的能力。与使用单引号或双引号不同，模板字面量保留换行字符，可以跨行定义字符串：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> myMultiLineString = <span class="string">&#x27;first line\nsecond line&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> myMultiLineTemplateLiteral = <span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(myMultiLineString);</span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(myMultiLineTemplateLiteral);</span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line</span></span><br><span class="line"><span class="built_in">console</span>.log(myMultiLineString === myMultiLinetemplateLiteral); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> myMultiLineString = <span class="string">&#x27;first line\nsecond line&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> myMultiLineTemplateLiteral = <span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(myMultiLineString);</span><br><span class="line"><span class="built_in">console</span>.log(myMultiLineTemplateLiteral);</span><br><span class="line"><span class="comment">// 都一样</span></span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line</span></span><br></pre></td></tr></table></figure>
 <p>模板字面量在定义模板时特别有用。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> pageHTML = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">  &lt;a href=&quot;#&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;span&gt;Jake&lt;/span&gt;</span></span><br><span class="line"><span class="string">  &lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;`</span>;</span><br></pre></td></tr></table></figure>
-<p>由于模板字面量会保持反引号内部的空格，因此在使用时要格外注意，格式正确的模板字符串可能反而会看起来缩进不当：</p>
+<p>由于模板字面量会保持反引号内部的空格，因此看起来缩进不当的模板字符串，格式可能反而正确。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这个模板字面量在换行符之后有25个空格符</span></span><br><span class="line"><span class="keyword">let</span> myTemplateLiteral = <span class="string">`first line</span></span><br><span class="line"><span class="string">                         second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(myTemplateLiteral.length);  <span class="comment">// 47</span></span><br><span class="line"><span class="comment">// 这个模板字面量以一个换行符开头</span></span><br><span class="line"><span class="keyword">let</span> secondTemplateLiteral = <span class="string">`</span></span><br><span class="line"><span class="string">first line</span></span><br><span class="line"><span class="string">second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(secondTemplateLiteral[<span class="number">0</span>] === <span class="string">&#x27;\n&#x27;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <h4 id="3-4-6-5-字符串插值（review）"><a href="#3-4-6-5-字符串插值（review）" class="headerlink" title="3.4.6.5   字符串插值（review）"></a><strong>3.4.6.5   字符串插值（review）</strong></h4><p>模板字面量最常用的一个特性是支持字符串插值，也就是可以在一个连续定义中插入一个或多个值。技术上讲，模板字面量不是字符串，而是一种特殊的JavaScript句法表达式，只不过求值后得到的是字符串。模板字面量在定义时立即求值并转换为字符串实例，任何插入的变量也会从它们最接近的作用域中取值。</p>
 <p>字符串插值通过在<code>$&#123;&#125;</code>中使用一个JavaScript表达式实现：</p>
@@ -8891,7 +8967,7 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Unicode示例</span></span><br><span class="line"><span class="comment">// \u00A9是版权符号</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`\u00A9`</span>);            <span class="comment">// ©</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`\u00A9`</span>);  <span class="comment">// \u00A9</span></span><br><span class="line"><span class="comment">// 换行符示例</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`first line\nsecond line`</span>);</span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`first line\nsecond line`</span>); <span class="comment">// &quot;first line\nsecond line&quot;</span></span><br><span class="line"><span class="comment">// 对实际的换行符来说是不行的</span></span><br><span class="line"><span class="comment">// 它们不会被转换成转义序列的形式</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>);</span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.raw<span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>);</span><br><span class="line"><span class="comment">// first line</span></span><br><span class="line"><span class="comment">// second line</span></span><br></pre></td></tr></table></figure>
 <p>可以通过标签函数的第一个参数，即字符串数组的<code>.raw</code>属性取得每个字符串的原始内容：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printRaw</span>(<span class="params">strings</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Actual characters:&#x27;</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> string <span class="keyword">of</span> strings) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(string);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;Escaped characters;&#x27;</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> rawString <span class="keyword">of</span> strings.raw) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(rawString);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">printRaw<span class="string">`\u00A9<span class="subst">$&#123; <span class="string">&#x27;and&#x27;</span> &#125;</span>\n`</span>;</span><br><span class="line"><span class="comment">// Actual characters:</span></span><br><span class="line"><span class="comment">// ©</span></span><br><span class="line"><span class="comment">//（换行符）</span></span><br><span class="line"><span class="comment">// Escaped characters:</span></span><br><span class="line"><span class="comment">// \u00A9</span></span><br><span class="line"><span class="comment">// \n</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-4-7Symbol类型"><a href="#3-4-7Symbol类型" class="headerlink" title="3.4.7Symbol类型"></a>3.4.7<code>Symbol</code>类型</h3><p><code>Symbol</code>（符号）是ECMAScript 6新增的数据类型。符号是原始值，且符号实例是唯一、不可变的。符号的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险。</p>
+<h3 id="3-4-7-Symbol类型"><a href="#3-4-7-Symbol类型" class="headerlink" title="3.4.7   Symbol类型"></a>3.4.7   <code>Symbol</code>类型</h3><p><code>Symbol</code>（符号）是ECMAScript 6新增的数据类型。符号是原始值，且符号实例是唯一、不可变的。符号的用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险。</p>
 <p>听起来跟私有属性有点类似，但符号并不是为了提供私有属性的行为才增加的。</p>
 <h4 id="3-4-7-1-符号的基本用法"><a href="#3-4-7-1-符号的基本用法" class="headerlink" title="3.4.7.1   符号的基本用法"></a><strong>3.4.7.1   符号的基本用法</strong></h4><p>符号需要使用<code>Symbol()</code>函数初始化。因为符号本身是原始类型，所以<code>typeof</code>操作符对符号返回<code>symbol</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> sym = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> sym); <span class="comment">// symbol</span></span><br></pre></td></tr></table></figure>
@@ -8927,7 +9003,7 @@
 <blockquote>
 <p><strong>注意</strong>在提到ECMAScript规范时，经常会引用符号在规范中的名称，前缀为<code>@@</code>。比如，<code>@@iterator</code>指的就是<code>Symbol.iterator</code>。</p>
 </blockquote>
-<h4 id="3-4-7-5Symbol-asyncIterator（review）"><a href="#3-4-7-5Symbol-asyncIterator（review）" class="headerlink" title="3.4.7.5Symbol.asyncIterator（review）"></a><strong>3.4.7.5</strong><code>Symbol.asyncIterator（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法返回对象默认的<code>AsyncIterator</code>，由<code>for-await-of</code>语句使用”。也就是这个符号表示实现异步迭代器API的函数。</p>
+<h4 id="3-4-7-5Symbol-asyncIterator"><a href="#3-4-7-5Symbol-asyncIterator" class="headerlink" title="3.4.7.5Symbol.asyncIterator"></a><strong>3.4.7.5</strong><code>Symbol.asyncIterator</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法返回对象默认的<code>AsyncIterator</code>，由<code>for-await-of</code>语句使用”。也就是这个符号表示实现异步迭代器API的函数。</p>
 <p><code>for-await-of</code>循环会利用这个函数执行异步迭代操作。循环时，它们会调用以<code>Symbol.asyncIterator</code>为键的函数，并期望这个函数会返回一个实现迭代器API的对象。很多时候，返回的对象是实现该API的<code>AsyncGenerator</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">async</span> *[<span class="built_in">Symbol</span>.asyncIterator]() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> f = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(f[<span class="built_in">Symbol</span>.asyncIterator]());</span><br><span class="line"><span class="comment">// AsyncGenerator &#123;&lt;suspended&gt;&#125;</span></span><br></pre></td></tr></table></figure>
 <p>技术上，这个由<code>Symbol.asyncIterator</code>函数生成的对象应该通过其<code>next()</code>方法陆续返回<code>Promise</code>实例。可以通过显式地调用<code>next()</code>方法返回，也可以隐式地通过异步生成器函数返回：</p>
@@ -8941,48 +9017,46 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> f = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(Foo[<span class="built_in">Symbol</span>.hasInstance](f)); <span class="comment">// true</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">new</span> Bar();</span><br><span class="line"><span class="built_in">console</span>.log(Bar[<span class="built_in">Symbol</span>.hasInstance](b)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <p>这个属性定义在Function的原型上，因此默认在所有函数和类上都可以调用。由于instanceof操作符会在原型链上寻找这个属性定义，因此可以在继承的类上通过静态方法重新定义这个函数：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baz</span> <span class="keyword">extends</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> [<span class="built_in">Symbol</span>.hasInstance]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">new</span> Baz();</span><br><span class="line"><span class="built_in">console</span>.log(Bar[<span class="built_in">Symbol</span>.hasInstance](b)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(b <span class="keyword">instanceof</span> Bar);           <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Baz[<span class="built_in">Symbol</span>.hasInstance](b)); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(b <span class="keyword">instanceof</span> Baz);           <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-7Symbol-isConcatSpreadable（review）"><a href="#3-4-7-7Symbol-isConcatSpreadable（review）" class="headerlink" title="3.4.7.7Symbol.isConcatSpreadable（review）"></a>3.4.7.7<code>Symbol.isConcatSpreadable（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个布尔值，如果是<code>true</code>，则对象应该用<code>Array.prototype.concat()</code>打平其数组元素”。ES6中的<code>Array.prototype.concat()</code>方法会根据接收到的对象类型选择如何将一个类数组对象拼接成数组实例。覆盖<code>Symbol.isConcatSpreadable</code>的值可以修改这个行为。</p>
+<h4 id="3-4-7-7Symbol-isConcatSpreadable"><a href="#3-4-7-7Symbol-isConcatSpreadable" class="headerlink" title="3.4.7.7Symbol.isConcatSpreadable"></a>3.4.7.7<code>Symbol.isConcatSpreadable</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个布尔值，如果是<code>true</code>，则对象应该用<code>Array.prototype.concat()</code>打平其数组元素”。ES6中的<code>Array.prototype.concat()</code>方法会根据接收到的对象类型选择如何将一个类数组对象拼接成数组实例。覆盖<code>Symbol.isConcatSpreadable</code>的值可以修改这个行为。</p>
 <p>数组对象默认情况下会被打平到已有的数组，<code>false</code>或假值会导致整个对象被追加到数组末尾。类数组对象默认情况下会被追加到数组末尾，<code>true</code>或真值会导致这个类数组对象被打平到数组实例。其他不是类数组对象的对象在<code>Symbol.isConcatSpreadable</code>被设置为<code>true</code>的情况下将被忽略。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> initial = [<span class="string">&#x27;foo&#x27;</span>];</span><br><span class="line"><span class="keyword">let</span> array = [<span class="string">&#x27;bar&#x27;</span>];</span><br><span class="line"><span class="built_in">console</span>.log(array[<span class="built_in">Symbol</span>.isConcatSpreadable]);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(array));             <span class="comment">// [&#x27;foo&#x27;, &#x27;bar&#x27;]</span></span><br><span class="line">array[<span class="built_in">Symbol</span>.isConcatSpreadable] = <span class="literal">false</span>;</span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(array));             <span class="comment">// [&#x27;foo&#x27;, Array(1)]</span></span><br><span class="line"><span class="keyword">let</span> arrayLikeObject = &#123; <span class="attr">length</span>: <span class="number">1</span>, <span class="number">0</span>: <span class="string">&#x27;baz&#x27;</span> &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(arrayLikeObject[<span class="built_in">Symbol</span>.isConcatSpreadable]);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(arrayLikeObject));             <span class="comment">// [&#x27;foo&#x27;, &#123;...&#125;]</span></span><br><span class="line">arrayLikeObject[<span class="built_in">Symbol</span>.isConcatSpreadable] = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(arrayLikeObject));             <span class="comment">// [&#x27;foo&#x27;, &#x27;baz&#x27;]</span></span><br><span class="line"><span class="keyword">let</span> otherObject = <span class="keyword">new</span> <span class="built_in">Set</span>().add(<span class="string">&#x27;qux&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(otherObject[<span class="built_in">Symbol</span>.isConcatSpreadable]);  <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(otherObject));             <span class="comment">// [&#x27;foo&#x27;, Set(1)]</span></span><br><span class="line">otherObject[<span class="built_in">Symbol</span>.isConcatSpreadable] = <span class="literal">true</span>;</span><br><span class="line"><span class="built_in">console</span>.log(initial.concat(otherObject));             <span class="comment">// [&#x27;foo&#x27;]</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-8Symbol-iterator（review）"><a href="#3-4-7-8Symbol-iterator（review）" class="headerlink" title="3.4.7.8Symbol.iterator（review）"></a>3.4.7.8<code>Symbol.iterator（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法返回对象默认的迭代器。由<code>for-of</code>语句使用”。换句话说，这个符号表示实现迭代器API的函数。</p>
+<h4 id="3-4-7-8-Symbol-iterator"><a href="#3-4-7-8-Symbol-iterator" class="headerlink" title="3.4.7.8   Symbol.iterator"></a>3.4.7.8   <code>Symbol.iterator</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法返回对象默认的迭代器。由<code>for-of</code>语句使用”。换句话说，这个符号表示实现迭代器API的函数。</p>
 <p><code>for-of</code>循环这样的语言结构会利用这个函数执行迭代操作。循环时，它们会调用以<code>Symbol.iterator</code>为键的函数，并默认这个函数会返回一个实现迭代器API的对象。很多时候，返回的对象是实现该API的<code>Generator</code>：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  *[<span class="built_in">Symbol</span>.iterator]() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> f = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(f[<span class="built_in">Symbol</span>.iterator]());</span><br><span class="line"><span class="comment">// Generator &#123;&lt;suspended&gt;&#125;</span></span><br></pre></td></tr></table></figure>
 <p>技术上，这个由<code>Symbol.iterator</code>函数生成的对象应该通过其<code>next()</code>方法陆续返回值。可以通过显式地调用<code>next()</code>方法返回，也可以隐式地通过生成器函数返回：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Emitter</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">max</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.max = max;</span><br><span class="line">    <span class="built_in">this</span>.idx = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  *[<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">this</span>.idx &lt; <span class="built_in">this</span>.max) &#123;</span><br><span class="line">      <span class="keyword">yield</span> <span class="built_in">this</span>.idx++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> emitter = <span class="keyword">new</span> Emitter(<span class="number">5</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> x <span class="keyword">of</span> emitter) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(x);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">count();</span><br><span class="line"><span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-9Symbol-match-（review）"><a href="#3-4-7-9Symbol-match-（review）" class="headerlink" title="3.4.7.9Symbol.match``（review）"></a>3.4.7.9<code>Symbol.match``（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法用正则表达式去匹配字符串。由<code>String.prototype.match()</code>方法使用”。<code>String.prototype.match()</code>方法会使用以<code>Symbol.match</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
+<h4 id="3-4-7-9-Symbol-match"><a href="#3-4-7-9-Symbol-match" class="headerlink" title="3.4.7.9   Symbol.match"></a>3.4.7.9   <code>Symbol.match</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法用正则表达式去匹配字符串。由<code>String.prototype.match()</code>方法使用”。<code>String.prototype.match()</code>方法会使用以<code>Symbol.match</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.prototype[<span class="built_in">Symbol</span>.match]);</span><br><span class="line"><span class="comment">// f [Symbol.match]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.match(<span class="regexp">/bar/</span>));</span><br><span class="line"><span class="comment">// [&quot;bar&quot;, index: 3, input: &quot;foobar&quot;, groups: undefined]</span></span><br></pre></td></tr></table></figure>
 <p>给这个方法传入非正则表达式值会导致该值被转换为<code>RegExp</code>对象。如果想改变这种行为，让方法直接使用参数，则可以重新定义<code>Symbol.match</code>函数以取代默认对正则表达式求值的行为，从而让<code>match()</code>方法使用非正则表达式实例。<code>Symbol.match</code>函数接收一个参数，就是调用<code>match()</code>方法的字符串实例。返回的值没有限制：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooMatcher</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> [<span class="built_in">Symbol</span>.match](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.includes(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.match(FooMatcher)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barbaz&#x27;</span>.match(FooMatcher)); <span class="comment">// false</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringMatcher</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">str</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.str = str;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.match](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.includes(<span class="built_in">this</span>.str);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.match(<span class="keyword">new</span> StringMatcher(<span class="string">&#x27;foo&#x27;</span>))); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barbaz&#x27;</span>.match(<span class="keyword">new</span> StringMatcher(<span class="string">&#x27;qux&#x27;</span>))); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-10Symbol-replace（review）"><a href="#3-4-7-10Symbol-replace（review）" class="headerlink" title="3.4.7.10Symbol.replace（review）"></a>3.4.7.10<code>Symbol.replace（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法替换一个字符串中匹配的子串。由<code>String.prototype.replace()</code>方法使用”。<code>String.prototype.replace()</code>方法会使用以<code>Symbol.replace</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
+<h4 id="3-4-7-10Symbol-replace"><a href="#3-4-7-10Symbol-replace" class="headerlink" title="3.4.7.10Symbol.replace"></a>3.4.7.10<code>Symbol.replace</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法替换一个字符串中匹配的子串。由<code>String.prototype.replace()</code>方法使用”。<code>String.prototype.replace()</code>方法会使用以<code>Symbol.replace</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.prototype[<span class="built_in">Symbol</span>.replace]);</span><br><span class="line"><span class="comment">// f [Symbol.replace]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobarbaz&#x27;</span>.replace(<span class="regexp">/bar/</span>, <span class="string">&#x27;qux&#x27;</span>));</span><br><span class="line"><span class="comment">// &#x27;fooquxbaz&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>给这个方法传入非正则表达式值会导致该值被转换为<code>RegExp</code>对象。如果想改变这种行为，让方法直接使用参数，可以重新定义<code>Symbol.replace</code>函数以取代默认对正则表达式求值的行为，从而让<code>replace()</code>方法使用非正则表达式实例。<code>Symbol.replace</code>函数接收两个参数，即调用<code>replace()</code>方法的字符串实例和替换字符串。返回的值没有限制：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooReplacer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> [<span class="built_in">Symbol</span>.replace](target, replacement) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.split(<span class="string">&#x27;foo&#x27;</span>).join(replacement);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoobaz&#x27;</span>.replace(FooReplacer, <span class="string">&#x27;qux&#x27;</span>));</span><br><span class="line"><span class="comment">// &quot;barquxbaz&quot;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringReplacer</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">str</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.str = str;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.replace](target, replacement) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.split(<span class="built_in">this</span>.str).join(replacement);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoobaz&#x27;</span>.replace(<span class="keyword">new</span> StringReplacer(<span class="string">&#x27;foo&#x27;</span>), <span class="string">&#x27;qux&#x27;</span>));</span><br><span class="line"><span class="comment">// &quot;barquxbaz&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-11Symbol-search（review）"><a href="#3-4-7-11Symbol-search（review）" class="headerlink" title="3.4.7.11Symbol.search（review）"></a>3.4.7.11<code>Symbol.search（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法返回字符串中匹配正则表达式的索引。由<code>String.prototype.search()</code>方法使用”。<code>String.prototype.search()</code>方法会使用以<code>Symbol.search</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
+<h4 id="3-4-7-11Symbol-search"><a href="#3-4-7-11Symbol-search" class="headerlink" title="3.4.7.11Symbol.search"></a>3.4.7.11<code>Symbol.search</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法返回字符串中匹配正则表达式的索引。由<code>String.prototype.search()</code>方法使用”。<code>String.prototype.search()</code>方法会使用以<code>Symbol.search</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.prototype[<span class="built_in">Symbol</span>.search]);</span><br><span class="line"><span class="comment">// f [Symbol.search]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.search(<span class="regexp">/bar/</span>));</span><br><span class="line"><span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
 <p>给这个方法传入非正则表达式值会导致该值被转换为<code>RegExp</code>对象。如果想改变这种行为，让方法直接使用参数，可以重新定义<code>Symbol.search</code>函数以取代默认对正则表达式求值的行为，从而让<code>search()</code>方法使用非正则表达式实例。<code>Symbol.search</code>函数接收一个参数，就是调用<code>match()</code>方法的字符串实例。返回的值没有限制：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooSearcher</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> [<span class="built_in">Symbol</span>.search](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.indexOf(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.search(FooSearcher)); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoo&#x27;</span>.search(FooSearcher)); <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barbaz&#x27;</span>.search(FooSearcher)); <span class="comment">// -1</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringSearcher</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">str</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.str = str;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.search](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.indexOf(<span class="built_in">this</span>.str);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobar&#x27;</span>.search(<span class="keyword">new</span> StringSearcher(<span class="string">&#x27;foo&#x27;</span>))); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoo&#x27;</span>.search(<span class="keyword">new</span> StringSearcher(<span class="string">&#x27;foo&#x27;</span>))); <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barbaz&#x27;</span>.search(<span class="keyword">new</span> StringSearcher(<span class="string">&#x27;qux&#x27;</span>))); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-12Symbol-species（review）"><a href="#3-4-7-12Symbol-species（review）" class="headerlink" title="3.4.7.12Symbol.species（review）"></a>3.4.7.12<code>Symbol.species（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个函数值，该函数作为创建派生对象的构造函数”。这个属性在内置类型中最常用，用于对内置类型实例方法的返回值暴露实例化派生对象的方法。用<code>Symbol.species</code>定义静态的获取器（getter）方法，可以覆盖新创建实例的原型定义：</p>
+<h4 id="3-4-7-12Symbol-species"><a href="#3-4-7-12Symbol-species" class="headerlink" title="3.4.7.12Symbol.species"></a>3.4.7.12<code>Symbol.species</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个函数值，该函数作为创建派生对象的构造函数”。这个属性在内置类型中最常用，用于对内置类型实例方法的返回值暴露实例化派生对象的方法。用<code>Symbol.species</code>定义静态的获取器（getter）方法，可以覆盖新创建实例的原型定义：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Baz</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> get [<span class="built_in">Symbol</span>.species]() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Array</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> bar = <span class="keyword">new</span> Bar();</span><br><span class="line"><span class="built_in">console</span>.log(bar <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(bar <span class="keyword">instanceof</span> Bar);   <span class="comment">// true</span></span><br><span class="line">bar = bar.concat(<span class="string">&#x27;bar&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(bar <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(bar <span class="keyword">instanceof</span> Bar);   <span class="comment">// true</span></span><br><span class="line"><span class="keyword">let</span> baz = <span class="keyword">new</span> Baz();</span><br><span class="line"><span class="built_in">console</span>.log(baz <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(baz <span class="keyword">instanceof</span> Baz);   <span class="comment">// true</span></span><br><span class="line">baz = baz.concat(<span class="string">&#x27;baz&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(baz <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(baz <span class="keyword">instanceof</span> Baz);   <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-13Symbol-split（review）"><a href="#3-4-7-13Symbol-split（review）" class="headerlink" title="3.4.7.13Symbol.split（review）"></a>3.4.7.13<code>Symbol.split（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法在匹配正则表达式的索引位置拆分字符串。由<code>String.prototype.split()</code>方法使用”。<code>String.prototype.split()</code>方法会使用以<code>Symbol.split</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
+<h4 id="3-4-7-13Symbol-split"><a href="#3-4-7-13Symbol-split" class="headerlink" title="3.4.7.13Symbol.split"></a>3.4.7.13<code>Symbol.split</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个正则表达式方法，该方法在匹配正则表达式的索引位置拆分字符串。由<code>String.prototype.split()</code>方法使用”。<code>String.prototype.split()</code>方法会使用以<code>Symbol.split</code>为键的函数来对正则表达式求值。正则表达式的原型上默认有这个函数的定义，因此所有正则表达式实例默认是这个<code>String</code>方法的有效参数：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.prototype[<span class="built_in">Symbol</span>.split]);</span><br><span class="line"><span class="comment">// f [Symbol.split]() &#123; [native code] &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;foobarbaz&#x27;</span>.split(<span class="regexp">/bar/</span>));</span><br><span class="line"><span class="comment">// [&#x27;foo&#x27;, &#x27;baz&#x27;]</span></span><br></pre></td></tr></table></figure>
 <p>给这个方法传入非正则表达式值会导致该值被转换为<code>RegExp</code>对象。如果想改变这种行为，让方法直接使用参数，可以重新定义<code>Symbol.split</code>函数以取代默认对正则表达式求值的行为，从而让<code>split()</code>方法使用非正则表达式实例。<code>Symbol.split</code>函数接收一个参数，就是调用<code>match()</code>方法的字符串实例。返回的值没有限制：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooSplitter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> [<span class="built_in">Symbol</span>.split](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.split(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoobaz&#x27;</span>.split(FooSplitter));</span><br><span class="line"><span class="comment">// [&quot;bar&quot;, &quot;baz&quot;]</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringSplitter</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">str</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.str = str;</span><br><span class="line">  &#125;</span><br><span class="line">  [<span class="built_in">Symbol</span>.split](target) &#123;</span><br><span class="line">    <span class="keyword">return</span> target.split(<span class="built_in">this</span>.str);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;barfoobaz&#x27;</span>.split(<span class="keyword">new</span> StringSplitter(<span class="string">&#x27;foo&#x27;</span>)));</span><br><span class="line"><span class="comment">// [&quot;bar&quot;, &quot;baz&quot;]</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-14Symbol-toPrimitive（review）"><a href="#3-4-7-14Symbol-toPrimitive（review）" class="headerlink" title="3.4.7.14Symbol.toPrimitive（review）"></a>3.4.7.14<code>Symbol.toPrimitive（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法将对象转换为相应的原始值。由<code>ToPrimitive</code>抽象操作使用”。很多内置操作都会尝试强制将对象转换为原始值，包括字符串、数值和未指定的原始类型。对于一个自定义对象实例，通过在这个实例的<code>Symbol.toPrimitive</code>属性上定义一个函数可以改变默认行为。</p>
+<h4 id="3-4-7-14Symbol-toPrimitive"><a href="#3-4-7-14Symbol-toPrimitive" class="headerlink" title="3.4.7.14Symbol.toPrimitive"></a>3.4.7.14<code>Symbol.toPrimitive</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个方法，该方法将对象转换为相应的原始值。由<code>ToPrimitive</code>抽象操作使用”。很多内置操作都会尝试强制将对象转换为原始值，包括字符串、数值和未指定的原始类型。对于一个自定义对象实例，通过在这个实例的<code>Symbol.toPrimitive</code>属性上定义一个函数可以改变默认行为。</p>
 <p>根据提供给这个函数的参数（<code>string</code>、<code>number</code>或<code>default</code>），可以控制返回的原始值：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span> + foo);       <span class="comment">// &quot;3[object Object]&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span> - foo);       <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(foo));   <span class="comment">// &quot;[object Object]&quot;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>[<span class="built_in">Symbol</span>.toPrimitive] = <span class="function"><span class="keyword">function</span>(<span class="params">hint</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">switch</span> (hint) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;number&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;string&#x27;</span>:</span><br><span class="line">          <span class="keyword">return</span> <span class="string">&#x27;string bar&#x27;</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;default&#x27;</span>:</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">          <span class="keyword">return</span> <span class="string">&#x27;default bar&#x27;</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> bar = <span class="keyword">new</span> Bar();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span> + bar);     <span class="comment">// &quot;3default bar&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span> - bar);     <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>(bar)); <span class="comment">// &quot;string bar&quot;</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-15Symbol-toStringTag（review）"><a href="#3-4-7-15Symbol-toStringTag（review）" class="headerlink" title="3.4.7.15Symbol.toStringTag（review）"></a>3.4.7.15<code>Symbol.toStringTag（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个字符串，该字符串用于创建对象的默认字符串描述。由内置方法<code>Object.prototype.toString()</code>使用”。</p>
+<h4 id="3-4-7-15Symbol-toStringTag"><a href="#3-4-7-15Symbol-toStringTag" class="headerlink" title="3.4.7.15Symbol.toStringTag"></a>3.4.7.15<code>Symbol.toStringTag</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个字符串，该字符串用于创建对象的默认字符串描述。由内置方法<code>Object.prototype.toString()</code>使用”。</p>
 <p>通过<code>toString()</code>方法获取对象标识时，会检索由<code>Symbol.toStringTag</code>指定的实例标识符，默认为<code>&quot;Object&quot;</code>。内置类型已经指定了这个值，但自定义类实例还需要明确定义：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line"><span class="built_in">console</span>.log(s);                      <span class="comment">// Set(0) &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(s.toString());           <span class="comment">// [object Set]</span></span><br><span class="line"><span class="built_in">console</span>.log(s[<span class="built_in">Symbol</span>.toStringTag]);  <span class="comment">// Set</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> foo = <span class="keyword">new</span> Foo();</span><br><span class="line"><span class="built_in">console</span>.log(foo);                      <span class="comment">// Foo &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(foo.toString());           <span class="comment">// [object Object]</span></span><br><span class="line"><span class="built_in">console</span>.log(foo[<span class="built_in">Symbol</span>.toStringTag]);  <span class="comment">// undefined</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>[<span class="built_in">Symbol</span>.toStringTag] = <span class="string">&#x27;Bar&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> bar = <span class="keyword">new</span> Bar();</span><br><span class="line"><span class="built_in">console</span>.log(bar);                      <span class="comment">// Bar &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(bar.toString());           <span class="comment">// [object Bar]</span></span><br><span class="line"><span class="built_in">console</span>.log(bar[<span class="built_in">Symbol</span>.toStringTag]);  <span class="comment">// Bar</span></span><br></pre></td></tr></table></figure>
-<h4 id="3-4-7-16Symbol-unscopables（review）"><a href="#3-4-7-16Symbol-unscopables（review）" class="headerlink" title="3.4.7.16Symbol.unscopables（review）"></a>3.4.7.16<code>Symbol.unscopables（review）</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个对象，该对象所有的以及继承的属性，都会从关联对象的<code>with</code>环境绑定中排除”。设置这个符号并让其映射对应属性的键值为<code>true</code>，就可以阻止该属性出现在<code>with</code>环境绑定中，如下例所示：</p>
+<h4 id="3-4-7-16Symbol-unscopables"><a href="#3-4-7-16Symbol-unscopables" class="headerlink" title="3.4.7.16Symbol.unscopables"></a>3.4.7.16<code>Symbol.unscopables</code></h4><p>根据ECMAScript规范，这个符号作为一个属性表示“一个对象，该对象所有的以及继承的属性，都会从关联对象的<code>with</code>环境绑定中排除”。设置这个符号并让其映射对应属性的键值为<code>true</code>，就可以阻止该属性出现在<code>with</code>环境绑定中，如下例所示：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> o = &#123; <span class="attr">foo</span>: <span class="string">&#x27;bar&#x27;</span> &#125;;</span><br><span class="line"><span class="keyword">with</span> (o) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">// bar</span></span><br><span class="line">&#125;</span><br><span class="line">o[<span class="built_in">Symbol</span>.unscopables] = &#123;</span><br><span class="line">  foo: <span class="literal">true</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">with</span> (o) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(foo); <span class="comment">// ReferenceError</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><strong>注意</strong>不推荐使用<code>with</code>，因此也不推荐使用<code>Symbol.unscopables</code>。</p>
+<p><strong>注意</strong> 不推荐使用<code>with</code>，因此也不推荐使用<code>Symbol.unscopables</code>。</p>
 </blockquote>
-<h3 id="3-4-8Object类型"><a href="#3-4-8Object类型" class="headerlink" title="3.4.8Object类型"></a>3.4.8<code>Object</code>类型</h3><p>ECMAScript中的对象其实就是一组数据和功能的集合。对象通过<code>new</code>操作符后跟对象类型的名称来创建。开发者可以通过创建<code>Object</code>类型的实例来创建自己的对象，然后再给对象添加属性和方法：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br></pre></td></tr></table></figure>
-<p>这个语法类似Java，但ECMAScript只要求在给构造函数提供参数时使用括号。如果没有参数，如上面的例子所示，那么完全可以省略括号（不推荐）：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>;  <span class="comment">// 合法，但不推荐</span></span><br></pre></td></tr></table></figure>
-<p><code>Object</code>的实例本身并不是很有用，但理解与它相关的概念非常重要。类似Java中的<code>java.lang.Object</code>，ECMAScript中的<code>Object</code>也是派生其他对象的基类。<code>Object</code>类型的所有属性和方法在派生的对象上同样存在。<br>每个<code>Object</code>实例都有如下属性和方法。</p>
+<h3 id="3-4-8-Object类型"><a href="#3-4-8-Object类型" class="headerlink" title="3.4.8   Object类型"></a>3.4.8   <code>Object</code>类型</h3><p>ECMAScript中的对象其实就是一组数据和功能的集合。对象通过<code>new</code>操作符后跟对象类型的名称来创建。开发者可以通过创建<code>Object</code>类型的实例来创建自己的对象，然后再给对象添加属性和方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>;  <span class="comment">// 如果没有参数可以省略括号，合法，但不推荐</span></span><br></pre></td></tr></table></figure>
+<p>每个<code>Object</code>实例都有如下属性和方法。</p>
 <ul>
 <li><code>constructor</code>：用于创建当前对象的函数。</li>
 <li><code>hasOwnProperty(propertyName)</code>：用于判断当前对象实例（不是原型）上是否存在给定的属性。要检查的属性名必须是字符串（如<code>o.hasOwnProperty(&quot;name&quot;)</code>）。</li>

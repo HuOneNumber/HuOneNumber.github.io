@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="HTML,CSS,JavaScript">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="胡倚豪">
+    
+    <title>
+        
+            02-HTML中的JavaScript |
+        
+        HuOneNumber | 个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/avatar.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"慢慢来，深几度。。。","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.1"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            <a class="logo-title" href="/">
+                HuOneNumber | 个人博客
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">02-HTML中的JavaScript</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">胡倚豪</span>
+                        
+                            <span class="author-label">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-01-23 08:02:58
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/">JavaScript高级程序设计(第四版)</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/02-HTML%E4%B8%AD%E7%9A%84JavaScript/">02-HTML中的JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>12 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="2-1-lt-script-gt-元素"><a href="#2-1-lt-script-gt-元素" class="headerlink" title="2.1　&lt;script&gt;元素"></a>2.1　<code>&lt;script&gt;</code>元素</h2><p>将JavaScript插入HTML的主要方法是使用<code>&lt;script&gt;</code>元素。<code>&lt;script&gt;</code>元素有下列8个属性。</p>
+<ul>
+<li><code>async</code>：可选。只对外部脚本文件有效。详见2.13。</li>
+<li><code>charset</code>：可选。使用<code>src</code>属性指定的代码字符集。这个属性很少使用，因为大多数浏览器不在乎它的值。</li>
+<li><code>crossorigin</code>：可选。配置相关请求的CORS（跨源资源共享）设置。默认不使用CORS。<code>crossorigin=&quot;anonymous&quot;</code>配置文件请求不必设置凭据标志。<code>crossorigin=&quot;use-credentials&quot;</code>设置凭据标志，意味着出站请求会包含凭据。</li>
+<li><code>defer</code>：可选。只对外部脚本文件有效。详见2.12</li>
+<li><code>integrity</code>：可选。允许比对接收到的资源的加密签名和指定的加密签名，以验证子资源完整性（SRI，Subresource Integrity）。如果不匹配，则页面会报错，脚本不会执行。这个属性可以用于确保内容分发网络（CDN，Content Delivery Network）不会提供恶意内容。</li>
+<li><code>language</code>：废弃。</li>
+<li><code>src</code>：可选。表示包含要执行的代码的外部文件。</li>
+<li><code>type</code>：可选。代替<code>language</code>，表示代码块中脚本语言的内容类型（也称MIME类型）。按照惯例，这个值始终都是<code>&quot;text/javascript&quot;</code>。JavaScript文件的MIME类型通常是<code>&quot;application/x-javascript&quot;</code>，不过给type属性这个值有可能导致脚本被忽略。如果这个值是<code>module</code>，则代码会被当成ES6模块，而且只有这时候代码中才能出现<code>import</code>和<code>export</code>关键字。</li>
+</ul>
+<p>使用<code>&lt;script&gt;</code>的方式有两种：通过它直接在网页中嵌入JavaScript代码，以及通过它在网页中包含外部JavaScript文件。</p>
+<p>要嵌入行内JavaScript代码，直接把代码放在<code>&lt;script&gt;</code>元素中就行，包含在<code>&lt;script&gt;</code>内的代码会被从上到下解释。在在<code>&lt;script&gt;</code>元素中的代码被计算完成之前，页面的其余内容不会被加载，也不会被显示。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;Hi!&quot;</span>);</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在使用行内JavaScript代码时，要注意代码中不能出现字符串<code>&lt;/script&gt;</code>。因为浏览器解析行内脚本的方式决定了它会将其当成结束的<code>&lt;/script&gt;</code>标签。想避免这个问题，只需要转义字符“\”即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="keyword">function</span> <span class="title">sayScript</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="string">&quot;</span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>&quot;); // console.log(&quot;&lt;\/script&gt;&quot;);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>要包含外部文件中的JavaScript，就必须使用<code>src</code>属性。这个属性的值是一个URL，指向包含JavaScript代码的文件，与解释行内JavaScript一样，在解释外部JavaScript文件时，页面也会阻塞。阻塞时间也包含下载文件的时间。在XHTML文档中，可以忽略结束标签。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example.js&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意</strong>　按照惯例，外部JavaScript文件的扩展名是.js。但不是必需的，因为浏览器不会检查所包含JavaScript文件的扩展名。这就为使用服务器端脚本语言动态生成JavaScript代码，或者在浏览器中将JavaScript扩展语言（如TypeScript、React的JSX）转译为JavaScript提供了可能性。不过服务器经常会根据文件扩展来确定响应的正确MIME类型。如果不使用.js扩展名，一定要确保服务器能返回正确的MIME类型。</p>
+</blockquote>
+<p>使用了<code>src</code>属性的<code>&lt;script&gt;</code>元素不应该再在<code>&lt;script&gt;</code>和<code>&lt;/script&gt;</code>标签中再包含其他JavaScript代码。如果两者都提供的话，则浏览器只会下载并执行脚本文件，从而忽略行内代码。</p>
+<p><code>&lt;script&gt;</code>元素的一个强大也备受争议的特性是，可以包含来自外部域的JavaScript文件。跟<code>&lt;img&gt;</code>元素很像，<code>&lt;script&gt;</code>元素的src属性可以是一个完整的URL，而且这个URL指向的资源可以跟包含它的HTML页面不在同一个域中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://www.somewhere.com/afile.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>浏览器在解析这个资源时，会向<code>src</code>属性指定的路径发送一个<code>GET</code>请求，以取得相应资源，这个初始的请求不受浏览器同源策略限制，但返回并被执行的JavaScript则受限制。</p>
+<p>来自外部域的代码会被当成加载它的页面的一部分来加载和解释。这个能力可以让我们通过不同的域分发JavaScript。在包含外部域的JavaScript文件时，要确保该域是自己所有的，或者该域是一个可信的来源。<code>&lt;script&gt;</code>标签的<code>integrity</code>属性可以防范这种问题。</p>
+<p>浏览器会按照<code>&lt;script&gt;</code>在页面中出现的顺序依次解释它们，前提是它们没有使用<code>defer</code>和<code>async</code>属性。第二个<code>&lt;script&gt;</code>元素必须在第一个<code>&lt;script&gt;</code>元素的代码解释完毕才能开始解释。</p>
+<h3 id="2-1-1-标签占位符"><a href="#2-1-1-标签占位符" class="headerlink" title="2.1.1　标签占位符"></a>2.1.1　标签占位符</h3><p>过去，所有<code>&lt;script&gt;</code>元素都被放在页面的<code>&lt;head&gt;</code>标签内，这种做法的主要目的是把外部的CSS和JavaScript文件都集中放到一起。不过，这也就意味着必须把所有JavaScript代码都下载、解析和解释完成后，才能开始渲染页面（页面在浏览器解析到<code>&lt;body&gt;</code>的起始标签时开始渲染）。</p>
+<p>现代Web应用程序通常将所有JavaScript引用放在<code>&lt;body&gt;</code>元素中的页面内容后面，页面会在处理JavaScript代码之前完全渲染页面。用户会感觉页面加载更快了，因为浏览器显示空白页面的时间短了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 这里是页面内容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-1-2-推迟执行脚本"><a href="#2-1-2-推迟执行脚本" class="headerlink" title="2.1.2　推迟执行脚本"></a>2.1.2　推迟执行脚本</h3><p><code>defer</code>属性表示脚本在执行的时候不会改变页面的结构。也就是脚本会被延迟到整个页面都解析完毕后再运行。相当于告诉浏览器立即下载，但延迟执行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 这里是页面内容 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>虽然这个例子中的<code>&lt;script&gt;</code>元素包含在页面的<code>&lt;head&gt;</code>中，但它们会在浏览器解析到结束的<code>&lt;/html&gt;</code>标签后才会执行。HTML5规范要求脚本应该按照它们出现的顺序执行，因此第一个推迟的脚本会在第二个推迟的脚本之前执行，而且两者都会在<code>DOMContentLoaded</code>事件之前执行。不过在实际当中，这都不一定。因此最好只包含一个这样的脚本。</p>
+<p><code>defer</code>属性只对外部脚本文件才有效，因此支持HTML5的浏览器会忽略行内脚本的<code>defer</code>属性。有些浏览器则会忽略<code>defer</code>，按照通常的做法来处理脚本。因此把要推迟执行的脚本放在页面底部比较好。</p>
+<h3 id="2-1-3-异步执行脚本"><a href="#2-1-3-异步执行脚本" class="headerlink" title="2.1.3　异步执行脚本"></a>2.1.3　异步执行脚本</h3><p><code>async</code>属性与<code>defer</code>都会告诉浏览器立即开始下载。不不同的是，标记为<code>async</code>的脚本并不保证能按照它们出现的次序执行。给脚本添加<code>async</code>属性的目的是告诉浏览器，该异步脚本下载和执行，可以同时加载页面和加载其他脚本。因此，异步脚本不应该在加载期间修改DOM。</p>
+<p>异步脚本保证会在页面的<code>load</code>事件前执行，但可能会在<code>DOMContentLoaded</code>。不推荐使用这个方法。</p>
+<h3 id="2-1-4-动态加载脚本"><a href="#2-1-4-动态加载脚本" class="headerlink" title="2.1.4　动态加载脚本"></a>2.1.4　动态加载脚本</h3><p>除了<code>&lt;script&gt;</code>标签，JavaScript可以使用DOM API，向DOM中动态添加<code>script</code>元素同样可以加载指定的脚本。默认情况下，以这种方式创建的<code>&lt;script&gt;</code>元素是以异步方式加载的，相当于添加了<code>async</code>属性。不过不是所有浏览器都支持<code>async</code>属性。因此，如果要统一动态脚本的加载行为，可以明确将其设置为同步加载：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> script = <span class="built_in">document</span>.createElement(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">script.src = <span class="string">&#x27;gibberish.js&#x27;</span>;</span><br><span class="line"><span class="comment">// 添加script.async = false;可以统一加载行为</span></span><br><span class="line"><span class="built_in">document</span>.head.appendChild(script);</span><br></pre></td></tr></table></figure>
+<p>但以这种方式获取的资源对浏览器预加载器是不可见的。会严重影响它们在资源获取队列中的优先级。可以在文档头部显式声明它们，让预加载器知道这些动态请求文件的存在。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preload&quot;</span> <span class="attr">href</span>=<span class="string">&quot;gibberish.js&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2-行内代码与外部文件"><a href="#2-2-行内代码与外部文件" class="headerlink" title="2.2　行内代码与外部文件"></a>2.2　行内代码与外部文件</h2><p>通常认为最佳实践是尽可能将JavaScript代码放在外部文件中。理由如下。</p>
+<ul>
+<li><strong>可维护性</strong>。JavaScript代码如果分散到很多HTML页面，会导致维护困难。而用一个目录保存所有JavaScript文件，则更容易维护，这样开发者就可以独立于使用它们的HTML页面来编辑代码。</li>
+<li><strong>缓存</strong>。浏览器会根据特定的设置缓存所有外部链接的JavaScript文件，这意味着如果两个页面都用到同一个文件，则该文件只需下载一次。这意味着页面加载更快。</li>
+<li><strong>适应未来</strong>。</li>
+</ul>
+<p>如果浏览器支持SPDY/HTTP2，在配置浏览器请求外部文件时，以轻量、独立JavaScript组件形式向客户端送达脚本更具优势。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;mainA.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;component3.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-文档模式"><a href="#2-3-文档模式" class="headerlink" title="2.3　文档模式"></a>2.3　文档模式</h2><p>IE5.5发明了文档模式的概念，使用<code>doctype</code>切换文档模式。文档模式有三种：</p>
+<ol>
+<li><strong>混杂模式</strong>（quirks mode），支持一些非标准的特性。</li>
+<li><strong>标准模式</strong>（standards mode）。具有兼容标准的行为。</li>
+<li><strong>准标准模式</strong>（almost standards mode）。支持很多标准的特性，但是又没有规定得那么严格。主要区别在于如何对待图片元素周围的空白（在表格中使用图片时最明显）。</li>
+</ol>
+<p>虽然这模式的主要区别只体现在通过CSS渲染的内容方面，但对JavaScript也有一些关联影响。</p>
+<p>混杂模式在所有浏览器中都以省略文档开头的<code>doctype</code>声明作为开关。这种约定并不合理，因为混杂模式在不同浏览器中的差异非常大。</p>
+<p>标准模式通过下列几种文档类型声明开启：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HTML 4.01 Strict --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//W3C//DTD HTML 4.01//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/strict.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- XHTML 1.0 Strict --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- HTML5 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>准标准模式与标准模式非常接近，很少需要区分。它通过过渡性文档类型（<code>Transitional</code>）和框架集文档类型（<code>Frameset</code>）来触发：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- HTML 4.01 Transitional --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- HTML 4.01 Frameset --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span> <span class="meta-keyword">PUBLIC</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;-//W3C//DTD HTML 4.01 Frameset//EN&quot;</span></span></span><br><span class="line"><span class="meta"><span class="meta-string">&quot;http://www.w3.org/TR/html4/frameset.dtd&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-4-lt-noscript-gt-元素"><a href="#2-4-lt-noscript-gt-元素" class="headerlink" title="2.4　&lt;noscript&gt;元素"></a>2.4　<code>&lt;noscript&gt;</code>元素</h2><p><code>&lt;noscript&gt;</code>元素用于给不支持JavaScript的浏览器提供替代内容。可以包含任何可以出现在<code>&lt;body&gt;</code>中的HTML元素，<code>&lt;script&gt;</code>除外。在下列两种情况下，浏览器将显示包含在<code>&lt;noscript&gt;</code>中的内容：</p>
+<ul>
+<li>浏览器不支持脚本；</li>
+<li>浏览器对脚本的支持被关闭。</li>
+</ul>
+<p>任何一个条件被满足，包含在<code>&lt;noscript&gt;</code>中的内容就会被渲染。否则，浏览器不会渲染<code>&lt;noscript&gt;</code>中的内容。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Example HTML Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span>=<span class="string">&quot;defer&quot;</span> <span class="attr">src</span>=<span class="string">&quot;example1.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">defer</span>=<span class="string">&quot;defer&quot;</span> <span class="attr">src</span>=<span class="string">&quot;example2.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">noscript</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>This page requires a JavaScript-enabled browser.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">noscript</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：02-HTML中的JavaScript</li>
+        <li>本文作者：胡倚豪</li>
+        <li>创建时间：2021-01-23 08:02:58</li>
+        <li>
+            本文链接：huonenumber.github.io/2021/01/23/note/JavaScript/02-HTML中的JavaScript/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/01/23/note/HTTP/03-HTTP%E6%8A%A5%E6%96%87/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">03-HTTP报文</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">02-URL与资源</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script data-pjax
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script data-pjax>
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'oRtabIpmHUsCjAVoocAuRiR6-gzGzoHsz',
+                    appKey: '8MQB6tSReJAP6eYmI5OGVpTo',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '请尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = '胡倚豪';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('true') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            .footer {
+  font-size: 1rem;
+  color: var(--third-text-color);
+
+
+  a {
+    color: var(--third-text-color);
+
+
+    &:hover {
+      color: var(--primary-color);
+
+    }
+  }
+
+  .info-container {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  .info-item {
+    margin: 5px 0;
+  }
+
+  .icon-animate {
+    animation: icon-animate 1.2s ease-in-out infinite;
+  }
+
+}
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-lt-script-gt-%E5%85%83%E7%B4%A0"><span class="nav-text">2.1　&lt;script&gt;元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1-%E6%A0%87%E7%AD%BE%E5%8D%A0%E4%BD%8D%E7%AC%A6"><span class="nav-text">2.1.1　标签占位符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2-%E6%8E%A8%E8%BF%9F%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="nav-text">2.1.2　推迟执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-3-%E5%BC%82%E6%AD%A5%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="nav-text">2.1.3　异步执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-4-%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E8%84%9A%E6%9C%AC"><span class="nav-text">2.1.4　动态加载脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E8%A1%8C%E5%86%85%E4%BB%A3%E7%A0%81%E4%B8%8E%E5%A4%96%E9%83%A8%E6%96%87%E4%BB%B6"><span class="nav-text">2.2　行内代码与外部文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E6%96%87%E6%A1%A3%E6%A8%A1%E5%BC%8F"><span class="nav-text">2.3　文档模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-lt-noscript-gt-%E5%85%83%E7%B4%A0"><span class="nav-text">2.4　&lt;noscript&gt;元素</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/toc.js"></script>
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>

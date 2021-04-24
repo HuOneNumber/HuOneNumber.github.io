@@ -775,24 +775,23 @@ HTTP使用术...
                 
 
                 <h3 class="home-article-title">
-                    <a href="/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/">
-                        02-URL与资源
+                    <a href="/2021/01/23/note/JavaScript/02-HTML%E4%B8%AD%E7%9A%84JavaScript/">
+                        02-HTML中的JavaScript
                     </a>
                 </h3>
 
                 <div class="home-article-content markdown-body">
                     
-                        2.1 URL语法URI：统一资源标识符（Uniform Resource Identifier）,它包括了URL（统一资源定位符），它是通过描述资源位置来标识资源，以及URN（统一资源名），它则是通过名字来识别资源。
+                        2.1　&lt;script&gt;元素将JavaScript插入HTML的主要方法是使用&lt;script&gt;元素。&lt;script&gt;元素有下列8个属性。
 
-    
-    组件
-  ...
+async：可选。只对外部脚本文件有效。详见2.13。
+charset：可...
                     
                 </div>
 
                 <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
-        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Fri Jan 22 2021 19:32:47 GMT+0800">2021-01-22</span></span>
+        <span><i class="fas fa-history"></i>&nbsp;<span class="home-article-date" data-date="Sat Jan 23 2021 08:02:58 GMT+0800">2021-01-23</span></span>
         
             <span class="home-article-category"><i class="fas fa-folder"></i>&nbsp;
                 <ul>
@@ -805,13 +804,13 @@ HTTP使用术...
                     
                         <li>
                             &gt; 
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/">HTTP权威指南</a>&nbsp;
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/">JavaScript高级程序设计(第四版)</a>&nbsp;
                         </li>
                     
                     
                         <li>
                             &gt; 
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/HTTP%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/">02-URL与资源</a>&nbsp;
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/02-HTML%E4%B8%AD%E7%9A%84JavaScript/">02-HTML中的JavaScript</a>&nbsp;
                         </li>
                     
                     
@@ -825,7 +824,7 @@ HTTP使用术...
                     
                         <li>
                             
-                            <a href="/tags/HTTP/">HTTP</a>&nbsp;
+                            <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -833,7 +832,7 @@ HTTP使用术...
         
     </div>
 
-    <a href="/2021/01/22/note/HTTP/02-URL%E4%B8%8E%E8%B5%84%E6%BA%90/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
+    <a href="/2021/01/23/note/JavaScript/02-HTML%E4%B8%AD%E7%9A%84JavaScript/">阅读全文&nbsp;<i class="fas fa-angle-right"></i></a>
 </div>
 
             </li>
@@ -865,36 +864,35 @@ HTTP使用术...
         </div>
 
         <div class="page-main-content-bottom">
-            <footer class="footer">
-    <div class="info-container">
-        <div class="copyright-info info-item">
-            &copy;
-            
-              <span>2020</span>&nbsp;-&nbsp;
-            
-            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">胡倚豪</a>
-        </div>
-        
-            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-            <div class="website-count info-item">
-                
-                    <span id="busuanzi_container_site_uv">
-                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
-                    </span>
-                
-                
-                    <span id="busuanzi_container_site_pv">
-                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
-                    </span>
-                
-            </div>
-        
-        <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
-        </div>
-        
-    </div>
-</footer>
+            .footer {
+  font-size: 1rem;
+  color: var(--third-text-color);
+
+
+  a {
+    color: var(--third-text-color);
+
+
+    &:hover {
+      color: var(--primary-color);
+
+    }
+  }
+
+  .info-container {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  .info-item {
+    margin: 5px 0;
+  }
+
+  .icon-animate {
+    animation: icon-animate 1.2s ease-in-out infinite;
+  }
+
+}
 
         </div>
     </div>
