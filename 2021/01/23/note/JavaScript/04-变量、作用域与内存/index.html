@@ -17,11 +17,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
     <link rel="shortcut icon" href="/images/avatar.png">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/css/font-awesome.min.css">
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {};
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.xml"};
-    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"慢慢来，深几度。。。","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.1"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true},"style":{"primary_color":"#33FFCC","avatar":"/images/avatar.png","favicon":"/images/avatar.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"description":"慢慢来，深几度。。。","background_img":"/images/bg.svg"},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"trigger":"auto","unescape":false,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":"3.4.3"};
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 月前","year":"%s 年前"};
   </script>
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="别着急，慢慢来" type="application/atom+xml">
@@ -54,6 +54,7 @@
 
     <div class="header-content">
         <div class="left">
+            
             <a class="logo-title" href="/">
                 HuOneNumber | 个人博客
             </a>
@@ -224,12 +225,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>7.7k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>7.5k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>28 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>27 分钟</span>
         </span>
     
     
@@ -270,7 +271,7 @@
                      data-src="https://i.loli.net/2021/04/26/D1lHbqn3dO9Nmge.png"
                       alt="image-20210426144130945"
                 ></p>
-<h3 id="4-1-3-传递参数"><a href="#4-1-3-传递参数" class="headerlink" title="4.1.3　传递参数"></a>4.1.3　传递参数</h3><p>ECMAScript中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
+<h3 id="4-1-3-传递参数"><a href="#4-1-3-传递参数" class="headerlink" title="4.1.3　传递参数"></a>4.1.3　传递参数</h3><p>ECMAScript中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。</p>
 <p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，是<code>arguments</code>对象中的一个槽位）。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTen</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> result = addTen(count);</span><br><span class="line"><span class="built_in">console</span>.log(count);  <span class="comment">// 20，没有变化</span></span><br><span class="line"><span class="built_in">console</span>.log(result); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
 <p>如果<code>num</code>是按引用传递的，那么<code>count</code>的值也会被修改为30。但是如果变量中传递的是对象，就没那么清楚了。</p>
@@ -281,7 +282,7 @@
 <p>这个例子将<code>obj</code>重新定义为一个有着不同<code>name</code>的新对象。当<code>person</code>传入<code>setName()</code>时，其<code>name</code>属性被设置为<code>&quot;Nicholas&quot;</code>。然后变量<code>obj</code>被设置为一个新对象且<code>name</code>属性被设置为<code>&quot;Greg&quot;</code>。如果<code>person</code>是按引用传递的，那么<code>person</code>应该自动将指针改为指向<code>name</code>为<code>&quot;Greg&quot;</code>的对象。可是，当我们再次访问<code>person.name</code>时，它的值还是<code>&quot;Nicholas&quot;</code>，这表明函数中参数的值改变之后，原始的引用仍然没变。当<code>obj</code>在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
 <h3 id="4-1-4-确定类型"><a href="#4-1-4-确定类型" class="headerlink" title="4.1.4　确定类型"></a>4.1.4　确定类型</h3><p><code>typeof</code>操作符最适合用来判断一个变量是否为原始类型。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">&quot;Nicholas&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> i = <span class="number">22</span>;</span><br><span class="line"><span class="keyword">let</span> u;</span><br><span class="line"><span class="keyword">let</span> n = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> s); <span class="comment">// string</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> i); <span class="comment">// number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> b); <span class="comment">// boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> u); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> n); <span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> o); <span class="comment">// object</span></span><br></pre></td></tr></table></figure>
-<p>typeof虽然对原始值很有用，但它对引用值的用处不大。我们通常不关心一个值是不是对象，而是想知道它是什么类型的对象。为次提供了<code>instanceof</code>操作符，如果变量是给定引用类型（由其原型链决定）的实例，则<code>instanceof</code>操作符返回<code>true</code>。</p>
+<p>typeof虽然对原始值很有用，但它对引用值的用处不大。我们通常不关心一个值是不是对象，而是想知道它是什么类型的对象。为此提供了<code>instanceof</code>操作符，如果变量是给定引用类型（由其原型链决定）的实例，则<code>instanceof</code>操作符返回<code>true</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(pattern <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>); <span class="comment">// 变量pattern是RegExp吗？</span></span><br></pre></td></tr></table></figure>
 <p>因为按照定义，所有引用值都是<code>Object</code>的实例，因此通过<code>instanceof</code>操作符检测任何引用值和<code>Object</code>构造函数都会返回<code>true</code>。如果用<code>instanceof</code>检测原始值，则始终会返回<code>false</code>，因为原始值不是对象。</p>
 <blockquote>
@@ -304,8 +305,7 @@
 <p>每个函数调用都有自己的上下文。当代码执行流进入函数时，函数的上下文被推到一个上下文栈上。在函数执行完之后，上下文栈会弹出该函数上下文，将控制权返还给之前的执行上下文。ECMAScript程序的执行流就是通过这个上下文栈进行控制的。</p>
 <h3 id="4-2-1-标识符查找"><a href="#4-2-1-标识符查找" class="headerlink" title="4.2.1　标识符查找"></a>4.2.1　标识符查找</h3><p>上下文中的代码在执行的时候，会创建变量对象的一个<strong>作用域链</strong>（scope chain）。这个作用域链决定了各级上下文中的代码在访问变量和函数时的顺序。代码正在执行的上下文的变量对象始终位于作用域链的最前端。如果上下文是函数，则其<strong>活动对象</strong>（activation object）用作变量对象。活动对象最初只有一个定义变量：<code>arguments</code>（全局上下文中没有这个变量）。作用域链中的下一个变量对象来自包含上下文，以此类推直至全局上下文；全局上下文的变量对象始终是作用域链的最后一个变量对象。</p>
 <p>当在特定上下文中为读取或写入而引用一个标识符时，必须通过搜索确定这个标识符表示什么。搜索开始于作用域链前端，以给定的名称搜索对应的标识符。如果在局部上下文中找到该标识符，则搜索停止，变量确定；如果没有找到变量名，则继续沿作用域链搜索。作用域链中的对象也有一个原型链，因此搜索可能涉及每个对象的原型链。这个过程一直持续到搜索至全局上下文的变量对象。如果仍然没有找到标识符，则说明其未声明。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (color === <span class="string">&quot;blue&quot;</span>) &#123;</span><br><span class="line">    color = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    color = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
-<p>对这个例子而言，函数<code>changeColor()</code>的作用域链包含两个对象：一个是它自己的变量对象（就是定义<code>arguments</code>对象的那个），另一个是全局上下文的变量对象。这个函数内部之所以能够访问变量<code>color</code>，就是因为可以在作用域链中找到它。此外，局部作用域中定义的变量可用于在局部上下文中替换全局变量。</p>
+<p>此外，局部作用域中定义的变量可用于在局部上下文中替换全局变量。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> anotherColor = <span class="string">&quot;red&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swapColors</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tempColor = anotherColor;</span><br><span class="line">    anotherColor = color;</span><br><span class="line">    color = tempColor;</span><br><span class="line">    <span class="comment">// 这里可以访问color、anotherColor、tempColor</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 这里可以访问color和anotherColor，但访问不到tempColor</span></span><br><span class="line">  swapColors();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 这里只能访问color</span></span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
 <p>以上代码涉及3个上下文：全局上下文、<code>changeColor()</code>和<code>swapColors()</code>的局部上下文。</p>
 <p><img  
@@ -339,7 +339,7 @@
 <p>赋值为对象的<code>const</code>变量不能再被重新赋值为其他引用值，但对象的键则不受限制。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o1 = &#123;&#125;;</span><br><span class="line">o1 = &#123;&#125;; <span class="comment">// TypeError: 给常量赋值</span></span><br><span class="line"><span class="keyword">const</span> o2 = &#123;&#125;;</span><br><span class="line">o2.name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o2.name); <span class="comment">// &#x27;Jake&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>如果想让整个对象都不能修改，可以使用<code>Object.freeze()</code>，当再给属性赋值时虽然不会报错，但会静默失败。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    prop: <span class="number">42</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">obj.prop = <span class="number">33</span>; <span class="comment">// 严格模式下会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.prop); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    prop: <span class="number">42</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">obj.prop = <span class="number">33</span>; <span class="comment">// 在严格模式下会报错</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.prop); <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
 <h2 id="4-3-垃圾回收"><a href="#4-3-垃圾回收" class="headerlink" title="4.3　垃圾回收"></a>4.3　垃圾回收</h2><p>JavaScript通过自动内存管理实现内存分配和闲置资源回收。基本思路：确定哪个变量不会再使用，然后释放它占用的内存。这个过程是周期性的，即垃圾回收程序每隔一定时间就会自动运行。垃圾回收过程是一个近似且不完美的方案，因为某块内存是否还有用，属于“不可判定的”问题，靠算法是解决不了的。</p>
 <p>以函数中局部变量的正常生命周期为例。函数中的局部变量会在函数执行时存在。此时，栈（或堆）内存会分配空间以保存相应的值。函数在内部使用了变量，然后退出。此时就不再需要那个局部变量了，它占用的内存可以释放，供后面使用。这种情况下显然不再需要局部变量了。</p>
 <p>但并不是所有时候都会这么明显。垃圾回收程序须跟踪记录哪个变量还会使用，以及哪个变量不会再使用，以便回收内存。如何标记未使用的变量有不同的实现方式，主要有两种标记策略：标记清理和引用计数。</p>
@@ -363,7 +363,7 @@
 <p><strong>警告</strong> 在某些浏览器中可以但不推荐主动触发垃圾回收的。在IE中，<code>window.CollectGarbage()</code>方法会立即触发垃圾回收。在Opera 7及更高版本中，调用<code>window.opera.collect()</code>也会启动垃圾回收程序。</p>
 </blockquote>
 <h3 id="4-3-4-内存管理"><a href="#4-3-4-内存管理" class="headerlink" title="4.3.4　内存管理"></a>4.3.4　内存管理</h3><p>在使用垃圾回收的编程环境中，分配给浏览器的内存通常比分配给桌面软件的要少很多，分配给移动浏览器的就更少了。这更多出于安全考虑，为了避免运行大量JavaScript的网页耗尽系统内存而导致操作系统崩溃。这个内存限制不仅影响变量分配，也影响调用栈以及能够同时在一个线程中执行的语句数量。</p>
-<p>将内存占用量保持在一个较小的值可以让页面性能更好。优化内存占用的最佳手段就是保证在执行代码时只保存必要的数据。如果数据不再必要，那么把它设置为<code>null</code>，从而释放其引用，这也可以叫作<strong>解除引用</strong>。这个建议最适合全局变量和全局对象的属性，因为局部变量在超出作用域后会被自动解除引用。</p>
+<p>将内存占用量保持在一个较小的值可以让页面性能更好。优化内存占用的最佳手段就是保证在执行代码时只保存必要的数据。如果数据不再必要，那么把它设置为<code>null</code>，从而释放其引用，这也可以叫作<strong>解除引用</strong>。这个建议最适合全局变量和全局对象的属性，因为局部变量在超出作用域后会被自动解除引用，当然这并不代表立刻被回收。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> localPerson = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  localPerson.name = name;</span><br><span class="line">  <span class="keyword">return</span> localPerson;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> globalPerson = createPerson(<span class="string">&quot;Nicholas&quot;</span>);</span><br><span class="line"><span class="comment">// 解除globalPerson对值的引用</span></span><br><span class="line">globalPerson = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
 <p>解除引用的关键在于确保相关的值已经不在上下文里了，因此它在下次垃圾回收时会被回收。</p>
 <h4 id="4-3-4-1-通过const和let声明提升性能"><a href="#4-3-4-1-通过const和let声明提升性能" class="headerlink" title="4.3.4.1   通过const和let声明提升性能"></a><strong>4.3.4.1   通过</strong><code>const</code>和<code>let</code>声明提升性能</h4><p>因为<code>const</code>和<code>let</code>都以块（而非函数）为作用域，所以相比于使用<code>var</code>，使用这两个新关键字可能会更早地让垃圾回收程序介入，尽早回收应该回收的内存。</p>
@@ -374,7 +374,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a2.author = <span class="string">&#x27;Jake&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>此时两个<code>Article</code>实例就会对应两个不同的隐藏类。根据这种操作的频率和隐藏类的大小，这有可能对性能产生明显影响。解决方案就是避免JavaScript的“先创建再补充”（ready-fire-aim）式的动态属性赋值，尽量在构造函数中就一次性声明所有属性。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Article</span>(<span class="params">opt_author</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.title = <span class="string">&#x27;Inauguration Ceremony Features Kazoo Band&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.author = opt_author;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a1 = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> Article(<span class="string">&#x27;Jake&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>不过使用<code>delete</code>关键字会导致生成相同的隐藏类片段。即使两个实例使用了同一个构造函数，它们也不再共享一个隐藏类。动态删除属性与动态添加属性导致的后果一样。</p>
+<p>使用<code>delete</code>关键字会导致生成相同的隐藏类片段。即使两个实例使用了同一个构造函数，它们也不再共享一个隐藏类。动态删除属性与动态添加属性导致的后果一样。</p>
 <p>最佳实践是把不想要的属性设置为<code>null</code>。这样可以保持隐藏类不变和继续共享，同时也能达到删除引用值供垃圾回收程序回收的效果。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Article</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.title = <span class="string">&#x27;Inauguration Ceremony Features Kazoo Band&#x27;</span>;</span><br><span class="line">  <span class="built_in">this</span>.author = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> a1 = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">let</span> a2 = <span class="keyword">new</span> Article();</span><br><span class="line"><span class="keyword">delete</span> a1.author;</span><br><span class="line"><span class="comment">// 改为a1.author = null;</span></span><br></pre></td></tr></table></figure>
 <h4 id="4-3-4-3-内存泄漏"><a href="#4-3-4-3-内存泄漏" class="headerlink" title="4.3.4.3   内存泄漏"></a><strong>4.3.4.3   内存泄漏</strong></h4><p>JavaScript中的内存泄漏大部分是由不合理的引用导致的。意外声明全局变量是最常见但也最容易修复的内存泄漏问题。此时解释器会把变量当作<code>window</code>的属性来创建。只要在变量声明前头加上<code>var</code>、<code>let</code>或<code>const</code>关键字即可解决。</p>
@@ -382,7 +382,7 @@
 <p>定时器也可能会导致内存泄漏。下面的代码中，定时器的回调通过闭包引用了外部变量：只要定时器一直运行，回调函数中引用的<code>name</code>就会一直占用内存。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
 <p>使用JavaScript闭包也很容易造成内存泄漏。只要<code>outer</code>函数存在就不能清理<code>name</code>，因为闭包一直在引用着它。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> outer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">outer = <span class="literal">null</span>; <span class="comment">// 解除对函数的引用，这样就可以释放内存了</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> outer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">outer = <span class="literal">null</span>; <span class="comment">// 解除对函数的引用</span></span><br></pre></td></tr></table></figure>
 <h4 id="4-3-4-4-静态分配与对象池-review"><a href="#4-3-4-4-静态分配与对象池-review" class="headerlink" title="4.3.4.4   静态分配与对象池 review"></a><strong>4.3.4.4   静态分配与对象池</strong> review</h4><p>为了提升JavaScript性能，最后要考虑的就是浏览器。关键问题就是如何减少浏览器执行垃圾回收的次数。开发者无法直接控制什么时候开始收集垃圾，但可以间接控制触发垃圾回收的条件。理论上，如果能够合理使用分配的内存，同时避免多余的垃圾回收，那就可以保住因释放内存而损失的性能。</p>
 <p>浏览器决定何时运行垃圾回收程序的一个标准就是对象更替的速度。如果有很多对象被初始化，然后一下子又都超出了作用域，那么浏览器就会采用更激进的方式调度垃圾回收程序运行，这样当然会影响性能。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addVector</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> resultant = <span class="keyword">new</span> Vector();</span><br><span class="line">  resultant.x = a.x + b.x;</span><br><span class="line">  resultant.y = a.y + b.y;</span><br><span class="line">  <span class="keyword">return</span> resultant;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -570,7 +570,7 @@
             </div>
         
         <div class="theme-info info-item">
-            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.1</a>
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.3</a>
         </div>
         
     </div>
@@ -705,31 +705,31 @@
 
 
 
-<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/dark-light-toggle.js"></script>
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/dark-light-toggle.js"></script>
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/local-search.js"></script>
-
-
-
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/code-copy.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/local-search.js"></script>
 
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/lazyload.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/lazyload.js"></script>
 
 
 <div class="post-scripts pjax">
     
-        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/toc.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/toc.js"></script>
     
 </div>
 
 
-    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.1/source/js/libs/pjax.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.3/source/js/libs/pjax.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', () => {
-        const pjax = new Pjax({
+        window.pjax = new Pjax({
             selectors: [
                 'head title',
                 '.page-container',
@@ -751,7 +751,7 @@
 
         document.addEventListener('pjax:complete', () => {
             KEEP.utils.pjaxProgressBarEnd();
-            pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
             KEEP.refresh();
         });
     });
