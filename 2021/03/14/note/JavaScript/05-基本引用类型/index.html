@@ -202,10 +202,6 @@
                         &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/">JavaScript高级程序设计(第四版)</a>&nbsp;
                     </li>
                 
-                    <li>
-                        &gt; <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E5%9B%9B%E7%89%88/05-%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/">05-基本引用类型</a>&nbsp;
-                    </li>
-                
             </ul>
         </span>
     
@@ -225,12 +221,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>14k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>13.4k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>57 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>55 分钟</span>
         </span>
     
     
@@ -287,7 +283,7 @@
 </ul>
 <p>这些方法的输出与<code>toLocaleString()</code>和<code>toString()</code>一样，会因浏览器而异。因此不能用于在用户界面上一致地显示日期。</p>
 <blockquote>
-<p><strong>注意</strong>还有一个方法叫<code>toGMTString()</code>，这个方法跟<code>toUTCString()</code>是一样的，目的是为了向后兼容。不过，规范建议新代码使用<code>toUTCString()</code>。</p>
+<p>**注意 **还有一个方法叫<code>toGMTString()</code>，这个方法跟<code>toUTCString()</code>是一样的，目的是为了向后兼容。不过，规范建议新代码使用<code>toUTCString()</code>。</p>
 </blockquote>
 <h3 id="5-1-3-日期-时间组件方法"><a href="#5-1-3-日期-时间组件方法" class="headerlink" title="5.1.3　日期/时间组件方法"></a>5.1.3　日期/时间组件方法</h3><p><code>Date</code>类型剩下的方法（见下表）直接涉及取得或设置日期值的特定部分。注意表中“UTC日期”，指的是没有时区偏移（将日期转换为GMT）时的日期。</p>
 <table>
@@ -338,7 +334,7 @@
 <td align="left">返回以分钟计的UTC与本地时区的偏移量</td>
 </tr>
 </tbody></table>
-<h2 id="5-2-RegExp"><a href="#5-2-RegExp" class="headerlink" title="5.2　RegExp"></a>5.2　RegExp</h2><p>ECMAScript通过<code>RegExp</code>类型支持正则表达式。正则表达式使用类似Perl的简洁语法来创建：</p>
+<h2 id="5-2-RegExp"><a href="#5-2-RegExp" class="headerlink" title="5.2　RegExp"></a>5.2　RegExp</h2><p>ECMAScript通过<code>RegExp</code>类型支持正则表达式。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> expression = <span class="regexp">/pattern/</span>flags;</span><br></pre></td></tr></table></figure>
 <p>这个正则表达式的<code>pattern</code>（模式）可以是任何的正则表达式，包括字符类、限定符、分组、向前查找和反向引用。每个正则表达式可以带零个或多个<code>flags</code>（标记），用于控制正则表达式的行为。下面给出了表示匹配模式的标记。</p>
 <ul>
@@ -366,20 +362,16 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left"><code>/\[bc\]at/</code></td>
-<td align="left"><code>&quot;\\[bc\\]at&quot;</code></td>
-</tr>
-<tr>
 <td align="left"><code>/name\/age/</code></td>
 <td align="left"><code>&quot;name\\/age&quot;</code></td>
 </tr>
 <tr>
 <td align="left"><code>/\w\\hello\\123/</code></td>
-<td align="left"><code>&quot;\\w\\hello\\\\123&quot;</code></td>
+<td align="left"><code>&quot;\\w\\\\hello\\\\123&quot;</code></td>
 </tr>
 </tbody></table>
 <p>此外，使用<code>RegExp</code>也可以基于已有的正则表达式实例，并可选择性地修改它们的标记：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> re1 = <span class="regexp">/cat/g</span>;</span><br><span class="line"><span class="built_in">console</span>.log(re1);  <span class="comment">// &quot;/cat/g&quot;</span></span><br><span class="line"><span class="keyword">const</span> re3 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(re1, <span class="string">&quot;i&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(re3);  <span class="comment">// &quot;/cat/i&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> re1 = <span class="regexp">/cat/g</span>;</span><br><span class="line"><span class="keyword">const</span> re3 = <span class="keyword">new</span> <span class="built_in">RegExp</span>(re1, <span class="string">&quot;i&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(re3);     <span class="comment">//   /cat/i </span></span><br></pre></td></tr></table></figure>
 <h3 id="5-2-1-RegExp实例属性"><a href="#5-2-1-RegExp实例属性" class="headerlink" title="5.2.1   RegExp实例属性"></a>5.2.1   <code>RegExp</code>实例属性</h3><p>每个<code>RegExp</code>实例都有下列属性，提供有关模式的各方面信息。</p>
 <ul>
 <li><code>global</code>：布尔值，表示是否设置了<code>g</code>标记。</li>
@@ -395,16 +387,14 @@
 </ul>
 <p><code>RegExp</code>实例的主要方法是<code>exec()</code>，主要用于配合捕获组使用。这个方法只接收一个参数，即要应用模式的字符串。如果找到了匹配项，返回一个数组，否则返回<code>null</code>。返回的数组虽然是<code>Array</code>的实例，但包含两个额外的属性：<code>index</code>和<code>input</code>。<code>index</code>是字符串中匹配模式的起始位置，<code>input</code>是要查找的字符串。这个数组的第一个元素是匹配整个模式的字符串，其他元素是与表达式中的捕获组匹配的字符串。如果模式中没有捕获组，则数组只包含一个元素。来看下面的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;mom and dad and baby&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/mom( and dad( and baby)?)?/gi</span>;</span><br><span class="line"><span class="keyword">let</span> matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);   <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches.input);   <span class="comment">// &quot;mom and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);      <span class="comment">// &quot;mom and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">1</span>]);      <span class="comment">// &quot; and dad and baby&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">2</span>]);      <span class="comment">// &quot; and baby&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果模式设置了全局标记，则每次调用<code>exec()</code>方法会返回一个匹配的信息。如果没有设置全局标记，则无论对同一个字符串调用多少次<code>exec()</code>，也只会返回第一个匹配的信息，<code>lastIndex</code>在非全局模式下始终不变。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/.at/</span>;</span><br><span class="line"><span class="keyword">let</span> matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);      <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);         <span class="comment">// cat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);  <span class="comment">// 0</span></span><br><span class="line">matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);      <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);         <span class="comment">// cat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);  <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
-<p>如果在这个模式上设置了<code>g</code>标记，则每次调用<code>exec()</code>都会在字符串中向前搜索下一个匹配项，直到搜索到字符串末尾，并且每次调用<code>exec()</code>都会更新<code>lastIndex</code>值，以反映上次匹配的最后一个字符的索引。</p>
+<p>如果在这个模式上设置了<code>g</code>标记，则每次调用<code>exec()</code>都会在字符串中向前搜索下一个匹配项，直到搜索到字符串末尾，并且每次调用<code>exec()</code>都会更新<code>lastIndex</code>值，以反映上次匹配的最后一个字符的索引。否则无论对同一个字符串调用多少次<code>exec()</code>，也只会返回第一个匹配的信息，<code>lastIndex</code>在非全局模式下始终不变。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/.at/g</span>;</span><br><span class="line"><span class="keyword">let</span> matches = pattern.exec(text);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(matches.index);      <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);         <span class="comment">// cat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);  <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line">matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);      <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);         <span class="comment">// bat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);  <span class="comment">// 8</span></span><br><span class="line"></span><br><span class="line">matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);      <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);         <span class="comment">// sat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);  <span class="comment">// 13</span></span><br></pre></td></tr></table></figure>
 <p>如果模式设置了粘附标记<code>y</code>，则每次调用<code>exec()</code>就只会在<code>lastIndex</code>的位置上寻找匹配项。粘附标记覆盖全局标记。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/.at/y</span>;</span><br><span class="line"><span class="keyword">let</span> matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);       <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);          <span class="comment">// cat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);   <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以索引3对应的字符开头找不到匹配项，因此exec()返回null</span></span><br><span class="line"><span class="comment">// exec()没找到匹配项，于是将lastIndex设置为0</span></span><br><span class="line">matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches);             <span class="comment">// null</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);   <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置lastIndex可以让粘附的模式通过exec()找到下一个匹配项：</span></span><br><span class="line">pattern.lastIndex = <span class="number">5</span>;</span><br><span class="line">matches = pattern.exec(text);</span><br><span class="line"><span class="built_in">console</span>.log(matches.index);       <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">console</span>.log(matches[<span class="number">0</span>]);          <span class="comment">// bat</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.lastIndex);   <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
 <p>正则表达式的另一个方法是<code>test()</code>，接收一个字符串参数。如果输入的文本与模式匹配，则参数返回<code>true</code>，否则返回<code>false</code>。这个方法适用于只想测试模式是否匹配，而不需要实际匹配内容的情况，常用于验证用户输入。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;000-00-0000&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pattern = <span class="regexp">/\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/</span>;</span><br><span class="line"><span class="keyword">if</span> (pattern.test(text)) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;The pattern was matched.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>无论正则表达式是怎么创建的，<code>toLocaleString()</code>和<code>toString()</code>都返回正则表达式的字面量表示，而<code>valueOf()</code>方法返回正则表达式本身。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;\\[bc\\]at&quot;</span>, <span class="string">&quot;gi&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(pattern.toString());       <span class="comment">// /\[bc\]at/gi</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.toLocaleString()); <span class="comment">// /\[bc\]at/gi</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.valueOf() === pattern); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><code>toLocaleString()</code>和<code>toString()</code>都返回正则表达式的字面量表示，而<code>valueOf()</code>方法返回正则表达式本身。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pattern = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;\\[bc\\]at&quot;</span>, <span class="string">&quot;gi&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(pattern.toString());        <span class="comment">//  /\[bc\]at/gi</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.toLocaleString());  <span class="comment">//  /\[bc\]at/gi</span></span><br><span class="line"><span class="built_in">console</span>.log(pattern.valueOf() === pattern);  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-2-3-RegExp构造函数属性"><a href="#5-2-3-RegExp构造函数属性" class="headerlink" title="5.2.3   RegExp构造函数属性"></a>5.2.3   <code>RegExp</code>构造函数属性</h3><p><code>RegExp</code>构造函数本身也有几个属性。这些属性适用于作用域中的所有正则表达式，而且会根据最后执行的正则表达式操作而变化。这些属性还有一个特点，就是可以通过两种不同的方式访问它们。换句话说，每个属性都有一个全名和一个简写。</p>
 <table>
 <thead>
@@ -447,16 +437,7 @@
 <blockquote>
 <p><strong>注意</strong> <code>RegExp</code>构造函数的所有属性没有任何Web标准出处，因此不要在生产环境中使用它们。</p>
 </blockquote>
-<h3 id="5-2-4-模式局限"><a href="#5-2-4-模式局限" class="headerlink" title="5.2.4   模式局限"></a>5.2.4   模式局限</h3><p>正则表达式的下列特性目前还没有得到ECMAScript的支持：</p>
-<ul>
-<li><code>\A</code>和<code>\Z</code>锚（分别匹配字符串的开始和末尾）</li>
-<li>联合及交叉类</li>
-<li>原子组</li>
-<li><code>x</code>（忽略空格）匹配模式</li>
-<li>条件式匹配</li>
-<li>正则表达式注释<h3 id="5-2-5-正则表达式（补充）"><a href="#5-2-5-正则表达式（补充）" class="headerlink" title="5.2.5   正则表达式（补充）"></a>5.2.5   正则表达式（补充）</h3></li>
-</ul>
-<table>
+<h3 id="5-2-4-正则表达式（补充）"><a href="#5-2-4-正则表达式（补充）" class="headerlink" title="5.2.4   正则表达式（补充）"></a>5.2.4   正则表达式（补充）</h3><table>
 <thead>
 <tr>
 <th align="center">字符</th>
@@ -530,7 +511,7 @@
 <td align="left"><code>/\d+(?!.)/</code>匹配<code>141</code>而不是<code>3.141</code>。</td>
 </tr>
 <tr>
-<td align="center">(?&lt;!<em>y</em>)<em>x</em></td>
+<td align="center">(?&lt;!<em>y</em>)x</td>
 <td align="left">仅仅当<code>x</code>前面不是<code>y</code>时匹配<code>x</code>，这被称为反向否定查找。</td>
 <td align="left"><code>/(?&lt;!-)\d+/</code>匹配 <code>3</code>而不是<code>-3</code>。</td>
 </tr>
@@ -665,7 +646,7 @@
 <p>原始值本身不是对象，因此逻辑上不应该有方法。这是因为当第二行访问<code>s1</code>时，是以读模式访问的，也就是从内存中读取变量保存的值。在以读模式访问字符串值的任何时候，后台都会执行以下3步：<br>(1) 创建一个<code>String</code>类型的实例；</p>
 <p>(2) 调用实例上的特定方法；</p>
 <p>(3) 销毁实例。</p>
-<p>可以把这3步想象成执行了如下3行ECMAScript代码，这种行为可以让原始值拥有对象的行为。对布尔值和数值而言，以上3步也类似如此。</p>
+<p>这种行为可以让原始值拥有对象的行为。对布尔值和数值而言，以上3步也类似如此。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;some text&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1.substring(<span class="number">2</span>);</span><br><span class="line">s1 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
 <p>引用类型与原始值包装类型的主要区别在于对象的生命周期。在通过<code>new</code>实例化引用类型后，得到的实例会在离开作用域时被销毁，而自动创建的原始值包装对象则只存在于访问它的那行代码执行期间，也就是无法在运行时给原始值添加属性和方法。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="string">&quot;some text&quot;</span>;</span><br><span class="line">s1.color = <span class="string">&quot;red&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s1.color);  <span class="comment">// undefined 实际上，这里又创建了一个新的String对象，但没有color属性</span></span><br></pre></td></tr></table></figure>
@@ -679,22 +660,21 @@
 <p><code>Boolean</code>的实例会重写<code>valueOf()</code>方法，返回一个原始值<code>true</code>或<code>false</code>。<code>toString()</code>方法被调用时也会被覆盖，返回字符串<code>&quot;true&quot;</code>或<code>&quot;false&quot;</code>。</p>
 <p>建议不要使用<code>Boolean</code>对象，因为在布尔表达式中使用<code>Boolean</code>对象时，在布尔表达式中都会自动转换为<code>true</code>，容易引起误会。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> falseObject = <span class="keyword">new</span> <span class="built_in">Boolean</span>(<span class="literal">false</span>);</span><br><span class="line"><span class="built_in">console</span>.log(falseObject &amp;&amp; <span class="literal">true</span>); <span class="comment">// true</span></span><br><span class="line"><span class="keyword">let</span> falseValue = <span class="literal">false</span>;</span><br><span class="line"><span class="built_in">console</span>.log(falseValue &amp;&amp; <span class="literal">true</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-<p>原始值和引用值（<code>Boolean</code>对象）还有几个区别。首先，<code>typeof</code>操作符对原始值返回<code>&quot;boolean&quot;</code>，但对引用值返回<code>&quot;object&quot;</code>。同样，<code>Boolean</code>对象是<code>Boolean</code>类型的实例，在使用<code>instaceof</code>操作符时返回<code>true</code>，但对原始值则返回<code>false</code>。</p>
+<p>原始值和引用值（<code>Boolean</code>对象）还有几个区别。首先，<code>typeof</code>操作符对原始值返回<code>boolean</code>，但对引用值返回<code>&quot;object&quot;</code>。同样，<code>Boolean</code>对象是<code>Boolean</code>类型的实例，在使用<code>instaceof</code>操作符时返回<code>true</code>，但对原始值则返回<code>false</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> falseObject);             <span class="comment">// object</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> falseValue);              <span class="comment">// boolean</span></span><br><span class="line"><span class="built_in">console</span>.log(falseObject <span class="keyword">instanceof</span> <span class="built_in">Boolean</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(falseValue <span class="keyword">instanceof</span> <span class="built_in">Boolean</span>);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 <h3 id="5-3-2-Number"><a href="#5-3-2-Number" class="headerlink" title="5.3.2   Number"></a>5.3.2   <code>Number</code></h3><p><code>Number</code>是对应数值的引用类型。要创建一个<code>Number</code>对象，就使用<code>Number</code>构造函数并传入一个数值。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numberObject = <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">10</span>);</span><br></pre></td></tr></table></figure>
 <p><code>Number</code>类型重写了<code>valueOf()</code>、<code>toLocaleString()</code>和<code>toString()</code>方法。<code>valueOf()</code>方法返回<code>Number</code>对象表示的原始数值，另外两个方法返回数值字符串。<code>toString()</code>方法可选地接收一个表示基数的参数，并返回相应基数形式的数值字符串，如下所示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toString());   <span class="comment">// &quot;10&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">2</span>));  <span class="comment">// &quot;1010&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">8</span>));  <span class="comment">// &quot;12&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toString(<span class="number">16</span>)); <span class="comment">// &quot;a&quot;</span></span><br></pre></td></tr></table></figure>
-<p><code>Number</code>类型还提供了几个用于将数值格式化为字符串的方法。<br><code>toFixed()</code>方法返回包含指定小数点位数的数值字符串，如：</p>
+<p><code>Number</code>类型还提供了几个用于将数值格式化为字符串的方法，如下：<br><code>toFixed()</code>方法返回包含指定小数点位数的数值字符串，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toFixed(<span class="number">2</span>)); <span class="comment">// &quot;10.00&quot;</span></span><br></pre></td></tr></table></figure>
 <p>结果返回值为<code>&quot;10.00&quot;</code>，小数位填充了0。如果数值本身的小数位超过了参数指定的位数，则四舍五入到最接近的小数位。</p>
 <p><code>toFixed()</code>自动舍入的特点可以用于处理货币。不过，多个浮点数值的数学计算不一定得到精确的结果。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">10.005</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toFixed(<span class="number">2</span>)); <span class="comment">// &quot;10.01&quot;</span></span><br></pre></td></tr></table></figure>
 <p><code>toExponential()</code>，返回以科学记数法表示的数值字符串。<code>toExponential()</code>接收一个参数，表示结果中小数的位数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toExponential(<span class="number">1</span>));  <span class="comment">// &quot;1.0e+1&quot;</span></span><br></pre></td></tr></table></figure>
-<p>如果想得到数值最适当的形式，可以使用<code>toPrecision()</code>，根据情况返回最合理的输出结果，可能是固定长度，也可能是科学记数法形式。这个方法接收一个参数，表示结果中数字的总位数（不包含指数）。</p>
+<p>如果想得到数值最适当的形式，可以使用<code>toPrecision()</code>，根据数值和精度来决定调用<code>toFixed()</code>还是<code>toExponential()</code>。这个方法接收一个参数，表示结果中数字的总位数（不包含指数）。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">99</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num.toPrecision(<span class="number">1</span>)); <span class="comment">// &quot;1e+2&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toPrecision(<span class="number">2</span>)); <span class="comment">// &quot;99&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(num.toPrecision(<span class="number">3</span>)); <span class="comment">// &quot;99.0&quot;</span></span><br></pre></td></tr></table></figure>
-<p>本质上，<code>toPrecision()</code>方法会根据数值和精度来决定调用<code>toFixed()</code>还是<code>toExponential()</code>。为了以正确的小数位精确表示数值，这3个方法都会向上或向下舍入。</p>
 <p>与<code>Boolean</code>对象类似，同样不建议直接实例化<code>Number</code>对象。在处理原始数值和引用数值时，<code>typeof</code>和<code>instacnceof</code>操作符也会返回不同的结果。</p>
 <p><code>Number.isInteger()</code>方法，用于辨别一个数值是否保存为整数。有时候，小数位的0可能会让人误以为数值是一个浮点值：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(<span class="number">1</span>));    <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(<span class="number">1.00</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isInteger(<span class="number">1.01</span>)); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
@@ -710,9 +690,9 @@
                       alt="gif _1_.gif"
                 >）。对超出这个范围的数值，即使尝试保存为整数，IEEE 754编码格式也意味着二进制值可能会表示一个完全不同的数值。为了鉴别整数是否在这个范围内，可以使用<code>Number.isSafeInteger()</code>方法：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger(<span class="number">2</span> ** <span class="number">53</span>));             <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Number</span>.isSafeInteger((<span class="number">2</span> ** <span class="number">53</span>) - <span class="number">1</span>));       <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-<h3 id="5-3-3-String"><a href="#5-3-3-String" class="headerlink" title="5.3.3   String"></a>5.3.3   <code>String</code></h3><p><code>String</code>是对应字符串的引用类型。要创建一个<code>String</code>对象，使用<code>String</code>构造函数并传入一个数值。</p>
+<h3 id="5-3-3-String"><a href="#5-3-3-String" class="headerlink" title="5.3.3   String"></a>5.3.3   <code>String</code></h3><p><code>String</code>是对应字符串的引用类型。要创建一个<code>String</code>对象，使用<code>String</code>构造函数并传入一个数值。<code>String</code>对象的方法可以在所有字符串原始值上调用。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stringObject = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;hello world&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p><code>String</code>对象的方法可以在所有字符串原始值上调用。3个继承的方法<code>valueOf()</code>、<code>toLocaleString()</code>和<code>toString()</code>都返回对象的原始字符串值。</p>
+<p>3个继承的方法<code>valueOf()</code>、<code>toLocaleString()</code>和<code>toString()</code>都返回对象的原始字符串值。</p>
 <h4 id="5-3-3-1-JavaScript字符"><a href="#5-3-3-1-JavaScript字符" class="headerlink" title="5.3.3.1   JavaScript字符"></a><strong>5.3.3.1   JavaScript字符</strong></h4><p>JavaScript字符串由16位码元（code unit）组成。对多数字符来说，每16位码元对应一个字符。字符串的<code>length</code>属性表示字符串包含多少16位码元。如果字符串中包含双字节字符，那么<code>length</code>属性返回的值可能不是准确的字符数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;abcde&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message.length); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
 <p><code>charAt()</code>方法返回给定索引位置的字符，由传给方法的整数参数指定。具体来说，这个方法查找指定索引位置的16位码元，并返回该码元对应的字符：</p>
@@ -786,10 +766,10 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> pos = text.search(<span class="regexp">/at/</span>);</span><br><span class="line"><span class="built_in">console</span>.log(pos);  <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 <p><code>replace()</code>方法，接收两个参数，第一个参数可以是一个<code>RegExp</code>对象或一个字符串（不会转换为正则表达式），第二个参数可以是一个字符串或一个函数。如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有子字符串，第一个参数必须为正则表达式并且带全局标记，如下面的例子所示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> result = text.replace(<span class="string">&quot;at&quot;</span>, <span class="string">&quot;ond&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);  <span class="comment">// &quot;cond, bat, sat, fat&quot;</span></span><br><span class="line">result = text.replace(<span class="regexp">/at/g</span>, <span class="string">&quot;ond&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);  <span class="comment">// &quot;cond, bond, sond, fond&quot;</span></span><br></pre></td></tr></table></figure>
-<p>第二个参数是字符串的情况下，有几个特殊的字符序列，可以用来插入正则表达式操作的值。ECMA-262中规定了下表中的值。<br>|字符序列|替换文本|<br>|:—:|:—:|<br>|$$|$|<br>|$&amp;|匹配整个模式的子字符串。与RegExp.lastMatch相同。|<br>|$’|匹配的子字符串之前的字符串。与RegExp.rightContext相同。|<br>|$`|匹配的子字符串之后的字符串。与RegExp.leftContext相同。|<br>|$<em>n</em>|匹配第<em>n</em>个捕获组的字符串，其中<em>n</em>是0<del>9。比如，$1是匹配第一个捕获组的字符串，$2是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串。|<br>|$<em>nn</em>|匹配第<em>nn</em>个捕获组字符串，其中<em>nn</em>是01</del>99。比如，$01是匹配第一个捕获组的字符串，$02是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串。|</p>
+<p>当第二个参数是字符串的情况下，有几个特殊的字符序列，可以用来插入正则表达式操作的值。ECMA-262中规定了下表中的值。<br>|字符序列|替换文本|<br>|:—:|:—:|<br>|$$|$|<br>|$&amp;|匹配整个模式的子字符串。与RegExp.lastMatch相同。|<br>|$’|匹配的子字符串之前的字符串。与RegExp.rightContext相同。|<br>|$`|匹配的子字符串之后的字符串。与RegExp.leftContext相同。|<br>|$<em>n</em>或$<em>nn</em>|匹配第<em>n</em>个或第<em>nn</em>个捕获组的字符串，其中<em>n</em>是0<del>9或01</del>99。比如，$1是匹配第一个捕获组的字符串，$2是匹配第二个捕获组的字符串，以此类推。如果没有捕获组，则值为空字符串。|</p>
 <p>使用这些特殊的序列，可以在替换文本中使用之前匹配的内容，如下面的例子所示：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text = <span class="string">&quot;cat, bat, sat, fat&quot;</span>;</span><br><span class="line">result = text.replace(<span class="regexp">/(.at)/g</span>, <span class="string">&quot;word ($1)&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(result);  <span class="comment">// word (cat), word (bat), word (sat), word (fat)</span></span><br></pre></td></tr></table></figure>
-<p><code>replace()</code>的第二个参数可以是一个函数。在只有一个匹配项时，这个函数会收到3个参数：与整个模式匹配的字符串、匹配项在字符串中的开始位置，以及整个字符串。在有多个捕获组的情况下，每个匹配捕获组的字符串也会作为参数传给这个函数，但最后两个参数还是与整个模式匹配的开始位置和原始字符串。</p>
+<p>当<code>replace()</code>的第二个参数是一个函数时，在只有一个匹配项时，这个函数会收到3个参数：与整个模式匹配的字符串、匹配项在字符串中的开始位置，以及整个字符串。在有多个捕获组的情况下，每个匹配捕获组的字符串也会作为参数传给这个函数，但最后两个参数还是与整个模式匹配的开始位置和原始字符串。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">htmlEscape</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> text.replace(<span class="regexp">/[&lt;&gt;&quot;&amp;]/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">match, pos, originalText</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(match) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;&lt;&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&amp;lt;&quot;</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;&gt;&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&amp;gt;&quot;</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;&amp;&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&amp;amp;&quot;</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;\&quot;&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&amp;quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(htmlEscape(<span class="string">&quot;&lt;p class=\&quot;greeting\&quot;&gt;Hello world!&lt;/p&gt;&quot;</span>));</span><br><span class="line"><span class="comment">// &quot;&amp;lt;p class=&amp;quot;greeting&amp;quot;&amp;gt;Hello world!&lt;/p&gt;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>最后一个与模式匹配相关的字符串方法是<code>split()</code>。这个方法会根据传入的分隔符将字符串拆分成数组。作为分隔符的参数可以是字符串，也可以是<code>RegExp</code>对象。（字符串分隔符不会被这个方法当成正则表达式。）还可以传入第二个参数，即数组大小，确保返回的数组不会超过指定大小。来看下面的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colorText = <span class="string">&quot;red,blue,green,yellow&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> colors1 = colorText.split(<span class="string">&quot;,&quot;</span>);       <span class="comment">// [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;yellow&quot;]</span></span><br><span class="line"><span class="keyword">let</span> colors2 = colorText.split(<span class="string">&quot;,&quot;</span>, <span class="number">2</span>);    <span class="comment">// [&quot;red&quot;, &quot;blue&quot;]</span></span><br><span class="line"><span class="keyword">let</span> colors3 = colorText.split(<span class="regexp">/[^,]+/</span>);   <span class="comment">// [&quot;&quot;, &quot;,&quot;, &quot;,&quot;, &quot;,&quot;, &quot;&quot;]</span></span><br></pre></td></tr></table></figure>
@@ -814,110 +794,22 @@
 </blockquote>
 <p>与<code>encodeURI()</code>和<code>encodeURIComponent()</code>相对的是<code>decodeURI()</code>和<code>decodeURIComponent()</code>。<code>decodeURI()</code>只对使用<code>encodeURI()</code>编码过的字符解码。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> uri = <span class="string">&quot;http%3A%2F%2Fwww.wrox.com%2Fillegal%20value.js%23start&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">decodeURI</span>(uri));<span class="comment">// http%3A%2F%2Fwww.wrox.com%2Fillegal value.js%23start</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">decodeURIComponent</span>(uri));<span class="comment">// http:// www.wrox.com/illegal value.js#start</span></span><br></pre></td></tr></table></figure>
-<h4 id="5-4-1-2-eval-方法"><a href="#5-4-1-2-eval-方法" class="headerlink" title="5.4.1.2   eval()方法"></a>5.4.1.2   <code>eval()</code><strong>方法</strong></h4><p><code>eval()</code>方法就是一个完整的ECMAScript解释器，它接收一个参数，即一个要执行的ECMAScript（JavaScript）字符串</p>
+<h4 id="5-4-1-2-eval-方法"><a href="#5-4-1-2-eval-方法" class="headerlink" title="5.4.1.2   eval()方法"></a>5.4.1.2   <code>eval()</code><strong>方法</strong></h4><p><code>eval()</code>方法就是一个完整的ECMAScript解释器，它接收一个参数，即一个要执行的ECMAScript（JavaScript）字符串。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//等价</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;console.log(&#x27;hi&#x27;)&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;hi&quot;</span>);</span><br></pre></td></tr></table></figure>
 <p>通过<code>eval()</code>执行的代码属于该调用所在上下文，被执行的代码与该上下文拥有相同的作用域链。这意味着定义在包含上下文中的变量可以在<code>eval()</code>调用内部被引用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> msg = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;console.log(msg)&quot;</span>);  <span class="comment">// &quot;hello world&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;var msg = &#x27;hello world&#x27;;&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(msg); <span class="comment">//hello world</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;let msg = &#x27;hello world&#x27;;&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(msg); <span class="comment">//Reference Error: msg is not defined</span></span><br></pre></td></tr></table></figure>
 <p>通过<code>eval()</code>定义的任何变量和函数都不会被提升，这是因为在解析代码的时候，它们是被包含在一个字符串中的。它们只是在<code>eval()</code>执行的时候才会被创建。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sayHi();<span class="comment">// hi</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayHi</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;hi&#x27;</span>); &#125;<span class="comment">//函数提升</span></span><br><span class="line">sayHi();<span class="comment">// sayHi is not defined</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;function sayHi() &#123; console.log(&#x27;hi&#x27;); &#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sayHi();<span class="comment">// sayHi is not defined</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">&quot;function sayHi() &#123; console.log(&#x27;hi&#x27;); &#125;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>但在严格模式下，在<code>eval()</code>内部创建的变量和函数无法被外部访问，赋值给<code>eval</code>也会导致错误：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"><span class="built_in">eval</span> = <span class="string">&quot;hi&quot;</span>;  <span class="comment">// 导致错误</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>**注意 ** 使用<code>eval()</code>的时候必须极为慎重，特别是在解释用户输入的内容时。因为这个方法会对XSS利用暴露出很大的攻击面。</p>
 </blockquote>
-<h4 id="5-4-1-3-Global对象属性"><a href="#5-4-1-3-Global对象属性" class="headerlink" title="5.4.1.3   Global对象属性"></a>5.4.1.3   <code>Global</code><strong>对象属性</strong></h4><p><code>Global</code>对象有很多属性，下表列出了所有这些属性。</p>
-<table>
-<thead>
-<tr>
-<th align="left">属性</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">undefined</td>
-<td align="left">特殊值undefined</td>
-</tr>
-<tr>
-<td align="left">NaN</td>
-<td align="left">特殊值NaN</td>
-</tr>
-<tr>
-<td align="left">Infinity</td>
-<td align="left">特殊值Infinity</td>
-</tr>
-<tr>
-<td align="left">Object</td>
-<td align="left">Object的构造函数</td>
-</tr>
-<tr>
-<td align="left">Array</td>
-<td align="left">Array的构造函数</td>
-</tr>
-<tr>
-<td align="left">Function</td>
-<td align="left">Function的构造函数</td>
-</tr>
-<tr>
-<td align="left">Boolean</td>
-<td align="left">Boolean的构造函数</td>
-</tr>
-<tr>
-<td align="left">String</td>
-<td align="left">String的构造函数</td>
-</tr>
-<tr>
-<td align="left">Number</td>
-<td align="left">Number的构造函数</td>
-</tr>
-<tr>
-<td align="left">Date</td>
-<td align="left">Date的构造函数</td>
-</tr>
-<tr>
-<td align="left">RegExp</td>
-<td align="left">RegExp的构造函数</td>
-</tr>
-<tr>
-<td align="left">Symbol</td>
-<td align="left">Symbol的伪构造函数</td>
-</tr>
-<tr>
-<td align="left">Error</td>
-<td align="left">Error的构造函数</td>
-</tr>
-<tr>
-<td align="left">EvalError</td>
-<td align="left">EvalError的构造函数</td>
-</tr>
-<tr>
-<td align="left">RangeError</td>
-<td align="left">RangeError的构造函数</td>
-</tr>
-<tr>
-<td align="left">ReferenceError</td>
-<td align="left">ReferenceError的构造函数</td>
-</tr>
-<tr>
-<td align="left">SyntaxError</td>
-<td align="left">SyntaxError的构造函数</td>
-</tr>
-<tr>
-<td align="left">TypeError</td>
-<td align="left">TypeError的构造函数</td>
-</tr>
-<tr>
-<td align="left">URIError</td>
-<td align="left">URIError的构造函数</td>
-</tr>
-</tbody></table>
-<h4 id="5-4-1-4-window对象"><a href="#5-4-1-4-window对象" class="headerlink" title="5.4.1.4   window对象"></a>5.4.1.4   <code>window</code><strong>对象</strong></h4><p>虽然ECMA-262没有规定直接访问<code>Global</code>对象的方式，但浏览器将<code>window</code>对象实现为<code>Global</code>对象的代理。因此，所有全局作用域中声明的变量和函数都变成了<code>window</code>的属性。</p>
+<h4 id="5-4-1-3-window对象"><a href="#5-4-1-3-window对象" class="headerlink" title="5.4.1.3   window对象"></a>5.4.1.3   <code>window</code><strong>对象</strong></h4><p>虽然ECMA-262没有规定直接访问<code>Global</code>对象的方式，但浏览器将<code>window</code>对象实现为<code>Global</code>对象的代理。因此，所有全局作用域中声明的变量和函数都变成了<code>window</code>的属性。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color = <span class="string">&quot;red&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sayColor</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">window</span>.color);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.sayColor(); <span class="comment">// &quot;red&quot;</span></span><br></pre></td></tr></table></figure>
 <p>另一种获取<code>Global</code>对象的方式是使用如下的代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">global</span> = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
-<h3 id="5-4-2-Math"><a href="#5-4-2-Math" class="headerlink" title="5.4.2   Math"></a>5.4.2   <code>Math</code></h3><p><code>Math</code>对象提供了一些辅助计算的属性和方法。</p>
-<blockquote>
-<p>**注意 **<code>Math</code>对象上提供的计算要比直接在JavaScript实现的快得多，因为<code>Math</code>对象上的计算使用了JavaScript引擎中更高效的实现和处理器指令。但使用<code>Math</code>计算的问题是精度会因浏览器、操作系统、指令集和硬件而异。</p>
-</blockquote>
+<h3 id="5-4-2-Math"><a href="#5-4-2-Math" class="headerlink" title="5.4.2   Math"></a>5.4.2   <code>Math</code></h3><p><code>Math</code>对象提供了一些辅助计算的属性和方法，它提供的计算要比在JavaScript实现快，因为<code>Math</code>对象上的计算使用了JavaScript引擎中更高效的实现和处理器指令，但问题是精度会因浏览器、操作系统、指令集和硬件而异。</p>
 <h4 id="5-4-2-1-Math对象属性"><a href="#5-4-2-1-Math对象属性" class="headerlink" title="5.4.2.1   Math对象属性"></a>5.4.2.1   <code>Math</code><strong>对象属性</strong></h4><p><code>Math</code>对象有一些属性，主要用于保存数学中的一些特殊值。下表列出了这些属性。</p>
 <table>
 <thead>
@@ -927,35 +819,35 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">Math.E</td>
+<td align="left"><code>Math.E</code></td>
 <td align="left">自然对数的基数e的值</td>
 </tr>
 <tr>
-<td align="left">Math.LN10</td>
+<td align="left"><code>Math.LN10</code></td>
 <td align="left">10为底的自然对数</td>
 </tr>
 <tr>
-<td align="left">Math.LN2</td>
+<td align="left"><code>Math.LN2</code></td>
 <td align="left">2为底的自然对数</td>
 </tr>
 <tr>
-<td align="left">Math.LOG2E</td>
+<td align="left"><code>Math.LOG2E</code></td>
 <td align="left">以2为底e的对数</td>
 </tr>
 <tr>
-<td align="left">Math.LOG10E</td>
+<td align="left"><code>Math.LOG10E</code></td>
 <td align="left">以10为底e的对数</td>
 </tr>
 <tr>
-<td align="left">Math.PI</td>
+<td align="left"><code>Math.PI</code></td>
 <td align="left">π的值</td>
 </tr>
 <tr>
-<td align="left">Math.SQRT1_2</td>
+<td align="left"><code>Math.SQRT1_2</code></td>
 <td align="left">1/2的平方根</td>
 </tr>
 <tr>
-<td align="left">Math.SQRT2</td>
+<td align="left"><code>Math.SQRT2</code></td>
 <td align="left">2的平方根</td>
 </tr>
 </tbody></table>
@@ -974,7 +866,7 @@
 <p>比如如果想从1~10范围内随机选择一个数，代码就是这样的：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>**注意 **如果是为了加密而需要生成随机数（传给生成器的输入需要较高的不确定性），建议使用<code>window.crypto.getRandomValues()</code>。</p>
+<p>**注意 **如果为了加密而需要生成随机数（传给生成器的输入需要较高的不确定性），建议使用<code>window.crypto.getRandomValues()</code>。</p>
 </blockquote>
 <h4 id="5-4-2-5-其他方法"><a href="#5-4-2-5-其他方法" class="headerlink" title="5.4.2.5   其他方法"></a>5.4.2.5   <strong>其他方法</strong></h4><p><code>Math</code>对象还有很多涉及各种简单或高阶数运算的方法。下表总结了<code>Math</code>对象的其他方法。</p>
 <table>
@@ -985,68 +877,68 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="left">Math.abs(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的绝对值</td>
+<td align="left"><code>Math.abs(x)</code></td>
+<td align="left">返回x的绝对值</td>
 </tr>
 <tr>
-<td align="left">Math.e<em>x</em>p(<em>x</em>)</td>
-<td align="left">返回Math.E的<em>x</em>次幂</td>
+<td align="left"><code>Math.exp(x)</code></td>
+<td align="left">返回<code>Math.E</code>的x次幂</td>
 </tr>
 <tr>
-<td align="left">Math.e<em>x</em>pm1(<em>x</em>)</td>
-<td align="left">等于Math.e<em>x</em>p(<em>x</em>) - 1</td>
+<td align="left"><code>Math.expm1(x)</code></td>
+<td align="left">等于<code>Math.exp(x)</code> - 1</td>
 </tr>
 <tr>
-<td align="left">Math.log(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的自然对数</td>
+<td align="left"><code>Math.log(x)</code></td>
+<td align="left">返回x的自然对数</td>
 </tr>
 <tr>
-<td align="left">Math.log1p(<em>x</em>)</td>
-<td align="left">等于1 + Math.log(<em>x</em>)</td>
+<td align="left"><code>Math.log1p(x)</code></td>
+<td align="left">等于1 +<code> Math.log(x)</code></td>
 </tr>
 <tr>
-<td align="left">Math.pow(<em>x</em>,<em>power</em>)</td>
-<td align="left">返回<em>x</em>的<em>power</em>次幂</td>
+<td align="left"><code>Math.pow(x,power)</code></td>
+<td align="left">返回x的<em>power</em>次幂</td>
 </tr>
 <tr>
-<td align="left">Math.hypot(<em>…nums</em>)</td>
-<td align="left">返回<em>nums</em>中每个数平方和的平方根</td>
+<td align="left"><code>Math.hypot(...nums)</code></td>
+<td align="left">返回<code>nums</code>中每个数平方和的平方根</td>
 </tr>
 <tr>
-<td align="left">Math.clz32(<em>x</em>)</td>
-<td align="left">返回32位整数<em>x</em>的前置零的数量</td>
+<td align="left"><code>Math.clz32(x)</code></td>
+<td align="left">返回32位整数x的前置零的数量</td>
 </tr>
 <tr>
-<td align="left">Math.sign(<em>x</em>)</td>
-<td align="left">返回表示<em>x</em>符号的1、0、-0或-1</td>
+<td align="left"><code>Math.sign(x)</code></td>
+<td align="left">返回表示x符号的1、0、-0或-1</td>
 </tr>
 <tr>
-<td align="left">Math.trunc(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的整数部分，删除所有小数</td>
+<td align="left"><code>Math.trunc(x)</code></td>
+<td align="left">返回x的整数部分，删除所有小数</td>
 </tr>
 <tr>
-<td align="left">Math.sqrt(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的平方根</td>
+<td align="left"><code>Math.sqrt(x)</code></td>
+<td align="left">返回x的平方根</td>
 </tr>
 <tr>
-<td align="left">Math.cbrt(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的立方根</td>
+<td align="left"><code>Math.cbrt(x)</code></td>
+<td align="left">返回x的立方根</td>
 </tr>
 <tr>
-<td align="left">Math.atan2(<em>y</em>,<em>x</em>)</td>
-<td align="left">返回<em>y</em>/<em>x</em>的反正切</td>
+<td align="left"><code>Math.atan2(y,x)</code></td>
+<td align="left">返回<em>y</em>/x的反正切</td>
 </tr>
 <tr>
-<td align="left">Math.cos(<em>x</em>)/Math.acos(<em>x</em>)/Math.acosh(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的余弦/反余弦/反双曲余弦</td>
+<td align="left"><code>Math.cos(x)</code>/<code>Math.acos(x)</code>/<code>Math.acosh(x)</code></td>
+<td align="left">返回x的余弦/反余弦/反双曲余弦</td>
 </tr>
 <tr>
-<td align="left">Math.sin(<em>x</em>)/Math.asin(<em>x</em>)/Math.asinh(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的正弦/反正弦/反双曲正弦</td>
+<td align="left"><code>Math.sin(x)</code>/<code>Math.asin(x)</code>/<code>Math.asinh(x)</code></td>
+<td align="left">返回x的正弦/反正弦/反双曲正弦</td>
 </tr>
 <tr>
-<td align="left">Math.tan(<em>x</em>)/Math.atan(<em>x</em>)/Math.atanh(<em>x</em>)</td>
-<td align="left">返回<em>x</em>的正切/反正切/反双曲正切</td>
+<td align="left"><code>Math.tan(x)</code>/<code>Math.atan(x)</code>/<code>Math.atanh(x)</code></td>
+<td align="left">返回x的正切/反正切/反双曲正切</td>
 </tr>
 </tbody></table>
 <p>即便这些方法都是由ECMA-262定义的，对正弦、余弦、正切等计算的实现仍然取决于浏览器，因为计算这些值的方式有很多种。因此，这些方法的精度可能因实现而异。</p>
@@ -1313,7 +1205,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Date"><span class="nav-text">5.1　Date</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-%E7%BB%A7%E6%89%BF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.1　继承的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-2-%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.2　日期格式化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-3-%E6%97%A5%E6%9C%9F-%E6%97%B6%E9%97%B4%E7%BB%84%E4%BB%B6%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.3　日期&#x2F;时间组件方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-RegExp"><span class="nav-text">5.2　RegExp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-RegExp%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7"><span class="nav-text">5.2.1   RegExp实例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-text">5.2.2   RegExp实例方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-RegExp%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%B1%9E%E6%80%A7"><span class="nav-text">5.2.3   RegExp构造函数属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-4-%E6%A8%A1%E5%BC%8F%E5%B1%80%E9%99%90"><span class="nav-text">5.2.4   模式局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-5-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-text">5.2.5   正则表达式（补充）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="nav-text">5.3　原始值包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-1-Boolean"><span class="nav-text">5.3.1   Boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-2-Number"><span class="nav-text">5.3.2   Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-3-String"><span class="nav-text">5.3.3   String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-1-JavaScript%E5%AD%97%E7%AC%A6"><span class="nav-text">5.3.3.1   JavaScript字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-2-normalize-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.2   normalize()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.3   字符串操作方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.4   字符串位置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-5-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.5   字符串包含方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-6-trim-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.6   trim()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-7-repeat-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.7   repeat()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-8-padStart-%E5%92%8CpadEnd-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.8   padStart()和padEnd()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-9-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%AD%E4%BB%A3%E4%B8%8E%E8%A7%A3%E6%9E%84"><span class="nav-text">5.3.3.9   字符串迭代与解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-10-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-text">5.3.3.10   字符串大小写转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-11-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.11   字符串模式匹配方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-12-localeCompare-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.12   localeCompare()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-%E5%8D%95%E4%BE%8B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-text">5.4　单例内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-Global"><span class="nav-text">5.4.1   Global</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-1-URL%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.1.1   URL编码方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-2-eval-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.1.2   eval()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-3-Global%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-text">5.4.1.3   Global对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-4-window%E5%AF%B9%E8%B1%A1"><span class="nav-text">5.4.1.4   window对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-Math"><span class="nav-text">5.4.2   Math</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-1-Math%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-text">5.4.2.1   Math对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-2-min-%E5%92%8Cmax-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.2   min()和max()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-3-%E8%88%8D%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.3   舍入方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-4-random-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.4   random()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-5-%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.5   其他方法</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-Date"><span class="nav-text">5.1　Date</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-1-%E7%BB%A7%E6%89%BF%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.1　继承的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-2-%E6%97%A5%E6%9C%9F%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.2　日期格式化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-3-%E6%97%A5%E6%9C%9F-%E6%97%B6%E9%97%B4%E7%BB%84%E4%BB%B6%E6%96%B9%E6%B3%95"><span class="nav-text">5.1.3　日期&#x2F;时间组件方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-RegExp"><span class="nav-text">5.2　RegExp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-1-RegExp%E5%AE%9E%E4%BE%8B%E5%B1%9E%E6%80%A7"><span class="nav-text">5.2.1   RegExp实例属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-2-RegExp%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95"><span class="nav-text">5.2.2   RegExp实例方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-3-RegExp%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%B1%9E%E6%80%A7"><span class="nav-text">5.2.3   RegExp构造函数属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-4-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%88%E8%A1%A5%E5%85%85%EF%BC%89"><span class="nav-text">5.2.4   正则表达式（补充）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="nav-text">5.3　原始值包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-1-Boolean"><span class="nav-text">5.3.1   Boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-2-Number"><span class="nav-text">5.3.2   Number</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-3-String"><span class="nav-text">5.3.3   String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-1-JavaScript%E5%AD%97%E7%AC%A6"><span class="nav-text">5.3.3.1   JavaScript字符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-2-normalize-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.2   normalize()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.3   字符串操作方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-4-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.4   字符串位置方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-5-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.5   字符串包含方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-6-trim-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.6   trim()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-7-repeat-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.7   repeat()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-8-padStart-%E5%92%8CpadEnd-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.8   padStart()和padEnd()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-9-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%AD%E4%BB%A3%E4%B8%8E%E8%A7%A3%E6%9E%84"><span class="nav-text">5.3.3.9   字符串迭代与解构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-10-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-text">5.3.3.10   字符串大小写转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-11-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.11   字符串模式匹配方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-3-12-localeCompare-%E6%96%B9%E6%B3%95"><span class="nav-text">5.3.3.12   localeCompare()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-%E5%8D%95%E4%BE%8B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="nav-text">5.4　单例内置对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-Global"><span class="nav-text">5.4.1   Global</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-1-URL%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.1.1   URL编码方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-2-eval-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.1.2   eval()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-1-3-window%E5%AF%B9%E8%B1%A1"><span class="nav-text">5.4.1.3   window对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-Math"><span class="nav-text">5.4.2   Math</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-1-Math%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-text">5.4.2.1   Math对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-2-min-%E5%92%8Cmax-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.2   min()和max()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-3-%E8%88%8D%E5%85%A5%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.3   舍入方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-4-random-%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.4   random()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4-2-5-%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-text">5.4.2.5   其他方法</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
