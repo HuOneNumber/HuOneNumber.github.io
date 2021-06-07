@@ -221,12 +221,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>612 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>6.8k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>2 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>23 分钟</span>
         </span>
     
     
@@ -242,12 +242,198 @@
         
 
         <div class="article-content markdown-body">
-            <h2 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1   概述"></a>5.1   概述</h2><p>转发表（在基于目的地转发的场景中）和流表（在通用转发的场景中）是链接网络层的数据平面和控制平面的首要元素。我们知道这些表定义了一台路由器的本地数据平面转发行为。我们看到在通用转发的场景下，所采取的动作（4.4.2节）不仅包括转发一个分组到达路由器的每个输出端口，而且能够丢弃一个分组、复制一个分组和/或重写第2、3或4层分组首部字段。<br>在本章中，我们将学习这些转发表和流表是如何计算、维护和安装的。在4.1节的网络层概述中，我们已经学习了完成这些工作有两种可能的方法。</p>
+            <h2 id="5-1-概述"><a href="#5-1-概述" class="headerlink" title="5.1   概述"></a>5.1   概述</h2><p>转发表（在基于目的地转发的场景中）和流表（在通用转发的场景中）是链接网络层的数据平面和控制平面的首要元素。完成这些工作有两种可能的方法。</p>
 <ul>
-<li>每路由器控制。图5-1显示了在每台路由器中运行一种路由选择算法的情况，每台路由器中都包含转发和路由选择功能。每台路由器有一个路由选择组件，用于与其他路由器中的路由选择组件通信，以计算其转发表的值。这种每路由器控制的方法在因特网中已经使用了几十年。将在5.3节和5.4节中学习的OSPF和BGP协议都是基于这种每路由器的方法进行控制的。</li>
-<li>逻辑集中式控制。图5-2显示了逻辑集中式控制器计算并分发转发表以供每台路由器使用的情况。如我们在4.4节中所见，通用的“匹配加动作”抽象允许执行传统的IP转发以及其他功能（负载共享、防火墙功能和NAT）的丰富集合，而这些功能先前是在单独的中间盒中实现的。</li>
+<li>每路由器控制。在每台路由器中运行路由选择算法和一个路由选择组件，用于与其他路由器中的路由选择组件通信，以计算其转发表的值。<code>OSPF</code>和<code>BGP</code>协议都是基于这种每路由器的方法进行控制的。</li>
+<li>逻辑集中式控制。逻辑集中式控制器计算并分发转发表以供每台路由器使用况通用的“匹配加动作”抽象允许执行传统的<code>IP</code>转发以及其他功能（负载共享、防火墙功能和NAT）的丰富集合。该控制器与每台路由器中的控制代理（CA）进行交互，以配置和管理该路由器的转发表。CA任务是与控制器通信并且按控制器命令行事。CA既不能直接相互交互，也不能主动参与计算转发表。</li>
 </ul>
-<p>该控制器经一种定义良好的协议与每台路由器中的一个控制代理（CA）进行交互，以配置和管理该路由器的转发表。CA一般具有最少的功能，其任务是与控制器通信并且按控制器命令行事。与图5-1中的路由选择算法不同，这些CA既不能直接相互交互，也不能主动参与计算转发表。这是每路由器控制和逻辑集中式控制之间的关键差异。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/1EQDLIuB9RkZwmM.png"
+                      alt="image-20210606123132583"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/a3gtTFlw4GSo72b.png"
+                      alt="image-20210606123106079"
+                ></p>
+<h2 id="5-2-路由选择算法"><a href="#5-2-路由选择算法" class="headerlink" title="5.2   路由选择算法"></a>5.2   路由选择算法</h2><p>路由选择算法，目的是从发送方到接收方的过程中确定一条通过路由器网络的最低开销的路径，但实践中还关心诸如策略之类的问题（例如,属于组织Y的路由器X不应转发任何来源于组织Z所属网络的分组）。无论网络控制平面采用何种控制方法，必定总是存在一条定义良好的一连串路由器。</p>
+<p>可以用图来形式化描述路由选择问题，图中的节点表示路由器，一条边还有一个值表示它的开销，通常反映出对应链路的物理长度、链路速度，或金钱上的开销。对于E中的任一条边（x，y），我们用c（x，y）表示节点x和y间边的开销。源节点u和目的节点w之间的最低开销路径是（u，x，y，w）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/UFd2a39pWekHh8q.png"
+                      alt="image-20210606124223253"
+                ></p>
+<p>路由选择算法的一种分类方式是根据该算法是集中式还是分散式：</p>
+<ul>
+<li>集中式路由选择算法。用完整的、全局性的网络知识计算出从源到目的地之间的最低开销路径。也就是说，集中式算法要具有关于连通性和链路开销方面的完整信息。例如链路状态（<code>LS</code>）算法。</li>
+<li>分散式路由选择算法。路由器以迭代、分布式的方式计算出最低开销路径。每个节点仅有与其直接相连链路的开销知识即可开始工作，然后通过迭代计算过程以及与相邻节点的信息交换，一个节点逐渐计算出到达某目的节点或一组目的节点的最低开销路径。例如距离向量（<code>DV</code>）算法。</li>
+</ul>
+<p>第二种广义分类方式是根据算法是静态的还是动态：</p>
+<ul>
+<li>静态路由选择算法。路由随时间的变化非常缓慢，通常是人工进行调整。</li>
+<li>动态路由选择算法。随着网络流量负载或拓扑发生变化而改变路由选择路径。</li>
+</ul>
+<p>第三种分类方式是根据它是负载敏感的还是负载迟钝的进行划分：</p>
+<ul>
+<li><p>负载敏感算法。链路开销会动态地变化以反映出底层链路的当前拥塞水平。如果当前拥塞的一条链路与高开销相联系，则路由选择算法趋向于绕开该拥塞链路来选择路由。</p>
+</li>
+<li><p>负载迟钝的算法。链路的开销不明确地反映其当前（或最近）的拥塞水平。例如<code>RIP</code>、<code> OSPF</code>、<code>BGP</code>。</p>
+</li>
+</ul>
+<h2 id="5-3-因特网中自治系统内部的路由选择：OSPF"><a href="#5-3-因特网中自治系统内部的路由选择：OSPF" class="headerlink" title="5.3   因特网中自治系统内部的路由选择：OSPF"></a>5.3   因特网中自治系统内部的路由选择：<code>OSPF</code></h2><p>在实践中，不能将网络只看作一个路由器的集合，所有的路由器都执行相同的路由选择算法，有以下两个重要原因：</p>
+<ul>
+<li>规模。随着路由器数目变得很大，涉及路由选择信息的通信、计算和存储的开销将高得不可实现。</li>
+<li>管理自治。每个<code>ISP</code>都有它自已的路由器网络，<code>ISP</code>通常希望按自己的意愿运行路由器，或对外部隐藏其网络的内部组织面貌。</li>
+</ul>
+<p>这两个问题都可以通过将路由器组织进自治系统（AS）来解决，通常在一个<code>ISP</code>中的路由器以及互联它们的链路构成一个AS，或者<code>ISP</code>将它们的网络划分为多个AS。一个自治系统由其全局唯一的AS号（<code>ASN</code>）所标识，并由<code>ICANN</code>区域注册机构所分配。在相同AS中的路由器都运行相同的路由选择算法并且有彼此的信息。</p>
+<p>在一个自治系统内运行的路由选择算法叫作自治系统内部路由选择协议。开放最短路优先（<code>OSPF</code>）路由选择及其关系密切的协议IS-IS都被用于<code>AS</code>内部路由选择。<code>OSPF</code>是一种链路状态协议，它使用洪泛链路状态信息和Dijkstra最低开销路径算法。使用<code>OSPF</code>，一台路由器构建了一幅关于整个自治系统的完整拓扑图，于是每台路由器在本地运行<code>Dijikstra</code>的最短路径算法，以确定一个以自身为根节点到所有子网的最短路径树。各条链路开销是由网络管理员配置的，可以选择将所有链路开销设为1，从而实现最少跳数路由选择；或者选择将链路权值按与链路容量成反比来设置，从而不鼓励流量使用低带宽链路。</p>
+<p>使用<code>OSPF</code>时，路由器向自治系统内所有其他路由器广播路由选择信息，而不仅仅是向其相邻路由器广播。每当一条链路的状态发生变化时，路由器就会广播链路状态信息，即使未发生变化，也要周期性地广播链路状态。<code>OSPF</code>通告包含在<code>OSPF</code>报文中，并直接由<code>IP</code>承载，因此<code>OSPF</code>协议必须自己实现诸如可靠报文传输、链路状态广播等功能。<code>OSPF</code>协议还要检查链路正在运行（通过向相连的邻居发送HELLO报文），并允许<code>OSPF</code>路由器获得相邻路由器的网络范围链路状态的数据库。<code>OSPF</code>的优点包括下列几方面:</p>
+<ul>
+<li>安全。能够鉴别<code>OSPF</code>路由器之间的交换，防止恶意入侵者将不正确的信息注入路由器表内。能够配置单的明文口令鉴别和<code>MD5</code>的鉴别。</li>
+<li>多条相同开销的路径。当到达某目的地的多条路径具有相同的开销时，<code>OSPF</code>允许使用多条路径。</li>
+<li>综合支持单播与多播路由选择。多播<code>OSPF</code>（<code>MOSPF</code>）使用现有的<code>OSPF</code>链路数据库，并为现有的<code>OSPF</code>链路状态广播机制增加了一种新型的链路状态通告。</li>
+<li>支持在单个<code>AS</code>中的层次结构。一个<code>OSPF</code>自治系统能够层次化地配置多个区域，运行各自的<code>OSPF</code>链路状态路由选择算法，区域内的每台路由器都向该区域内的所有其他路由器广播其链路状态。在每个区域内，区域边界路由器负责为流向该区域以外的分组提供路由选择。最后，在<code>AS</code>中只有一个<code>OSPF</code>区域配置成主干区域。主干区域的主要作用是为该<code>AS</code>中其他区域之间的流量提供路由选择。主干区域包含本<code>AS</code>中的所有区域边界路由器，可能还包含一些非边界路由器。在<code>AS</code>中的区域间的路由选择要求分组先路由到一个区域边界路由器（区域内路由选择），然后通过主干路由到位于目的区域的区域边界路由器，进而再路由到最终目的地。</li>
+</ul>
+<h2 id="5-4-ISP之间的路由选择：BGP"><a href="#5-4-ISP之间的路由选择：BGP" class="headerlink" title="5.4   ISP之间的路由选择：BGP"></a>5.4   <code>ISP</code>之间的路由选择：<code>BGP</code></h2><p>当分组跨越多个<code>AS</code>进行路由时，需要一个自治系统间路由选择协议。因为<code>AS</code>间路由选择协议涉及多个<code>AS</code>之间的协调，所以<code>AS</code>通信必须运行相同的<code>AS</code>间路由选择协议，也就是边界网关协议（<code>BGP</code>），一种分布式和异步的协议，与距离向量路由选择协议一脉相承。</p>
+<h3 id="5-4-1-BGP的作用"><a href="#5-4-1-BGP的作用" class="headerlink" title="5.4.1   BGP的作用"></a>5.4.1   <code>BGP</code>的作用</h3><p>考虑一个<code>AS</code>和在该<code>AS</code>中的任意一个路由器。在<code>BGP</code>中，分组并不是路由到一个特定的目的地址，而是是路由到<code>CIDR</code>化的前缀，其中每个前缀表示一个子网或一个子网的集合，因此一台路由器的转发表将具有形式为（x，I）的表项，其中x是一个前缀，I是该路由器的接口号。</p>
+<p>作为一种<code>AS</code>间的路由选择协议，<code>BGP</code>为每台路由器提供了一种完成以下任务的手段：</p>
+<ul>
+<li>从邻居<code>AS</code>获得前缀的可达性信息。<code>BGP</code>允许每个子网向因特网的其余部分通告它的存在，确保所有<code>AS</code>知道该子网。</li>
+<li>确定到该前缓的“最好的”路由。一台路由器可能知道两条或更多条到特定前缀的不同路由。为了确定最好的路由，该路由器将本地运行一个<code>BGP</code>路由选择过程（使用它经过相邻的路由器获得的前缀可达性信息）。该最好的路由将基于策略以及可达性信息来确定。</li>
+</ul>
+<h3 id="5-4-2-通告BGР路由信息"><a href="#5-4-2-通告BGР路由信息" class="headerlink" title="5.4.2   通告BGР路由信息"></a>5.4.2   通告<code>BGР</code>路由信息</h3><p>下图网络具有3个自治系统：<code>AS1</code>、<code>AS2</code>和<code>AS3</code>。<code>AS3</code>包括一个具有前缀x的子网。对于每个<code>AS</code>，每台路由器要么是一台网关路由器(位于<code>AS</code>边缘并直连其他<code>AS</code>中的路由器)，要么是一台内部路由器（仅连接自己<code>AS</code>中的主机和路由器）。在<code>BGP</code>中，路由器通过使用179端口的半永久TCP连接交换路由选择信息。每条直接连接以及所有通过该连接发送的<code>BGP</code>报文，称为<code>BGP</code>连接。进一步细分，两个AS的<code>BGP</code>连接称为外部<code>BGP</code>（<code>eBGP</code>）连接，而在相同AS中的两台路由器之间的<code>BGP</code>会话称为内部<code>BGP</code>（<code>iBGP</code>）连接。</p>
+<p>考虑向<code>ASI</code>和<code>AS2</code>中的所有路由器通告前缀x的可达性信息过程，<code>3a</code>先向<code>2c</code>发送<code>eBGP</code>报文<code>AS3 X</code>，<code>2c</code>然后向<code>AS2</code>中的所有路由器发送<code>iBGP</code>报文<code>AS3 X</code>，接下来<code>2a</code>向<code>1c</code>发送<code>eBGP</code>报文<code>AS2 AS3 X</code>，最后<code>1c</code>向<code>AS1</code>中的所有路由器发送<code>iBGP</code>报文<code>AS2 AS3 x</code>。这样<code>AS</code>I和<code>AS2</code>中的每个路由器都知道了x的存在并且也都知道了通往x的<code>AS</code>路径。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/LXNymAhdk1SeTgs.png"
+                      alt="image-20210606163903898"
+                ></p>
+<h3 id="5-4-3-确定最好的路由"><a href="#5-4-3-确定最好的路由" class="headerlink" title="5.4.3   确定最好的路由"></a>5.4.3   确定最好的路由</h3><p>路由器常常接收到很多不同的可能路径的可达性信息。例如下图，从<code>AS1</code>到x有两条路径：<code>AS2 AS3 X</code>以及<code>AS3 X</code>。<br>当路由器通过<code>BGP</code>连接通告前缀时，它在前缀中包括一些<code>BGP</code>属性。前缀及其属性称为路由（route）。两属性是<code>AS-PATH</code>和<code>NEXT-HOP</code>：<code>AS-PATH</code>属性包含通告已经通过的AS的列表，当一个前缀通过某AS时，该AS将其<code>ASN</code>加入<code>AS-PATH</code>中的现有列表，<code>AS-PATH</code>属性还用于来检测和防止通告环路，如果一台路由器在路径列表中有它的AS，将拒绝该通告。<code>NEXT-HOP</code>是<code>AS-PATH</code>起始的路由器接口的<code>IP</code>地址。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/dIJTmSklGpcByPj.png"
+                      alt="image-20210606163924302"
+                ></p>
+<p>热土豆路由选择依据的思想是：试图减小在自己AS中的开销，而忽略在其AS之外的端到端开销的其他部分。对同一AS中的两台路由器，可能对相同的前缀选择两条不同的AS路径。例如，我们刚才看到路由器<code>1b</code>到达x将通过<code>AS2</code>发送分组。而路由器<code>1d</code>将绕过<code>AS2</code>并直接向<code>AS3</code>发送分组到达x。</p>
+<p>考虑路由器<code>1b</code>到达前缀x的两条<code>BGP</code>路由。路由器<code>1b</code>将查阅它的AS内部路由选择信息，以找到通往<code>NEXT-HOP</code>路由器<code>2a</code>的最低开销AS内部路径和通往<code>NEXT-HOP</code>路由器<code>3d</code>的最低开销AS间路径，进而选择这些最低开销路径中具有最低开销的那条，因此将选择路由器<code>2a</code>。路由器<code>1b</code>则将查阅它的转发表，并且找到通往路由器<code>2a</code>的位于最低开销路径上的接口I。<code>1b</code>则把（x，I）加到它的转发表中。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/dlKNDGaytshuIn1.png"
+                      alt="image-20210606210529404"
+                ></p>
+<p>在实践中，<code>BGP</code>使用了一种比热土豆路由选择更为复杂但却结合了其特点的算法。对于任何给定的目的地前缀，进入<code>BGP</code>的路由选择算法的输入是到某前缀的所有路由的集合。如果仅有一条这样的路由，<code>BGP</code>则选择该路由。如果到相同的前缀有两条或多条路由，则顺序地调用下列消除规则直到余下一条路由：</p>
+<ol>
+<li>路由被指派一个本地偏好值作为其属性之一（除了<code>AS-PATH</code>和<code>NEXT-HOP</code>以外）。一条路由的本地偏好可能由该路由器设置或可能由在相同AS中的另一台路由器学习到。本地偏好属性的值是一种策略决定，具有最高本地偏好值的路由将被选择。</li>
+<li>从余下的路由中，选择具有最短<code>AS-PATH</code>的路由。如果该规则是路由选择的唯一规则，则<code>BGP</code>将使用距离向量算法决定路径，其中距离测度使用AS跳的跳数而不是路由器跳的跳数。</li>
+<li>从余下的路由中，使用热土豆路由选择，即选择具有最靠近<code>NEXT-HOP</code>路由器的路由。</li>
+<li>如果仍留下多条路由，该路由器使用<code>BGP</code>标识符来选择路由，</li>
+</ol>
+<h3 id="5-4-4-IP任播"><a href="#5-4-4-IP任播" class="headerlink" title="5.4.4   IP任播"></a>5.4.4   <code>IP</code>任播</h3><p><code>IP</code>任播的动机：</p>
+<ol>
+<li>在许多分散的不同地理位置，替换不同服务器上的相同内容；</li>
+<li>让用户从最靠近的服务器访问内容。</li>
+</ol>
+<p><code>BGP</code>常被用于实现<code>IP</code>任播服务，在<code>IP</code>任播配置阶段，<code>CDN</code>公司为多台服务器指派相同的<code>IP</code>地址，并且使用<code>BGP</code>从这些服务器的每台来通告该<code>IP</code>地址。当某台<code>BGP</code>路由器收到对于该<code>IP</code>地址的多个路由通告，它将这些通告处理为对相同的物理位置提供不同的路径。当配置其路由选择表时，每台路由器将本地化地使用<code>BGP</code>路由选择算法来挑选到该<code>IP</code>地址的“最好的”路由。</p>
+<p>实践中<code>CDN</code>通常选择不使用<code>IP</code>任播，因为<code>BGP</code>路由选择变化能够导致相同的TCP连接的不同分组到达Web服务器的不同实例。但<code>IP</code>任播被<code>DNS</code>系统广泛用于将<code>DNS</code>请求指向最近的根<code>DNS</code>服务器。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/i9zyWpHkLKBhIcP.png"
+                      alt="image-20210606211933530"
+                ></p>
+<h3 id="5-4-5-路由选择策略"><a href="#5-4-5-路由选择策略" class="headerlink" title="5.4.5   路由选择策略"></a>5.4.5   路由选择策略</h3><p>当某路由器选择到目的地的一条路由时，AS路由选择策略所确定的本地偏好值能够胜过所有其他考虑。下图显示了6个互联的自治系统：A、B，C、W，X和Y。W和Y显然是接入<code>ISP</code>，X是一个多宿接入<code>ISP</code>，而A、B和C是主干提供商网络。我们还要假设A，B和C直接向彼此发送流量，并向它们的客户网络提供全部的<code>BGP</code>信息。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/06/45BT3pCsqyDrLN1.png"
+                      alt="image-20210606213914697"
+                ></p>
+<p>商业运行的<code>ISP</code>们都遵从的一个经验法则是：任何穿越某<code>ISP</code>主干网的流量必须是其源或目的位于该<code>ISP</code>的某个客户网络中；不然的话这些流量将会免费搭车通过该<code>ISP</code>的网络，而各个对等协定通常都是<code>ISP</code>双方进行协商，而且经常是对外保密的。例如，X如果向其邻居B和C通告它有一条路径（<code>XCY</code>）能到达网络Y，这样B就可能经由x转发目的为Y（或C）的流量。接入<code>ISP</code>要保证自身是所有进入/离开流量的源/目的地，可以通过控制<code>BGP</code>路由的通告方式容易地实现。</p>
+<p>对于提供商网络，比如自治系统B。假定B已经从A处知道一条到W的路径AW，显然B也想向它的客户通告路径<code>BAW</code>，这样知道它能够通过B路由到w。但是B如果将路径<code>BAW</code>通告给C，则C可以经由<code>BAW</code>将流量引导到W，而B也许并不想承担A与C之间传送流量的负担。</p>
+<h2 id="5-5-SDN控制平面"><a href="#5-5-SDN控制平面" class="headerlink" title="5.5   SDN控制平面"></a>5.5   <code>SDN</code>控制平面</h2><p><code>SDN</code>体系结构具有4个关键特征：</p>
+<ul>
+<li>基于流的转发。<code>SDN</code>控制的交换机的分组转发工作，能够基于运输层、网络层或链路层首部中任意数量的首部字段值进行。<code>SDN</code>控制平面的工作是计算、管理和安装所有网络交换机中的流表项，分组转发规则被规定在交换机的流表中。</li>
+<li>数据平面与控制平面分离。数据平面由网络交换机组成，该设备在它们的流表中执行“匹配加动作”的规则。控制平面由服务器以及决定和管理交换机流表的软件组成。</li>
+<li>网络控制功能：位于数据平面交换机外部。<code>SDN</code>控制平面由软件实现并在服务器上执行，该服务器与网络交换机分离。控制平面自身由<code>SDN</code>控制器（或网络操作系统），以及若干网络控制应用程序组成。控制器维护网络状态信息（例如，远程链路、交换机和主机的状态）并为网络控制应用程序提供这些信息；提供方法，这些应用程序通过这些方法能够监视、编程和控制下面的网络设备。</li>
+<li>可编程的网络。通过运行在控制平面中的网络控制应用程序，该网络是可编程的。这些应用程序使用由<code>SDN</code>控制器提供的<code>API</code>来定义和控制网络设备中的数据平面。例如路由选择网络控制应用程序可以决定源和目的地之间的端到端路径（例如，通过使用由<code>SDN</code>控制器维护的节点状态和链路状态信息，执行Dijkstra算法）。</li>
+</ul>
+<p>在<code>SDN</code>中，数据平面交唤机、<code>SDN</code>控制器和网络控制应用程序是分离的实体，在<code>SDN</code>之前模式中，交换机/路由器（连同其嵌入的控制平面软件和协议实现）是一个整体。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/29xiAvpIjlK7mzU.png"
+                      alt="image-20210607135342797"
+                ></p>
+<h3 id="5-5-1-SDN控制平面：SDN控制器和SDN网络控制应用程序"><a href="#5-5-1-SDN控制平面：SDN控制器和SDN网络控制应用程序" class="headerlink" title="5.5.1   SDN控制平面：SDN控制器和SDN网络控制应用程序"></a>5.5.1   <code>SDN</code>控制平面：<code>SDN</code>控制器和<code>SDN</code>网络控制应用程序</h3><p><code>SDN</code>控制平面大体划分为<code>SDN</code>控制器和<code>SDN</code>网络控制应用程序。控制器的功能可大体组织为3个层次:</p>
+<ul>
+<li>通信层。<code>SDN</code>控制器和受控网络设备之间的通信跨越了一个接口，被称为控制器的“南向”接口，<code>OpenFlow</code>是一种提供这种通信功能的特定协议。</li>
+<li>网络范围状态管理层。由<code>SDN</code>控制平面所做出的最终控制决定需要控制器具有有关网络的主机、链路、交换机和其他<code>SDN</code>控制设备的最新状态信息。这些信息都构成了由<code>SDN</code>控制器维护的网络范围“状态”的例子。</li>
+<li>对于网络控制应用程序层的接口。控制器通过它的“北向”接口与网络控制应用程序交互。该<code>API</code>允许网络控制应用程序在状态管理层之间读/写网络状态和流表。当状态改变事件出现时，应用程序能够注册进行通告。</li>
+</ul>
+<p><code>SDN</code>控制器被认为是逻辑上集中但物理上分布的，即该控制器可以被外部视为一个单一、整体的服务，在实践中这些服务和用于保持状态信息的数据库一般通过分布式服务器集合实现。在服务器集合实现控制器功能时，必须考虑控制器的内部操作（例如维护事件的逻辑时间顺序、一致性、意见一致等）的语义。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/A2thJxTMlv5j8Ue.png"
+                      alt="image-20210607141000641"
+                ></p>
+<h3 id="5-5-2-OpenFlow协议"><a href="#5-5-2-OpenFlow协议" class="headerlink" title="5.5.2   OpenFlow协议"></a>5.5.2   <code>OpenFlow</code>协议</h3><p><code>OpenFlow</code>协议运行在<code>SDN</code>控制器和<code>SDN</code>控制的交换机或其他实现<code>OpenFlow</code> <code>API</code>的设备之间。<code>OpenFlow</code>协议运行在TCP之上，使用6653的默认端口号。从控制器到受控交换机流动的重要报文有：</p>
+<ul>
+<li>配置。该报文允许控制器查询并设置交换机的配置参数。</li>
+<li>修改状态。该报文由控制器所使用，以增加/删除或修改交换机流表中的表项，并且设置交换机端口特性。</li>
+<li>读状态。该报文被控制器用于从交换机的流表和端口收集统计数据和计数器值。</li>
+<li>发送分组。该报文被控制器用于在受控交换机从特定的端口发送出一个特定的报文。</li>
+</ul>
+<p>从受控交换机到控制器流动的重要报文有：</p>
+<ul>
+<li>流删除。该报文通知控制器已删除一个流表项，例如由于超时，或作为收到“修改状态”报文的结果。</li>
+<li>端口状态。交换机用该报文向控制器通知端口状态的变化。</li>
+<li>分组入。一个分组到达交换机端口，并且不能与任何流表项匹配，那么这个分组将被发送给控制器进行额外处理。匹配的分组也被发送给控制器，作为匹配时所采取的一个动作。分组入报文被用于将分组发送给控制器。</li>
+</ul>
+<h2 id="5-6-ICMP：因特网控制报文协议"><a href="#5-6-ICMP：因特网控制报文协议" class="headerlink" title="5.6   ICMP：因特网控制报文协议"></a>5.6   <code>ICMP</code>：因特网控制报文协议</h2><p>因特网控制报文协议（<code>ICMP</code>），被主机和路由器用来彼此沟通网络层的信息，最典型的用途是差错报告。例如，<code>IP</code>路由器不能找到一条通往HTTP请求中所指定的主机的路径，该路由器就会向你的主机生成并发出一个<code>ICMP</code>报文以指示该错误。</p>
+<p><code>ICMP</code>通常被认为是<code>IP</code>的一部分，但从体系结构上讲<code>ICMP</code>报文是承载在<code>IP</code>分组中的，上层协议编码为1。<code>ICMP</code>报文有一个类型字段和一个编码字段，并且包含引起该<code>ICMP</code>报文首次生成的<code>IP</code>数据报的首部和前8个字节，以便发送方能确定引发该差错的数据报。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/dU6VjZTaelJ8tbE.png"
+                      alt="image-20210607161130074"
+                ></p>
+<h2 id="5-7-网络管理和SNMP"><a href="#5-7-网络管理和SNMP" class="headerlink" title="5.7   网络管理和SNMP"></a>5.7   网络管理和<code>SNMP</code></h2><p>网络是由许多复杂、交互的硬件和软件部件组成的，需要网络管理工具和方法来监视、管理和控制该网络保持运行良好，当然<code>SDN</code>环境中逻辑上集中的控制器能够有助于这种过程。</p>
+<p>网络管理的定义:包括了硬件、软件和人类元素的设置、综合和协调，以监视、测试、轮询、配置、分析、评价和控制网络及网元资源，用合理的成本满足实时性、运营性能和服务质量的要求。</p>
+<h3 id="5-7-1-网络管理框架"><a href="#5-7-1-网络管理框架" class="headerlink" title="5.7.1   网络管理框架"></a>5.7.1   网络管理框架</h3><ul>
+<li><strong>管理服务器</strong>（managing server）是一个应用程序，通常有人的参与，并运行在网络运营中心（<code>NOC</code>）的集中式网络管理工作站上，它控制网络管理信息的收集、处理、分析和/或显示。</li>
+<li><strong>被管设备</strong>是网络装备的一部分包括它的软件，被管设备可以是一台主机、路由器、交换机、中间盒、调制解调器、温度计或其他联网的设备。在一个被管设备中，有几个所谓被管对象，这些被管对象是被管设备中硬件的实际部分（例如一块网络接口卡）和用于这些硬件及软件组件的配置参数（例如<code>OSPF</code>这样的AS内部路由选择协议）。</li>
+<li>一个被管设备中的每个被管对象的关联信息收集在<strong>管理信息库</strong>（<code>MIB</code>）中，这些信息的值可供管理服务器所用并且设置。一个<code>MIB</code>对象可以是：一个计数器，诸如由于<code>IP</code>数据报首部差错而由路由器丢弃的数量；诸如一个特定设备功能是否正确的状态信息。<code>MIB</code>对象由称为<code>SMI</code>的数据描述语言所定义，可以确保网络管理数据的语法和语义是定义良好的和无二义性的。相关的<code>MIB</code>对象被收集在<code>MIB</code>模块中。</li>
+<li>在每个被管设备中还驻留有<strong>网络管理代理</strong>，它是运行在被管设备中的一个进程，该进程与管理服务器通信，在管理服务器的命令和控制下在被管设备中采取本地动作。</li>
+<li><strong>网络管理协议</strong>。该协议运行在管理服务器和被管设备之间，允许管理服务器查询被管设备的状态，并经过其代理间接地在这些设备上采取行动。代理能够使用网络管理协议向管理服务器通知异常事件。网络管理协议自己不能管理网络，它为网络管理员提供了一种能力，使他们能够管理网络。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/Fcb7YifmPw8yx5M.png"
+                      alt="image-20210607161725764"
+                ></p>
+<h3 id="5-7-2-简单网络管理协议"><a href="#5-7-2-简单网络管理协议" class="headerlink" title="5.7.2   简单网络管理协议"></a>5.7.2   简单网络管理协议</h3><p>简单网络管理协议版本2（<code>SNMPv2</code>）是一个应用层协议，用于在管理服务器和代表管理服务器执行的代理之间传递网络管理控制和信息报文。<code>SNMP</code>最常使用的是请求响应模式，其中<code>SNMP</code>管理服务器向<code>SNMP</code>代理发送一个请求，代理接收到该请求后，执行某些动作，然后对该请求发送一个回答。请求通常用于查询（检索）或修改（设置）与某被管设备关联的<code>MIB</code>对象值。<code>SNMP</code>第二个常被使用的是代理向管理服务器发送的一种非请求报文，该报文称为陷阱报文（trap message）。陷阱报文用于通知管理服务器，一个异常情况（例如一个链路接口启动或关闭）已经导致了<code>MIB</code>对象值的改变。</p>
+<p>下表显示了<code>SNMP</code>2定义的7种类型的报文，这些报文一般称为协议数据单元（<code>PDU</code>）。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/UDuOYx5sZFHaMtE.png"
+                      alt="image-20210607162855724"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://i.loli.net/2021/06/07/BsHZznPKkN8UweI.png"
+                      alt="image-20210607162912232"
+                ></p>
 
         </div>
 
@@ -272,6 +458,21 @@
 
         
             <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2021/06/07/note/Computer%20Networking/06-%E9%93%BE%E8%B7%AF%E5%B1%82%E5%92%8C%E5%B1%80%E5%9F%9F%E7%BD%91/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">06-链路层和局域网</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
                 
                 
                     <div class="article-next">
@@ -496,7 +697,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%A6%82%E8%BF%B0"><span class="nav-text">5.1   概述</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%A6%82%E8%BF%B0"><span class="nav-text">5.1   概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95"><span class="nav-text">5.2   路由选择算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-3-%E5%9B%A0%E7%89%B9%E7%BD%91%E4%B8%AD%E8%87%AA%E6%B2%BB%E7%B3%BB%E7%BB%9F%E5%86%85%E9%83%A8%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%EF%BC%9AOSPF"><span class="nav-text">5.3   因特网中自治系统内部的路由选择：OSPF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-4-ISP%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%EF%BC%9ABGP"><span class="nav-text">5.4   ISP之间的路由选择：BGP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-1-BGP%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">5.4.1   BGP的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-2-%E9%80%9A%E5%91%8ABG%D0%A0%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF"><span class="nav-text">5.4.2   通告BGР路由信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-3-%E7%A1%AE%E5%AE%9A%E6%9C%80%E5%A5%BD%E7%9A%84%E8%B7%AF%E7%94%B1"><span class="nav-text">5.4.3   确定最好的路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-4-IP%E4%BB%BB%E6%92%AD"><span class="nav-text">5.4.4   IP任播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-4-5-%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E7%AD%96%E7%95%A5"><span class="nav-text">5.4.5   路由选择策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-5-SDN%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2"><span class="nav-text">5.5   SDN控制平面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-1-SDN%E6%8E%A7%E5%88%B6%E5%B9%B3%E9%9D%A2%EF%BC%9ASDN%E6%8E%A7%E5%88%B6%E5%99%A8%E5%92%8CSDN%E7%BD%91%E7%BB%9C%E6%8E%A7%E5%88%B6%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">5.5.1   SDN控制平面：SDN控制器和SDN网络控制应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-5-2-OpenFlow%E5%8D%8F%E8%AE%AE"><span class="nav-text">5.5.2   OpenFlow协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-6-ICMP%EF%BC%9A%E5%9B%A0%E7%89%B9%E7%BD%91%E6%8E%A7%E5%88%B6%E6%8A%A5%E6%96%87%E5%8D%8F%E8%AE%AE"><span class="nav-text">5.6   ICMP：因特网控制报文协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-7-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%92%8CSNMP"><span class="nav-text">5.7   网络管理和SNMP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-1-%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6"><span class="nav-text">5.7.1   网络管理框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-7-2-%E7%AE%80%E5%8D%95%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E5%8D%8F%E8%AE%AE"><span class="nav-text">5.7.2   简单网络管理协议</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
