@@ -260,7 +260,7 @@
 <p>TCP服务模型包括<strong>面向连接服务</strong>和<strong>可靠数据传输服务</strong>。</p>
 <p><code>UDP</code>是一种不提供不必要服务的轻量级运输协议，它仅提供最小服务。<code>UDP</code>是无连接的，因此在两个进程通信前没有握手过程。<code>UDP</code>协议提供一种不可靠数据传送服务，到达接收进程的报文也可能是乱序到达的。<code>UDP</code>没有包括拥塞控制机制，所以<code>UDP</code>的发送端可以用它选定的任何速率向其网络层注入数据。</p>
 <h4 id="2-1-4-3-TCP安全"><a href="#2-1-4-3-TCP安全" class="headerlink" title="2.1.4.3  TCP安全"></a>2.1.4.3  TCP安全</h4><p>无论TCP还是<code>UDP</code>都没有提供任何加密机制，所以研制了TCP的加强版本，安全套接字（<code>SSL</code>），提供了关键的进程到进程的安全性服务，包括加密、数据完整性和端点鉴别。</p>
-<p><code>SSL</code>对TCP的加强是在应用层上实现的。<code>SSL</code>有自己的套接字<code>API</code>，发送进程向<code>SSL</code>套接字传递明文数据,，<code>SSL</code>加密该数据并将加密的数据传递给TCP套接字。加密的数据经因特网传送到接收进程中的TCP套接字，该接收套接字将加密数据传递给<code>SSL</code>，由其进行解密，最后通过它的<code>SSL</code>套接字将明文数据传递给接收进程。</p>
+<p><code>SSL</code>对TCP的加强是在应用层上实现的。<code>SSL</code>有自己的套接字<code>API</code>，发送进程向<code>SSL</code>套接字传递明文数据，，<code>SSL</code>加密该数据并将加密的数据传递给TCP套接字。加密的数据经因特网传送到接收进程中的TCP套接字，该接收套接字将加密数据传递给<code>SSL</code>，由其进行解密，最后通过它的<code>SSL</code>套接字将明文数据传递给接收进程。</p>
 <h3 id="2-1-4-应用层协议"><a href="#2-1-4-应用层协议" class="headerlink" title="2.1.4   应用层协议"></a>2.1.4   应用层协议</h3><p>应用层协议定义了运行在不同端系统上的应用程序进程如何相互传递报文。<img  
                      lazyload
                      src="/images/loading.svg"
